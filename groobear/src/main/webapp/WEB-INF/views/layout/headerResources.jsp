@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GrooBear</title>
 
+<!-- 크롬 파비콘 아이콘 -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/dist/images/common/logo.ico">
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
@@ -16,7 +18,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/groobear/reset.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/groobear/common.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/menu.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/IconMenu.css" type="text/css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/jquery/js/jquery.min.js"></script>
 
