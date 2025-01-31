@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: PretendardRegular;
+    src: url(/dist/css/fonts/Pretendard-Regular.ttf) format('truetype');
+}
+
+body {font-size: 14px; font-family: PretendardRegular;}
+
+main {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 90%;
+    padding: 7% 0 2% 0;
+    box-sizing: border-box;
+}
+
+main .mainInner {
+    width: 83vw;
+    margin: auto;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.mainInner ul {display: flex; border-radius: 0.2vw; height: 2.6vw;}
+.mainInner ul li {padding: 10px 0; text-align: center; display: flex; justify-content: center; align-items: center;}
+.mainInner ul:first-child {background-color: #efefef;}
+
+button, .back a {
+	border: 1px solid #333;
+	border-radius: 5px;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+button:hover, .back a:hover {background-color: #eee;}
+
+.back {text-align: center; margin-top: 50px;}

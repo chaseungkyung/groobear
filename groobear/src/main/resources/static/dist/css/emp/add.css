@@ -1,0 +1,38 @@
+﻿@charset "UTF-8";
+
+.empInfo {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;}
+
+.photoArea {width: fit-content;}
+.photoArea .photo {margin-bottom: 10px;}
+.photoArea .buttonArea {text-align: center;}
+
+.info {width: 80%;}
+.info table {width: 100%;}
+.info table tr {height: 40px; display: flex; align-items: center; justify-content: space-between;}
+.info table tr:last-child {height: auto;}
+.info table th {width: 10%; text-align: left; padding-left: 10px; box-sizing: border-box;}
+.info table td {width: 35%;}
+.info table td input, .info table td select {width: 100%; padding: 5px 0 5px 10px;}
+
+.info table .nationalityStatus select {width: 49%;}
+.info table .tel input {width: 30.5%;}
+.info table .eMail input {width: 47%;}
+.info table .address {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-top: 5px;}
+.info table .address input[type="button"] {padding-left: unset;}
+.info table .address input:nth-child(1) {width: 79%;}
+.info table .address input:nth-child(2) {width: 20%;}
+.info table .address input:nth-child(3) {width: 100%; margin-top: 5px;}
+
+.empHistory {width: 100%;}
+.empHistory .title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
+
+.empHistory table {width: 49%; text-align: center;}
+.empHistory table tr {height: 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eeee;}
+.empHistory table tr:first-child {background-color: #efefef;}
+
+.empHistory table td:first-child {padding-left: 10px; text-align: left;}
+
+.empHistory table th:nth-child(1), .empHistory table td:nth-child(1) {width: 45%;}
+.empHistory table th:nth-child(2), .empHistory table th:nth-child(3), .empHistory table th:nth-child(4),
+.empHistory table td:nth-child(2), .empHistory table td:nth-child(3), .empHistory table td:nth-child(4) {width: 15%;}
+.empHistory table th:nth-child(5), .empHistory table td:nth-child(5) {width: 10%;}

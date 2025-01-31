@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.iconHeader-right .iconHeader-right-inner {height: 100%;}
+
+#accordionFlushExample {overflow-y: auto; height: 94%;}
+
+#accordionFlushExample::-webkit-scrollbar {width: 5px;} /* 스크롤바 전체 */
+#accordionFlushExample::-webkit-scrollbar-thumb {background-color: #999; border-radius: 5px;} /* 드래그 가능한 스크롤 핸들 막대 */
+#accordionFlushExample::-webkit-scrollbar-track {background-color: #eee;} /* 스크롤이 움직이는 영역 */
+
+.iconHeader-right .iconHeader-right-inner ul {width: 100%;}
+.iconHeader-right .iconHeader-right-inner ul li {padding-top: 10px;}
+
+.iconHeader-right .iconHeader-right-inner ul > li:last-child {padding: unset;}
+
+.iconHeader-right .iconHeader-right-inner ul .dept .team {padding-bottom: 10px;}
+.iconHeader-right .iconHeader-right-inner ul .dept .team > li {padding: 10px 0 0 20px;}
