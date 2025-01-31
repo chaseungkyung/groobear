@@ -14,7 +14,7 @@
 		.btnArea button {width: 100%;}
 		
 		table {width: 100%;}
-		table tr {height: 2.3vw;}
+		table tr {height: 2.3vw; display: flex; align-items: center;}
 		table tr th {width: 10%; vertical-align: middle;}
 		table tr td {width: 90%;}
 		
@@ -22,11 +22,12 @@
 		
 		table tr input {width: 100%; padding-left: 1%; height: 25px;}
 		
-		table tr .addressArea {display: flex; justify-content: space-between; width: 100%;}
+		table tr .addressArea {display: flex; justify-content: space-between;}
 		table tr .addressArea input {width: 89%;}
 		table tr .addressArea button {width: 10%;}
 		
-		table tr td textarea {height: 30vw; padding: 10px; box-sizing: border-box;}
+		table .textArea {align-items: flex-start;}
+		table tr td textarea {height: 25vw; padding: 10px; box-sizing: border-box; line-height: 1.6;}
 		
 	</style>
 </head>
@@ -60,7 +61,7 @@
 						<th>파일 첨부</th>
 						<td><input type="file" multiple="multiple"></td>
 					</tr>
-					<tr>
+					<tr class="textArea">
 						<th>내용</th>
 						<td><textarea></textarea></td>
 					</tr>

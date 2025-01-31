@@ -6,19 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/mailMenu.css" type="text/css">
-	<style type="text/css">
-		main {width: 83%;}
-		main .mainInner {width: 78vw}
-		
-		main .mainInner li img {width: 50%;}
-		main .mainInner ul li:nth-child(4) a:hover {text-decoration: underline;}
-		
-		main .mainInner ul li:nth-child(1) {width: 3%;} /* checkBox */
-		main .mainInner ul li:nth-child(2) {width: 3%;} /* star */
-		main .mainInner ul li:nth-child(3) {width: 3%;} /* 읽음/안읽음 */
-		main .mainInner ul li:nth-child(4) {width: 76%; justify-content: flex-start; padding-left: 2%; box-sizing: border-box;} /* 제목 */
-		main .mainInner ul li:nth-child(5) {width: 15%;} /* 날짜 */
-	</style>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/mail/mail.css" type="text/css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/iconHeader.jsp"/>
