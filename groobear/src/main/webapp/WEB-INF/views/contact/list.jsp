@@ -31,7 +31,7 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/layout/iconHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/contactHeader.jsp"/>
 	
 	<main>

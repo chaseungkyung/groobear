@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 
-<div class="left-menu">
-	<div class="left-menu-inner">
+<div class="iconHeader-left">
+	<div class="iconHeader-left-inner">
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/home_w.png">홈</a></li>
 			<li><a href="${pageContext.request.contextPath}/mail/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/mail_w.png">메일</a></li>
@@ -13,13 +13,12 @@
 			<li><a href="${pageContext.request.contextPath}/project/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/project_w.png">프로젝트</a></li>
 			<li><a href="${pageContext.request.contextPath}/reservation/main"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/reservation_w.png">예약</a></li>
 			<li><a href="${pageContext.request.contextPath}/contact/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/addressBook_w.png">주소록</a></li>
-			<li><a href="${pageContext.request.contextPath}/map/map"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/orgChart_w.png">조직도</a></li>
 			<li><a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/papers_w.png">나의부서</a></li>
 			<li><a href="${pageContext.request.contextPath}/emp/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/employee_w.png">사원관리</a></li>
 			<li><a href="${pageContext.request.contextPath}/setting/setting"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/setting_w.png">환경설정</a></li>
 		</ul>
 		<div class="btn">
-			<button type="button">로그아웃</button>                
+			<a href="${pageContext.request.contextPath}/"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/logout_w.png"></a>      
 		</div>
 	</div>       
 </div>
