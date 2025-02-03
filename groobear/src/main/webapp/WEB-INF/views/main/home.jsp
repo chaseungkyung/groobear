@@ -64,7 +64,7 @@
             </div>
             <div class="calendar"></div>
             <div class="sign">
-                <h2>결제 대기 문서</h2>
+                <h2>결재 대기 문서</h2>
                 <div class="signStandBy"></div>
             </div>
             <div class="mail">
