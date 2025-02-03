@@ -21,7 +21,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/js/dateUtil.js"></script>
 	
 	<script type="text/javascript">
-		var calendar = null; 
+		var calendar = null;  
 		document.addEventListener('DOMContentLoaded', function() {
 			const calendarEl = document.getElementById('calendar');
 		
