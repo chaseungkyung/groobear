@@ -13,14 +13,40 @@
 		<div class="listArea">
 			<ul>
 				<li>
-					<div class="profileImg">
-						<img alt="" src="${pageContext.request.contextPath}/dist/images/tempImg.png">
-					</div>
+					<div class="profileImg"></div>
 					<div class="userInfo">
 						<p class="userDept">개발팀 김영희 주임</p>
 						<p class="lastChat">마지막 채팅이 보여요</p>
 					</div>
-					<div class="lastChatTime">채팅 시간</div>
+					<div class="lastChatTime">08:08</div>
+					<div class="unReadMsg">+99</div>
+				</li>
+				<li>
+					<div class="profileImg"></div>
+					<div class="userInfo">
+						<p class="userDept">개발팀 김영희 주임</p>
+						<p class="lastChat">마지막 채팅이 보여요</p>
+					</div>
+					<div class="lastChatTime">08:08</div>
+					<div class="unReadMsg">+99</div>
+				</li>
+				<li>
+					<div class="profileImg"></div>
+					<div class="userInfo">
+						<p class="userDept">개발팀 김영희 주임</p>
+						<p class="lastChat">마지막 채팅이 보여요</p>
+					</div>
+					<div class="lastChatTime">08:08</div>
+					<div class="unReadMsg">+99</div>
+				</li>
+				<li>
+					<div class="profileImg"></div>
+					<div class="userInfo">
+						<p class="userDept">개발팀 김영희 주임</p>
+						<p class="lastChat">마지막 채팅이 보여요</p>
+					</div>
+					<div class="lastChatTime">08:08</div>
+					<div class="unReadMsg">+99</div>
 				</li>
 			</ul>
 		</div>
