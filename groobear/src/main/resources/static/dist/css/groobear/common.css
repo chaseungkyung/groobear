@@ -5,7 +5,7 @@
     src: url(/dist/css/fonts/Pretendard-Regular.ttf) format('truetype');
 }
 
-body {font-size: 14px; font-family: PretendardRegular;}
+body {font-size: 18px; font-family: PretendardRegular;}
 
 main {
     position: absolute;

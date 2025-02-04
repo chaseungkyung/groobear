@@ -11,3 +11,5 @@ main .mainInner ul li:nth-child(2) {width: 3%;} /* star */
 main .mainInner ul li:nth-child(3) {width: 3%;} /* 읽음/안읽음 */
 main .mainInner ul li:nth-child(4) {width: 76%; justify-content: flex-start; padding-left: 2%; box-sizing: border-box;} /* 제목 */
 main .mainInner ul li:nth-child(5) {width: 15%;} /* 날짜 */
+
+main .mainInner .title {font-size: 25px; font-weight: bold; margin-bottom: 20px;}
