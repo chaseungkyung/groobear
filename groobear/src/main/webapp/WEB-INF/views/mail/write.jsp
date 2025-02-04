@@ -77,12 +77,12 @@
 				<form name = "mailForm" method = "post" enctype = "multipart/form-data">
 					<table class="textArea">
 						<tr>
-							<th>보내는 사람</th>
-							<td><input type="text" name ="000" readonly></td>
+							<th>보내는 사람 이름</th>
+							<td><input type="text" name ="senderName" ></td>
 						</tr>
 						<tr>
-							<th>보내는 사람</th>
-							<td><input type="text" name ="000" readonly></td>
+							<th>보내는 사람 이메일</th>
+							<td><input type="text" name ="senderEmail" ></td>
 						</tr>
 						<tr>
 							<th>받는 사람</th>
@@ -93,7 +93,7 @@
 						</tr>
 						<tr>
 							<th>참조</th>
-							<td><input type="text" name ="senderEmail"></td>
+							<td><input type="text" name ="realbird"></td>
 						</tr>
 						<tr>
 							<th>제목</th>

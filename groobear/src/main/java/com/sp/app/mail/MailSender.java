@@ -13,6 +13,7 @@ import com.sp.app.common.StorageService;
 import jakarta.activation.DataHandler;
 import jakarta.activation.FileDataSource;
 import jakarta.annotation.PostConstruct;
+import jakarta.mail.Address;
 import jakarta.mail.Authenticator;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -33,12 +34,12 @@ public class MailSender {
 	private final StorageService storageService;
 	
 	private String mailType; // 메일 타입
-	//private String encType;
+	private String encType;
 	private String uploadPath;
 	
 	@PostConstruct
 	public void init() {
-		//this.encType = "utf-8";
+		this.encType = "utf-8";
 		this.mailType = "text/html; charset=utf-8";
 		this.uploadPath = storageService.getRealPath("/uploads/mail");
 	}	
@@ -170,23 +171,23 @@ public class MailSender {
 
 			Message msg = new MimeMessage(session);
 
-			/* 보내는 사람
+			// 보내는 사람
 			if (dto.getSenderName() == null || dto.getSenderName().isEmpty()) {
 				msg.setFrom(new InternetAddress(dto.getSenderEmail()));
 			} else {
 				msg.setFrom(new InternetAddress(dto.getSenderEmail(), dto.getSenderName(), encType));
 			}
-			*/
+			
 
 			// 받는 사람
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dto.getReceiverEmail()));
-			/*
+			
 			// 여러명에게 메일을 보내는 경우
 			Address[] addresses = new Address[2];
 			addresses[0] = new InternetAddress("수신자이메일1", "수신자이름1", encType);
 			addresses[1] = new InternetAddress("수신자이메일2", "수신자이름2", encType);
 			msg.setRecipients(Message.RecipientType.TO, addresses);
-			*/
+			
 
 			// 제목
 			msg.setSubject(dto.getSubject());
@@ -195,7 +196,7 @@ public class MailSender {
 			makeMessage(msg, dto);
 			
 			// 메일 보낸 사람
-			//msg.setHeader("X-Mailer", dto.getSenderName());
+			msg.setHeader("X-Mailer", dto.getSenderName());
 
 			// 메일 보낸 날짜
 			msg.setSentDate(new Date());
