@@ -5,9 +5,18 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+	<style type="text/css">
+		main {width: 83%;}
+		main .mainInner {width: 78vw;}
+	
+		.fc-scrollgrid-sync-table {height: 650px !important;}
+		.fc-view-harness {height: 671px !important;}
+	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/scheduleHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
