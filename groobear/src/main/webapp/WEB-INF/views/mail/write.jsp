@@ -13,21 +13,21 @@
 		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
 		.btnArea button {width: 100%;}
 		
-		table {width: 100%;}
-		table tr {height: 2.3vw; display: flex; align-items: center;}
-		table tr th {width: 10%; vertical-align: middle;}
-		table tr td {width: 90%;}
+		.textArea {width: 100%;}
+		.textArea tr {height: 2.3vw; display: flex; align-items: center;}
+		.textArea tr th {width: 10%; vertical-align: middle;}
+		.textArea tr td {width: 90%;}
 		
-		table tr:last-child th {vertical-align: top;}
+		.textArea tr:last-child th {vertical-align: top;}
 		
-		table tr input {width: 100%; padding-left: 1%; height: 25px;}
+		.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
 		
-		table tr .addressArea {display: flex; justify-content: space-between;}
-		table tr .addressArea input {width: 89%;}
-		table tr .addressArea button {width: 10%;}
+		.textArea tr .addressArea {display: flex; justify-content: space-between;}
+		.textArea tr .addressArea input {width: 89%;}
+		.textArea tr .addressArea button {width: 10%;}
 		
-		table .textArea {align-items: flex-start;}
-		table tr td .textarea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
+		.textArea .contentArea {align-items: flex-start;}
+		.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
 		
 	</style>
 	<script type="text/javascript">
@@ -75,9 +75,17 @@
 		<div class="mainInner">
 			<div class="write">
 				<form name = "mailForm" method = "post" enctype = "multipart/form-data">
-					<table>
+					<table class="textArea">
 						<tr>
-							<th>받는사람</th>
+							<th>보내는 사람</th>
+							<td><input type="text" name ="000" readonly></td>
+						</tr>
+						<tr>
+							<th>보내는 사람</th>
+							<td><input type="text" name ="000" readonly></td>
+						</tr>
+						<tr>
+							<th>받는 사람</th>
 							<td class="addressArea">
 								<input type="text" name = "receiverEmail">
 								<button type="button">주소록</button>
@@ -95,7 +103,7 @@
 							<th>파일 첨부</th>
 							<td><input type="file" name="selectFile" multiple="multiple"></td>
 						</tr>
-						<tr class="textArea">
+						<tr class="contentArea">
 							<th>내용</th>
 							<td><textarea name = "content"></textarea></td>
 						</tr>
