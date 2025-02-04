@@ -13,4 +13,9 @@ public class ProjectController {
 		return "/project/list";
 	}
 	
+	@GetMapping("write")
+	public String writeForm() {
+		return "/project/write";
+	}
+	
 }
