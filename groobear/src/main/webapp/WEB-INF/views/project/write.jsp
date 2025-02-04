@@ -5,11 +5,8 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/projectMenu.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<style type="text/css">
-		main {width: 83%;}
-		main .mainInner {width: 78vw}
-		
 		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
 		.btnArea button {width: 100%;}
 		

@@ -5,7 +5,7 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/projectMenu.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<style type="text/css">
 		main ul li a {display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
 		main ul li a:hover {text-decoration: underline;}
@@ -19,7 +19,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/projectHeader1.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/projectHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
