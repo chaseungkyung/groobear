@@ -5,6 +5,10 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+	<style type="text/css">
+		main {width: 93vw;}
+		main .mainInner {width: 83vw;}
+	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>

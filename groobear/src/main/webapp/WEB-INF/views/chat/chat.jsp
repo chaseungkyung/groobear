@@ -6,10 +6,6 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/chatMenu.css" type="text/css">
-	<style type="text/css">
-		main {width: 83%;}
-		main .mainInner {width: 78vw;}
-	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>

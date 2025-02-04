@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-main {width: 83%;}
-main .mainInner {width: 78vw}
-
 main .mainInner li img {width: 50%;}
 main .mainInner ul li:nth-child(4) a:hover {text-decoration: underline;}
 

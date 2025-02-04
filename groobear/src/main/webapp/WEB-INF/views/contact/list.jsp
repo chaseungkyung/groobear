@@ -8,9 +8,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/contactMenu.css" type="text/css">
 	<style type="text/css">
-		main {width: 83%;}
-		main .mainInner {width: 78vw;}
-		
 		main .searchArea {width: 100%; margin-bottom: 10px;}
 		
 		main .listArea ul {width: 100%;}

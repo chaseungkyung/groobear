@@ -5,20 +5,20 @@
     src: url(/dist/css/fonts/Pretendard-Regular.ttf) format('truetype');
 }
 
-body {font-size: 18px; font-family: PretendardRegular;}
+body {font-size: 14px; font-family: PretendardRegular;}
 
 main {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 96%;
+    width: 83%;
     padding: 7% 0 2% 0;
     box-sizing: border-box;
 }
 
 main .mainInner {
-    width: 83vw;
+    width: 78vw;
     margin: auto;
     height: 100%;
     box-sizing: border-box;

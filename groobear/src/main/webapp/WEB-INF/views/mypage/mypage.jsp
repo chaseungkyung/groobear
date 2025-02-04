@@ -8,10 +8,11 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
-			<h3>환경설정</h3>
+			<h3>마이페이지</h3>
 		</div>
 	</main>
 
