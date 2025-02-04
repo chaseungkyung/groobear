@@ -12,79 +12,80 @@
 	
 		.fc-scrollgrid-sync-table {height: 650px !important;}
 		.fc-view-harness {height: 671px !important;}
+		html, body { height: 100%; }
+		html, body { height: 100%; }
 	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/scheduleHeader.jsp"/>
-	
 	<main>
 		<div class="mainInner">
-			<div id="calendar"></div>
+			<div id="calendar">
+			</div>
 			<!-- 일정 상세 보기 Modal -->
-<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="myDialogModalLabel">일정 상세 보기</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body pt-1">
-				<table class="table">
-					<tr>
-						<td colspan="2" class="text-center align-middle">
-							<p class="form-control-plaintext view-subject"></p>
-						</td>
-					</tr>
-					<tr>
-						<td class="bg-light col-2 align-middle">일정분류</td>
-						<td>
-							<p class="form-control-plaintext view-category"></p>
-						</td>
-					</tr>
-
-					<tr>
-						<td class="bg-light col-2 align-middle">날 짜</td>
-						<td>
-							<p class="form-control-plaintext view-period"></p>
-						</td>
-					</tr>
-
-					<tr>
-						<td class="bg-light col-2 align-middle">일정반복</td>
-						<td>
-							<p class="form-control-plaintext view-repeat"></p>
-						</td>
-					</tr>
-
- 					<tr>
-						<td class="bg-light col-2 align-middle">등록일</td>
-						<td>
-							<p class="form-control-plaintext view-reg_date"></p>
-						</td>
-					</tr>
-
- 					<tr>
-						<td class="bg-light col-2 align-middle">메 모</td>
-						<td>
-							<p class="form-control-plaintext view-memo"></p>
-						</td>
-					</tr>
-				</table>
-				
-				<table class="table table-borderless">
-					<tr>
-						<td class="text-end">
-							<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
-			    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
+			<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myDialogModalLabel">일정 상세 보기</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body pt-1">
+							<table class="table">
+								<tr>
+									<td colspan="2" class="text-center align-middle">
+										<p class="form-control-plaintext view-subject"></p>
+									</td>
+								</tr>
+								<tr>
+									<td class="bg-light col-2 align-middle">일정분류</td>
+									<td>
+										<p class="form-control-plaintext view-category"></p>
+									</td>
+								</tr>
 			
+								<tr>
+									<td class="bg-light col-2 align-middle">날 짜</td>
+									<td>
+										<p class="form-control-plaintext view-period"></p>
+									</td>
+								</tr>
+			
+								<tr>
+									<td class="bg-light col-2 align-middle">일정반복</td>
+									<td>
+										<p class="form-control-plaintext view-repeat"></p>
+									</td>
+								</tr>
+			
+			 					<tr>
+									<td class="bg-light col-2 align-middle">등록일</td>
+									<td>
+										<p class="form-control-plaintext view-reg_date"></p>
+									</td>
+								</tr>
+			
+			 					<tr>
+									<td class="bg-light col-2 align-middle">메 모</td>
+									<td>
+										<p class="form-control-plaintext view-memo"></p>
+									</td>
+								</tr>
+							</table>
+							
+							<table class="table table-borderless">
+								<tr>
+									<td class="text-end">
+										<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+						    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</main>
 

@@ -1,5 +1,8 @@
 package com.sp.app.mapper;
 
-public class ScheduleMapper {
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
+public class ScheduleMapper {
+	
 }

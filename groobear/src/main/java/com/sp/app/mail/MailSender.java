@@ -33,12 +33,12 @@ public class MailSender {
 	private final StorageService storageService;
 	
 	private String mailType; // 메일 타입
-	private String encType;
+	//private String encType;
 	private String uploadPath;
 	
 	@PostConstruct
 	public void init() {
-		this.encType = "utf-8";
+		//this.encType = "utf-8";
 		this.mailType = "text/html; charset=utf-8";
 		this.uploadPath = storageService.getRealPath("/uploads/mail");
 	}	
@@ -60,9 +60,9 @@ public class MailSender {
 			   : POP3/SMTP, IMAP/SMTP 사용함 설정(나머지는 기본 설정)
 			 */
 
-			String username = "아이디"; // gmail 사용자
+			String username = "anwkdrla0925@gmail.com"; // gmail 사용자
 			// String username = "아이디@naver.com"; // 네이버 사용자;
-			String password = "패스워드"; // 지메일은 앱비밀번호
+			String password = "vfxnrtfparsxygtq"; // 지메일은 앱비밀번호
 			return new PasswordAuthentication(username, password);
 		}
 	}
@@ -126,7 +126,7 @@ public class MailSender {
 		Properties p = new Properties();
 
 		// SMTP 서버의 계정 설정
-		p.setProperty("mail.smtp.user", "아이디"); // 지메일 또는 네이버 아이디
+		p.setProperty("mail.smtp.user", "anwkdrla0925@gmail.com"); // 지메일 또는 네이버 아이디
 
 		// SMTP 서버 정보 설정
 		String host = "smtp.gmail.com"; // gmail
@@ -170,12 +170,13 @@ public class MailSender {
 
 			Message msg = new MimeMessage(session);
 
-			// 보내는 사람
+			/* 보내는 사람
 			if (dto.getSenderName() == null || dto.getSenderName().isEmpty()) {
 				msg.setFrom(new InternetAddress(dto.getSenderEmail()));
 			} else {
 				msg.setFrom(new InternetAddress(dto.getSenderEmail(), dto.getSenderName(), encType));
 			}
+			*/
 
 			// 받는 사람
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dto.getReceiverEmail()));
@@ -194,7 +195,7 @@ public class MailSender {
 			makeMessage(msg, dto);
 			
 			// 메일 보낸 사람
-			msg.setHeader("X-Mailer", dto.getSenderName());
+			//msg.setHeader("X-Mailer", dto.getSenderName());
 
 			// 메일 보낸 날짜
 			msg.setSentDate(new Date());

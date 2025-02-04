@@ -27,44 +27,86 @@
 		table tr .addressArea button {width: 10%;}
 		
 		table .textArea {align-items: flex-start;}
-		table tr td textarea {height: 25vw; padding: 10px; box-sizing: border-box; line-height: 1.6;}
+		table tr td .textarea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
 		
 	</style>
+	<script type="text/javascript">
+		function sendOk() {
+		    const f = document.mailForm;
+			let str;
+		    
+			if(!f.senderEmail.value.trim()) {
+		        alert('E-Mail을 입력하세요. ');
+		        f.senderEmail.focus();
+		        return;
+			}
+		    
+			if(!f.receiverEmail.value.trim()) {
+		        alert("정상적인 E-Mail을 입력하세요. ");
+		        f.receiverEmail.focus();
+		        return;
+			}
+		    
+			str = f.subject.value.trim();
+		    if(!str) {
+		        alert('제목을 입력하세요. ');
+		        f.subject.focus();
+		        return;
+		    }
+		
+			str = f.content.value.trim();
+		    if(!str) {
+		        alert('내용을 입력하세요. ');
+		        f.content.focus();
+		        return;
+		    }
+		
+			f.action = '${pageContext.request.contextPath}/mail/write';
+			f.submit();
+		}
+	</script>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/mailHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
-			<div class="btnArea">
-				<button type="submit">보내기</button>
-			</div>
 			<div class="write">
-				<form action="">
+				<form name = "mailForm" method = "post" enctype = "multipart/form-data">
 					<table>
 						<tr>
 							<th>받는사람</th>
 							<td class="addressArea">
-								<input type="text">
+								<input type="text" name = "receiverEmail">
 								<button type="button">주소록</button>
 							</td>
 						</tr>
 						<tr>
 							<th>참조</th>
-							<td><input type="text"></td>
+							<td><input type="text" name ="senderEmail"></td>
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><input type="text"></td>
+							<td><input type="text" name = "subject"></td>
 						</tr>
 						<tr>
 							<th>파일 첨부</th>
-							<td><input type="file" multiple="multiple"></td>
+							<td><input type="file" name="selectFile" multiple="multiple"></td>
 						</tr>
 						<tr class="textArea">
 							<th>내용</th>
-							<td><textarea></textarea></td>
+							<td><textarea name = "content"></textarea></td>
+						</tr>
+					</table>
+					<table class="table table-borderless">
+	 					<tr>
+							<td class="text-center">
+								<button type="button" class="btn btn-dark" onclick="sendOk();">메일 전송&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="reset" class="btn btn-light">다시입력</button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/';">전송 취소&nbsp;<i class="bi bi-x"></i></button>
+							</td>
 						</tr>
 					</table>
 				</form>

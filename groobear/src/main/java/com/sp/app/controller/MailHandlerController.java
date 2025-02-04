@@ -44,10 +44,12 @@ public class MailHandlerController {
 		return "/mail/read";
 	}
 	
-	// 메일 쓰기
+	/* 메일 쓰기
 	@GetMapping("write")
-	public String write() {
+	public String write() throws Exception {
 		return "/mail/write";
 	}
+	*/
+	
 	
 }

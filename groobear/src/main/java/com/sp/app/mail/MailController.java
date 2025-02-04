@@ -15,14 +15,14 @@ import lombok.RequiredArgsConstructor;
 public class MailController {
 	private final MailSender mailSender;
 	
-	@GetMapping("send")
-	public String sendForm(Model model) throws Exception {
+	@GetMapping("write")
+	public String writeForm(Model model) throws Exception {
 
-		return "mail/send";
+		return "mail/write";
 	}
 
-	@PostMapping("send")
-	public String sendSubmit(Mail dto, 
+	@PostMapping("write")
+	public String writeSubmit(Mail dto, 
 			final RedirectAttributes reAttr) throws Exception {
 
 		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
