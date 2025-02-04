@@ -14,20 +14,22 @@
 	
 	<main>
 		<div class="mainInner">
-			<ul>
-				<li><input type="checkbox"></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-			<ul>
-				<li><input type="checkbox"></li>
-				<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-				<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
-				<li><a href="${pageContext.request.contextPath}/">[공지] 설 연휴간 근무 안내</a></li>
-				<li>2025-01-23 08:00</li>
-			</ul>
+			<form action="">
+				<ul>
+					<li><input type="checkbox"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+			</form>
 		</div>
 	</main>
 

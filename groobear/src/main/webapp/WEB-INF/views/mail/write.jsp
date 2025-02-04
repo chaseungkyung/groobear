@@ -41,31 +41,33 @@
 				<button type="submit">보내기</button>
 			</div>
 			<div class="write">
-				<table>
-					<tr>
-						<th>받는사람</th>
-						<td class="addressArea">
-							<input type="text">
-							<button type="button">주소록</button>
-						</td>
-					</tr>
-					<tr>
-						<th>참조</th>
-						<td><input type="text"></td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td><input type="text"></td>
-					</tr>
-					<tr>
-						<th>파일 첨부</th>
-						<td><input type="file" multiple="multiple"></td>
-					</tr>
-					<tr class="textArea">
-						<th>내용</th>
-						<td><textarea></textarea></td>
-					</tr>
-				</table>
+				<form action="">
+					<table>
+						<tr>
+							<th>받는사람</th>
+							<td class="addressArea">
+								<input type="text">
+								<button type="button">주소록</button>
+							</td>
+						</tr>
+						<tr>
+							<th>참조</th>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<th>파일 첨부</th>
+							<td><input type="file" multiple="multiple"></td>
+						</tr>
+						<tr class="textArea">
+							<th>내용</th>
+							<td><textarea></textarea></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</main>

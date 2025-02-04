@@ -41,33 +41,34 @@
                     <input type="text" name="" id="">
                 </div>
             </div>
-            <div class="listArea">
-                <ul>
-					<li><input type="checkbox" name="" id=""></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-                    <li>회사명</li>
-                    <li>부서</li>
-                    <li>팀</li>
-                    <li>이름</li>
-                    <li>직급</li>
-                    <li>전화번호</li>
-                    <li>이메일</li>
-                    <li>내선번호/대표번호</li>
-                </ul>
-                <ul>
-                    <li><input type="checkbox" name="" id=""></li>
-                    <li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-                    <li>본사</li>
-                    <li>인사부</li>
-                    <li>인사1팀</li>
-                    <li>홍길동</li>
-                    <li>대리</li>
-                    <li>010-1111-1111</li>
-                    <li>ghdrlfehd@groobear.co.kr</li>
-                    <li>01</li>
-                </ul>
-                
-            </div>
+            <form action="">
+	            <div class="listArea">
+	                <ul>
+						<li><input type="checkbox" name="" id=""></li>
+						<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+	                    <li>회사명</li>
+	                    <li>부서</li>
+	                    <li>팀</li>
+	                    <li>이름</li>
+	                    <li>직급</li>
+	                    <li>전화번호</li>
+	                    <li>이메일</li>
+	                    <li>내선번호/대표번호</li>
+	                </ul>
+	                <ul>
+	                    <li><input type="checkbox" name="" id=""></li>
+	                    <li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+	                    <li>본사</li>
+	                    <li>인사부</li>
+	                    <li>인사1팀</li>
+	                    <li>홍길동</li>
+	                    <li>대리</li>
+	                    <li>010-1111-1111</li>
+	                    <li>ghdrlfehd@groobear.co.kr</li>
+	                    <li>01</li>
+	                </ul>
+	            </div>
+            </form>
             <div class="page-navigation">
                 1 2 3
             </div>
