@@ -5,11 +5,7 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/mailMenu.css" type="text/css">
-	<style type="text/css">
-		main {width: 83%;}
-		main .mainInner {width: 78vw}
-	</style>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>

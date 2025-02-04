@@ -6,8 +6,8 @@
 	<div class="iconHeader-right-inner">
 		<div class="listArea">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/mypage/mypage">마이페이지</a></li>
-				<li><a href="${pageContext.request.contextPath}/mypage/setting">환경 설정</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/mypage"><img alt="" src="${pageContext.request.contextPath}/dist/images/mypage/user.png">마이페이지</a></li>
+				<li><a href="${pageContext.request.contextPath}/mypage/setting"><img alt="" src="${pageContext.request.contextPath}/dist/images/mypage/setting.png">환경 설정</a></li>
 			</ul>
 		</div>
 	</div>

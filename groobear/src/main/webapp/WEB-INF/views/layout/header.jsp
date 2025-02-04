@@ -15,7 +15,7 @@
 			<li><a href="${pageContext.request.contextPath}/contact/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/addressBook_w.png">주소록</a></li>
 			<li><a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/papers_w.png">나의부서</a></li>
 			<li><a href="${pageContext.request.contextPath}/emp/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/employee_w.png">사원관리</a></li>
-			<li><a href="${pageContext.request.contextPath}/mypage/mypage"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/setting_w.png">마이페이지</a></li>
+			<li><a href="${pageContext.request.contextPath}/mypage/mypage"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/user_w.png">마이페이지</a></li>
 		</ul>
 		<div class="btn">
 			<a href="${pageContext.request.contextPath}/"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/logout_w.png"></a>      
