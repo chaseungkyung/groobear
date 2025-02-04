@@ -14,6 +14,7 @@
 	
 	<main>
 		<div class="mainInner">
+			<p class="title">전체 메일</p>
 			<form action="">
 				<ul>
 					<li><input type="checkbox"></li>

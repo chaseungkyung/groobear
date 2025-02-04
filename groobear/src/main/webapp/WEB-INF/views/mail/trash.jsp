@@ -14,15 +14,15 @@
 	
 	<main>
 		<div class="mainInner">
-			<p>휴지통</p>
-			<ul>
-				<li><input type="checkbox"></li>
-				<li>중요</li>
-				<li>읽음</li>
-				<li>제목</li>
-				<li>날짜</li>
-			</ul>
+			<p class="title">휴지통</p>
 			<form action="">
+				<ul>
+					<li><input type="checkbox"></li>
+					<li>중요</li>
+					<li>읽음</li>
+					<li>제목</li>
+					<li>날짜</li>
+				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>

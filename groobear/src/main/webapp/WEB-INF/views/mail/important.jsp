@@ -14,6 +14,7 @@
 	
 	<main>
 		<div class="mainInner">
+			<p class="title">즐겨찾기</p>
 			<form action="">
 				<ul>
 					<li><input type="checkbox"></li>
