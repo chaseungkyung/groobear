@@ -5,7 +5,7 @@
 <div class="iconHeader-right">
 	<div class="iconHeader-right-inner">
 		<div class="btnArea">
-			<a href="${pageContext.request.contextPath}/sign/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">문서 작성</a>
+			<a href="${pageContext.request.contextPath}/sign/write"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">문서 작성</a>
 		</div>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 			<div class="accordion-item">
@@ -17,8 +17,8 @@
 				<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
 						<ul>
-							<li><a href="">결재 진행함</a></li>
-							<li><a href="">결재 완료함</a></li>
+							<li><a href="${pageContext.request.contextPath}/">결재 진행함</a></li>
+							<li><a href="${pageContext.request.contextPath}/">결재 완료함</a></li>
 						</ul>
 					</div>
 				</div>
@@ -32,9 +32,9 @@
 				<div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
 						<ul>
-							<li><a href="">결재 요청</a></li>
-							<li><a href="">결재 내역</a></li>
-							<li><a href="">수신 참조</a></li>
+							<li><a href="${pageContext.request.contextPath}/">결재 요청</a></li>
+							<li><a href="${pageContext.request.contextPath}/">결재 내역</a></li>
+							<li><a href="${pageContext.request.contextPath}/">수신 참조</a></li>
 						</ul>
 					</div>
 				</div>
