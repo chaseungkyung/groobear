@@ -37,7 +37,7 @@
 		    
 			if(!f.senderEmail.value.trim()) {
 		        alert('E-Mail을 입력하세요. ');
-		        f.senderEmail.focus();
+		        f.senderEmail.focus();  
 		        return;
 			}
 		    
