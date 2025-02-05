@@ -4,3 +4,4 @@ function haha() {
 
 haha();
 haha();
+haha();
