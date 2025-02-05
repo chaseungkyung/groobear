@@ -9,7 +9,7 @@
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
 		.mainInner img {
-		    width: 80vw;
+		    width: 80vw;  
 		    height: 40vw; 
 			}
 	</style>
