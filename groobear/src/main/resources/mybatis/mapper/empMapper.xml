@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.MemberMapper">
+
+	<select id="loginMember" parameterType="String" resultType="com.sp.app.model.Member">
+		SELECT empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, hireDate, retireDate, lastLogin, loginFails, empStatus
+		FROM Employee
+		WHERE empCode = #{empCode}
+	</select>
+
+	<insert id="insertEmployee" parameterType="com.sp.app.model.Member">
+		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, hireDate, retireDate, lastLogin, loginFails, empStatus)
+		VALUES (employee_seq.NEXTVAL, #{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{empRank}, #{empTel}, #{empStatus}, #{hireDate}, #{retireDate}, #{lastLogin}, #{loginFails})
+	</insert>
+	
+	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">
+		INSERT INTO EmployeeDetail(empIdx, birth, email, tel, zipCode, addrMain, addrSub)
+		VALUES (#{empIdx}, #{birth}, #{email}, #{tel}, #{zipCode}, #{addrMain}, #{addrSub})
+	</insert>
+
+</mapper>

@@ -29,7 +29,7 @@
 	                    <table>
 	                        <tr>
 	                            <th>사원번호</th>
-	                            <td><input type="text" readonly></td>
+	                            <td><input type="text"></td>
 	                            <th>입사년월</th>
 	                            <td><input type="date" name="" id=""></td>
 	                        </tr>

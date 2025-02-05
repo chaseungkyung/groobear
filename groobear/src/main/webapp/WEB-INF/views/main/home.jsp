@@ -22,7 +22,7 @@
                     <div class="profile">
                         <div class="userImg"></div>
                         <div class="department"><p>개발팀</p></div>
-                        <div class="name"><p>홍길동 부장</p></div>
+                        <div class="name"><p>${sessionScope.member.empName}</p></div>
                     </div>
                     <div class="time"><p>08:50:11</p></div>
                     <div class="work">

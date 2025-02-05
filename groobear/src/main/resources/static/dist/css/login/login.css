@@ -39,6 +39,7 @@ body {
 }
 
 .login-content{
+	position: relative;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
@@ -160,3 +161,5 @@ a:hover {color: #3B96EE;}
 	transition: .5s;
 }
 .btn:hover {background-position: right; color: #fff;}
+
+.message {position: absolute; width: 350px; bottom: 25%;}

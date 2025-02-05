@@ -41,7 +41,7 @@
 			            </div>
 			
 			            <div class="d-grid">
-			                <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/';">
+			                <button type="button" class="btn btn-lg btn-primary" onclick="location.href='${pageContext.request.contextPath}/main/home';">
 			                    메인화면으로 이동 <i class="bi bi-arrow-counterclockwise"></i>
 			                </button>
 			            </div>

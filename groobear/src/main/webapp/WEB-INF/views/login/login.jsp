@@ -13,17 +13,14 @@
 </head>
 <body>
 
-	<!-- <img class="wave" src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/wave.png"> -->
 	<img class="wave" alt="" src="${pageContext.request.contextPath}/dist/images/login/wave.png">
 	<div class="container">
 		<div class="img">
 			<img src="${pageContext.request.contextPath}/dist/images/login/bg.png">
-			<!-- <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/bg.svg"> -->
 		</div>
 		<div class="login-content">
-			<form>
+			<form name="loginForm" action="" method="post">
 				<img src="${pageContext.request.contextPath}/dist/images/login/groobear.png">
-				<!-- <img src="https://raw.githubusercontent.com/sefyudem/Responsive-Login-Form/master/img/avatar.svg"> -->
 				<h2 class="title">GrooBear</h2>
 				<div class="input-div one">
 					<div class="i">
@@ -31,7 +28,7 @@
 					</div>
 					<div class="div">
 						<h5>사원번호</h5>
-						<input type="text" class="input">
+						<input type="text" class="input" name="empCode">
 					</div>
 				</div>
 				<div class="input-div pass">
@@ -40,14 +37,35 @@
 					</div>
 					<div class="div">
 						<h5>비밀번호</h5>
-						<input type="password" class="input">
+						<input type="password" class="input" name="empPwd" autocomplete="off">
 					</div>
 				</div>
-				<input type="submit" class="btn" value="Login">
+				<input type="button" class="btn" value="로그인" onclick="sendLogin();">
 			</form>
+			<p class="message">${message}</p>
 		</div>
 	</div>
 	<script type="text/javascript">
+		function sendLogin() {
+		    const f = document.loginForm;
+			let str;
+			
+			str = f.empCode.value.trim();
+		    if( !str ) {
+		        f.empCode.focus();
+		        return;
+		    }
+	
+		    str = f.empPwd.value.trim();
+		    if( !str ) {
+		        f.empPwd.focus();
+		        return;
+		    }
+	
+		    f.action = '${pageContext.request.contextPath}/login';
+		    f.submit();
+		}
+	
 		const inputs = document.querySelectorAll(".input");
 	
 		function addcl(){

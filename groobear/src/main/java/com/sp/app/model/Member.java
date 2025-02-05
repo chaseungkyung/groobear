@@ -8,26 +8,36 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Member {
-	private long memberIdx;
-	private String userId;
-	private String userPwd;
-	private String userName;
-	private int userLevel;
-	private int enabled;
-	private String register_date;
-	private String modify_date;
-	private String last_login;
-	private String email;
-	private String email1;
-	private String email2;
-	private int receiveEmail;
-	private String tel;
-	private String tel1;
-	private String tel2;
-	private String tel3;
+	
+	// 사원 table
+	private long empIdx;
+	private String empCode;
+	private String empName;
+	private String empPwd;
+	private int deptIdx;
+	private String teamIdx;
+	private String empRank;
+	private String empTel;
+	private String empStatus;
+	private String hireDate;
+	private String retireDate;
+	private String lastLogin;
+	private String loginFails;
+
+	// 사원 상세 table
 	private String birth;
-	private String zip;
-	private String addr1;
-	private String addr2;
-	private String ipAddr;
+	private String email;
+	private String tel;
+	private String zipCode;
+	private String addrMain;
+	private String addrSub;
+	
+	// 사원 이력 table
+	private long historyIdx;
+	private String startDate;
+	private String endDate;
+	private String deptName;
+	private String teamName;
+	private String empHistoryRank;
+	private String note;
 }
