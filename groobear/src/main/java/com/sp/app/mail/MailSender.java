@@ -2,7 +2,9 @@ package com.sp.app.mail;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import org.springframework.stereotype.Service;
@@ -182,20 +184,28 @@ public class MailSender {
 			// 받는 사람
 			// msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dto.getReceiverEmail()));
 			
-			
-			// 여러명에게 메일을 보내는 경우
-			Address[] addresses = new Address[dto.getReceiverEmail().size()];
+			List<String> emails = new ArrayList<>();
+			List<String> names = new ArrayList<>();
 			for(int idx = 0; idx < dto.getReceiverEmail().size(); idx++) {
-				String name = dto.getReceiverEmail().get(idx);
-				if( dto.getReceiverName() != null &&  dto.getReceiverName().size() > idx) {
+				String email = dto.getReceiverEmail().get(idx).trim();
+				String name = email;
+				if(dto.getReceiverName()!=null && dto.getReceiverName().get(idx) != null) {
 					name = dto.getReceiverName().get(idx);
 				}
 				
-				if(dto.getReceiverEmail().get(idx).isEmpty()) {
+				if(email.isBlank()) {
 					continue;
 				}
 				
-				addresses[idx] = new InternetAddress(dto.getReceiverEmail().get(idx), name, encType);
+				emails.add(email);
+				names.add(name);
+			}
+			
+			
+			// 여러명에게 메일을 보내는 경우
+			Address[] addresses = new Address[emails.size()];
+			for(int idx = 0; idx < emails.size(); idx++) {
+				addresses[idx] = new InternetAddress(emails.get(idx), names.get(idx), encType);
 			}
 			msg.setRecipients(Message.RecipientType.TO, addresses);
 

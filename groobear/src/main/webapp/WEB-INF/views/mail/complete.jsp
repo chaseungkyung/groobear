@@ -16,7 +16,7 @@
 	
 	<main>
 		<div class="mainInner">
-			
+			<h1>꼼프리트</h1>
 			
 		</div>
 	</main>
