@@ -52,4 +52,31 @@ public class MailController {
 		
 		return "mail/complete";
 	}
+	
+	/*
+	// 주소록(아직 미완, 추후에 주소록 만들어지면 그거랑 연동할거임)
+	@ResponseBody
+	@GetMapping("contact:ist")
+	public Map<String, ?> contactList(
+		@RequestParam(name= "schType" ) String schType,
+		@RequestParam(name= "kwd" ) String kwd,
+		HttpSession session) throws Exception {
+	Map<String, Object> model = new HashMap<String, Object>();
+	
+	try {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		kwd = URLDecoder.decode(kwd,"UTF-8");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("schType", schType);
+		map.put("kwd", kwd);
+		
+		
+	} catch (Exception e) {
+
+	}
+	return model;
+	}
+	*/
 }

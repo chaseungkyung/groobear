@@ -13,7 +13,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Mail {
-	private String receiverEmail;  // 받는 사람  이메일
+	private List<String> receiverEmail;  // 받는 사람  이메일
+	private List<String> receiverName;  // 받는 사람  이름
 	private String senderEmail; // 보내는 사람  이메일
 	private String senderName; // 보내는 사람  이름
 	private String subject; // 메일 제목

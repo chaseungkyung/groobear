@@ -180,14 +180,24 @@ public class MailSender {
 			
 
 			// 받는 사람
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dto.getReceiverEmail()));
+			// msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dto.getReceiverEmail()));
+			
 			
 			// 여러명에게 메일을 보내는 경우
-			Address[] addresses = new Address[2];
-			addresses[0] = new InternetAddress("수신자이메일1", "수신자이름1", encType);
-			addresses[1] = new InternetAddress("수신자이메일2", "수신자이름2", encType);
+			Address[] addresses = new Address[dto.getReceiverEmail().size()];
+			for(int idx = 0; idx < dto.getReceiverEmail().size(); idx++) {
+				String name = dto.getReceiverEmail().get(idx);
+				if( dto.getReceiverName() != null &&  dto.getReceiverName().size() > idx) {
+					name = dto.getReceiverName().get(idx);
+				}
+				
+				if(dto.getReceiverEmail().get(idx).isEmpty()) {
+					continue;
+				}
+				
+				addresses[idx] = new InternetAddress(dto.getReceiverEmail().get(idx), name, encType);
+			}
 			msg.setRecipients(Message.RecipientType.TO, addresses);
-			
 
 			// 제목
 			msg.setSubject(dto.getSubject());
