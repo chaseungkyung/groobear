@@ -90,7 +90,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>참조</th>
+							<th>참조</th>  
 							<td><input type="text" name ="realbird"></td>
 						</tr>
 						<tr>
