@@ -16,6 +16,5 @@ public class SettingController {
 	@GetMapping("setting")
 	public String setting() {
 		return "/mypage/setting";
-	}
-	
+	} 
 }
