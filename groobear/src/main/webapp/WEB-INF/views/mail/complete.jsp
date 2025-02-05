@@ -11,6 +11,14 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 </head>
 <body>
-<h1>메전완 메일전송완료라는뜻</h1>
+	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/mailHeader.jsp"/>
+	
+	<main>
+		<div class="mainInner">
+			
+			
+		</div>
+	</main>
 </body>
 </html>
