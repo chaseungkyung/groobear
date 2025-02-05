@@ -8,6 +8,10 @@
 	<style type="text/css">
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
+		.mainInner img {
+		    width: 1600px;
+		    height: 750px; 
+			}
 	</style>
 </head>
 <body>
@@ -15,7 +19,9 @@
 	
 	<main>
 		<div class="mainInner">
-			<h3>조직도</h3>
+			<img alt=""src="${pageContext.request.contextPath}/dist/images/common/map.png">
+		</div>
+		<div class = "organiztionMap">
 		</div>
 	</main>
 

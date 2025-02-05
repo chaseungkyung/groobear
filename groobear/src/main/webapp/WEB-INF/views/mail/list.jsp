@@ -19,9 +19,72 @@
 				<ul>
 					<li><input type="checkbox"></li>
 					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>읽음</li>
+					<li>제목</li>
+					<li>시간</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[보낸메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[보낸메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[보낸메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
+				</ul>
+				<ul>
+					<li><input type="checkbox"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
+					<li><a href="${pageContext.request.contextPath}/">[받은메일함] [공지] 설 연휴간 근무 안내</a></li>
+					<li>2025-01-23 08:00</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>

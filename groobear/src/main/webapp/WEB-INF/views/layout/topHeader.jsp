@@ -11,7 +11,7 @@
 			<li><a href="${pageContext.request.contextPath}/">공지사항</a></li>
 			<li><a href="${pageContext.request.contextPath}/">HR</a></li>
 			<li><a href="${pageContext.request.contextPath}/">사내 교육 자료실</a></li>
-			<li><a href="${pageContext.request.contextPath}/">조직도</a></li>
+			<li><a href="${pageContext.request.contextPath}/map/map">조직도</a></li>
 		</ul>
 		<div class="notif">
 			<img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/bell_w.png">
