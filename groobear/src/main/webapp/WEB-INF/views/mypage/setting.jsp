@@ -5,16 +5,15 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/signMenu.css" type="text/css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/signHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
-			<h3>결재</h3>
+			<h3>환경설정</h3>
 		</div>
 	</main>
 

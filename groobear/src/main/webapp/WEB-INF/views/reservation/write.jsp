@@ -5,16 +5,17 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/signMenu.css" type="text/css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+	<style type="text/css">
+		main {width: 93vw;}
+		main .mainInner {width: 83vw;}
+	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/signHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
-			<h3>결재</h3>
+			<h3> 등록 </h3>
 		</div>
 	</main>
 

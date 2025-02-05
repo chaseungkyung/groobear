@@ -13,4 +13,9 @@ public class SignController {
 		return "/sign/list";
 	}
 	
+	@GetMapping("write")
+	public String singWrite() {
+		return "/sign/write";
+	}
+	
 }

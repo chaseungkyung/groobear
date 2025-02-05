@@ -7,7 +7,6 @@
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<style type="text/css">
-		
 		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
 		.btnArea button {width: 100%;}
 		
@@ -67,51 +66,33 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/mailHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/projectHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">
 			<div class="write">
-				<form name = "mailForm" method = "post" enctype = "multipart/form-data">
+				<form name = "projectForm" method = "post" enctype = "multipart/form-data">
 					<table class="textArea">
 						<tr>
-							<th>보내는 사람 이름</th>
-							<td><input type="text" name ="senderName" ></td>
+							<th>프로젝트 이름</th>
+							<td><input type="text" name ="000" readonly></td>
 						</tr>
 						<tr>
-							<th>보내는 사람 이메일</th>
-							<td><input type="text" name ="senderEmail" ></td>
+							<th>시작일</th>
+							<td><input type="text" name ="000" readonly></td>
 						</tr>
 						<tr>
-							<th>받는 사람</th>
-							<td class="addressArea">
-								<input type="text" name = "receiverEmail">
-								<button type="button">주소록</button>
-							</td>
+							<th>종료일</th>
+							<td><input type="text" name ="senderEmail"></td>
 						</tr>
 						<tr>
-							<th>참조</th>
-							<td><input type="text" name ="realbird"></td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td><input type="text" name = "subject"></td>
-						</tr>
-						<tr>
-							<th>파일 첨부</th>
-							<td><input type="file" name="selectFile" multiple="multiple"></td>
-						</tr>
-						<tr class="contentArea">
-							<th>내용</th>
-							<td><textarea name = "content"></textarea></td>
-						</tr>
 					</table>
 					<table class="table table-borderless">
 	 					<tr>
 							<td class="text-center">
-								<button type="button" class="btn btn-dark" onclick="sendOk();">메일 전송&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="button" class="btn btn-dark" onclick="sendOk();">프로젝트 만들기&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/';">전송 취소&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';">취소&nbsp;<i class="bi bi-x"></i></button>
 							</td>
 						</tr>
 					</table>
