@@ -29,36 +29,37 @@
 	</style>
 	<script type="text/javascript">
 		function sendOk() {
-		    const f = document.mailForm;
+		    const f = document.projectForm;
 			let str;
 		    
-			if(!f.senderEmail.value.trim()) {
-		        alert('E-Mail을 입력하세요. ');
-		        f.senderEmail.focus();  
+			if(!f.projectName.value.trim()) {
+		        alert('프로젝트 이름을 입력하세요. ');
+		        f.projectName.focus();  
 		        return;
 			}
 		    
-			if(!f.receiverEmail.value.trim()) {
-		        alert("정상적인 E-Mail을 입력하세요. ");
-		        f.receiverEmail.focus();
+			if(!f.startDate.value.trim()) {
+		        alert("프로젝트 시작일을 입력하세요. ");
+		        f.startDate.focus();
 		        return;
 			}
+			
 		    
-			str = f.subject.value.trim();
+			str = f.endDate.value.trim();
 		    if(!str) {
-		        alert('제목을 입력하세요. ');
-		        f.subject.focus();
+		        alert('프로젝트 종료일을 입력하세요. ');
+		        f.endDate.focus();
 		        return;
 		    }
 		
-			str = f.content.value.trim();
-		    if(!str) {
-		        alert('내용을 입력하세요. ');
-		        f.content.focus();
+		    if(!f.projectPM.value.trim()) {
+		    	alert("프로젝트 매니저의 성명을 입력하세요. ");
+		        f.projectPM.focus();
 		        return;
 		    }
+
 		
-			f.action = '${pageContext.request.contextPath}/mail/write';
+			f.action = '${pageContext.request.contextPath}/project/write';
 			f.submit();
 		}
 	</script>
@@ -75,17 +76,20 @@
 					<table class="textArea">
 						<tr>
 							<th>프로젝트 이름</th>
-							<td><input type="text" name ="000" readonly></td>
+							<td><input type="text" name ="projectName" ></td>
 						</tr>
 						<tr>
 							<th>시작일</th>
-							<td><input type="text" name ="000" readonly></td>
+							<td><input type="date" name ="startDate" id="startDate" min=""></td>
 						</tr>
 						<tr>
 							<th>종료일</th>
-							<td><input type="text" name ="senderEmail"></td>
+							<td><input type="date" name ="endDate"></td>
 						</tr>
 						<tr>
+							<th>PM 지정</th>
+							<td><input type="text" name ="projectPM"></td>
+						</tr>
 					</table>
 					<table class="table table-borderless">
 	 					<tr>
