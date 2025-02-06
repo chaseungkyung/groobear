@@ -18,7 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public void insertProject(Project dto) throws Exception {
 		try {
 			
-			Long empIdx = mapper.findByPMname(dto.getEmpName());
+			Long empIdx = mapper.findByEmpName(dto.getEmpName());
 			
 			if(empIdx == null) {
 				throw new IllegalArgumentException("PM 이름에 해당하는 사원을 찾을 수 없습니다.");
@@ -27,6 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
 			dto.setEmpIdx(empIdx);
 			
 			mapper.insertProject(dto);
+			
 		} catch (Exception e) {
 			log.info("insertProject 에러 : ", e);
 			throw e;

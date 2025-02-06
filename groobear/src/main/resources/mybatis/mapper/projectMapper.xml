@@ -5,11 +5,16 @@
 
 	<insert id="insertProject" parameterType="com.sp.app.model.Project">
 		INSERT INTO project(projIdx, empIdx, projName, createdAt, startDate, endDate, status)
-		VALUES(project_seq.NEXTVAL, #{empIdx}, #{projName}, #{createdAt}, #{startDate}, #{endDate}, 0)
+		VALUES(project_seq.NEXTVAL, #{empIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
 	
-	<select id="findByPMname" parameterType="string" resultType="long">
+	<select id="findByEmpName" parameterType="string" resultType="long">
 		SELECT empIdx FROM employee WHERE empName = #{empName}
+	</select>
+	
+	<select id="listProject" parameterType="map" 
+			resultType="com.sp.app.model.Project">
+		
 	</select>
 
 </mapper>

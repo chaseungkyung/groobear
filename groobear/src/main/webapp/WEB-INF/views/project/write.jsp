@@ -32,9 +32,9 @@
 		    const f = document.projectForm;
 			let str;
 		    
-			if(!f.projectName.value.trim()) {
+			if(!f.projName.value.trim()) {
 		        alert('프로젝트 이름을 입력하세요. ');
-		        f.projectName.focus();  
+		        f.projName.focus();  
 		        return;
 			}
 		    
@@ -52,9 +52,9 @@
 		        return;
 		    }
 		
-		    if(!f.projectPM.value.trim()) {
+		    if(!f.empName.value.trim()) {
 		    	alert("프로젝트 매니저의 성명을 입력하세요. ");
-		        f.projectPM.focus();
+		        f.empName.focus();
 		        return;
 		    }
 
@@ -76,7 +76,7 @@
 					<table class="textArea">
 						<tr>
 							<th>프로젝트 이름</th>
-							<td><input type="text" name ="projectName" ></td>
+							<td><input type="text" name ="projName" ></td>
 						</tr>
 						<tr>
 							<th>시작일</th>
@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<th>PM 지정</th>
-							<td><input type="text" name ="projectPM"></td>
+							<td><input type="text" name ="empName"></td>
 						</tr>
 					</table>
 					<table class="table table-borderless">
