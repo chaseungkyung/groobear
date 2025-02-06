@@ -13,4 +13,9 @@ public class ScheduleController {
 		return "/schedule/schedule";
 	}
 	
+	@GetMapping("write")
+	public String writeForm() {
+		return "/schedule/write";
+	}
+	
 }
