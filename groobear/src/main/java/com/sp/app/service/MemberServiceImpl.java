@@ -111,12 +111,62 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member findByEmpIdx(String empIdx) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Member> listFindMember(Map<String, Object> map) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<Member> listMember(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*
+
+	@Override
+	public Member findByEmpIdx(String empIdx) {
+		Member dto = null;
+		try {
+			dto = mapper.findByEmpIdx(empIdx);
+		} catch (Exception e) {
+			log.info("findByEmpIdx", e);
+		}
+		return dto;
+	}
+
+	@Override
+	public List<Member> listFindMember(Map<String, Object> map) {
+
+		return null;
+	}
+
+	@Override
+	public List<Member> listMember(Map<String, Object> map) {
+		List<Member> list = null;
+		
+		try {
+			list = mapper.listMember(map);
+			
+			for(Member dto : list) {
+				dto.setEmpIdx(dto.getEmpIdx());
+				dto.setEmpName(dto.getEmpName());
+				dto.setDeptIdx(dto.getDeptIdx());
+				dto.setTeamIdx(dto.getTeamIdx());
+				dto.setEmpRank(dto.getEmpRank());
+				dto.setEmpTel(dto.getEmpTel());
+			}
+		} catch (Exception e) {
+			log.info("listFindMember : ", e);
+		}
+		return list;
+	}
+*/
+	
+	
 }

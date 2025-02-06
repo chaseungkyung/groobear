@@ -28,5 +28,6 @@ public interface MemberService {
 	public Member findByEmpIdx(String empIdx);
 	
 	public List<Member> listFindMember(Map<String, Object> map);
+	public List<Member> listMember(Map<String, Object> map);
 	
 }

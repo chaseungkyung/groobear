@@ -19,4 +19,63 @@
 		VALUES (#{empIdx}, #{birth}, #{email}, #{tel}, #{zipCode}, #{addrMain}, #{addrSub})
 	</insert>
 
+	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
+	
+	</insert>
+	<!--  
+	<update id="updateLastLogin" parameterType="com.sp.app.model.Member">
+	 	UPDATE EmployeeDetail SET lastLogin= #{lastLogin}
+		WHERE deptIdx = #{deptIdx}
+	</update>
+	
+	<update id="updateMemberStatus" parameterType="map">
+	 	UPDATE EmployeeDetail SET empStatus= #{empStatus}
+		WHERE deptIdx = #{deptIdx}
+	</update>
+
+	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
+		UPDATE Employee SET deptIdx = #{deptIdx}, teamIdx= #{teamIdx}, empRank= #{empRank}, empTel= #{empTel}
+		WHERE deptIdx = #{deptIdx}
+	</update>
+	
+	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
+	 	UPDATE EmployeeDetail SET tel= #{tel}, email= #{email}
+		WHERE deptIdx = #{deptIdx}
+	</update>
+	 
+	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">
+	
+	</update>
+	
+	<select id="checkFailureCount" parameterType="">
+	
+	</select>
+	
+	<update id="updateFailureCountReset" parameterType="com.sp.app.model.Member">
+	
+	</update>
+
+	<update id="updateFailureCount" parameterType="com.sp.app.model.Member">
+	
+	</update>
+	
+	<select id="findByEmpIdx" parameterType="">
+	
+	</select>
+	
+	<select id="listFindMember" parameterType="map">
+	
+	</select>
+	
+	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
+		SELECT e.empIdx, empName, deptIdx, teamIdx, empRank, hiredate, d.email, empTel 
+		FROM employee e
+		JOIN employeedetail d ON e.empIdx = d.empIdx
+		ORDER BY empIdx DESC
+	</select>
+	
+	<delete id="" parameterType="com.sp.app.model.Member">
+		
+	</delete>
+-->
 </mapper>
