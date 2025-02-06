@@ -1,11 +1,16 @@
 package com.sp.app.controller;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sp.app.model.Member;
 import com.sp.app.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +25,7 @@ public class EmpController {
 	
 	@GetMapping("list")
 	public String employeeList(Model model) throws Exception{
-		/*
+		
 		try {
 			Map<String, Object> map = new HashMap<>();
 			List<Member> list = service.listMember(map);
@@ -30,7 +35,7 @@ public class EmpController {
 		} catch (Exception e) {
 			
 		}
-		*/
+		
 		return "/emp/list";
 	}
 	

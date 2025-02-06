@@ -10,8 +10,8 @@
 	</select>
 
 	<insert id="insertEmployee" parameterType="com.sp.app.model.Member">
-		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, hireDate, retireDate, lastLogin, loginFails, empStatus)
-		VALUES (employee_seq.NEXTVAL, #{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{empRank}, #{empTel}, #{empStatus}, #{hireDate}, #{retireDate}, #{lastLogin}, #{loginFails})
+		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, empTel, hireDate, retireDate, lastLogin, loginFails, empStatus)
+		VALUES (employee_seq.NEXTVAL, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{empRank}, #{empTel}, #{hireDate}, #{retireDate}, #{lastLogin}, #{loginFails}, #{empStatus})
 	</insert>
 	
 	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">
@@ -66,9 +66,10 @@
 	<select id="listFindMember" parameterType="map">
 	
 	</select>
+	-->
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		SELECT e.empIdx, empName, deptIdx, teamIdx, empRank, hiredate, d.email, empTel 
+		SELECT e.empIdx, e.empName, e.deptIdx, e.teamIdx, e.empRank, e.hiredate, d.email, e.empTel 
 		FROM employee e
 		JOIN employeedetail d ON e.empIdx = d.empIdx
 		ORDER BY empIdx DESC
@@ -77,5 +78,5 @@
 	<delete id="" parameterType="com.sp.app.model.Member">
 		
 	</delete>
--->
+
 </mapper>

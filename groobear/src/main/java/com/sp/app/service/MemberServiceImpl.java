@@ -108,26 +108,8 @@ public class MemberServiceImpl implements MemberService {
 	public void updateFailureCount(String empCode) throws Exception {
 		
 	}
-
-	@Override
-	public Member findByEmpIdx(String empIdx) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Member> listFindMember(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Member> listMember(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	/*
+	
 
 	@Override
 	public Member findByEmpIdx(String empIdx) {
@@ -166,7 +148,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return list;
 	}
-*/
+
 	
 	
 }

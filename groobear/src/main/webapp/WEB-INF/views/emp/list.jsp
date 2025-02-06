@@ -44,21 +44,23 @@
 	                    <li>전화번호</li>
 	                    <li>이메일</li>
 	                    <li>내선번호</li>
+	                    <li hidden>재직상태</li>
 	                </ul>
-	                
+	                <c:forEach var="vo" items="${list}">
 		                <ul>
 		                    <li><input type="checkbox" name="" id=""></li>
-		                    <li><a href="javascript:;"></a>사원번호</li>
-			                <li>이름</li>
-		                    <li>부서</li>
-		                    <li>팀</li>
-		                    <li>직급</li>
-		                    <li>입사년월일</li>
-		                    <li>전화번호</li>
-		                    <li>이메일</li>
-		                    <li>내선번호</li>
+		                    <li><a href="javascript:;"></a>${vo.empIdx}</li>
+			                <li>${vo.empName}</li>
+		                    <li>${vo.deptIdx}</li>
+		                    <li>${vo.teamIdx}</li>
+		                    <li>${vo.empRank}</li>
+		                    <li>${vo.hireDate}</li>
+		                    <li>${vo.tel}</li>
+		                    <li>${vo.email}</li>
+		                    <li>${vo.empTel}</li>
+		                    <li hidden>${vo.empStatus}</li>
 		                </ul>
-	                
+	                </c:forEach>
 	            </div>
             </form>
             <div class="page-navigation">

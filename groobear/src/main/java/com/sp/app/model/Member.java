@@ -14,7 +14,7 @@ public class Member {
 	private String empCode;
 	private String empName;
 	private String empPwd;
-	private int deptIdx;
+	private String deptIdx;
 	private String teamIdx;
 	private String empRank;
 	private String empTel;
