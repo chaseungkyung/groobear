@@ -14,7 +14,6 @@ public interface MemberService {
 	public void insertEmployeeHistory(Member dto) throws Exception;
 	
 	public void updateLastLogin(String empCode) throws Exception;
-	
 	public void updateMemberStatus(Map<String, Object> map) throws Exception;
 	
 	public void updateEmployee(Member dto) throws Exception;
@@ -29,5 +28,7 @@ public interface MemberService {
 	
 	public List<Member> listFindMember(Map<String, Object> map);
 	public List<Member> listMember(Map<String, Object> map);
+	
+	public int dataCount(Map<String, Object> map);
 	
 }

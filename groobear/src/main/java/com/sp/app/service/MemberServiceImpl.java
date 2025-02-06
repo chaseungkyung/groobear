@@ -137,16 +137,27 @@ public class MemberServiceImpl implements MemberService {
 			
 			for(Member dto : list) {
 				dto.setEmpIdx(dto.getEmpIdx());
-				dto.setEmpName(dto.getEmpName());
-				dto.setDeptIdx(dto.getDeptIdx());
-				dto.setTeamIdx(dto.getTeamIdx());
-				dto.setEmpRank(dto.getEmpRank());
-				dto.setEmpTel(dto.getEmpTel());
+//				dto.setEmpName(dto.getEmpName());
+//				dto.setDeptIdx(dto.getDeptIdx());
+//				dto.setTeamIdx(dto.getTeamIdx());
+//				dto.setEmpRank(dto.getEmpRank());
+//				dto.setEmpTel(dto.getEmpTel());
 			}
 		} catch (Exception e) {
 			log.info("listFindMember : ", e);
 		}
 		return list;
+	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = mapper.dataCount(map);
+		} catch (Exception e) {
+			log.info("dataCount : ", e);
+		}
+		return result;
 	}
 
 	

@@ -49,7 +49,7 @@
 	                <c:forEach var="vo" items="${list}">
 		                <ul>
 		                    <li><input type="checkbox" name="" id=""></li>
-		                    <li><a href="javascript:;"></a>${vo.empIdx}</li>
+		                    <li><a href="javascript:;"></a>${vo.empCode}</li>
 			                <li>${vo.empName}</li>
 		                    <li>${vo.deptIdx}</li>
 		                    <li>${vo.teamIdx}</li>
