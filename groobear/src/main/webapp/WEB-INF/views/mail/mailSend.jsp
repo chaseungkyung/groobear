@@ -32,42 +32,42 @@
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 회의록-1 및 상황 보고 </a></li>
 					<li>2025-01-20 13:38</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 기획안 최종 수정 내용 보고 </a></li>
 					<li>2025-01-14 16:25</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 기획안 3차 수정 내용 보고 </a></li>
 					<li>2025-01-10 15:10</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 기획안 2차 수정 내용 보고 </a></li>
 					<li>2025-01-06 15:02</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 기획안 1차 수정 내용 보고 </a></li>
 					<li>2025-01-03 16:16</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/y_star.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 25-1-1 프로젝트 기획안 초안 </a></li>
 					<li>2024-12-31 16:42</li>
