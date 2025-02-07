@@ -33,12 +33,12 @@
 		</where>
 	</select>
 	
-	<select id = "listBoard" parameterType="map" resultType="com.sp.app.model.com.sp.app.model.SalesBoard">
+<!-- 	<select id = "listBoard" parameterType="map" resultType="com.sp.app.model.com.sp.app.model.SalesBoard">
 		
 	</select>
 	<update id="updateBoard" parameterType="com.sp.app.model.SalesBoard">
 	
-	</update>
+	</update> -->
 	
 	<delete id="deleteBoard" parameterType="Long">
 		DELETE FROM salesBoard
