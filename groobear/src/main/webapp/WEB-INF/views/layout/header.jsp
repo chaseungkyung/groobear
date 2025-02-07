@@ -5,7 +5,7 @@
 <div class="iconHeader-left">
 	<div class="iconHeader-left-inner">
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/home_w.png">홈</a></li>
+			<li><a href="${pageContext.request.contextPath}/main/home"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/home_w.png">홈</a></li>
 			<li><a href="${pageContext.request.contextPath}/mail/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/mail_w.png">메일</a></li>
 			<li><a href="${pageContext.request.contextPath}/schedule/schedule"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/calendar_w.png">일정</a></li>
 			<li><a href="${pageContext.request.contextPath}/chat/chat"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/chat_w.png">채팅</a></li>
