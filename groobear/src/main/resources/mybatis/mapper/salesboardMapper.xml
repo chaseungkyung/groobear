@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.SalesBoardMapper">
+	<insert id="insertBoard" parameterType="com.sp.app.model.SalesBoard">
+		INSERT INTO salesBoard(postIdx, empIdx, title, content, regdate)
+		VALUES(salesBoard_seq.NEXTVAL, #{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE)
+	</insert>
+	
+	<sql id = "where-list">
+		<choose>
+			<when test = "schType =='all' ">
+				(INSTR(title, #{kwd}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0)
+			</when>
+			<when test = "schType == 'content'">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id = "dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0)
+		FROM salesboard sb
+		JOIN employee e ON sb.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id = "listBoard" parameterType="map" resultType="com.sp.app.model.com.sp.app.model.SalesBoard">
+		
+	</select>
+	<update id="updateBoard" parameterType="com.sp.app.model.SalesBoard">
+	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="Long">
+		DELETE FROM salesBoard
+		WHERE postIdex = #{postIdx}
+	 </delete>
+</mapper>
