@@ -16,8 +16,9 @@
 	
 	<main>
 		<div class="mainInner">
-			<h1>꼼프리트</h1>
-			
+			<img alt=""src="${pageContext.request.contextPath}/dist/images/mail/mailcomplete.png">
+		</div>
+		<div class = "organiztionMap">
 		</div>
 	</main>
 </body>
