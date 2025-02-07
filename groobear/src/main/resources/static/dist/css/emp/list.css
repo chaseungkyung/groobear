@@ -20,6 +20,7 @@
 
 .selectAdd select {padding: 0 10px; border-radius: 5px; box-sizing: border-box; height: 25px;}
 
+.selectAdd .addEmp {margin: 0 10px;}
 .selectAdd .addEmp a {display: block; width: 100%; height: 100%; border: 1px solid #999; padding: 5px 10px; box-sizing: border-box; border-radius: 5px;}
 .selectAdd .addEmp a img {width: 10%; margin-right: 5%;}
 .selectAdd .addEmp a:hover {background-color: #eee;}

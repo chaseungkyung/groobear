@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 			mapper.insertEmployee(dto);
 			
 		} catch (Exception e) {
-			log.info("insertMember : ", e);
+			log.info("insertEmployee : ", e);
 			
 			throw e;
 		}
@@ -158,6 +158,17 @@ public class MemberServiceImpl implements MemberService {
 			log.info("dataCount : ", e);
 		}
 		return result;
+	}
+
+	@Override
+	public List<Member> listMemberAll() {
+		List<Member> list = null;
+		try {
+			list = mapper.listMemberAll();
+		} catch (Exception e) {
+			log.info("listMemberAll : ", e);
+		}
+		return list;
 	}
 
 	

@@ -33,6 +33,7 @@ public interface MemberMapper {
 	
 	public List<Member> listMember(Map<String, Object> map);
 	public List<Member> listFindMember(Map<String, Object> map);
+	public List<Member> listMemberAll();
 	
 	// public List<Member> getAuthority(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);

@@ -9,14 +9,17 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.Member;
+import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,9 +97,35 @@ public class EmpController {
 	}
 	
 	@GetMapping("add")
-	public String employeeAddForm() {
-		return "/emp/add";
+	public String employeeAddForm(Model model) throws Exception {
+		model.addAttribute("mode", "add");
+		return "emp/add";
+	}
+	
+	@PostMapping("add")
+	public String employeeAddSubmit(Member dto,
+			HttpSession session) throws Exception {
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			dto.setEmpIdx(info.getEmpIdx());
+			
+			service.insertEmployee(dto);
+		} catch (Exception e) {
+			log.info("employeeAddSubmit : ", e);
+		}
+				
+		return "redirect:/emp/list";
 	}
 		 
+	@GetMapping("print")
+	public String print(Model model) {
+		List<Member> list = service.listMemberAll();
+		
+		model.addAttribute("list", list);
+		
+		return "emp/print";
+				
+	}
 	
 }

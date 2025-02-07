@@ -28,6 +28,7 @@ public interface MemberService {
 	
 	public List<Member> listFindMember(Map<String, Object> map);
 	public List<Member> listMember(Map<String, Object> map);
+	public List<Member> listMemberAll();
 	
 	public int dataCount(Map<String, Object> map);
 	

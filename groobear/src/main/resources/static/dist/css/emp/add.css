@@ -23,6 +23,8 @@
 .info table .address input:nth-child(2) {width: 20%;}
 .info table .address input:nth-child(3) {width: 100%; margin-top: 5px;}
 
+.insertBtn {text-align: right;}
+
 .empHistory {width: 100%;}
 .empHistory .title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
 

@@ -45,8 +45,8 @@
 	                                <select name="" id="">
 	                                    <option value="">[인사부] 인사1팀</option>
 	                                    <option value="">[인사부] 인사2팀</option>
-	                                    <option value="">[법무부] 법무2팀</option>
 	                                    <option value="">[법무부] 법무1팀</option>
+	                                    <option value="">[법무부] 법무2팀</option>
 	                                    <option value="">[경영관리부] 경영1팀</option>
 	                                    <option value="">[경영관리부] 경영2팀</option>
 	                                    <option value="">[재무회계부] 재무팀</option>
@@ -56,7 +56,7 @@
 	                                    <option value="">[SW개발부] 솔루션아키텍처팀</option>
 	                                    <option value="">[SW개발부] 데이터베이스팀</option>
 	                                    <option value="">[SW개발부] QA팀</option>
-	                                    <option value="">[SW개발부] 인프라엔지니어링팀</option>
+	                                    <option value="">[SW개발부] UX/UI디자인팀</option>
 	                                    <option value="">[SW개발부] 기술지원팀</option>
 	                                 </select>
 	                            </td>
@@ -101,6 +101,13 @@
 	                            </td>
 	                        </tr>
 	                    </table>
+	                    <br><br><br>
+	                        <div class="insertBtn">
+								<button type="reset" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">다시 작성</button>
+								&nbsp;&nbsp;
+								<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/bbs/list';" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="update" ? "수정취소" : "등록취소"}</button>
+								<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="update" ? "수정완료" : "등록완료"}</button>
+	                   	 	</div>
 	                </div>
 	            </div>
             </form>
@@ -116,20 +123,17 @@
                         <th>직급</th>
                         <th>비고</th>
                     </tr>
-                    <tr>
-                        <td>2024-01-01 ~ </td>
-                        <td>경영지원팀</td>
-                        <td>경영1팀</td>
-                        <td>차장</td>
-                        <td>휴직</td>
-                    </tr>
-                    <tr>
-                        <td>2023-01-01 ~ 2023-12-31</td>
-                        <td>경영지원팀</td>
-                        <td>경영1팀</td>
-                        <td>차장</td>
-                        <td>-</td>
-                    </tr>
+                    <c:if test="">
+	                    <c:forEach var="dto" items="${list}">
+		                    <tr>
+		                        <td>${dto.hireDate}</td>
+		                        <td>${dto.deptIdx}</td>
+		                        <td>${dto.tempIdx}</td>
+		                        <td>${dto.empRank}</td>
+		                        <td>${dto.empStatus}</td>
+		                    </tr>
+	                    </c:forEach>
+					</c:if>
                 </table>
             </div>
             <div class="back">
@@ -137,5 +141,12 @@
             </div>
 		</div>
 	</main>
+	
+<script type="text/javascript">
+function insertEmp() {
+	
+}
+
+</script>
 </body>
 </html>

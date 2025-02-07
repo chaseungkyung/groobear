@@ -29,6 +29,9 @@
                     <div class="addEmp">
                         <a href="${pageContext.request.contextPath}/emp/add"><img alt="" src="${pageContext.request.contextPath}/dist/images/emp/addEmp.png">사원추가</a>
                     </div>
+                    <div>
+                        <button type="button" class="btn" onclick="printEmp();">🖨️</button>
+                    </div>
                 </div>
             </div>
             <form action="">
@@ -63,10 +66,38 @@
 	                </c:forEach>
 	            </div>
             </form>
-            <div class="page-navigation">
-                1 2 3
+             <div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+ <!--                <c:if test="${page > 1}">
+                    <a href="${pageContext.request.contextPath}/emp/list?page=${page - 1}&schType=${schType}&kwd=${kwd}">&laquo; 이전</a>
+                </c:if>
+                
+                <c:forEach begin="1" end="${total_page}" var="pageNum">
+                    <c:choose>
+                        <c:when test="${pageNum == page}">
+                            <strong>${pageNum}</strong>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageContext.request.contextPath}/emp/list?page=${pageNum}&schType=${schType}&kwd=${kwd}">${pageNum}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                
+                <c:if test="${page < total_page}">
+                    <a href="${pageContext.request.contextPath}/emp/list?page=${page + 1}&schType=${schType}&kwd=${kwd}">다음 &raquo;</a>
+                </c:if>
+ -->
             </div>
 		</div>
 	</main>
+	
+<script type="text/javascript">
+
+function printEmp() {
+	let url = '${pageContext.request.contextPath}/emp/print';
+	window.open(url, 'emp', 'width=800, height=800, left=600, top=100');
+};
+
+</script>
 </body>
 </html>
