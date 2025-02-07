@@ -9,6 +9,9 @@
 <link rel="icon" href="data:;base64, iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+
+<style type="text/css">
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
@@ -18,7 +21,9 @@
 		<div class="mainInner">
 			<img alt=""src="${pageContext.request.contextPath}/dist/images/mail/mailcomplete.png">
 		</div>
-		<div class = "organiztionMap">
+		<div class = "btnArea">
+			<button type="button"  class = "btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mail/list';">확인</button>
+			<button type="button"  class = "btn" onclick="location.href='${pageContext.request.contextPath}/mail/mailSend';">보낸 메일함</button>
 		</div>
 	</main>
 </body>

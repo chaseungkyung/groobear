@@ -19,9 +19,9 @@
 				<ul>
 					<li><input type="checkbox"></li>
 					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>읽음</li>
+					<li>제목</li>
+					<li>시간</li>
 				</ul>
 			
 				<ul>
