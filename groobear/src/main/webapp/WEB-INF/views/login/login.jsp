@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/login/login.css" type="text/css">
 	
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	
 </head>
 <body>
@@ -24,7 +23,7 @@
 				<h2 class="title">GrooBear</h2>
 				<div class="input-div one">
 					<div class="i">
-						<i class="fas fa-user"></i>
+						<i class="bi bi-person-fill"></i>
 					</div>
 					<div class="div">
 						<h5>사원번호</h5>
@@ -33,7 +32,7 @@
 				</div>
 				<div class="input-div pass">
 					<div class="i"> 
-						<i class="fas fa-lock"></i>
+						<i class="bi bi-lock-fill"></i>
 					</div>
 					<div class="div">
 						<h5>비밀번호</h5>
