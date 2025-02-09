@@ -37,13 +37,16 @@
 				<li>[개발 1팀] 홍길동 부장</li>
 				<li>2025-01-23</li>
 			</ul>
-			<ul>
-				<li>2</li>
-				<li>(주) 코넥</li>
-				<li><a href="${pageContext.request.contextPath}/">[국가]한국 교육 학술정보원 2025년~2026년 국립대학지원미ㅏ너ㅣ아러ㅣㅏ너ㅣ아ㅓ니ㅏㅓ리ㅏㅓㅣㅏ너ㅁ니ㅏ어리ㅏㅓ니아ㅓㅣ라ㅣ나어리ㅏ너이러니아ㅓ린어리ㅏㄴ이러ㅣ나어리ㅏ</a></li>
-				<li>[영업팀] 아무개 사원</li>
-				<li>2025-01-23</li>
-			</ul>
+			
+			<c:forEach var="dto" items="${listProject}" varStatus="status">
+				<ul>
+					<li>${dataCount - (page - 1) * size - status.index}</li>
+					<li>(주) 코넥</li>
+					<li><a href="${articleUrl}&projIdx=${dto.projIdx}">${dto.projName}</a></li>
+					<li>${dto.empName}</li>
+					<li>${dto.createdAt}</li>
+				</ul>
+			</c:forEach>
 		</div>
 	</main>
 

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Project {
-	private long projectIdx; // 프로젝트 idx
+	private long projIdx; // 프로젝트 idx
 	private String projName; // 프로젝트 이름
 	private long empIdx; // 프로젝트 매니저 idx
 	private String empName; // 프로젝트 매니저 이름
