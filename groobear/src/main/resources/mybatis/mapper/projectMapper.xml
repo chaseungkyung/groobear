@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.ProjectMapper">
 
-	<insert id="insertProject" parameterType="com.sp.app.model.Project">
+	<insert id="insertProject" parameterType="com.sp.app.model.project.Project">
 		INSERT INTO project(projIdx, empIdx, projName, createdAt, startDate, endDate, status)
 		VALUES(project_seq.NEXTVAL, #{empIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="listProject" parameterType="map" 
-			resultType="com.sp.app.model.Project">
+			resultType="com.sp.app.model.project.Project">
 		SELECT p.projIdx, projName, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, e.empName
 		FROM project p
 		JOIN employee e ON p.empIdx = e.empIdx
