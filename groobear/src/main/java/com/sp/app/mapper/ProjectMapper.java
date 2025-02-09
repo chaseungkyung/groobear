@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 
 @Mapper
 public interface ProjectMapper {

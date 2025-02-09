@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.ProjectMapper;
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

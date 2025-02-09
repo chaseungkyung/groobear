@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 import com.sp.app.service.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
