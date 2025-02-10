@@ -14,10 +14,9 @@ import lombok.Setter;
 @Builder
 public class SessionInfo {
 	private long empIdx;
-	private String empCode;
-	private String empName;
-	private String empPwd;
-	private String deptIdx;
-	private String teamIdx;
-	private String empRank;
+	private String empCode; // 사번
+	private String empName; // 이름
+	private String deptIdx; // 부서
+	private String teamIdx; // 팀
+	private String empRank; // 직급
 }
