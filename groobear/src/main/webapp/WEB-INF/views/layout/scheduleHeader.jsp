@@ -5,7 +5,7 @@
 <div class="iconHeader-right">
 	<div class="iconHeader-right-inner">
 		<div class="btnArea">
-			<a href="${pageContext.request.contextPath}/schedule/add"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가</a>
+			<a href="${pageContext.request.contextPath}/schedule/write"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가</a>
 		</div>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 			<div class="accordion-item">

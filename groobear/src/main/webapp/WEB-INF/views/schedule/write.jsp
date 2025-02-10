@@ -23,15 +23,16 @@ function sendOk() {
     const f = document.scheduleForm;
 	let str;
 	
-	if( ! f.subject.value.trim() ) {
-		f.subject.focus();
+	if( ! f.title.value.trim() ) {
+		f.title.focus();
 		return;
 	}
-	
-	if(! f.categoryNum.value ) {
-		f.categoryNum.focus();
+	/*	
+	if(! f.categoryIdx.value ) {
+		f.categoryIdx.focus();
 		return;
 	}
+	*/
 	
 	if( ! f.startDate.value ) {
 		f.startDate.focus();
@@ -162,7 +163,7 @@ $(function(){
 							<td>
 								<div class="row">
 									<div class="col">
-										<input type="text" name="subject" maxlength="100" id="form-subject" class="form-control" value="${dto.subject}">
+										<input type="text" name="title" maxlength="100" id="form-subject" class="form-control" value="${dto.title}">
 									</div>
 								</div>
 								<small class="form-control-plaintext">* 제목은 필수 입니다.</small>
@@ -287,7 +288,7 @@ $(function(){
 							<td class="text-center">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'일정등록'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/schedule/main';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/schedule/schedule';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="num" value="${dto.num}">
 								</c:if>

@@ -143,8 +143,8 @@
 							let obj = {};
 							
 							// fullcalendar 속성
-							obj.id = item.num;
-							obj.title = item.subject;
+							obj.id = item.schduleIdx;
+							obj.title = item.title;
 							if( item.startTime ) {
 								obj.allDay = false;
 							} else {
@@ -156,7 +156,7 @@
 		
 							// 기타 속성
 							obj.category = item.category;
-							obj.categoryNum = item.categoryNum;
+							obj.categoryNum = item.categoryIdx;
 							obj.startDate = item.startDate;
 							obj.stime = item.startTime;
 							obj.endDate = item.endDate;
