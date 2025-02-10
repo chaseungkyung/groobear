@@ -52,7 +52,6 @@ public class SettingController {
 		
 		SessionInfo info = SessionInfo.builder()
 				.empCode(dto.getEmpCode())
-				.empPwd(dto.getEmpPwd())
 				.empName(dto.getEmpName())
 				.empRank(dto.getEmpRank())
 				.teamIdx(dto.getTeamIdx())
