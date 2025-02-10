@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements MemberService {
-	
+
 	private final MemberMapper mapper;
 	
 	@Override
@@ -135,14 +135,6 @@ public class MemberServiceImpl implements MemberService {
 		try {
 			list = mapper.listMember(map);
 			
-			for(Member dto : list) {
-				dto.setEmpIdx(dto.getEmpIdx());
-//				dto.setEmpName(dto.getEmpName());
-//				dto.setDeptIdx(dto.getDeptIdx());
-//				dto.setTeamIdx(dto.getTeamIdx());
-//				dto.setEmpRank(dto.getEmpRank());
-//				dto.setEmpTel(dto.getEmpTel());
-			}
 		} catch (Exception e) {
 			log.info("listFindMember : ", e);
 		}

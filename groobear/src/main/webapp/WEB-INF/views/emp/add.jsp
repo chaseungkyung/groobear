@@ -10,12 +10,33 @@
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
 	</style>
+	
+<script type="text/javascript">
+function insertEmp() {
+	const f = document.empForm;
+	let str;
+	
+	str = f.empCode.value;
+	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
+		alert("사원번호를 다시 입력해주세요");
+		f.empCode.focus();
+		return;
+	}
+	
+	let mode = '${mode}';
+	if(mode === '' && f.empCode.value === 'false') {
+		str
+	}
+}
+</script>
+
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<main>
 		<div class="mainInner">
-			<form action="">
+			<form name="empForm" method="post">
 				<div class="empInfo">
 	                <div class="photoArea">
 	                    <div class="photo">
@@ -143,9 +164,7 @@
 	</main>
 	
 <script type="text/javascript">
-function insertEmp() {
-	
-}
+
 
 </script>
 </body>

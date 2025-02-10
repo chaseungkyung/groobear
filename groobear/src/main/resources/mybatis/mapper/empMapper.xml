@@ -73,12 +73,6 @@
 		FROM employee
 	</select>
 	
-	<select id="dataConut" parameterType="map" resultType="com.sp.app.model.Member">
-		SELECT NVL(COUNT(e.empIdx), 0)
-		FROM employee e
-		JOIN employeedetail d ON e.empIdx = d.empIdx
-	</select>
-	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
 		SELECT e.empIdx, e.empCode, e.empName, e.deptIdx, e.teamIdx, e.empRank, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate , d.tel, d.email, e.empTel 
 		FROM employee e
@@ -86,8 +80,16 @@
 		ORDER BY empCode DESC
 	</select>
 	
+	<select id="dataConut" parameterType="map" resultType="com.sp.app.model.Member">
+		SELECT NVL(COUNT(e.empIdx), 0) dataCount
+		FROM employee e
+		JOIN employeedetail d ON e.empIdx = d.empIdx
+	</select>
+	
+	
+<!-- 
 	<delete id="" parameterType="com.sp.app.model.Member">
 		
 	</delete>
-
+ -->
 </mapper>
