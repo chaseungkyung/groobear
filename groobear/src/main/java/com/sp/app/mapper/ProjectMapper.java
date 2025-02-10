@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sp.app.model.project.Project;
+import com.sp.app.model.project.ProjectMember;
 
 @Mapper
 public interface ProjectMapper {
@@ -16,5 +17,7 @@ public interface ProjectMapper {
 	public int dataCount(Map<String, Object> map);
 	public List<Project> listProject(Map<String, Object> map);
 	
+	public void insertProjectMember(ProjectMember dto) throws SQLException;
+
 	
 }

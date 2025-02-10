@@ -26,5 +26,10 @@
 		ORDER BY projIdx DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
+		INSERT INTO projectMember(memberIdx, projIdx, empIdx, teamName, role)
+		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{teamName}, #{role})
+	</insert>
 
 </mapper>

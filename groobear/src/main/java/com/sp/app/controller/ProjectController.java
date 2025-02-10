@@ -7,12 +7,15 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.project.Project;
+import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -96,14 +99,53 @@ public class ProjectController {
 		return "redirect:/project/list";
 	}
 	
+	// 글보기
+	@GetMapping("article/{projIdx}")
+	public String article(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page") String page,
+			Model model) {
+		
+		String query = "page=" + page;
+		
+		try {
+			
+			return "project/article";
+		} catch (Exception e) {
+			log.info("article : ", e);
+		}
+		
+		return "redirect:/project/list?" + query;
+	}
+	
+	
+	// AJAX-JSON
+	@ResponseBody
+	@PostMapping("insertProjectMember")
+	public Map<String, ?> insertProjectMember(ProjectMember dto) throws Exception {
+		Map<String, Object> model = new HashMap<>();
+		
+		String state = "false";
+		try {
+			service.insertProjectMember(dto);
+			state = "true";
+		} catch (Exception e) {
+		}
+		
+		model.put("state", state);
+		return model;
+	}
+	
+	
+	
+	
+	
+	
 	@GetMapping("test")
 	public String test() {
 		return "project/test";
 	}
 	
-	@GetMapping("article")
-	public String article() {
-		return "project/article";
-	}
+
 	
 }

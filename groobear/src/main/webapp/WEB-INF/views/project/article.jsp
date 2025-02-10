@@ -35,8 +35,62 @@
 	
 	<main>
 	
-
 	</main>
+	
+	<!-- member 등록 및 수정 대화상자 -->
+	<div class="modal fade" id="myDialogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myDialogModalLabel">????</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body p-2">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 카테고리 대화상자 -->
+	<div class="modal fade" id="faqCategoryDialogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="faqCategoryDialogModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="faqCategoryDialogModalLabel">1</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body pt-1">
+				
+					<form name="memberForm" method="post">
+						<table class="table table-bordered" >
+							<thead class="table-light">
+								<tr align="center">
+									<th width="170">mem1</th>
+									<th width="120">mem2</th>
+									<th width="80">mem3</th>
+									<th>변경</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr align="center">
+									<td> <input type="text" name="member" class="form-control"> </td>
+									<td>
+										<select name="enabled" class="form-select">
+											<option value="1">활성</option>
+											<option value="0">비활성</option>
+										</select>
+									</td>						
+									<td> <button type="button" class="btn btn-light btnMemberAddOk">등록</button> </td>
+								</tr>
+							</tbody>
+							<tfoot class="member-list"></tfoot>
+						</table>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

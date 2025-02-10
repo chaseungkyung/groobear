@@ -53,7 +53,7 @@
 		    }
 		
 		    if(!f.empName.value.trim()) {
-		    	alert("프로젝트 매니저의 성명을 입력하세요. ");
+		    	alert("프로젝트 매니저의 이름을 입력하세요. ");
 		        f.empName.focus();
 		        return;
 		    }

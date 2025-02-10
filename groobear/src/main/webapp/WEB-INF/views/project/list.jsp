@@ -27,7 +27,7 @@
 				<li>No</li>
 				<li>수주벤더</li>
 				<li>프로젝트</li>
-				<li>작성자</li>
+				<li>PM</li>
 				<li>등록일</li>
 			</ul>
 			<ul>
@@ -42,7 +42,7 @@
 				<ul>
 					<li>${dataCount - (page - 1) * size - status.index}</li>
 					<li>(주) 코넥</li>
-					<li><a href="${articleUrl}&projIdx=${dto.projIdx}">${dto.projName}</a></li>
+					<li><a href="${articleUrl}/${dto.projIdx}?${query}">${dto.projName}</a></li>
 					<li>${dto.empName}</li>
 					<li>${dto.createdAt}</li>
 				</ul>

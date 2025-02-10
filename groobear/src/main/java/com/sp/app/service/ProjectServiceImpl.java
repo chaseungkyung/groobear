@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.ProjectMapper;
 import com.sp.app.model.project.Project;
+import com.sp.app.model.project.ProjectMember;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +64,22 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void insertProjectMember(ProjectMember dto) throws Exception {
+		try {
+			
+			
+			
+			
+			mapper.insertProjectMember(dto);
+			
+		} catch (Exception e) {
+			log.info("insertProjectMember : ", e);
+			throw e;
+		}
+		
 	}
 	
 	
