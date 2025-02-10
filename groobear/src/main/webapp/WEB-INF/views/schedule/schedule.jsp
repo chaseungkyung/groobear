@@ -143,7 +143,7 @@
 							let obj = {};
 							
 							// fullcalendar 속성
-							obj.id = item.schduleIdx;
+							obj.id = item.scheduleIdx;
 							obj.title = item.title;
 							if( item.startTime ) {
 								obj.allDay = false;
