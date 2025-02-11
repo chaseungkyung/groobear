@@ -32,7 +32,7 @@
 	        SELECT employee_seq.NEXTVAL FROM DUAL
 	    </selectKey>
 		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, positionCode, empTel, hireDate, empStatus)
-		VALUES (#{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{positionCode}, #{empTel}, #{hireDate}, 0)
+		VALUES (#{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx, jdbcType=VARCHAR}, #{teamIdx, jdbcType=VARCHAR}, #{positionCode, jdbcType=VARCHAR}, #{empTel}, #{hireDate}, 0)
 	</insert>
 	
 	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">
