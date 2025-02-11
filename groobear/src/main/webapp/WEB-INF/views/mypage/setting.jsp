@@ -4,69 +4,60 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
-	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
-	
 </head>
 <body>
+
+<header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
+</header>	
 	
+<main>
 	<div class="container">
-		<div class="login-content"> 
-			<form name="loginForm" action="" method="post">
-				<h2 class="title">비밀번호 확인</h2>		
-				<div class="input-div pass">
-					<div class="i">
-						<i class="fas fa-lock"></i>
+		<div class="body-title">
+			<h3><i class="bi bi-person-square"></i> ${mode=="설정변경"}</h3>
+		
+		</div>
+			
+		<div class="alert alert-info" role="alert">
+			<i class="bi bi-person-check-fill">환경설정 변경</i>
+		</div>
+		
+		<div class="body-main">
+			
+			<form name="memberForm" method="post">
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-lable" for="empCode">사번</label>
+					<div class="row">
+						<div class="col-sm-10 wrap-empCode">
+							<div class="row">
+								<div class="col-6 pe-1">
+									<input type="text" name="empCode" id="empCode" class="form-control"
+										value="${dto.empCode}" readonly placeholder="사번">
+								</div>
+
+								
+								
+							</div>
+						</div>
 					</div>
-					<div class="div">
-						<h5>비밀번호</h5>
-						<input type="password" class="input" name="empPwd" autocomplete="off">
-					</div>
+				
 				</div>
-				<input type="button" class="btn" value="확인" onclick="sendLogin();">
 			</form>
-			<p class="message">${message}</p>
-		</div>		
+		</div>
+		
 	</div>
+</main>	
 	
-	<script type="text/javascript">
-		function sendLogin() {
-			const f = document.loginForm;
-			let str;
-			
-			str = f.empPwd.value.trim();
-			if(! str) {
-				f.empPwd.focus();
-				return;
-			}
-			
-			f.action = '${pageContext.request.contextPath}/pwd';
-			f.submit();
-		}
-		
-		const inputs = document.querySelectorAll(".input");
-		
-		function addcl() {
-			let parent = this.parentNode.parentNode;
-			parent.classList.add("focus");
-		}
-		
-		function remcl(){
-			  let parent = this.parentNode.parentNode;
-			  if(this.value == ""){
-			    parent.classList.remove("focus");
-			 }
-		}
-		
-		inputs.forEach(input => {
-			 input.addEventListener("focus", addcl);
-			 input.addEventListener("blur", remcl);
-		});
-	</script>
+<footer>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
+</footer>
+
+	<jsp:include page="/WEB-INF/views/layout/footerResources.jsp"/>
+	
 </body>
 </html>
