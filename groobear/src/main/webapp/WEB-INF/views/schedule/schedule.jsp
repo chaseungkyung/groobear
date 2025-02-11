@@ -211,6 +211,7 @@
 			calendar.render();
 		});
 		
+		/*
 		$(function() {
 			// 카테고리 추가
 			$('.btnCategoryAddOk').click(function(){
@@ -289,6 +290,7 @@
 				$('#myOffcanvas').offcanvas('hide');
 			});
 		});
+		*/
 		
 		// 일정 등록 폼
 		function insertSchedule(startStr, endStr, allDay) {
