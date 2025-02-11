@@ -23,11 +23,6 @@ public class SettingController {
 	
 	private final MemberService service;
 	
-	@GetMapping("mypage")
-	public String mypage() {
-		return "/mypage/mypage";
-	}
-	
 	@GetMapping("setting") // not yet setting page
 	public String setting() {
 		return "/mypage/setting";
