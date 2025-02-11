@@ -10,7 +10,7 @@ public class ContactController {
 
 	@GetMapping("list")
 	public String contactList() {
-		return "/contact/list";
+		return "contact/list";
 	}
 	
 }

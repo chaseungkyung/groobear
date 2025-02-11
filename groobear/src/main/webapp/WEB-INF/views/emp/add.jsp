@@ -12,22 +12,68 @@
 	</style>
 	
 <script type="text/javascript">
-function insertEmp() {
-	const f = document.empForm;
-	let str;
-	
-	str = f.empCode.value;
-	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
-		alert("사원번호를 다시 입력해주세요");
-		f.empCode.focus();
-		return;
+	window.addEventListener('load', function(){
+		
+		// request Dept
+		const fn = function(data){
+			if(data.state === 'false') {
+				return false;
+			}
+			// dept 
+			if(data){
+				if(data.dept){
+					let html = "";
+					for(item of data.dept){
+						html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
+					}
+					$("#deptIdx").append(html);
+				}
+				if(data.position){
+					let html = "";
+					for(item of data.position){
+						html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
+					}
+					$("#positionCode").append(html);
+				}
+			}
+		};
+		ajaxRequest('/emp/getDeptAndPosition', 'get', null, 'json', fn);
+		
+		// Dept Change Event / request Team
+		$("#deptIdx").on("change", function() {
+			const fn = function(data){
+				if(data.state === 'false') {
+					return false;
+				}
+				if(data && data.team){
+					let html = "<option value='' selected disabled>소속을 선택해주세요</option>";
+					for(item of data.team){
+						html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
+					}
+					$("#teamIdx").html(html);
+				}
+			};
+			let formData = 'deptIdx=' + $("#deptIdx").val();
+			ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
+		})
+		
+	});
+
+	function insertEmp() {
+		const f = document.empForm;
+		let str;
+		
+		let mode = '${mode}';
+		
+	 	f.action = '${pageContext.request.contextPath}/emp/${mode}';
+	    f.submit();
+			
 	}
 	
-	let mode = '${mode}';
-	if(mode === '' && f.empCode.value === 'false') {
-		str
+	function selectDept() {
+		
 	}
-}
+	
 </script>
 
 
@@ -48,87 +94,70 @@ function insertEmp() {
 	                </div>
 	                <div class="info">
 	                    <table>
-	                        <tr>
-	                            <th>사원번호</th>
-	                            <td><input type="text"></td>
-	                            <th>입사년월</th>
-	                            <td><input type="date" name="" id=""></td>
-	                        </tr>
-	                        <tr>
-	                            <th>성명</th>
-	                            <td><input type="text"></td>
-	                            <th>퇴사년월일</th>
-	                            <td><input type="date"></td>
-	                        </tr>
-	                        <tr>
-	                            <th>부서</th>
-	                            <td>
-	                                <select name="" id="">
-	                                    <option value="">[인사부] 인사1팀</option>
-	                                    <option value="">[인사부] 인사2팀</option>
-	                                    <option value="">[법무부] 법무1팀</option>
-	                                    <option value="">[법무부] 법무2팀</option>
-	                                    <option value="">[경영관리부] 경영1팀</option>
-	                                    <option value="">[경영관리부] 경영2팀</option>
-	                                    <option value="">[재무회계부] 재무팀</option>
-	                                    <option value="">[재무회계부] 회계팀</option>
-	                                    <option value="">[영업마케팅부] 영업팀</option>
-	                                    <option value="">[영업마케팅부] 마케팅팀</option>
-	                                    <option value="">[SW개발부] 솔루션아키텍처팀</option>
-	                                    <option value="">[SW개발부] 데이터베이스팀</option>
-	                                    <option value="">[SW개발부] QA팀</option>
-	                                    <option value="">[SW개발부] UX/UI디자인팀</option>
-	                                    <option value="">[SW개발부] 기술지원팀</option>
-	                                 </select>
-	                            </td>
-	                            <th>내/외국인</th>
-	                            <td class="nationalityStatus">
-	                                <select name="" id="">
-	                                    <option value="">내국인</option>
-	                                    <option value="">외국인</option>
-	                                </select>
-	                                <select name="" id="">
-	                                    <option value="" selected disabled>대한민국</option>
-	                                </select>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                            <th>직급</th>
-	                            <td>
-	                                <select name="" id="">
-	                                    <option value="">사원</option>
-	                                    <option value="">대리</option>
-	                                    <option value="">과장</option>
-	                                    <option value="">차장 </option>
-	                                    <option value="">부장 </option>
-	                                </select>                        
-	                            </td>
-	                            <th>주민등록번호</th>
-	                            <td><input type="text" name="" id=""></td>
-	                        </tr>
-	                        <tr class="tel">
-	                            <th>내선번호</th>
-	                            <td><input type="tel" value="02" disabled> - <input type="tel" value="3495" disabled> - <input type="tel" name="" id=""></td>
-	                            <th>휴대폰번호</th>
-	                            <td><input type="tel" name="" id=""> - <input type="tel" name="" id=""> - <input type="tel" name="" id=""></td>
-	                        </tr>
-	                        <tr>
-	                            <th>이메일</th>
-	                            <td class="eMail"><input type="text" name="" id=""> @ <input value="groobear.co.kr" disabled></td>
-	                            <th>주소</th>
-	                            <td class="address">
-	                                <input type="text" name="" id="" disabled><input type="button" value="주소검색">
-	                                <input type="text" name="" id="">
-	                            </td>
-	                        </tr>
-	                    </table>
-	                    <br><br><br>
-	                        <div class="insertBtn">
-								<button type="reset" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">다시 작성</button>
-								&nbsp;&nbsp;
-								<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/bbs/list';" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="update" ? "수정취소" : "등록취소"}</button>
-								<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="update" ? "수정완료" : "등록완료"}</button>
-	                   	 	</div>
+							<tr>
+								<th>사원번호</th>
+								<td><input type="text" name="empCode" class="readonly" readonly ></td>
+								<th>비밀번호</th>
+								<td><input type="text" name="empPwd" class="readonly" readonly></td>
+							</tr>
+							<tr>
+								<th>성명</th>
+								<td><input type="text" name="empName"></td>
+								<th>입사년월</th>
+								<td><input type="date" name="hireDate" id=""></td>
+							</tr>
+							<tr>
+								<th>부서</th>
+								<td>
+									<select name="deptIdx" id="deptIdx">
+										<option value="" readOnly>부서를 선택해주세요</option>
+									 </select>
+								</td>
+								<th>퇴사년월일</th>
+								<td><input type="date" name="retireDate"></td>
+							</tr>
+							<tr>
+								<th>소속</th>
+								<td>
+									<select name="teamIdx" id="teamIdx">
+										<option value="" readOnly>소속을 선택해주세요</option>
+									</select>
+								</td>
+								<th>주민등록번호</th>
+								<td><input type="text" name="rrn" id=""></td>
+							</tr>
+							<tr>
+								<th>직급</th>
+								<td>
+									<select name="positionCode" id="positionCode">
+										<option value="" readOnly>직급을 선택해주세요</option>
+									</select>           
+								</td>
+								<th>휴대폰번호</th>
+								<td class="tel"><input type="tel" name="tel" id=""></td>
+							</tr>
+							<tr>
+								<th>내선번호</th>
+								<td class="tel"><input type="tel" name="empTel" id=""></td>
+								<th>주소</th>
+								<td class="address1">
+									<input type="text" name="zipCode" id="zipCode">
+									<input type="text" name="addrMain" id="addrMain">
+									<input type="button" value="주소검색">
+								</td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td class="eMail"><input type="text" name="email" class="readonly" readonly> @ <input value="groobear.co.kr" disabled></td>	
+								<th></th>
+								<td class="address2"><input type="text" name="addrSub" id="addrSub"></td>
+							</tr>
+						</table>
+                        <div class="insertBtn">
+							<button type="reset" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">다시 작성</button>
+							<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/emp/list'" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="update" ? "수정취소" : "등록취소"}</button>
+							<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="update" ? "수정완료" : "등록완료"}</button>
+                   	 	</div>
 	                </div>
 	            </div>
             </form>
@@ -150,7 +179,7 @@ function insertEmp() {
 		                        <td>${dto.hireDate}</td>
 		                        <td>${dto.deptIdx}</td>
 		                        <td>${dto.tempIdx}</td>
-		                        <td>${dto.empRank}</td>
+		                        <td>${dto.positionName}</td>
 		                        <td>${dto.empStatus}</td>
 		                    </tr>
 	                    </c:forEach>
@@ -162,10 +191,5 @@ function insertEmp() {
             </div>
 		</div>
 	</main>
-	
-<script type="text/javascript">
-
-
-</script>
 </body>
 </html>

@@ -3,7 +3,6 @@ package com.sp.app.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sp.app.model.SessionInfo;
 
@@ -14,10 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/main/*")
 public class HomeController {
 	
-	@GetMapping("home")
+	@GetMapping("/main")
 	public String handleHome(Model model, HttpSession session) throws Exception {
 		
 		try {

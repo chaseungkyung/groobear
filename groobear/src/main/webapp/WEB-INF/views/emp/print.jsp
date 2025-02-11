@@ -91,7 +91,7 @@ function onPrint() {
 			<td>${dto.empName}</td>
 			<td>${dto.deptIdx}</td>
 			<td>${dto.teamIdx}</td>
-			<td>${dto.empRank}</td>
+			<td>${dto.positionName}</td>
 			<td>${dto.empTel}</td>
 		</tr>
 		</c:forEach>

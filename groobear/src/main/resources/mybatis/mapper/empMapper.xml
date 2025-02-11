@@ -3,15 +3,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.MemberMapper">
 
-	<select id="loginMember" parameterType="String" resultType="com.sp.app.model.Member">
-		SELECT empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, hireDate, retireDate, lastLogin, loginFails, empStatus
-		FROM Employee
-		WHERE empCode = #{empCode}
+	<select id="getLastEmpCode" resultType="String">
+		SELECT empCode
+		FROM employee
+		WHERE empCode LIKE CONCAT(#{empCode}, '%')
+		ORDER BY empCode DESC FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="listDepartment" resultType="com.sp.app.model.Member">
+		SELECT deptIdx, deptName
+		FROM department
+	</select>
+	
+	<select id="listTeam" resultType="com.sp.app.model.Member">
+		SELECT teamIdx, t.deptIdx, teamName
+		FROM team t
+		LEFT OUTER JOIN department d ON t.deptIdx = d.deptIdx
+		WHERE t.deptIdx = #{deptIdx}
+	</select>
+	
+	<select id="listPosition" resultType="com.sp.app.model.Member">
+		SELECT positionCode, positionName, parentCode
+		FROM position
 	</select>
 
 	<insert id="insertEmployee" parameterType="com.sp.app.model.Member">
-		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empRank, empTel, hireDate, retireDate, lastLogin, loginFails, empStatus)
-		VALUES (employee_seq.NEXTVAL, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{empRank}, #{empTel}, #{hireDate}, #{retireDate}, #{lastLogin}, #{loginFails}, #{empStatus})
+		<selectKey keyProperty="empIdx" resultType="java.lang.Long" order="BEFORE">
+	        SELECT employee_seq.NEXTVAL FROM DUAL
+	    </selectKey>
+		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, positionCode, empTel, hireDate, empStatus)
+		VALUES (#{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx}, #{teamIdx}, #{positionCode}, #{empTel}, #{hireDate}, 0)
 	</insert>
 	
 	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">
@@ -22,6 +43,7 @@
 	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
 	
 	</insert>
+	
 	<!--  
 	<update id="updateLastLogin" parameterType="com.sp.app.model.Member">
 	 	UPDATE EmployeeDetail SET lastLogin= #{lastLogin}
@@ -34,7 +56,7 @@
 	</update>
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
-		UPDATE Employee SET deptIdx = #{deptIdx}, teamIdx= #{teamIdx}, empRank= #{empRank}, empTel= #{empTel}
+		UPDATE Employee SET deptIdx = #{deptIdx}, teamIdx= #{teamIdx}, positionCode= #{positionCode}, empTel= #{empTel}
 		WHERE deptIdx = #{deptIdx}
 	</update>
 	
@@ -58,33 +80,53 @@
 	<update id="updateFailureCount" parameterType="com.sp.app.model.Member">
 	
 	</update>
-	
-	<select id="findByEmpIdx" parameterType="">
-	
-	</select>
-	
-	<select id="listFindMember" parameterType="map">
-	
-	</select>
+
 	-->
 	
-	<select id="listMemberAll" parameterType="com.sp.app.model.Member">
-		SELECT empIdx, empCode, empName, deptIdx, teamIdx, empStatus, empTel 
+	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
+		select empIdx, empCode, empName, empPwd, e.deptIdx, e.teamIdx, e.positionCode, emptel, empStatus, 
+				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+		from employee e
+		left outer join department d ON d.deptidx = e.deptidx
+		left outer join team t On t.teamidx = e.teamidx
+		left outer join position p ON p.positionCode = e.positioncode
+		WHERE empIdx = #{empIdx}
+		ORDER BY empCode DESC	
+	</select>
+		
+	<select id="findByEmpCode" parameterType="String" resultType="com.sp.app.model.Member" >
+		select empIdx, empCode, empName, empPwd, e.deptIdx, e.teamIdx, e.positionCode, emptel, empStatus, 
+				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+		from employee e
+		left outer join department d ON d.deptidx = e.deptidx
+		left outer join team t On t.teamidx = e.teamidx
+		left outer join position p ON p.positionCode = e.positioncode
+		WHERE empCode = #{empCode} AND empStatus = 0
+		ORDER BY empCode DESC	
+	</select>
+			
+	<select id="listMemberAll" resultType="com.sp.app.model.Member">
+		SELECT empIdx, empCode, empName, deptIdx, teamIdx, positionCode, empTel 
 		FROM employee
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		SELECT e.empIdx, e.empCode, e.empName, e.deptIdx, e.teamIdx, e.empStatus, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate , d.tel, d.email, e.empTel 
-		FROM employee e
-		JOIN employeedetail d ON e.empIdx = d.empIdx
+		select e.empidx, empCode, empname, e.deptidx, e.teamidx, e.positioncode, emptel, empstatus, tel, email,
+				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+		from employee e
+		left outer JOIN employeedetail ed ON e.empIdx = ed.empIdx
+		left outer join department d ON d.deptidx = e.deptidx
+		left outer join team t On t.teamidx = e.teamidx
+		left outer join position p ON p.positionCode = e.positioncode
 		ORDER BY empCode DESC
 	</select>
 	
-	<select id="dataConut" parameterType="map" resultType="com.sp.app.model.Member">
+
+ 	<select id="dataConut" parameterType="map" resultType="com.sp.app.model.Member">
 		SELECT NVL(COUNT(e.empIdx), 0) dataCount
 		FROM employee e
-		JOIN employeedetail d ON e.empIdx = d.empIdx
 	</select>
+
 	
 	
 <!-- 

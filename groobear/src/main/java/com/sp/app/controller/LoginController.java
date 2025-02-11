@@ -3,66 +3,39 @@ package com.sp.app.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sp.app.model.Member;
-import com.sp.app.model.SessionInfo;
-import com.sp.app.service.MemberService;
-
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping(value = "/")
 public class LoginController {
 
-	private final MemberService service;
-
-	@GetMapping("/")
-	public String loginForm(Model model) {
-		return "login/login";
-	}
-	
-	@PostMapping("login")
-	public String loginSubmit(
-			@RequestParam(name = "empCode") String empCode,
-			@RequestParam(name = "empPwd") String empPwd,
-			Model model, HttpSession session) {
+	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+	public String loginForm(@RequestParam(name = "login_error", required = false) String login_error, Model model) {
 		
-		Member dto = service.loginMember(empCode);
-		
-		
-		if(dto == null || ! empPwd.equals(dto.getEmpPwd())) {
-			model.addAttribute("message", "로그인에 실패했습니다.");
-			
-			return "login/login";
+		if(login_error != null) {
+			model.addAttribute("message", "사번 또는 패스워드가 일치하지 않습니다.");
 		}
 		
-		SessionInfo info = SessionInfo.builder()
-				.empCode(dto.getEmpCode())
-				.empName(dto.getEmpName())
-				.empRank(dto.getEmpRank())
-				.teamIdx(dto.getTeamIdx())
-				.build();
-		
-		session.setMaxInactiveInterval(60 * 60);
-		
-		session.setAttribute("member", info);
-		
-		return "main/home";
-		
-	}
-	
-	@GetMapping("logout")
-	public String logout(HttpSession session) {
-		
-		session.removeAttribute("member");
-
-		session.invalidate();
-
 		return "login/login";
 	}
+	
+	
+	@GetMapping("noAuthorized")
+	public String noAuthorized(Model model) {
+		return "login/noAuthorized";
+	}
+	
+	@GetMapping("expired")
+	public String expired() throws Exception {
+		// 세션이 익스파이어드(만료) 된 경우
+		return "login/expired";
+	}	
+	
 }

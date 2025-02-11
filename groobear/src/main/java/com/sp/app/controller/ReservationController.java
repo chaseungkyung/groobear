@@ -10,7 +10,7 @@ public class ReservationController {
 
 	@GetMapping("main")
 	public String reservationMain() {
-		return "/reservation/main";
+		return "reservation/main";
 	}
 	
 }

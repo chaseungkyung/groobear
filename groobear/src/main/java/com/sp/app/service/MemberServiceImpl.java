@@ -2,7 +2,9 @@ package com.sp.app.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.MemberMapper;
@@ -17,33 +19,21 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper mapper;
-	
-	@Override
-	public Member loginMember(String empCode) {
-		
-		Member dto = null;
-		
-		try {
-			
-			dto = mapper.loginMember(empCode);
-			
-		} catch (Exception e) {
-			log.info("loginMember : ", e);
-		}
-		
-		return dto;
-	}
+	private final PasswordEncoder bcryptEncoder;	
+
 	
 	@Override
 	public void insertEmployee(Member dto) throws Exception {
 		
 		try {
 			
+			String encPassword = bcryptEncoder.encode(dto.getEmpPwd());
+			dto.setEmpPwd(encPassword);
+			
 			mapper.insertEmployee(dto);
 			
 		} catch (Exception e) {
 			log.info("insertEmployee : ", e);
-			
 			throw e;
 		}
 		
@@ -108,11 +98,9 @@ public class MemberServiceImpl implements MemberService {
 	public void updateFailureCount(String empCode) throws Exception {
 		
 	}
-	
-	
 
 	@Override
-	public Member findByEmpIdx(String empIdx) {
+	public Member findByEmpIdx(long empIdx) {
 		Member dto = null;
 		try {
 			dto = mapper.findByEmpIdx(empIdx);
@@ -163,6 +151,99 @@ public class MemberServiceImpl implements MemberService {
 		return list;
 	}
 
+	@Override
+	public List<Member> listDepartment(Map<String, Object> map) {
+		
+		List<Member> list = null;
+		
+		try {
+			
+			list = mapper.listDepartment(map);
+			
+		} catch (Exception e) {
+			log.info("listDepartment : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Member> listTeam(Map<String, Object> map) {
+		
+		List<Member> list = null;
+		
+		try {
+			
+			list = mapper.listTeam(map);
+			
+		} catch (Exception e) {
+			log.info("listDepartment : ", e);
+		}
+		
+		return list;
+		
+	}
+
+	@Override
+	public List<Member> listPosition(Map<String, Object> map) {
+		
+		List<Member> list = null;
+		
+		try {
+			
+			list = mapper.listPosition(map);
+			
+		} catch (Exception e) {
+			log.info("listDepartment : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public String getLastEmpCode(String empCode) {
+		
+		return mapper.getLastEmpCode(empCode);
+	}
+
+	@Override
+	public void updateMemberEnabled(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Long getMemberIdx(String empCode) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Member findByEmpCode(String emdCode) {
+		Member dto = null;
+		
+		try {
+			dto = mapper.findByEmpCode(emdCode);
+		} catch (Exception e) {
+			log.info("findByEmpCode : ", e);
+		}
+		
+		return dto;
+	}
 	
-	
+	@Override
+	public boolean isPasswordCheck(String empCode, String empPwd) {
+		try {
+			// 패스워드 비교(userPwd를 암호화 해서 dto.getUserPwd()와 비교하면 안된다.)
+			//                 userPwd를 암호화하면 가입할때의 암호화 값과 다름. 암호화할때 마다 다른 값
+			
+			Member dto = Objects.requireNonNull(findByEmpCode(empCode));
+			
+			return bcryptEncoder.matches(empPwd, dto.getEmpPwd());
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+		}
+		
+		return false;		
+	}
 }

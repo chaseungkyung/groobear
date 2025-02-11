@@ -17,7 +17,7 @@
 				<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/">문서 양식1</a></li>
+							<li><a href="${pageContext.request.contextPath}/sign/write">휴가신청서</a></li>
 							<li><a href="${pageContext.request.contextPath}/">문서 양식2</a></li>
 						</ul>
 					</div>
@@ -26,7 +26,7 @@
 			<div class="accordion-item">
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseOne">
-						결제 상신함
+						결재 상신함
 					</button>
 				</h2>
 				<div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -41,7 +41,7 @@
 			<div class="accordion-item">
 				<h2 class="accordion-header">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
-						결제 수신함
+						결재 수신함
 					</button>
 				</h2>
 				<div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">

@@ -18,5 +18,5 @@ public class SessionInfo {
 	private String empName; // 이름
 	private String deptIdx; // 부서
 	private String teamIdx; // 팀
-	private String empRank; // 직급
+	private long positionCode; // 직급
 }

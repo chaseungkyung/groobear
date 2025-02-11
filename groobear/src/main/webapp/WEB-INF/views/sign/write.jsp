@@ -6,19 +6,8 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/signMenu.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/sign/leaveRequest.css" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
-	<style type="text/css">
-		
-		.writeForm h2 {width: 100%; text-align: center; font-weight: bold; font-size: 25px; background-color: #f0f0f0; padding: 20px 0; box-sizing: border-box;}
-		
-		table {width: 100%; text-align: center;}
-		table th, table td {border: 1px solid #333;}
-		table tr {height: 40px; line-height: 40px;}
-		
-		.my th, .my td {width: 25%;}
-		
-		.title {background-color: #f0f0f0; padding: 10px 0; box-sizing: border-box; font-size: 15px; font-weight: bold;}
-	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
@@ -26,6 +15,37 @@
 	
 	<main>
 		<div class="mainInner">
+			<div>
+				<button>작성 취소</button>
+				<button>상신하기</button>
+			</div>
+			<div class="approvalLine">
+				<div class="getApprovalLine">
+					<p>결재라인 불러오기</p>
+				</div>
+				<table>
+					<tr>
+						<th>본인</th>
+						<th>대리</th>
+						<th>팀장</th>
+						<th>부장</th>
+					</tr>
+					<tr class="approvalCell">
+						<td></td>
+						<td>
+							<button>결재하기</button>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>${sessionScope.member.empName} ${sessionScope.member.positionCode}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
 			<div class="writeForm">
 				<h2>휴가 신청서</h2>
 				<form>
@@ -33,18 +53,18 @@
 						<table class="my">
 							<tr>
 								<th>부서</th>
-								<td></td>
+								<td>${sessionScope.member.deptIdx}</td>
 								<th>소속</th>
-								<td></td>
+								<td>${sessionScope.member.teamIdx}</td>
 							</tr>
 							<tr>
 								<th>직급</th>
-								<td></td>
+								<td>${sessionScope.member.positionCode}</td>
 								<th>성명</th>
-								<td></td>
+								<td>${sessionScope.member.empName}</td>
 							</tr>
 						</table>
-						<table class="">
+						<table class="leaveRequest">
 							<tr>
 								<td colspan="2" class="title">신청내역</td>
 							</tr>
@@ -64,30 +84,26 @@
 								<th>휴가 기간</th>
 								<td>
 									<input type="date"> ~ <input type="date">
+									( 일간)
 								</td>
 							</tr>
-							<tr>
+							<tr class="leaveReason">
 								<th>휴가 사유</th>
 								<td><textarea></textarea></td>
 							</tr>
-							<tr>
+							<tr class="remarks">
 								<th>비고</th>
 								<td><textarea></textarea></td>
 							</tr>
 						</table>
 					</div>
 				</form>
-				<p class="footer">
+				<p class="msg">
 			        상기와 같이 휴가를 신청하오니 검토 후 승인하여 주시기 바랍니다.<br>
-			        ※ 첨부 : 휴가 증빙 제출 서류 1부
 			    </p>
 			    <div class="signature">
-			        <table>
-			            <tr>
-			                <td>20 년 월 일</td>
-			                <td>신청자 : (인)</td>
-			            </tr>
-			        </table>
+			    	<p>20 년 월 일</p>
+			    	<p>신청자 : (인)</p>
 			    </div>
 			    <p class="company">GROOBEAR 대표이사 귀중</p>
 		    </div>
