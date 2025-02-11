@@ -6,25 +6,9 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/article.css" type="text/css">
+	
 	<style type="text/css">
-		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
-		.btnArea button {width: 100%;}
-		
-		.textArea {width: 100%;}
-		.textArea tr {height: 2.3vw; display: flex; align-items: center;}
-		.textArea tr th {width: 10%; vertical-align: middle;}
-		.textArea tr td {width: 90%;}
-		
-		.textArea tr:last-child th {vertical-align: top;}
-		
-		.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
-		
-		.textArea tr .addressArea {display: flex; justify-content: space-between;}
-		.textArea tr .addressArea input {width: 89%;}
-		.textArea tr .addressArea button {width: 10%;}
-		
-		.textArea .contentArea {align-items: flex-start;}
-		.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
 		
 	</style>
 </head>
@@ -34,63 +18,112 @@
 	<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp"/>
 	
 	<main>
-	
+	    <button class="invite-button">초대하기</button>
+	    
+	    <button type="button" class="btnProjectStage">업무추가</button>
+		<button type="button" class="btnProjectTask">업무추가</button>
+	    
+	    <div id="inviteModal" class="modal" style="display: none;">
+	        <div class="modal-content">
+	            <span class="close">&times;</span>
+	            <h2>참여자 초대</h2>
+	            <label class="input-label">참여자</label>
+	            <input type="text" class="input-field" placeholder="참여자 입력">
+	            <label class="input-label">팀</label>
+	            <input type="text" class="input-field" placeholder="팀 입력">
+	            <label class="input-label">역할</label>
+	            <input type="text" class="input-field" placeholder="역할 입력">
+	            <div class="button-group">
+	                <button class="cancel-btn">취소</button>
+	                <button class="submit-btn">등록</button>
+	            </div>
+	        </div>
+	    </div>
+		
+		<div class="content-container">
+            <div class="task-section">
+                <h3>업무 목록</h3>
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>업무명</th>
+                            <th>상태</th>
+                            <th>담당자</th>
+                            <th>시작일</th>
+                            <th>마감일</th>
+                            <th>등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	<tr>
+	                        <td>디자인단계</td>
+	                        <td>요청</td>
+	                        <td>이자바</td>
+	                        <td>2025-02-11</td>
+	                        <td>2025-04-10</td>
+	                        <td>2025-02-11</td>
+                      	</tr>
+                    
+                        <c:forEach var="task" items="${taskList}">
+                            <tr>
+                                <td>${task.name}</td>
+                                <td>${task.status}</td>
+                                <td>${task.assignee}</td>
+                                <td>${task.startDate}</td>
+                                <td>${task.dueDate}</td>
+                                <td>${task.createdDate}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="participant-section">
+                <h3>참여자</h3>
+                <div class="participant-card">
+                    <div class="participant-info">
+                        <span class="participant-icon">Y</span>
+                        <div class="participant-details">
+                            <strong>yylol (나)</strong>
+                            <p>test</p>
+                        </div>
+                    </div>
+                    <div class="participant-actions">
+                        <button class="chat-btn">💬 채팅</button>
+                        <button class="video-btn">📹 화상회의</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+
 	</main>
 	
-	<!-- member 등록 및 수정 대화상자 -->
-	<div class="modal fade" id="myDialogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="myDialogModalLabel">????</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body p-2">
-				</div>
-			</div>
-		</div>
-	</div>
 	
-	<!-- 카테고리 대화상자 -->
-	<div class="modal fade" id="faqCategoryDialogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="faqCategoryDialogModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="faqCategoryDialogModalLabel">1</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body pt-1">
-				
-					<form name="memberForm" method="post">
-						<table class="table table-bordered" >
-							<thead class="table-light">
-								<tr align="center">
-									<th width="170">mem1</th>
-									<th width="120">mem2</th>
-									<th width="80">mem3</th>
-									<th>변경</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr align="center">
-									<td> <input type="text" name="member" class="form-control"> </td>
-									<td>
-										<select name="enabled" class="form-select">
-											<option value="1">활성</option>
-											<option value="0">비활성</option>
-										</select>
-									</td>						
-									<td> <button type="button" class="btn btn-light btnMemberAddOk">등록</button> </td>
-								</tr>
-							</tbody>
-							<tfoot class="member-list"></tfoot>
-						</table>
-					</form>
-				
-				</div>
-			</div>
-		</div>
-	</div>
+<script type="text/javascript">
+
+$(function() {
+    var modal = $("#inviteModal");
+    var btn = $(".invite-button");
+    var closeBtn = $(".close");
+    var cancelBtn = $(".cancel-btn");
+	
+    modal.hide();
+    
+    btn.click(function() {
+        modal.show();
+    });
+
+    closeBtn.click(function() {
+        modal.hide();
+    });
+
+    cancelBtn.click(function() {
+        modal.hide();
+    });
+});
+
+</script>
 
 </body>
 </html>

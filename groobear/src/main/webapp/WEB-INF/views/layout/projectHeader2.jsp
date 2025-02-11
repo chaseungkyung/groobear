@@ -9,7 +9,7 @@
 		</div>
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/project/list">프로젝트 정보</a></li>
-			<li><a href="${pageContext.request.contextPath}/project/list">업무</a></li>
+			<li><a href="${pageContext.request.contextPath}/project/list">프로젝트 단계</a></li>
 			<li><a href="${pageContext.request.contextPath}/project/list">캘린더</a></li>
 			<li><a href="${pageContext.request.contextPath}/project/list">캘린더</a></li>
 			<li><a href="${pageContext.request.contextPath}/project/list">캘린더</a></li>

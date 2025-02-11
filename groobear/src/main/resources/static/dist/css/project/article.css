@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
+.btnArea button {width: 100%;}
+
+.textArea {width: 100%;}
+.textArea tr {height: 2.3vw; display: flex; align-items: center;}
+.textArea tr th {width: 10%; vertical-align: middle;}
+.textArea tr td {width: 90%;}
+
+.textArea tr:last-child th {vertical-align: top;}
+
+.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
+
+.textArea tr .addressArea {display: flex; justify-content: space-between;}
+.textArea tr .addressArea input {width: 89%;}
+.textArea tr .addressArea button {width: 10%;}
+
+.textArea .contentArea {align-items: flex-start;}
+.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
+
+/* 업무 리스트 */
+main ul li a {display: block; width: 70%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
+main ul li a:hover {text-decoration: underline;}
+
+main ul li:nth-child(1) {width: 60%;}
+main ul li:nth-child(2) {width: 10%;}
+main ul li:nth-child(3) {width: 5%;}
+main ul li:nth-child(4) {width: 15%;}
+main ul li:nth-child(5) {width: 10%;}
+
+
+/* 초대하기 버튼 */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    color: black;
+}
+.close {
+    color: black;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.input-label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.cancel-btn, .submit-btn {
+    width: 48%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+}
+.cancel-btn {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #ccc;
+}
+.submit-btn {
+    background-color: #007BFF;
+    color: white;
+}
+
+
+
+/* 업무, 참여자 화면 */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.task-section {
+    width: 70%;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.task-table th, .task-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.task-table th {
+    background-color: #f2f2f2;
+}
+
+
+.task-table th:nth-child(1), 
+.task-table td:nth-child(1) {
+    width: 40%; /* 원하는 비율로 조정 */
+    min-width: 200px; /* 최소 너비 설정 */
+}
+
+
+
+
+.participant-section {
+    width: 25%;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.participant-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.participant-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.participant-icon {
+    background: #ff8c00;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 50%;
+}
+.participant-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+		
