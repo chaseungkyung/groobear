@@ -56,7 +56,7 @@
 			                <li>${vo.empName}</li>
 		                    <li>${vo.deptIdx}</li>
 		                    <li>${vo.teamIdx}</li>
-		                    <li>${vo.empRank}</li>
+		                    <li>${vo.positionCode}</li>
 		                    <li>${vo.hireDate}</li>
 		                    <li>${vo.tel}</li>
 		                    <li>${vo.email}</li>

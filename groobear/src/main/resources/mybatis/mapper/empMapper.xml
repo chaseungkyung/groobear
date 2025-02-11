@@ -69,12 +69,12 @@
 	-->
 	
 	<select id="listMemberAll" parameterType="com.sp.app.model.Member">
-		SELECT empIdx, empCode, empName, deptIdx, teamIdx, empRank, empTel 
+		SELECT empIdx, empCode, empName, deptIdx, teamIdx, empStatus, empTel 
 		FROM employee
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		SELECT e.empIdx, e.empCode, e.empName, e.deptIdx, e.teamIdx, e.empRank, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate , d.tel, d.email, e.empTel 
+		SELECT e.empIdx, e.empCode, e.empName, e.deptIdx, e.teamIdx, e.empStatus, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate , d.tel, d.email, e.empTel 
 		FROM employee e
 		JOIN employeedetail d ON e.empIdx = d.empIdx
 		ORDER BY empCode DESC
