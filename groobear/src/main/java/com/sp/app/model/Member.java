@@ -16,7 +16,7 @@ public class Member {
 	private String empPwd;
 	private String deptIdx;
 	private String teamIdx;
-	private String empRank;
+	private String positionCode;
 	private String empTel;
 	private String empStatus;
 	private String hireDate;
