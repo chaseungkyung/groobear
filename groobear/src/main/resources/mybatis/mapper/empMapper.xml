@@ -40,11 +40,7 @@
 		VALUES (#{empIdx}, #{birth}, #{email}, #{tel}, #{zipCode}, #{addrMain}, #{addrSub})
 	</insert>
 
-	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
-	
-	</insert>
-	
-	<!--  
+
 	<update id="updateLastLogin" parameterType="com.sp.app.model.Member">
 	 	UPDATE EmployeeDetail SET lastLogin= #{lastLogin}
 		WHERE deptIdx = #{deptIdx}
@@ -65,23 +61,6 @@
 		WHERE deptIdx = #{deptIdx}
 	</update>
 	 
-	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">
-	
-	</update>
-	
-	<select id="checkFailureCount" parameterType="">
-	
-	</select>
-	
-	<update id="updateFailureCountReset" parameterType="com.sp.app.model.Member">
-	
-	</update>
-
-	<update id="updateFailureCount" parameterType="com.sp.app.model.Member">
-	
-	</update>
-
-	-->
 	
 	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
 		select empIdx, empCode, empName, empPwd, e.deptIdx, e.teamIdx, e.positionCode, emptel, empStatus, 
@@ -112,7 +91,7 @@
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
 		select e.empidx, empCode, empname, e.deptidx, e.teamidx, e.positioncode, emptel, empstatus, tel, email,
-				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+				TO_CHAR(hiredate, 'YYYY-MM-DD') hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
 		from employee e
 		left outer JOIN employeedetail ed ON e.empIdx = ed.empIdx
 		left outer join department d ON d.deptidx = e.deptidx
@@ -120,18 +99,7 @@
 		left outer join position p ON p.positionCode = e.positioncode
 		ORDER BY empCode DESC
 	</select>
-	
 
- 	<select id="dataConut" parameterType="map" resultType="com.sp.app.model.Member">
-		SELECT NVL(COUNT(e.empIdx), 0) dataCount
-		FROM employee e
-	</select>
 
 	
-	
-<!-- 
-	<delete id="" parameterType="com.sp.app.model.Member">
-		
-	</delete>
- -->
 </mapper>

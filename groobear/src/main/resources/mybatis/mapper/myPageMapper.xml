@@ -2,9 +2,19 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.model.MyPageMapper">
-	<select id="workList" parameterType="com.sp.app.model.MyPage">
-		SELECT workIdx, e.empIdx, workDate, loginTime
+	<select id="workList" parameterType="map" resultType="com.sp.app.model.MyPage">
+		SELECT workIdx, e.empIdx, e.empName, e.deptIdx, e.teamIdx, e.positionCode, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate, workDate, TO_CHAR(loginTime, 'HH24:MI:SS') loginTime
 		FROM workLog w
 		JOIN employee e ON e.empIdx = w.empIdx
 	</select>
+
+	
+	<select id="timeKeeping" parameterType="map" resultType="com.sp.app.model.MyPage">
+        SELECT w.workIdx, d.aprIdx, e.empName, d.deptName, d.teamName, e.positionCode, d.status, o.otReqIdx, o.overTime, o.workDetail
+		FROM employee e
+		LEFT OUTER JOIN workLog w ON e.empIdx = w.empIdx
+		LEFT OUTER JOIN docApproval d ON d.empIdx = e.empIdx
+		LEFT OUTER JOIN overtimeRequest o ON o.aprIdx = d.aprIdx
+	</select>
+
 </mapper>

@@ -8,8 +8,7 @@ import com.sp.app.model.Member;
 public interface MyPageService {
 
 	public List<Member> workList(Map<String, Object> map) throws Exception;
-	public List<Member> paidTimeOff(Map<String, Object> map) throws Exception;
-	public List<Member> TimeKeeping(Map<String, Object> map) throws Exception;
+	public List<Member> timeKeeping(Map<String, Object> map) throws Exception;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);

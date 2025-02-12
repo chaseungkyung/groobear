@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp" />
 
 	<main>
-	<h3>연차 내역</h3>
+	<h3>근태 내역</h3>
 		<div class="mainInner">
 			<div>
 				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">근무 현황</button>
@@ -24,26 +24,23 @@
 			<form action="">
 				<div class="listArea">
 					<ul>
-						<li>일자</li>
 						<li>이름</li>
 						<li>부서</li>
 						<li>팀</li>
 						<li>직급</li>
-						<li>내용</li>
 						<li>추가시간</li>
-						<li hidden>승인여부</li>
+						<li hidden>승인상태</li>
 					</ul>
 					<c:forEach var="vo" items="${list}">
 					<ul>
 						<li><input type="checkbox" name="" id=""></li>
-						<li>${vo.overDate}</li>
 						<li>${vo.empName}</li>
-						<li>${vo.deptIdx}</li>
-						<li>${vo.teamIdx}</li>
+						<li>${vo.deptName}</li>
+						<li>${vo.teamName}</li>
 						<li>${vo.positionCode}</li>
 						<li>${vo.workDetail}</li>
 						<li>${vo.overTime}</li>
-						<li hidden>${vo.status}</li>							
+						<li hidden>${vo.status}</li>						
 					</ul>
 					</c:forEach>
 				</div>

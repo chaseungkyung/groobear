@@ -39,38 +39,21 @@ public class MyPageController {
 		} catch (Exception e) {
 			log.info("workList : ", e);
 		}
-		return "/mypage/workList"; 
+		return "mypage/workList"; 
 	}
 	
-	
-	@GetMapping("paidTimeOff")
-	public String paidTimeOff(Model model) throws Exception {
-		
-		try {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			List<Member> list = service.paidTimeOff(map);
-			
-		} catch (Exception e) {
-		}
-		
-		return "/mypage/paidTimeOff";
-	}
 	
 	
 	@GetMapping("timeKeeping")
-	public String TimeKeeping(Model model) {
+	public String timeKeeping(Model model) {
 		
 		try {
-			
 			Map<String, Object> map = new HashMap<>();
-			
-			List<Member> list = service.TimeKeeping(map);
+			List<Member> list = service.timeKeeping(map);
 			
 		} catch (Exception e) {
 		}
 		
-		return "/mypage/timeKeeping";
+		return "mypage/timeKeeping";
 	}
 }

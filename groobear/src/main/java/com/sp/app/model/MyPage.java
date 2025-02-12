@@ -28,6 +28,7 @@ public class MyPage {
 	private String overTime;
 	private String workDetail;	// 초과근무내용
 
+	private String status;		// 결재 상태
 	// 추가근무, 연차 서류는 docApproval 결재서류보관함 테이블 JOIN 해서 승인상태 보고 출력 ?
 	
 	// 연차내역

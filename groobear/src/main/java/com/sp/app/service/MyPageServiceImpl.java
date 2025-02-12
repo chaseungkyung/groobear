@@ -32,27 +32,14 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<Member> paidTimeOff(Map<String, Object> map) throws Exception {
+	public List<Member> timeKeeping(Map<String, Object> map) throws Exception {
 		List<Member> list = null;
 		
 		try {
-			list = mapper.paidTimeOff(map);
+			list = mapper.timeKeeping(map);
 			
 		} catch (Exception e) {
-			log.info("paidTimeOff : ", e);
-		}
-		return list;
-	}
-
-	@Override
-	public List<Member> TimeKeeping(Map<String, Object> map) throws Exception {
-		List<Member> list = null;
-		
-		try {
-			list = mapper.TimeKeeping(map);
-			
-		} catch (Exception e) {
-			log.info("TimeKeeping : ", e);
+			log.info("timeKeeping : ", e);
 		}
 		return list;
 	}
@@ -70,5 +57,4 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 
-	
 }
