@@ -49,7 +49,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				.empCode(member.getEmpCode())
 				.empName(member.getEmpName())
 				.deptIdx(member.getDeptIdx())
-				.deptNamd(member.getDeptName())
+				.deptName(member.getDeptName())
 				.teamIdx(member.getTeamIdx())
 				.teamName(member.getTeamName())
 				.positionCode(member.getPositionCode())
