@@ -15,12 +15,12 @@ public class SettingController {
 	
 	@GetMapping("mypage")
 	public String mypage() {
-		return "/mypage/mypage";
+		return "mypage/mypage";
 	}
 	
 	@GetMapping("pwd") 
 	public String setting() {
 		
-		return "/mypage/pwd";
+		return "mypage/pwd";
 	}
 }
