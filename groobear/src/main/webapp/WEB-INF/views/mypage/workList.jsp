@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp" />
 
 	<main>
-	<h3>휴가내역</h3>
+	<h3>근무 현황</h3>
 		<div class="mainInner">
 			<div>
 				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">근무 현황</button>
@@ -39,7 +39,7 @@
 							<li>${vo.empName}</li>
 							<li>${vo.deptIdx}</li>
 							<li>${vo.teamIdx}</li>
-							<li>${vo.empRank}</li>
+							<li>${vo.positionCode}</li>
 							<li>${vo.hireDate}</li>
 							<li>${vo.tel}</li>
 							<li>${vo.email}</li>

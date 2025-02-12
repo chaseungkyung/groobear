@@ -14,16 +14,10 @@
 	<main>
 		<div class="mainInner">
 			<div>
-				<a href="${pageContext.request.contextPath}/mypage/mypage" style="border: 1px solid; padding: 4px; border-radius : 4px; background-color: white;">근무 현황</a>
-				<a href="${pageContext.request.contextPath}/mypage/mypage2" style="border: 1px solid; padding: 4px; border-radius : 4px; background-color: white;">근태 내역</a>
-				<a href="${pageContext.request.contextPath}/mypage/mypage3" style="border: 1px solid; padding: 4px; border-radius : 4px; background-color: white;">휴가 내역</a>
-				
+				<a href="${pageContext.request.contextPath}/mypage/workList" >근무 현황</a>
+				<a href="${pageContext.request.contextPath}/mypage/timeKeeping" >근태 내역</a>
+				<a href="${pageContext.request.contextPath}/mypage/paidTimeOff" >휴가 내역</a>
 			</div>
-			<form action="">
-				<div class="listArea">
-
-				</div>
-			</form>
 		</div>
 	</main>
 

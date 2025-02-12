@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp" />
 
 	<main>
-	<h3>근태내역</h3>
+	<h3>연차 내역</h3>
 		<div class="mainInner">
 			<div>
 				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">근무 현황</button>
@@ -24,27 +24,27 @@
 			<form action="">
 				<div class="listArea">
 					<ul>
+						<li>일자</li>
 						<li>이름</li>
 						<li>부서</li>
 						<li>팀</li>
 						<li>직급</li>
-						<li>입사년월일</li>
-						<li>전화번호</li>
-						<li>이메일</li>
-						<li>내선번호</li>
+						<li>내용</li>
+						<li>추가시간</li>
+						<li hidden>승인여부</li>
 					</ul>
 					<c:forEach var="vo" items="${list}">
-						<ul>
-							<li><input type="checkbox" name="" id=""></li>
-							<li>${vo.empName}</li>
-							<li>${vo.deptIdx}</li>
-							<li>${vo.teamIdx}</li>
-							<li>${vo.empRank}</li>
-							<li>${vo.hireDate}</li>
-							<li>${vo.tel}</li>
-							<li>${vo.email}</li>
-							<li>${vo.empTel}</li>
-						</ul>
+					<ul>
+						<li><input type="checkbox" name="" id=""></li>
+						<li>${vo.overDate}</li>
+						<li>${vo.empName}</li>
+						<li>${vo.deptIdx}</li>
+						<li>${vo.teamIdx}</li>
+						<li>${vo.positionCode}</li>
+						<li>${vo.workDetail}</li>
+						<li>${vo.overTime}</li>
+						<li hidden>${vo.status}</li>							
+					</ul>
 					</c:forEach>
 				</div>
 			</form>
