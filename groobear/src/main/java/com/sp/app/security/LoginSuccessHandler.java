@@ -1,9 +1,6 @@
 package com.sp.app.security;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -52,7 +49,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				.empCode(member.getEmpCode())
 				.empName(member.getEmpName())
 				.deptIdx(member.getDeptIdx())
+				.deptNamd(member.getDeptName())
+				.teamIdx(member.getTeamIdx())
+				.teamName(member.getTeamName())
 				.positionCode(member.getPositionCode())
+				.positionName(member.getPositionName())
 				.teamIdx(member.getTeamIdx())
 				.build();
 		

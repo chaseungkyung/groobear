@@ -16,7 +16,10 @@ public class SessionInfo {
 	private long empIdx;
 	private String empCode; // 사번
 	private String empName; // 이름
-	private String deptIdx; // 부서
-	private String teamIdx; // 팀
-	private long positionCode; // 직급
+	private String deptIdx; // 부서 코드
+	private String deptNamd; // 부서명
+	private String teamIdx; // 팀 코드
+	private String teamName; // 팀명
+	private long positionCode; // 직급 코드
+	private String positionName; // 직급명
 }
