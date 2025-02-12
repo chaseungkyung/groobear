@@ -12,6 +12,12 @@
 		SELECT empIdx FROM employee WHERE empName = #{empName}
 	</select>
 	
+	<select id="findByEmpName1" parameterType="map" resultType="come.sp.app.model.project.Project">
+		SELECT empIdx, empName, deptIdx
+		FROM employee
+		WHERE deptIdx='F' AND INSTR(empName, #{empName}) &gt; 0
+	</select>
+	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(projIdx), 0)
 		FROM project p

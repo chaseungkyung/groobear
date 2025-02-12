@@ -20,13 +20,12 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public void insertProject(Project dto) throws Exception {
+		// long empIdx = 0;
 		try {
 			
 			Long empIdx = mapper.findByEmpName(dto.getEmpName());
 			
-			if(empIdx == null) {
-				throw new IllegalArgumentException("PM 이름에 해당하는 사원을 찾을 수 없습니다.");
-			}
+			// empIdx = mapper.findByEmpName(dto);
 			
 			dto.setEmpIdx(empIdx);
 			
