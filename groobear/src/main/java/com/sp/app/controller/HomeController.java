@@ -23,6 +23,7 @@ public class HomeController {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			model.addAttribute("empName", info.getEmpName());
+			model.addAttribute("deptName", info.getDeptName());
 			
 			
 		} catch (Exception e) {

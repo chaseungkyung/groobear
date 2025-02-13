@@ -21,7 +21,7 @@
                     <div class="today"><p>2025년 01월 20일</p></div>
                     <div class="profile">
                         <div class="userImg"></div>
-                        <div class="department"><p>개발팀</p></div>
+                        <div class="department"><p>${sessionScope.member.deptName}</p></div>
                         <div class="name"><p>${sessionScope.member.empName}</p></div>
                     </div>
                     <div class="time"><p>08:50:11</p></div>
