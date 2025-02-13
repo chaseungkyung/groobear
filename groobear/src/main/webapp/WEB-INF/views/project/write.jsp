@@ -6,7 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/wirte.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/write.css" type="text/css">
 	
 	<style type="text/css">
 		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
@@ -97,7 +97,7 @@
 							<th>PM 지정</th>
 							<td>
 								<input type="text" name ="empName" id="empName">
-								<button type="button" class="btnSearchName" onclick="searchOk();">검색</button>
+								
 								<div id="searchResults" class="search-results"></div> <!-- 검색 결과 출력 -->
 							</td>						
 						</tr>

@@ -20,26 +20,10 @@
 	<main>
 		<div class="mainInner">
 			<div class="btnArea">
-				<button type="button" class="btnProjectTask">업무추가</button>
-		    	<button class="invite-button">초대하기</button>
+				<button type="button" class="task-btn">업무추가</button>
+		    	<button type="button" class="invite-btn">초대하기</button>
 		    </div>
 		    
-		    <div id="inviteModal" class="modal" style="display: none;">
-		        <div class="modal-content">
-		            <span class="close">&times;</span>
-		            <h2>참여자 초대</h2>
-		            <label class="input-label">참여자</label>
-		            <input type="text" class="input-field" placeholder="참여자 입력">
-		            <label class="input-label">팀</label>
-		            <input type="text" class="input-field" placeholder="팀 입력">
-		            <label class="input-label">역할</label>
-		            <input type="text" class="input-field" placeholder="역할 입력">
-		            <div class="button-group">
-		                <button class="cancel-btn">취소</button>
-		                <button class="submit-btn">등록</button>
-		            </div>
-		        </div>
-		    </div>
 			
 			<div class="taskList">
 	            <div class="task-section">
@@ -57,7 +41,12 @@
 	                    </thead>
 	                    <tbody>
 	                    	<tr>
-		                        <td>디자인단계</td>
+		                        <td class="stage">
+		                        	디자인단계
+		                        	<div class="stageInner">
+	                        			<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+		                        	</div>
+		                        </td>
 		                        <td>요청</td>
 		                        <td>이자바</td>
 		                        <td>2025-02-11</td>
@@ -125,30 +114,149 @@
 		</div>
 
 	</main>
-	
+		    	
+	<!-- 업무 추가 모달 -->
+	<div id="taskModal" class="modal" style="display: none;">
+    	<div class="task-content">
+            <span class="close">&times;</span>
+            <h2>업무 작성</h2>
+            
+            <label class="input-label">제목</label>
+            <input type="text" class="input-field" placeholder="제목을 입력하세요.">
+            
+            <label class="input-label">담당자</label>
+            <input type="text" class="input-field" placeholder="담당자 추가">
+            
+            <label class="input-label">시작일</label>
+            <input type="date" class="input-field" placeholder="시작일 추가">
+            
+            <label class="input-label">마감일</label>
+            <input type="date" class="input-field" placeholder="마감일 추가">
+            
+            <div class="button-group">
+                <button class="cancel-btn">취소</button>
+                <button class="submit-btn">등록</button>
+            </div>
+        </div>
+    </div>
+    
+   	<!-- 하위 업무추가 모달 -->
+	<div id="myPlusModal" class="modal" style="display: none;">
+    	<div class="plus-content">
+            <span class="close">&times;</span>
+            <h2>업무 작성</h2>
+            
+            <label class="input-label">제목</label>
+            <input type="text" class="input-field" placeholder="제목을 입력하세요.">
+            
+            <label class="input-label">담당자</label>
+            <input type="text" class="input-field" placeholder="담당자 추가">
+            
+            <label class="input-label">시작일</label>
+            <input type="date" class="input-field" placeholder="시작일 추가">
+            
+            <label class="input-label">마감일</label>
+            <input type="date" class="input-field" placeholder="마감일 추가">
+            
+            <label class="input-label">메모</label>
+            <textarea class="input-field memo" placeholder="내용을 입력하세요."></textarea>
+            
+            <div class="button-group">
+                <button class="cancel-btn">취소</button>
+                <button class="submit-btn">등록</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 참여자 모달 -->
+    <div id="inviteModal" class="modal" style="display: none;">
+        <div class="invite-content">
+            <span class="close">&times;</span>
+            <h2>참여자 초대</h2>
+            <label class="input-label">참여자</label>
+            <input type="text" class="input-field" placeholder="참여자 입력">
+            <label class="input-label">팀</label>
+            <input type="text" class="input-field" placeholder="팀 입력">
+            <label class="input-label">역할</label>
+            <input type="text" class="input-field" placeholder="역할 입력">
+            <div class="button-group">
+                <button class="cancel-btn">취소</button>
+                <button class="submit-btn">등록</button>
+            </div>
+        </div>
+    </div>
 	
 <script type="text/javascript">
 
+/* 초대하기 클릭 */
+ 
 $(function() {
     var modal = $("#inviteModal");
-    var btn = $(".invite-button");
-    var closeBtn = $(".close");
-    var cancelBtn = $(".cancel-btn");
+    var btn = $(".invite-btn");
+    var closeBtn = $("#inviteModal .close");
+    var cancelBtn = $("#inviteModal .cancel-btn");
 	
     modal.hide();
     
     btn.click(function() {
-        modal.show();
+    	modal.fadeIn(300);
     });
 
     closeBtn.click(function() {
-        modal.hide();
+        modal.fadeOut(300);
     });
 
     cancelBtn.click(function() {
-        modal.hide();
+        modal.fadeOut(300);
     });
 });
+
+
+/* 업무추가 클릭 */
+$(function() {
+    var modal = $("#taskModal");
+    var btn = $(".task-btn");
+    var closeBtn = $("#taskModal .close");
+    var cancelBtn = $("#taskModal .cancel-btn");
+	
+    modal.hide();
+    
+    btn.click(function() {
+        modal.fadeIn(300);
+    });
+
+    closeBtn.click(function() {
+        modal.fadeOut(300);
+    });
+
+    cancelBtn.click(function() {
+        modal.fadeOut(300);
+    });
+});
+
+
+/* 하위 업무추가 클릭 */
+$(function() {
+    var modal = $("#myPlusModal");
+    var closeBtn = $("#myPlusModal .close");
+    var cancelBtn = $("#myPlusModal .cancel-btn");
+	
+    modal.hide();
+    
+    /* 동적 생성됐을 때 이벤트 위임 */
+    $('.task-section').on('click', '.stageInner', function(){
+    	modal.fadeIn(300);
+    });
+    
+    closeBtn.on('click', function(){
+    	modal.fadeOut(300);
+    });
+    
+    cancelBtn.on('click', function(){
+    	modal.fadeOut(300);
+    });
+});
+
 
 </script>
 
