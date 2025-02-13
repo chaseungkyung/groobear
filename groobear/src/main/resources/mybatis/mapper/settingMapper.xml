@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.SettingMapper">
+
+	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
+		SELECT e.empIdx, empCode, empName, empPwd, TO_CHAR(birth, 'YYYY-MM-DD') birth, 
+			   email, tel, zipCode, addrMain, addrSub, rrn
+		FROM employee e
+		LEFT OUTER JOIN employeeDetail ed ON e.empIdx = ed.empIdx
+		WHERE e.empIdx = #{empIdx}
+	</select>
+	
+	<select id="getEmpCode" parameterType="Long" resultType="String" >
+		SELECT empCode
+		FROM employee
+		WHERE empIdx = #{empIdx}
+	</select>
+
+	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
+		UPDATE employee SET empName=#{empName}, empPwd = #{empPwd}
+		WHERE empIdx = #{empIdx}
+	</update>
+	
+	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
+		UPDATE employeeDetail SET birth = #{birth, jdbcType=VARCHAR},
+			   email = #{email, jdbcType=VARCHAR}, tel = #{tel, jdbcType=VARCHAR},
+			   zipCode = #{zipCode, jdbcType=VARCHAR}, addrMain = #{addrMain, jdbcType=VARCHAR},
+			   addrSub = #{addrSub, jdbcType=VARCHAR}, rrn = #{rrn, jdbcType=VARCHAR}
+		WHERE empIdx = #{empIdx}
+	</update>
+	
+	<select id="listFindEmployee" parameterType="com.sp.app.model.Member">
+		SELECT empIdx, empCode, empName
+		FROM employee
+		<where>
+			empIdx != #{empIdx}	
+		</where>
+	</select>
+	
+</mapper>
