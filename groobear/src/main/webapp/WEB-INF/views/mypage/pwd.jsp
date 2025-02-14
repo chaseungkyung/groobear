@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <style type="text/css">
-.body-container { max-width: 800px; }
+.body-container { max-width: 800px;}
 </style>
 </head>
 
@@ -22,7 +22,7 @@
 </header>	
 
 <main>
-	<div class="container">
+	<div class="container mainInner">
 		<div class="body-container">
 			
 			<div class="row justify-content-md-center">

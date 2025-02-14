@@ -32,9 +32,14 @@ public class SettingController {
 		return "mypage/mypage";
 	}
 	
+	@GetMapping("setting")
+	public String setting() {
+		return "mypage/setting";
+	}
+	
 	@GetMapping("pwd") 
 	public String pwdForm(Model model) {
-		return "mypage/pwd"; //처음에 어떻게 pwd 페이지를 띄우더라...
+		return "mypage/pwd"; 
 	}
 	
 	@PostMapping("pwd")
@@ -59,7 +64,7 @@ public class SettingController {
 			model.addAttribute("dto", dto);
 			model.addAttribute("mode", "update");
 			
-			return "mypage/setting";
+			return "redirect:/ ${mode}";
 			
 		} catch (NullPointerException e) {
 			session.invalidate();
@@ -69,19 +74,22 @@ public class SettingController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("update")
+	@GetMapping("updateEmp")
 	public String settingForm(Model model) {
 		model.addAttribute("mode", "update");
 		
-		return "mypage/setting";
+		return "mypage/empSetting";
 	}
 	
-	@PostMapping("update")
+	@PostMapping("updateEmp")
 	public String settingSubmit(Member dto, final RedirectAttributes reAttr, Model model) {
 		
 		StringBuilder sb = new StringBuilder();
 		try {
 			service.updateEmployee(dto);
+			
+		    log.info("updateEmployee 컨트롤러 호출됨");
+		    log.info("넘어온 empPwd 값: " + dto.getEmpPwd());
 			
 			sb.append(dto.getEmpName() + "님의 환경설정이 재설정되었습니다.");
 			sb.append("메인 화면으로 이동하시기 바랍니다.<br>");
@@ -98,7 +106,7 @@ public class SettingController {
 	
 	@GetMapping("updatePwd")
 	public String updatPwdForm() {
-		return "mypage/updatePwd";
+		return "mypage/pwdSetting";
 	}
 	
 	@PostMapping("updatePwd")
@@ -114,12 +122,23 @@ public class SettingController {
 			service.updateEmpPwd(dto);
 		} catch (RuntimeException e) {
 			model.addAttribute("message", "변경할 패스워드가 기존과 일치합니다.");
-			return "mypage/updatePwd";
+			return "mypage/pwdSetting";
 		} catch (Exception e) {
 		}
 		
 		return "redirect:/";
 	}
+	
+	@GetMapping("updateAlarm")
+	public String updateAlarmForm() {
+		return "";
+	}
+	
+	@PostMapping("updateAlarm")
+	public String updateAlarmSubmit() {
+		return "";
+	}
+	
 	
 	@GetMapping("complete")
 	public String complete(@ModelAttribute("massage") String message) throws Exception {

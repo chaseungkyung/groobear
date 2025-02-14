@@ -26,13 +26,19 @@ public class SettingServiceImpl implements SettingService {
 	public void updateEmployee(Member dto) throws Exception {
 		
 		try {
-			boolean bPwdUpdate = ! isPasswordCheck(dto.getEmpIdx(), dto.getEmpPwd());
-			if(bPwdUpdate) {
-				String encEmpPwd = bcryptEncoder.encode(dto.getEmpPwd());
-				dto.setEmpPwd(encEmpPwd);
+			
+		    log.info("updateEmployee 호출됨");
+		    log.info("dto.getEmpPwd() 값: " + dto.getEmpPwd());
+			
+			if(dto.getEmpPwd() != null && !dto.getEmpPwd().trim().isEmpty()){
+				if(! isPasswordCheck(dto.getEmpIdx(), dto.getEmpPwd())) {
+					dto.setEmpPwd(bcryptEncoder.encode(dto.getEmpPwd()));
+				}
 				
-				mapper.updateEmployee(dto);
+			} else {
+				dto.setEmpPwd(mapper.getEmpCode(null));
 			}
+			
 			mapper.updateEmployeeDetail(dto);
 			
 		} catch (Exception e) {
@@ -82,6 +88,7 @@ public class SettingServiceImpl implements SettingService {
 		} catch (Exception e) {
 			log.info("getEmpIdx : ", e);
 		}
+		
 		return null;
 	}
 	

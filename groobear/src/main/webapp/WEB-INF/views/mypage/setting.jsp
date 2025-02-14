@@ -9,6 +9,15 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 </head>
+
+<style type="text/css">
+.body-container {max-width: 800px;}
+</style>
+
+<script type="text/javascript">
+
+</script>
+
 <body>
 
 <header>
@@ -17,42 +26,17 @@
 </header>	
 	
 <main>
-	<div class="container">
-		<div class="body-title">
-			<h3><i class="bi bi-person-square"></i> ${mode=="설정변경"}</h3>
-		
-		</div>
-			
-		<div class="alert alert-info" role="alert">
-			<i class="bi bi-person-check-fill">환경설정 변경</i>
-		</div>
-		
-		<div class="body-main">
-			
-			<form name="memberForm" method="post">
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-lable" for="empCode">사번</label>
-					<div class="row">
-						<div class="col-sm-10 wrap-empCode">
-							<div class="row">
-								<div class="col-6 pe-1">
-									<input type="text" name="empCode" id="empCode" class="form-control"
-										value="${dto.empCode}" readonly placeholder="사번">
-								</div>
 
-								
-								
-							</div>
-						</div>
-					</div>
-				
-				</div>
-			</form>
+	<div class="container mainInner">
+		<div>
+			<a href="${pageContext.request.contextPath}/mypage/empSetting">개인정보 수정</a>
+			<a href="${pageContext.request.contextPath}/mypage/alramSetting">알람설정 변경</a>
+			<a href="${pageContext.request.contextPath}/mypage/pwdSetting">비밀번호 변경</a>
 		</div>
-		
 	</div>
+
 </main>	
-	
+
 <footer>
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>

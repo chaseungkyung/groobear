@@ -78,14 +78,6 @@ function sendOk() {
 		return;
 	}
 	
-	//비밀번호 변경 조건 함수
-	
-	if(f.empPwd.value !== f.empPwd2.value) {
-		alert('비밀번호가 일치하지 않습니다.');
-		f.empPwd.focus();
-		return;
-	}
-	
 	f.action = '${pageContext.request.contextPath}/mypage/updatePwd';
 	f.submit();
 }

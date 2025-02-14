@@ -18,7 +18,10 @@
 	</select>
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
-		UPDATE employee SET empName=#{empName}, empPwd = #{empPwd}
+		UPDATE employee SET empName= #{empName}
+		<if test="empPwd != null and empPwd !=  ''">
+			, empPwd = #{empPwd}
+		</if>
 		WHERE empIdx = #{empIdx}
 	</update>
 	
