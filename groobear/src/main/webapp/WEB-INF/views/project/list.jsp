@@ -6,6 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/list.css" type="text/css">
 	<style type="text/css">
 		main ul li a {display: block; width: 100%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
 		main ul li a:hover {text-decoration: underline;}
@@ -32,25 +33,33 @@
 				<li>프로젝트 매니저</li>
 				<li>등록일</li>
 			</ul>
-			<ul>
-				<li>1</li>
-				<li><a href="${pageContext.request.contextPath}/project/article">[국가]한국 교육 학술정보원 2025년~2026년 국립대학지원미ㅏ너ㅣ아러ㅣㅏ너ㅣ아ㅓ니ㅏㅓ리ㅏㅓㅣㅏ너ㅁ니ㅏ어리ㅏㅓ니아ㅓㅣ라ㅣ나어리ㅏ너이러니아ㅓ린어리ㅏㄴ이러ㅣ나어리ㅏ</a></li>
-				<li>2025-01-15</li>
-				<li>2025-04-15</li>
-				<li>[개발 1팀] 홍길동 부장</li>
-				<li>2025-01-23</li>
-			</ul>
 			
 			<c:forEach var="dto" items="${listProject}" varStatus="status">
 				<ul>
 					<li>${dataCount - (page - 1) * size - status.index}</li>
-					<li><a href="${articleUrl}/${dto.projIdx}?${query}">${dto.projName}</a></li>
-					<li>2025-01-15</li>
-					<li>2025-05-20</li>
+					<li>
+						<a href="${detailUrl}/${dto.projIdx}?${query}">${dto.projName}</a>
+						<button type="button" class="btnProjectSet"> : </button>
+						
+					</li>
+					<li>${dto.startDate}</li>
+					<li>${dto.endDate}</li>
 					<li>${dto.empName}</li>
 					<li>${dto.createdAt}</li>
 				</ul>
 			</c:forEach>
+			
+			<div class="page-navigation">
+				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+			</div>
+			
+			<div class="search-container">							
+				<input type="text" name="" value="" class="form-control" placeholder="프로젝트 이름으로 검색하세요.">
+				<button type="button" class="btn btn-light" onclick="searchList()">
+					<i class="bi bi-search"></i> 
+				</button>		
+			</div>		
+				
 		</div>
 	</main>
 

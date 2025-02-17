@@ -40,21 +40,18 @@
 		    	return;
 		    }
 		    
-		    if(!f.empName.value.trim()) {
+		    if(!f.empIdx.value.trim()) {
 		    	alert("프로젝트 매니저의 이름을 선택해주세요. ");
 		        f.empName.focus();
 		        return;
 		    }
-
+		    $('#teamName').val($('#teamSelect option:selected').text());
+	        $('#empName').val($('#empSelect option:selected').text());
 		
 			f.action = '${pageContext.request.contextPath}/project/write';
 			f.submit();
 		}
-		
-		function searchOk() {
 			
-		}
-		
 	</script>
 </head>
 
@@ -82,16 +79,17 @@
 						<tr>
 							<th>PM 지정</th>
 							<td>
-								<select name="teamIdx" id="teamIdx">
+								<select name="teamIdx" id="teamSelect">
 									<option value="">개발부 소속 팀을 선택해주세요</option>
 								</select>
 							</td>
 							<td>
-								<select name ="empName" id="empName">
+								<select name ="empIdx" id="empSelect">
 									<option value="">이름을 선택해주세요</option>
 								</select>
 								
-								<input type="hidden" name="empIdx" id="empIdx">
+								<input type="hidden" name="empName" id="empName">
+								<input type="hidden" name="teamName" id="teamName">
 												
 							</td>						
 						</tr>
@@ -111,9 +109,11 @@
 	</main>
 	
 <script type="text/javascript">
+const teamSelect = $('#teamSelect');
+const empSelect = $('#empSelect');
 
 $(function(){
-    // 개발부 소속 팀을 불러오기    
+    // 개발부 소속 팀 불러오기    
     const fn = function(data){
     	if(data.state === 'false') {
     		return false;
@@ -122,10 +122,10 @@ $(function(){
     	if(data){
     		if(data.teamList){
     			let html = '';
-    			for(const item of data.teamList){
+    			for(let item of data.teamList){
     				html += "<option value=" + item.teamIdx + ">" + item.teamName + "</option>";
     			}
-    			$('#teamIdx').append(html);
+    			teamSelect.append(html);
     		}	
     	}	
     };
@@ -133,39 +133,32 @@ $(function(){
 
 	
     // 팀을 선택하면 해당 팀의 직원 이름 가져오기
-    $('#teamIdx').on('change', function(){
+    teamSelect.on('change', function(){
         let teamIdx = $(this).val();
 
         if (teamIdx) {
-            let empUrl = '/project/getEmpName'; // 팀 이름을 가져오는 API 엔드포인트
+            let empUrl = '/project/getEmpName';
 
             ajaxRequest(empUrl, 'GET', { teamIdx: teamIdx }, 'json', function (data) {
+            	
                 if (data.state === "true" && data.empNameList) {
-                	let empSelect = $('#empName');
                 	empSelect.empty();
-                	empSelect.append('<option value="">이름을 선택해주세요</option>')
+                	empSelect.append('<option value="">이름을 선택해주세요</option>');
                     
                 	$.each(data.empNameList, function(index, emp){
                 		empSelect.append('<option value="' + emp.empIdx + '">' + emp.empName + '</option>');
                 	});
                 	
                 } else {
-                	$("#empName").empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
+                	empSelect.empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
                 }
             });
         } else {
-        	$("#empName").empty().append('<option value="">이름을 선택해주세요</option>');
+        	empSelect.empty().append('<option value="">이름을 선택해주세요</option>');
         } 	
     });
     
-    // 선택된 직원의 empIdx 값을 hidden input 에 설정
-    $('#empName').on('change', function(){
-    	let selectEmpIdx = $(this).val();
-    	$('#empIdx').val(selectedEmpIdx);
-    });
-
 });
-
 
 
 </script>

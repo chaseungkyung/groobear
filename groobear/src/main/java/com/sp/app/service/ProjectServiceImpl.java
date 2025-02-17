@@ -52,12 +52,6 @@ public class ProjectServiceImpl implements ProjectService {
 		// long empIdx = 0;
 		try {
 			
-			Long empIdx = mapper.findByEmpName(dto.getEmpName());
-			
-			// empIdx = mapper.findByEmpName(dto);
-			
-			dto.setEmpIdx(empIdx);
-			
 			mapper.insertProject(dto);
 			
 		} catch (Exception e) {

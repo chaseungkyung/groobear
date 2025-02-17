@@ -22,16 +22,6 @@
 	</select>
 	
 	
-	<select id="findByEmpName" parameterType="string" resultType="long">
-		SELECT empIdx FROM employee WHERE empName = #{empName}
-	</select>
-	
-	<select id="findByEmpName1" parameterType="map" resultType="com.sp.app.model.Project">
-		SELECT empIdx, empName, deptIdx
-		FROM employee
-		WHERE deptIdx='F' AND INSTR(empName, #{empName}) &gt; 0
-	</select>
-	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(projIdx), 0)
 		FROM project p
@@ -40,7 +30,8 @@
 	
 	<select id="listProject" parameterType="map" 
 			resultType="com.sp.app.model.Project">
-		SELECT p.projIdx, projName, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, e.empName
+		SELECT p.projIdx, projName, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, e.empName,
+			TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate
 		FROM project p
 		JOIN employee e ON p.empIdx = e.empIdx
 		ORDER BY projIdx DESC

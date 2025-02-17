@@ -16,10 +16,6 @@ public interface ProjectMapper {
 	
 	
 	public void insertProject(Project dto) throws SQLException;
-	public Long findByEmpName(String empName) throws SQLException;
-	
-	public Project findByEmpName1(Map<String, Object> map) throws SQLException;
-	
 
 	public int dataCount(Map<String, Object> map);
 	public List<Project> listProject(Map<String, Object> map);

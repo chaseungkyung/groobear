@@ -6,7 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/article.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/detail.css" type="text/css">
 	
 	<style type="text/css">
 		
@@ -19,6 +19,10 @@
 	
 	<main>
 		<div class="mainInner">
+			<div class="projectName">
+				<h4>테스트</h4>
+			</div>
+		
 			<div class="btnArea">
 				<button type="button" class="task-btn">업무추가</button>
 		    	<button type="button" class="invite-btn">초대하기</button>
@@ -124,6 +128,14 @@
             <label class="input-label">제목</label>
             <input type="text" class="input-field" placeholder="제목을 입력하세요.">
             
+            <div class="button-group">
+	            <button type="button" class="" >요청</button>
+	            <button type="button" class="">진행</button>
+	            <button type="button" class="">피드백</button>
+	            <button type="button" class="">완료</button>
+	            <button type="button" class="">보류</button>
+            </div>
+            
             <label class="input-label">담당자</label>
             <input type="text" class="input-field" placeholder="담당자 추가">
             
@@ -134,8 +146,8 @@
             <input type="date" class="input-field" placeholder="마감일 추가">
             
             <div class="button-group">
-                <button class="cancel-btn">취소</button>
-                <button class="submit-btn">등록</button>
+                <button type="button" class="cancel-btn">취소</button>
+                <button type="button" class="submit-btn">등록</button>
             </div>
         </div>
     </div>
@@ -148,6 +160,14 @@
             
             <label class="input-label">제목</label>
             <input type="text" class="input-field" placeholder="제목을 입력하세요.">
+            
+            <div class="button-group">
+	            <button type="button" class="" >요청</button>
+	            <button type="button" class="">진행</button>
+	            <button type="button" class="">피드백</button>
+	            <button type="button" class="">완료</button>
+	            <button type="button" class="">보류</button>
+            </div>
             
             <label class="input-label">담당자</label>
             <input type="text" class="input-field" placeholder="담당자 추가">
@@ -162,8 +182,8 @@
             <textarea class="input-field memo" placeholder="내용을 입력하세요."></textarea>
             
             <div class="button-group">
-                <button class="cancel-btn">취소</button>
-                <button class="submit-btn">등록</button>
+                <button type="button" class="cancel-btn">취소</button>
+                <button type="button" class="submit-btn">등록</button>
             </div>
         </div>
     </div>
@@ -180,8 +200,8 @@
             <label class="input-label">역할</label>
             <input type="text" class="input-field" placeholder="역할 입력">
             <div class="button-group">
-                <button class="cancel-btn">취소</button>
-                <button class="submit-btn">등록</button>
+                <button type="button" class="cancel-btn">취소</button>
+                <button type="button" class="submit-btn">초대</button>
             </div>
         </div>
     </div>

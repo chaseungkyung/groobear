@@ -60,7 +60,7 @@ public class ProjectController {
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
 			String listUrl = cp + "/project/list";
-			String articleUrl = cp + "/project/article";
+			String detailUrl = cp + "/project/detail";
 			
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
 				
@@ -69,7 +69,7 @@ public class ProjectController {
 			model.addAttribute("dataCount", dataCount);
 			model.addAttribute("size", size);
 			model.addAttribute("total_page", total_page);
-			model.addAttribute("articleUrl", articleUrl);
+			model.addAttribute("detailUrl", detailUrl);
 			model.addAttribute("paging", paging);
 			
 			model.addAttribute("query", query);
@@ -107,9 +107,9 @@ public class ProjectController {
 		return "redirect:/project/list";
 	}
 	
-	// 글보기
-	@GetMapping("article/{projIdx}")
-	public String article(
+	// 프로젝트 상세 보기
+	@GetMapping("detail/{projIdx}")
+	public String detail(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
 			Model model) {
@@ -118,9 +118,10 @@ public class ProjectController {
 		
 		try {
 			
-			return "project/article";
+			
+			return "project/detail";
 		} catch (Exception e) {
-			log.info("article : ", e);
+			log.info("detail : ", e);
 		}
 		
 		return "redirect:/project/list?" + query;
