@@ -29,7 +29,7 @@ public class SettingController {
 	
 	@GetMapping("mypage")
 	public String mypage() {
-		return "mypage/mypage";
+		return "mypage/pageSetting";
 	}
 	
 	@GetMapping("setting")
@@ -37,7 +37,7 @@ public class SettingController {
 		return "mypage/setting";
 	}
 	
-	@GetMapping("pwd") 
+	@GetMapping("/pwd") 
 	public String pwdForm(Model model) {
 		return "mypage/pwd"; 
 	}
@@ -61,10 +61,15 @@ public class SettingController {
 				return "mypage/pwd";
 			}
 			
-			model.addAttribute("dto", dto);
-			model.addAttribute("mode", "update");
-			
-			return "redirect:/ ${mode}";
+			if("update".equals(mode)) {
+				model.addAttribute("dto", dto);
+				model.addAttribute("mode", mode);
+				return "mypage/empSetting";
+			} else {
+				model.addAttribute("dto", dto);
+				model.addAttribute("mode", mode);
+				return "mypage/pwdSetting";
+			}
 			
 		} catch (NullPointerException e) {
 			session.invalidate();
@@ -131,12 +136,12 @@ public class SettingController {
 	
 	@GetMapping("updateAlarm")
 	public String updateAlarmForm() {
-		return "";
+		return "mypage/alarmSetting";
 	}
 	
 	@PostMapping("updateAlarm")
 	public String updateAlarmSubmit() {
-		return "";
+		return "redirect:/mypage/alarmSetting";
 	}
 	
 	

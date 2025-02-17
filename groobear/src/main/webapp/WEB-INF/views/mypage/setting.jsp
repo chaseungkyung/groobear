@@ -10,14 +10,6 @@
 
 </head>
 
-<style type="text/css">
-.body-container {max-width: 800px;}
-</style>
-
-<script type="text/javascript">
-
-</script>
-
 <body>
 
 <header>
@@ -29,9 +21,9 @@
 
 	<div class="container mainInner">
 		<div>
-			<a href="${pageContext.request.contextPath}/mypage/empSetting">개인정보 수정</a>
-			<a href="${pageContext.request.contextPath}/mypage/alramSetting">알람설정 변경</a>
-			<a href="${pageContext.request.contextPath}/mypage/pwdSetting">비밀번호 변경</a>
+			<a href="${pageContext.request.contextPath}/mypage/empSetting">개인정보수정</a>
+			<a href="${pageContext.request.contextPath}/mypage/alarmSetting">알람설정변경</a>
+			<a href="${pageContext.request.contextPath}/mypage/pwdSetting">비밀번호변경</a>
 		</div>
 	</div>
 

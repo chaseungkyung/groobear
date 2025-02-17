@@ -71,16 +71,23 @@
 function sendOk() {
 	const f = document.pwdForm;
 	
-	let str = f.userPwd.value.trim();
+	let str = f.empPwd.value.trim();
 	if(! str) {
 		alert('비밀번호를 입력하세요.');
 		f.empPwd.focus();
 		return;
 	}
 	
-	f.action = '${pageContext.request.contextPath}/mypage/updatePwd';
+	if(f.empPwd.value !== f.empPwd2.value) {
+		alert('비밀번호가 일치하지 않습니다.');
+		f.empPwd.focus();
+		return;
+	}
+	
+	f.action = '${pageContext.request.contextPath}/mypage/pwdSetting';
 	f.submit();
 }
+
 </script>
 
 <footer>
