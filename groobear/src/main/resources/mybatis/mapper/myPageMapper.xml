@@ -7,6 +7,12 @@
 		FROM workLog w
 		JOIN employee e ON e.empIdx = w.empIdx
 	</select>
+	
+	<select id="timeTable" parameterType="com.sp.app.model.MyPage">
+		SELECT loginTime, ROUND((SYSDATE - TO_DATE(loginTime, 'HH24:MI')), 2) AS workedHours
+		FROM workLog
+		WHERE empIdx = #{empIdx}
+	</select>
 
 	
 	<select id="timeKeeping" parameterType="map" resultType="com.sp.app.model.MyPage">

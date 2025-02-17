@@ -8,28 +8,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/dist/css/mypage/list.css"
 	type="text/css">
-	
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-    const ulElement = document.getElementById("timeTable");
-
-    for (let i = 0; i < 24; i++) {
-        const li = document.createElement("li");
-        
-        li.style.width = "1cm";
-        li.style.height = "1cm";
-        li.style.display = "inline-block";  
-        li.style.border = "1px solid #2f5ea2";
-        
-        ulElement.appendChild(li);
-    }
-
-    ulElement.style.listStyleType = "none";  
-    ulElement.style.padding = "0"; 
-    ulElement.style.display = "flex";  
-    ulElement.style.flexWrap = "wrap"; 
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -48,17 +27,80 @@ document.addEventListener("DOMContentLoaded", function() {
 					<ul>
 						<li class="workTime">8h 12m</li>
 					</ul>
-					<ul id="timeTable"></ul>
-					<c:forEach var="vo" items="${list}">
-						<ul>
-							<li></li>
-						</ul>
-					</c:forEach>
+					<ul class="timeTable"></ul>
+					
+					<div id="workChart" style="height:400px;">차트</div>
 				</div>
 			</form>
 		</div>
 	</main>
+
+<script type="text/javascript">
+$(function(){
+    let url = '${pageContext.request.contextPath}/mypage/charts';
+    
+    function fetchDataAndUpdateChart() {
+        $.getJSON(url, function(data) {
+            if (data.state === 'true') {
+                drawWorkChart(data); 
+            } else {
+                console.log('차트 데이터를 불러오는 데 실패했습니다.');
+            }
+        });
+    }
+
+    setInterval(fetchDataAndUpdateChart, 60000);
+
+    function drawWorkChart(data) {
+        var chartDom = document.getElementById('workChart');
+        var myChart = echarts.init(chartDom);  // 차트 인스턴스 생성
+        var option;
+
+        option = {
+            title: {
+                text: '근무 시간 현황',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            yAxis: {
+                type: 'category',
+                data: data.hours
+            },
+            xAxis: {
+                type: 'value',
+                name: '근무 시간 (분)',
+                axisLabel: {
+                    formatter: '{value} 분'
+                }
+            },
+            series: [
+                {
+                    name: '근무 시간',
+                    type: 'bar',
+                    data: data.hoursWorked 
+                }
+            ]
+        };
+
+      
+        myChart.setOption(option);
+    }
+
+  
+    fetchDataAndUpdateChart();
+});
+</script>
+
 </body>
-
-
 </html>

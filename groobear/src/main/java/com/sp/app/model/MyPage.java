@@ -23,7 +23,7 @@ public class MyPage {
 	private String loginTime;
 	
 	// 근태내역 : 야근 추가근무 주말근무
-	private long otReqIdx;		// 추가근무idx
+	private long otReqIdx;		// 추가근무 idx
 	private long aprIdx;		// 결재서류 idx
 	private String overDate;
 	private String overTime;
