@@ -23,7 +23,6 @@
 				categoryIdx, color, repeat, repeat_cycle, memo, reg_date
 		FROM schedule
 		<where>
-			
 			<if test="categoryIdx == 1">
 				empCode = #{empCode} AND categoryIdx == 1
 			</if>
@@ -55,6 +54,7 @@
 		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx,
 			color, repeat, repeat_cycle, memo, reg_date 
 		FROM schedule 
+		WHERE scheduleIdx = #{scheduleIdx}
 	</select>
 	
 	<update id="updateSchedule" parameterType="com.sp.app.model.Schedule">
@@ -68,12 +68,12 @@
 			repeat = #{repeat},
 			repeat_cycle = #{repeat_cycle},
 			memo = #{memo, jdbcType=VARCHAR}
-		WHERE scheduleIdx = #{scheduleIdx} AND empCode = #{empCode}
+		WHERE scheduleIdx = #{scheduleIdx, jdbcType=INTEGER} AND empCode = #{empCode}
 	</update>
 	
 	<delete id="deleteSchedule" parameterType="map">
 		DELETE FROM schedule
-		WHERE schduleIdx = #{schduleIdx} AND empCode = #{empCode}
+		WHERE scheduleIdx = #{scheduleIdx, jdbcType=INTEGER} AND empCode = #{empCode}
 	</delete>
 
 </mapper>

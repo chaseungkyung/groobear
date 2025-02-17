@@ -41,10 +41,10 @@ public class ScheduleController {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			map.put("userId", info.getEmpCode());
+			map.put("empCode", info.getEmpCode());
 			
 		} catch (Exception e) {
-			log.info("main : ", e);
+			log.info("schedule : ", e);
 		}
 		
 		return mav;
@@ -59,7 +59,7 @@ public class ScheduleController {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userId", info.getEmpCode());
+			map.put("empCode", info.getEmpCode());
 			
 			model.addAttribute("mode", "write");
 			
@@ -120,7 +120,7 @@ public class ScheduleController {
 			map.put("end", end);
 			map.put("repeatStart", repeatStart);
 			map.put("repeatEnd", repeatEnd);
-			map.put("userId", info.getEmpCode());
+			map.put("empCode", info.getEmpCode());
 			
 			List<Schedule> list = service.listMonth(map);
 			
@@ -191,7 +191,7 @@ public class ScheduleController {
 			}
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userId", info.getEmpCode());
+			map.put("empCode", info.getEmpCode());
 			
 			model.addAttribute("mode", "update");
 			model.addAttribute("dto", dto);
@@ -272,8 +272,8 @@ public class ScheduleController {
 			SessionInfo info=(SessionInfo)session.getAttribute("member");
 			
 			Map<String, Object> map=new HashMap<>();
-			map.put("userId", info.getEmpCode());
-			map.put("num", num);
+			map.put("empCode", info.getEmpCode());
+			map.put("scheduleIdx", num);
 			service.deleteSchedule(map);
 			
 			state = "true";

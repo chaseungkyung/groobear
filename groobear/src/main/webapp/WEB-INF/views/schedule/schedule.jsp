@@ -126,14 +126,6 @@
 					let endDate = info.endStr.substr(0, 10);
 					let formData = 'start=' + startDate + '&end=' + endDate;
 		            
-					let a = $('.category-list input:checkbox.category-item').length;
-					let b = $('.category-list input:checkbox.category-item:checked').length;
-					if(b !== 0 && a !== b) {
-						$('.category-list input:checkbox.category-item:checked').each(function() {
-							formData += '&categorys=' + $(this).val();
-						});
-					}
-		            
 					const fn = function(data){
 						
 						// - Fullcalendar에서 startTime과 endTime의 속성명을 가진 객체 배열을 
@@ -155,8 +147,7 @@
 							obj.color = item.color;
 		
 							// 기타 속성
-							obj.category = item.category;
-							obj.categoryNum = item.categoryIdx;
+							obj.categoryIdx = item.categoryIdx;
 							obj.startDate = item.startDate;
 							obj.stime = item.startTime;
 							obj.endDate = item.endDate;
@@ -211,87 +202,6 @@
 			calendar.render();
 		});
 		
-		/*
-		$(function() {
-			// 카테고리 추가
-			$('.btnCategoryAddOk').click(function(){
-				let category = $("#category-input").val().trim();
-				if(! category) {
-					return false;
-				}
-				
-				let formData = 'category=' + encodeURIComponent(category);
-				let url = '${pageContext.request.contextPath}/schedule/categoryAdd';
-				
-				const fn = function(data) {
-					if(data.state === 'true') {
-						$('#category-input').val('');
-						$('.category-list').empty();
-		
-						addNewContent(data);
-					}
-				};
-				
-				ajaxRequest(url, 'post', formData, 'json', fn);
-			});
-			
-			function addNewContent(data) {
-				let out = '';
-				for(let item of data.listCategory) {
-					out += '<div class="row p-2 border category-row">';
-					out += '  <div class="col-auto">';
-					out += '    <input class="form-check-input me-1 category-item" type="checkbox" value="' + item.categoryNum+ '" checked>';
-					out += '  </div>';
-					out += '  <div class="col ps-0">' + item.category + '</div>';
-					out += '  <div class="col-auto text-end invisible category-item-minus">';
-					out += '    <a href="#"><i class="bi bi-dash-square category-item-delete" data-categoryNum="' + item.categoryNum + '"></i></a>';
-					out += '  </div>';
-					out += '</div>';
-				}
-		
-				$('.category-list').html(out);
-			}
-			
-			// 카테고리 삭제 아이콘 표시/숨김
-			$('.btnDeleteIcon').click(function(){
-				$('.category-item-minus').toggleClass('invisible');
-			});
-			
-			// 카테고리 삭제
-			$('#myOffcanvas').on('click', '.category-item-delete', function(){
-				if(! confirm('카테고리를 삭제 하시겠습니까 ? ')) {
-					return false;
-				}
-				
-				const $el = $(this);
-				
-				let formData = 'categoryNum=' + $el.attr('data-categoryNum');
-				let url = '${pageContext.request.contextPath}/schedule/categoryDelete';
-				
-				const fn = function(data) {
-					if(data.state === 'true') {
-						$el.closest('.category-row').remove();
-						
-						calendar.refetchEvents();
-					}
-				};
-				
-				ajaxRequest(url, 'post', formData, 'json', fn);
-			});
-			
-			// 카테고리 검색
-			$('#myOffcanvas').on('click', '.btnCategorySearch', function () {
-				if($('.category-list input:checkbox.category-item:checked').length === 0) {
-					return false;
-				}
-		
-				calendar.refetchEvents();
-		
-				$('#myOffcanvas').offcanvas('hide');
-			});
-		});
-		*/
-		
 		// 일정 등록 폼
 		function insertSchedule(startStr, endStr, allDay) {
 			let qs;
@@ -329,10 +239,9 @@
 			let end = calEvent.endStr;
 			let allDay = calEvent.allDay;
 		
-			let categoryNum = calEvent.extendedProps.categoryNum;
-			if(! categoryNum) categoryNum = 0;
-			let category = calEvent.extendedProps.category;
-			if(! category) category = '설정하지 않음';
+			let categoryIdx = calEvent.extendedProps.categoryIdx;
+			if(! categoryIdx) categoryIdx = 0;
+			let categorys = ['개인일정', '부서일정', '전체일정'];
 			
 			let startDate = calEvent.extendedProps.startDate;
 			let endDate = calEvent.extendedProps.endDate;
@@ -352,7 +261,7 @@
 			$('.view-subject').html(title);
 			
 			s = allDay ? '종일일정' : '시간일정';
-			$('.view-category').html(category + ', ' + s);
+			$('.view-category').html(categorys[categoryIdx-1] + ', ' + s);
 		
 			s = startDate;
 			if( startTime ) {
@@ -414,8 +323,8 @@
 			let end = calEvent.endStr;
 			let allDay = calEvent.allDay;
 			
-			let categoryNum = calEvent.extendedProps.categoryNum;
-			if(! categoryNum) categoryNum = 0;
+			let categoryIdx = calEvent.extendedProps.categoryIdx;
+			if(! categoryIdx) categoryIdx = 0;
 			
 			let memo = calEvent.extendedProps.memo;
 			if(! memo) memo = '';
@@ -434,8 +343,8 @@
 				endTime = end.substr(11, 5);
 			}
 			
-			let formData = 'num=' + num + '&subject=' + title
-					+ '&categoryNum=' + categoryNum + '&color=' + color
+			let formData = 'scheduleIdx=' + num + '&title=' + title
+					+ '&categoryIdx=' + categoryIdx + '&color=' + color
 					+ '&all_day=' + all_day
 					+ '&startDate=' + startDate + '&endDate=' + endDate
 					+ '&startTime=' + startTime + '&endTime=' + endTime

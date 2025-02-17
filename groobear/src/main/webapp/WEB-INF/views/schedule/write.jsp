@@ -27,12 +27,11 @@ function sendOk() {
 		f.title.focus();
 		return;
 	}
-	/*	
+
 	if(! f.categoryIdx.value ) {
 		f.categoryIdx.focus();
 		return;
 	}
-	*/
 	
 	if( ! f.startDate.value ) {
 		f.startDate.focus();
@@ -175,15 +174,13 @@ $(function(){
 							<td>
 								<div class="row">
 									<div class="col-5">
-										<select name="categoryNum" id="form-categoryNum" class="form-select">
-											<%-- <option value="0">설정하지 않음</option> --%>
-											<c:forEach var="vo" items="${listCategory}">
-												<option value="${vo.categoryNum}" ${dto.categoryNum == vo.categoryNum ? "selected":""}>${vo.category}</option>
-											</c:forEach>
+										<select name="categoryIdx" id="form-categoryIdx" class="form-select">
+											<option value="1" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>개인일정</option>
+											<option value="2" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>부서일정</option>
+											<option value="3" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>회사일정</option>
 										</select>
 									</div>
 								</div>
-								<small class="form-control-plaintext">* 카테고리는 일정 메인화면에서 설정합니다.</small>
 							</td>
 						</tr>
 	
@@ -290,7 +287,7 @@ $(function(){
 								<button type="reset" class="btn btn-light">다시입력</button>
 								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/schedule/schedule';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
-									<input type="hidden" name="num" value="${dto.scheduleIdx}">
+									<input type="hidden" name="scheduleIdx" value="${dto.scheduleIdx}">
 								</c:if>
 							</td>
 						</tr>
