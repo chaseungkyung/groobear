@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SettingController {
 	private final SettingService service;
 	
-	@GetMapping("mypage")
+	@GetMapping("pageSetting")
 	public String mypage() {
 		return "mypage/pageSetting";
 	}
