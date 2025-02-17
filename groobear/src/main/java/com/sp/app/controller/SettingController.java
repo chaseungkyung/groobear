@@ -37,12 +37,17 @@ public class SettingController {
 		return "mypage/setting";
 	}
 	
-	@GetMapping("/pwd") 
-	public String pwdForm(Model model) {
+	@GetMapping("mypage/pwd") 
+	public String pwdForm(
+			@RequestParam(name = "mode") String mode,
+			Model model) {
+		
+		model.addAttribute("mode", mode);
+		
 		return "mypage/pwd"; 
 	}
 	
-	@PostMapping("pwd")
+	@PostMapping("mypage/pwd")
 	public String pwdSubmit(@RequestParam(name = "empPwd") String empPwd,
 			@RequestParam(name = "mode") String mode, final RedirectAttributes reAttr,
 			Model model, HttpSession session) {
@@ -65,7 +70,9 @@ public class SettingController {
 				model.addAttribute("dto", dto);
 				model.addAttribute("mode", mode);
 				return "mypage/empSetting";
-			} else {
+			} 
+			
+			if("pwd".equals(mode)) {
 				model.addAttribute("dto", dto);
 				model.addAttribute("mode", mode);
 				return "mypage/pwdSetting";
@@ -79,22 +86,12 @@ public class SettingController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("updateEmp")
-	public String settingForm(Model model) {
-		model.addAttribute("mode", "update");
-		
-		return "mypage/empSetting";
-	}
-	
-	@PostMapping("updateEmp")
+	@PostMapping("mypage/empSetting")
 	public String settingSubmit(Member dto, final RedirectAttributes reAttr, Model model) {
 		
 		StringBuilder sb = new StringBuilder();
 		try {
 			service.updateEmployee(dto);
-			
-		    log.info("updateEmployee 컨트롤러 호출됨");
-		    log.info("넘어온 empPwd 값: " + dto.getEmpPwd());
 			
 			sb.append(dto.getEmpName() + "님의 환경설정이 재설정되었습니다.");
 			sb.append("메인 화면으로 이동하시기 바랍니다.<br>");
@@ -108,13 +105,9 @@ public class SettingController {
 		
 		return "redirect:/mypage/complete";
 	}
+
 	
-	@GetMapping("updatePwd")
-	public String updatPwdForm() {
-		return "mypage/pwdSetting";
-	}
-	
-	@PostMapping("updatePwd")
+	@PostMapping("mypage/pwdSetting")
 	public String updatePwdSubmit(@RequestParam(name = "empPwd") String empPwd,
 			Model model, HttpSession session) {
 	
@@ -134,18 +127,18 @@ public class SettingController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("updateAlarm")
+	@GetMapping("mypage/alarmSetting")
 	public String updateAlarmForm() {
 		return "mypage/alarmSetting";
 	}
 	
-	@PostMapping("updateAlarm")
+	@PostMapping("mypage/alarmSetting")
 	public String updateAlarmSubmit() {
 		return "redirect:/mypage/alarmSetting";
 	}
 	
 	
-	@GetMapping("complete")
+	@GetMapping("mypage/complete")
 	public String complete(@ModelAttribute("massage") String message) throws Exception {
 		
 		if(message == null || message.isBlank()) {
