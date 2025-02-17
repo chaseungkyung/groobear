@@ -3,16 +3,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.ProjectMapper">
 
-	<insert id="insertProject" parameterType="com.sp.app.model.project.Project">
+	<insert id="insertProject" parameterType="com.sp.app.model.Project">
 		INSERT INTO project(projIdx, empIdx, projName, createdAt, startDate, endDate, status)
 		VALUES(project_seq.NEXTVAL, #{empIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
+	
+	<select id="listTeam" parameterType="map" resultType="com.sp.app.model.Project">
+		SELECT teamIdx, t.deptIdx, teamName
+		FROM team t
+		LEFT OUTER JOIN department d ON t.deptIdx = d.deptIdx
+		WHERE t.deptIdx = #{deptIdx}
+	</select>
+	
+	<select id="listEmpName" parameterType="map" resultType="com.sp.app.model.Project">
+		SELECT empIdx, empName, deptIdx, teamIdx
+		FROM employee
+		WHERE deptIdx = #{deptIdx} AND teamIdx = #{teamIdx}
+	</select>
+	
 	
 	<select id="findByEmpName" parameterType="string" resultType="long">
 		SELECT empIdx FROM employee WHERE empName = #{empName}
 	</select>
 	
-	<select id="findByEmpName1" parameterType="map" resultType="com.sp.app.model.project.Project">
+	<select id="findByEmpName1" parameterType="map" resultType="com.sp.app.model.Project">
 		SELECT empIdx, empName, deptIdx
 		FROM employee
 		WHERE deptIdx='F' AND INSTR(empName, #{empName}) &gt; 0
@@ -25,7 +39,7 @@
 	</select>
 	
 	<select id="listProject" parameterType="map" 
-			resultType="com.sp.app.model.project.Project">
+			resultType="com.sp.app.model.Project">
 		SELECT p.projIdx, projName, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, e.empName
 		FROM project p
 		JOIN employee e ON p.empIdx = e.empIdx

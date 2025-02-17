@@ -8,27 +8,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/write.css" type="text/css">
 	
-	<style type="text/css">
-		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
-		.btnArea button {width: 100%;}
-		
-		.textArea {width: 100%;}
-		.textArea tr {height: 2.3vw; display: flex; align-items: center;}
-		.textArea tr th {width: 10%; vertical-align: middle;}
-		.textArea tr td {width: 90%;}
-		
-		.textArea tr:last-child th {vertical-align: top;}
-		
-		.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
-		
-		.textArea tr .addressArea {display: flex; justify-content: space-between;}
-		.textArea tr .addressArea input {width: 89%;}
-		.textArea tr .addressArea button {width: 10%;}
-		
-		.textArea .contentArea {align-items: flex-start;}
-		.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
-		
-	</style>
+	
 	<script type="text/javascript">
 		function sendOk() {
 		    const f = document.projectForm;
@@ -53,9 +33,15 @@
 		        f.endDate.focus();
 		        return;
 		    }
-		
+			
+		    if(!f.teamIdx.value.trim()) {
+		    	alert("프로젝트 매니저의 팀을 선택해주세요.");
+		    	f.teamIdx.focus();
+		    	return;
+		    }
+		    
 		    if(!f.empName.value.trim()) {
-		    	alert("프로젝트 매니저의 이름을 입력하세요. ");
+		    	alert("프로젝트 매니저의 이름을 선택해주세요. ");
 		        f.empName.focus();
 		        return;
 		    }
@@ -96,9 +82,17 @@
 						<tr>
 							<th>PM 지정</th>
 							<td>
-								<input type="text" name ="empName" id="empName">
+								<select name="teamIdx" id="teamIdx">
+									<option value="">개발부 소속 팀을 선택해주세요</option>
+								</select>
+							</td>
+							<td>
+								<select name ="empName" id="empName">
+									<option value="">이름을 선택해주세요</option>
+								</select>
 								
-								<div id="searchResults" class="search-results"></div> <!-- 검색 결과 출력 -->
+								<input type="hidden" name="empIdx" id="empIdx">
+												
 							</td>						
 						</tr>
 					</table>
@@ -115,6 +109,66 @@
 			</div>
 		</div>
 	</main>
+	
+<script type="text/javascript">
+
+$(function(){
+    // 개발부 소속 팀을 불러오기    
+    const fn = function(data){
+    	if(data.state === 'false') {
+    		return false;
+    	}
+    	
+    	if(data){
+    		if(data.teamList){
+    			let html = '';
+    			for(const item of data.teamList){
+    				html += "<option value=" + item.teamIdx + ">" + item.teamName + "</option>";
+    			}
+    			$('#teamIdx').append(html);
+    		}	
+    	}	
+    };
+    ajaxRequest('/project/getTeam', 'get', {deptIdx: "F"}, 'json', fn);
+
+	
+    // 팀을 선택하면 해당 팀의 직원 이름 가져오기
+    $('#teamIdx').on('change', function(){
+        let teamIdx = $(this).val();
+
+        if (teamIdx) {
+            let empUrl = '/project/getEmpName'; // 팀 이름을 가져오는 API 엔드포인트
+
+            ajaxRequest(empUrl, 'GET', { teamIdx: teamIdx }, 'json', function (data) {
+                if (data.state === "true" && data.empNameList) {
+                	let empSelect = $('#empName');
+                	empSelect.empty();
+                	empSelect.append('<option value="">이름을 선택해주세요</option>')
+                    
+                	$.each(data.empNameList, function(index, emp){
+                		empSelect.append('<option value="' + emp.empIdx + '">' + emp.empName + '</option>');
+                	});
+                	
+                } else {
+                	$("#empName").empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
+                }
+            });
+        } else {
+        	$("#empName").empty().append('<option value="">이름을 선택해주세요</option>');
+        } 	
+    });
+    
+    // 선택된 직원의 empIdx 값을 hidden input 에 설정
+    $('#empName').on('change', function(){
+    	let selectEmpIdx = $(this).val();
+    	$('#empIdx').val(selectedEmpIdx);
+    });
+
+});
+
+
+
+</script>
 
 </body>
 </html>

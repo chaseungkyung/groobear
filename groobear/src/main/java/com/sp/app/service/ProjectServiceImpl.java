@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.ProjectMapper;
-import com.sp.app.model.project.Project;
+import com.sp.app.model.Project;
 import com.sp.app.model.project.ProjectMember;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,35 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectServiceImpl implements ProjectService {
 	private final ProjectMapper mapper;
+	
+	@Override
+	public List<Project> listTeam(Map<String, Object> map) throws Exception {
+		List<Project> list = null;
+		
+		try {
+			list = mapper.listTeam(map);
+			
+		} catch (Exception e) {
+			log.info("listSwTeam : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Project> listEmpName(Map<String, Object> map) throws Exception {
+		List<Project> list = null;
+		
+		try {
+			list = mapper.listEmpName(map);
+			
+		} catch (Exception e) {
+			log.info("listEmpName : ", e);
+		}
+		
+		return list;
+	}
+	
 	
 	@Override
 	public void insertProject(Project dto) throws Exception {
@@ -80,7 +109,5 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		
 	}
-	
-	
 	
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.model.project.Project;
+import com.sp.app.model.Project;
 import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.ProjectService;
 
@@ -83,6 +83,13 @@ public class ProjectController {
 	
 	@GetMapping("write")
 	public String writeForm() {
+		
+		try {
+			
+		} catch (Exception e) {
+			log.info("writeForm : ", e);
+		}
+		
 		return "project/write";
 	}
 	
@@ -90,6 +97,7 @@ public class ProjectController {
 	public String writeSubmit(Project dto, HttpSession session) throws Exception {
 		
 		try {
+			
 			service.insertProject(dto);
 			
 		} catch (Exception e) {
@@ -136,16 +144,5 @@ public class ProjectController {
 		return model;
 	}
 	
-	
-	
-	
-	
-	
-	@GetMapping("test")
-	public String test() {
-		return "project/test";
-	}
-	
-
 	
 }
