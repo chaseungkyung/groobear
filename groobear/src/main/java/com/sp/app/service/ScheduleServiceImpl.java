@@ -69,17 +69,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 
 	}
-
-	@Override
-	public void deleteSchedule(Map<String, Object> map) throws Exception {
-		try {
-			mapper.deleteSchedule(map);
-		} catch (Exception e) {
-			log.info("deleteSchedule : ", e);
-			
-			throw e;
-		}
-	}
 	
 	@Override
 	public List<Schedule> listMonth(Map<String, Object> map) {
@@ -105,6 +94,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public void deleteSchedule(long num, String empCode) throws Exception {
+		try {
+			mapper.deleteSchedule(num, empCode);
+		} catch (Exception e) {
+			log.info("deleteSchedule" , e);
+		}
 	}
 	
 }

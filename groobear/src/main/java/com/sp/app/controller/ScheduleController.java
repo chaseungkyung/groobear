@@ -32,6 +32,56 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduleController {
 	private final ScheduleService service;
 	
+	@GetMapping("companySchedule")
+	public ModelAndView companySchedule(HttpSession session, Model model) throws Exception {
+		ModelAndView mav = new ModelAndView("schedule/companySchedule");
+		
+		try {
+			
+			
+		} catch (Exception e) {
+			log.info("companySchedule : ", e);
+		}
+		return mav;
+	}
+	
+	@GetMapping("deptSchedule")
+	public ModelAndView deptSchedule(HttpSession session, Model model) throws Exception {
+		ModelAndView mav = new ModelAndView("schedule/deptSchedule");
+		
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("deptIdx", info.getDeptIdx());
+			model.addAttribute("mode", "deptSchedule");
+		} catch (Exception e) {
+			log.info("deptSchedule : ", e);
+		}
+		
+		return mav;
+	}
+	
+	@GetMapping("mySchedule")
+	public ModelAndView mySchedule(HttpSession session, Model model) throws Exception {
+		ModelAndView mav = new ModelAndView("schedule/mySchedule");
+		
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("empCode", info.getEmpCode());
+			model.addAttribute("mode", "mySchedule");
+		} catch (Exception e) {
+			log.info("mySchedule : ", e);
+		}
+		
+		return mav;
+	}
+	
+	
 	@GetMapping("schedule")
 	public ModelAndView main(HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("schedule/schedule");
@@ -176,6 +226,10 @@ public class ScheduleController {
 			
 			Schedule dto = Objects.requireNonNull(service.findById(num));
 			
+			if(! info.getEmpCode().equals(dto.getEmpCode())) {
+				return "redirect:/schedule/schedule";
+			}
+			
 			if(dto.getStartTime() == null) {
 				dto.setAll_day("1");
 
@@ -199,7 +253,6 @@ public class ScheduleController {
 			return "schedule/write";
 			
 		} catch (NullPointerException e) {
-			log.info("updateForm : ", e);
 		} catch (Exception e) {
 			log.info("updateForm : ", e);
 		}
@@ -264,6 +317,7 @@ public class ScheduleController {
 	@PostMapping("delete")
 	@ResponseBody
 	public Map<String, ?> delete(@RequestParam(name = "num") long num,
+			@RequestParam(name = "empCode") String empCode,
 			HttpSession session) {
 		Map<String, Object> model = new HashMap<String, Object>();
 
@@ -274,11 +328,11 @@ public class ScheduleController {
 			Map<String, Object> map=new HashMap<>();
 			map.put("empCode", info.getEmpCode());
 			map.put("scheduleIdx", num);
-			service.deleteSchedule(map);
+			service.deleteSchedule(num, empCode);
 			
 			state = "true";
 		}catch (Exception e) {
-			
+			log.info("delete : ", e);
 		}
 		
 		model.put("state", state);
