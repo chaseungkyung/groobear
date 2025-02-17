@@ -13,6 +13,9 @@
 
 	<main>
 		<div class="mainInner">
+				<a href="${pageContext.request.contextPath}/mypage/workList" >근무 현황</a>
+				<a href="${pageContext.request.contextPath}/mypage/timeKeeping" >근태 내역</a>
+				<a href="${pageContext.request.contextPath}/mypage/paidOffTime" >휴가 내역</a>
 		</div>
 	</main>
 

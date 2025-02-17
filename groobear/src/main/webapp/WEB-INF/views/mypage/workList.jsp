@@ -6,8 +6,30 @@
 <head>
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/dist/css/menu/listmenu.css"
+	href="${pageContext.request.contextPath}/dist/css/mypage/list.css"
 	type="text/css">
+	
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    const ulElement = document.getElementById("timeTable");
+
+    for (let i = 0; i < 24; i++) {
+        const li = document.createElement("li");
+        
+        li.style.width = "1cm";
+        li.style.height = "1cm";
+        li.style.display = "inline-block";  
+        li.style.border = "1px solid #2f5ea2";
+        
+        ulElement.appendChild(li);
+    }
+
+    ulElement.style.listStyleType = "none";  
+    ulElement.style.padding = "0"; 
+    ulElement.style.display = "flex";  
+    ulElement.style.flexWrap = "wrap"; 
+});
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -22,34 +44,21 @@
 				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">휴가 내역</button>
 			</div>
 			<form action="">
-				<div class="listArea">
+				<div class="wlListArea">
 					<ul>
-						<li>이름</li>
-						<li>부서</li>
-						<li>팀</li>
-						<li>직급</li>
-						<li>입사년월일</li>
-						<li>전화번호</li>
-						<li>이메일</li>
-						<li>내선번호</li>
+						<li class="workTime">8h 12m</li>
 					</ul>
+					<ul id="timeTable"></ul>
 					<c:forEach var="vo" items="${list}">
 						<ul>
-							<li><input type="checkbox" name="" id=""></li>
-							<li>${vo.empName}</li>
-							<li>${vo.deptIdx}</li>
-							<li>${vo.teamIdx}</li>
-							<li>${vo.positionCode}</li>
-							<li>${vo.hireDate}</li>
-							<li>${vo.tel}</li>
-							<li>${vo.email}</li>
-							<li>${vo.empTel}</li>
+							<li></li>
 						</ul>
 					</c:forEach>
 				</div>
 			</form>
 		</div>
 	</main>
-
 </body>
+
+
 </html>

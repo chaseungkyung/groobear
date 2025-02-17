@@ -25,6 +25,7 @@ public class MyPage {
 	// 근태내역 : 야근 추가근무 주말근무
 	private long otReqIdx;		// 추가근무idx
 	private long aprIdx;		// 결재서류 idx
+	private String overDate;
 	private String overTime;
 	private String workDetail;	// 초과근무내용
 
@@ -35,6 +36,7 @@ public class MyPage {
 	private String leaveType;
 	private String startDate;
 	private String endDate;
+	private String leaveDays;
 	private String leaveReason;
 	private String remarks;	// 비고
 	

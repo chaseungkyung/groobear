@@ -9,6 +9,7 @@ public interface MyPageService {
 
 	public List<Member> workList(Map<String, Object> map) throws Exception;
 	public List<Member> timeKeeping(Map<String, Object> map) throws Exception;
+	public List<Member> paidOffTime(Map<String, Object> map) throws Exception;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);

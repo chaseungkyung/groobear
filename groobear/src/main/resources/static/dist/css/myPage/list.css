@@ -1,0 +1,42 @@
+﻿@charset "UTF-8";
+
+.iconHeader-right .iconHeader-right-inner ul {width: 100%;}
+.iconHeader-right .iconHeader-right-inner ul li {width: 100%; height: 5vh; line-height: 5vh; border-bottom: 1px solid #efefef;}
+.iconHeader-right .iconHeader-right-inner ul li:first-child {border-top: 1px solid #efefef;}
+.iconHeader-right .iconHeader-right-inner ul li a {width: 100%; box-sizing: border-box; padding-left: 10%; display: flex; align-items: center;}
+.iconHeader-right .iconHeader-right-inner ul li a:hover {background-color: #efefef;}
+.iconHeader-right .iconHeader-right-inner ul li a img {width: 10%; margin-right: 10%;}
+
+/* 근무 현황 */
+.workTime {
+	color : #2f5ea2; 
+	font-size: 50px; 
+	font-weight: 900;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#timeTable {
+	margin-top: 100px;
+	margin-bottom: 30px;
+}
+
+/* 근태 내역 */
+.tkListArea ul li:nth-child(1) {width: 15%; padding-left: 20px;} /* 일자 */
+.tkListArea ul li:nth-child(2) {width: 10%;} /* 이름 */
+.tkListArea ul li:nth-child(3) {width: 10%;} /* 부서 */
+.tkListArea ul li:nth-child(4) {width: 15%;} /* 팀 */
+.tkListArea ul li:nth-child(5) {width: 15%;} /* 직급 */
+.tkListArea ul li:nth-child(6) {width: 10%;} /* 추가시간*/
+.tkListArea ul li:nth-child(7) {width: 30%;} /* 사유 */
+
+/* 휴가내역 */
+.ptoListArea ul li:nth-child(1) {width: 10%; padding-left: 20px;} /* 시작일자*/
+.ptoListArea ul li:nth-child(2) {width: 10%;} /* 종료일자 */
+.ptoListArea ul li:nth-child(3) {width: 8%; padding-left: 20px;} /* 일수 */
+.ptoListArea ul li:nth-child(4) {width: 10%;} /* 이름 */
+.ptoListArea ul li:nth-child(5) {width: 10%;} /* 부서 */
+.ptoListArea ul li:nth-child(6) {width: 10%;} /* 팀 */
+.ptoListArea ul li:nth-child(7) {width: 10%;} /* 직급 */
+.ptoListArea ul li:nth-child(8) {width: 10%;} /* 종류 */
+.ptoListArea ul li:nth-child(9) {width: 10%;} /* 비고 */

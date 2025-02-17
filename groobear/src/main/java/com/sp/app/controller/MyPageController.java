@@ -26,6 +26,11 @@ public class MyPageController {
 	private final MyPageService service;
 	private final PaginateUtil paginateUtil;
 
+	@GetMapping("mypage")
+	public String mypage(Model model, HttpServletRequest req) throws Exception {
+		return "mypage/mypage";
+	}
+	
 	@GetMapping("workList")
 	public String workList(Model model,  HttpServletRequest req) throws Exception {
 		
@@ -35,7 +40,7 @@ public class MyPageController {
 			
 			List<Member> list = service.workList(map);
 			
-			
+			model.addAttribute("list", list);
 		} catch (Exception e) {
 			log.info("workList : ", e);
 		}
@@ -51,9 +56,26 @@ public class MyPageController {
 			Map<String, Object> map = new HashMap<>();
 			List<Member> list = service.timeKeeping(map);
 			
+			model.addAttribute("list", list);
 		} catch (Exception e) {
 		}
 		
 		return "mypage/timeKeeping";
+	}
+	
+	
+	@GetMapping("paidOffTime")
+	public String paidOffTime (Model model) throws Exception {
+		try {
+			Map<String, Object> map = new HashMap<>();
+			List<Member> list = service.paidOffTime(map);
+			
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.info("paidOffTime : ", e);
+		}
+		
+		return "mypage/paidOffTime";
 	}
 }

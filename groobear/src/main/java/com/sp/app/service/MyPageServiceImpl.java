@@ -56,5 +56,18 @@ public class MyPageServiceImpl implements MyPageService {
 		return dto;
 	}
 
+	@Override
+	public List<Member> paidOffTime(Map<String, Object> map) throws Exception {
+		List<Member> list = mapper.paidOffTime(map);
+		try {
+			list = mapper.paidOffTime(map);
+			
+		} catch (Exception e) {
+			log.info("paidOffTime : ",e );
+		}
+		
+		return list;
+	}
+
 
 }
