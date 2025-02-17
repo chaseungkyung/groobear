@@ -19,7 +19,7 @@
 			<c:if test="${sessionScope.member.deptIdx == 'D' || sessionScope.member.empCode == 'admin' || sessionScope.member.positionCode == 1 || sessionScope.member.positionCode == 2}">
 				<li><a href="${pageContext.request.contextPath}/emp/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/employee_w.png">사원관리</a></li>
 			</c:if>
-			<li><a href="${pageContext.request.contextPath}/mypage/mypage"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/user_w.png">마이페이지</a></li>
+			<li><a href="${pageContext.request.contextPath}/mypage/pageSetting"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/user_w.png">마이페이지</a></li>
 		</ul>
 		<div class="btn">
 			<a href="${pageContext.request.contextPath}/logout"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/logout_w.png"></a>      
