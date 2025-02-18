@@ -53,15 +53,50 @@
 				${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 			</div>
 			
-			<div class="search-container">							
-				<input type="text" name="" value="" class="form-control" placeholder="프로젝트 이름으로 검색하세요.">
-				<button type="button" class="btn btn-light" onclick="searchList()">
-					<i class="bi bi-search"></i> 
-				</button>		
+			<div class="search-container">
+				<form class="row" name="searchForm">
+					<div class="col-auto p-1">
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>						
+					</div>
+					<div class="col-auto p-1">
+						<input type="text" name="kwd" value="${kwd}" class="form-control" placeholder="프로젝트 이름으로 검색하세요.">
+					</div>
+					<div class="col-auto p-1">
+						<button type="button" class="btn btn-light" onclick="searchList()">
+							<i class="bi bi-search"></i> 
+						</button>
+					</div>
+				</form>		
 			</div>		
 				
 		</div>
 	</main>
+	
+<script type="text/javascript">
+window.addEventListener('load', () => {
+	const inputEL = document.querySelector('form input[name=kwd]'); 
+	inputEL.addEventListener('keydown', function (evt) {
+	    if(evt.key === 'Enter') {
+	    	evt.preventDefault();
+	    	
+	    	searchList();
+	    }
+	});
+});
+
+function searchList() {
+	const f = document.searchForm;
+	if(! f.kwd.value.trim()) {
+		return;
+	}
+	
+	const formData = new FormData(f);
+	let requestParams = new URLSearchParams(formData).toString();
+	
+	let url = '${pageContext.request.contextPath}/project/list';
+	location.href = url + '?' + requestParams;
+}
+</script>
 
 </body>
 </html>

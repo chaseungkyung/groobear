@@ -87,21 +87,45 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		return result;
 	}
+	
+	@Override
+	public void updateProject(Project dto) throws Exception {
+		try {
+			mapper.updateProject(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProject : ", e);
+		}	
+	}
+	
+	@Override
+	public Project findById(long projIdx) throws Exception {
+		Project dto = null;
+		
+		try {
+			dto = mapper.findById(projIdx);
+			
+		} catch (Exception e) {
+			log.info("findById : ", e);
+		}
+		
+		return dto;
+	}
+	
+	
 
 	@Override
 	public void insertProjectMember(ProjectMember dto) throws Exception {
-		try {
-			
-			
-			
+		try {		
 			
 			mapper.insertProjectMember(dto);
 			
 		} catch (Exception e) {
 			log.info("insertProjectMember : ", e);
 			throw e;
-		}
-		
+		}	
 	}
-	
+
+
+
 }

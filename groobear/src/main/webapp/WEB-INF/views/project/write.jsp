@@ -48,7 +48,7 @@
 		    $('#teamName').val($('#teamSelect option:selected').text());
 	        $('#empName').val($('#empSelect option:selected').text());
 		
-			f.action = '${pageContext.request.contextPath}/project/write';
+			f.action = '${pageContext.request.contextPath}/project/${mode}';
 			f.submit();
 		}
 			
@@ -97,9 +97,15 @@
 					<table class="table table-borderless">
 	 					<tr>
 							<td class="text-center">
-								<button type="button" class="btn btn-dark" onclick="sendOk();">프로젝트 만들기&nbsp;<i class="bi bi-check2"></i></button>
+								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=="update" ? "수정완료" : "프로젝트 만들기"}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';">취소&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
+							
+								<c:if test="${mode=='update'}">
+									<input type="hidden" name="projIdx" value="${dto.projIdx}">
+									<input type="hidden" name="page" value="${page}">
+								</c:if>
+							
 							</td>
 						</tr>
 					</table>

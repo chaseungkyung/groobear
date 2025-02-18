@@ -20,7 +20,11 @@ public interface ProjectMapper {
 	public int dataCount(Map<String, Object> map);
 	public List<Project> listProject(Map<String, Object> map);
 	
-	public void insertProjectMember(ProjectMember dto) throws SQLException;
+	public void updateProject(Project dto) throws SQLException;
+	public Project findById(long projIdx) throws SQLException;
+	
+	
+	public void insertProjectMember(ProjectMember dto);
 	
 	
 }

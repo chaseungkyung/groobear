@@ -1,8 +1,11 @@
 package com.sp.app.controller;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +35,9 @@ public class ProjectController {
 	private final PaginateUtil paginateUtil;
 
 	@GetMapping("list")
-	public String projectAllList(@RequestParam(name = "page", defaultValue = "1") int current_page,
+	public String projectAllList(
+			@RequestParam(name = "page", defaultValue = "1") int current_page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model,
 			HttpServletRequest req) {
 		
@@ -41,7 +46,10 @@ public class ProjectController {
 			int total_page = 0;
 			int dataCount = 0;
 			
+			kwd = URLDecoder.decode(kwd, "utf-8");
+			
 			Map<String, Object> map = new HashMap<>();
+			map.put("kwd", kwd);
 			
 			dataCount = service.dataCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
@@ -61,6 +69,13 @@ public class ProjectController {
 			String query = "page=" + current_page;
 			String listUrl = cp + "/project/list";
 			String detailUrl = cp + "/project/detail";
+			
+			if(! kwd.isBlank()) {
+				String qs = "kwd=" + URLEncoder.encode(kwd, "utf-8");
+				
+				listUrl += "?" + qs;
+				query += "&" +qs;
+			}
 			
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
 				
@@ -107,6 +122,51 @@ public class ProjectController {
 		return "redirect:/project/list";
 	}
 	
+	@GetMapping("update")
+	public String updateForm(
+			@RequestParam(name = "projIdx") long projIdx,
+			@RequestParam(name = "page") String page,
+			Model model,
+			HttpSession session) throws Exception {
+		
+		try {
+			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Project dto = Objects.requireNonNull(service.findById(projIdx));
+			
+			/*
+			 * if(! info.getEmpCode().equals(dto.getEmpCode())) { return
+			 * "redirect:/project/list?page=" + page; }
+			 */
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("page", page);
+			model.addAttribute("mode", "update");
+			
+			return "project/write";
+			
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			log.info("updateForm : ", e);
+		}
+		
+		return "redirect:/project/list?page=" + page;
+	}
+	
+	@PostMapping("update")
+	public String updateSubmit(Project dto,
+			@RequestParam(name = "page")String page) {
+		
+		try {
+			service.updateProject(dto);
+		} catch (Exception e) {
+			log.info("updateSubmit : ", e);
+		}
+		
+		return "redirect:/project/list?page=" + page;
+	}
+	
+	
 	// 프로젝트 상세 보기
 	@GetMapping("detail/{projIdx}")
 	public String detail(
@@ -117,7 +177,8 @@ public class ProjectController {
 		String query = "page=" + page;
 		
 		try {
-			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);			
 			
 			return "project/detail";
 		} catch (Exception e) {

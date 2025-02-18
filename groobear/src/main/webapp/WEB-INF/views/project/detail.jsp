@@ -14,8 +14,8 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp"/>
 	
 	<main>
 		<div class="mainInner">

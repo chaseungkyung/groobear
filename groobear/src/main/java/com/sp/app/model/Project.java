@@ -16,6 +16,7 @@ public class Project {
 	private String teamName; // 개발부 팀 이름
 	private long empIdx; // 프로젝트 매니저 idx
 	private String empName; // 프로젝트 매니저 이름
+	private String empCode; // 사원 번호(아이디)
 	
 	private String createdAt; // 프로젝트 생성일
 	private String startDate; // 프로젝트 시작일

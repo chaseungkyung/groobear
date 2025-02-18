@@ -4,6 +4,11 @@
 
 <div class="iconHeader-right">
 	<div class="iconHeader-right-inner">
+		<div class="btnArea">
+			
+			<a href="${pageContext.request.contextPath}/project/update?projIdx=${projIdx}&page=${page}">프로젝트 수정</a>
+			
+		</div>
 
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/project/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/backlog.png">프로젝트 리스트</a></li>

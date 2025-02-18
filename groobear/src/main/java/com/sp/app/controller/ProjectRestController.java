@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/project/*")
-public class ProjectPMController {
+public class ProjectRestController {
 	private final ProjectService service;
 	
 	// AJAX-JSON

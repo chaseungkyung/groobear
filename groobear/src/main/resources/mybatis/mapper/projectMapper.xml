@@ -34,9 +34,29 @@
 			TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate
 		FROM project p
 		JOIN employee e ON p.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd !=''">
+				INSTR(projName, #{kwd}) &gt; 0
+			</if>
+		</where>
 		ORDER BY projIdx DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
+	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Project">
+		SELECT projIdx, e.empIdx, e.empName, t.teamName, projName, startDate, endDate 
+		FROM project p
+		JOIN employee e ON p.empIdx = e.empIdx
+		JOIN team t ON e.teamIdx = t.teamIdx
+		WHERE projIdx=#{projIdx}
+	</select>
+	
+	
+	<update id="updateProject" parameterType="com.sp.app.model.Project">
+		UPDATE project SET empIdx=#{empIdx}, startDate=#{startDate}, endDate=#{endDate}
+		WHERE projIdx=#{projIdx}
+	</update>
+	
 	
 	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
 		INSERT INTO projectMember(memberIdx, projIdx, empIdx, teamName, role)

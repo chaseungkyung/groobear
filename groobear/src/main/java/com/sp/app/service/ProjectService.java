@@ -14,6 +14,10 @@ public interface ProjectService {
 	public List<Project> listProject(Map<String, Object> map);
 	public int dataCount(Map<String, Object> map);
 	
+	public void updateProject(Project dto) throws Exception;
+	public Project findById(long projIdx) throws Exception;
+	
+	
 	public void insertProjectMember(ProjectMember dto) throws Exception;
 	
 }
