@@ -19,7 +19,7 @@
 	
 <main>
 
-	<div class="container mainInner">
+	<div class="mainInner">
 		<div>
 			<a href="${pageContext.request.contextPath}/mypage/pwd?mode=update">개인정보수정</a>
 			<a href="${pageContext.request.contextPath}/mypage/alarmSetting">알람설정변경</a>
