@@ -57,7 +57,7 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/projectHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/projectHeader3.jsp"/>
 	
 	<main>
 		<div class="mainInner">
