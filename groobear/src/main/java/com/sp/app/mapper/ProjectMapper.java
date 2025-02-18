@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
 
 @Mapper
@@ -24,7 +24,7 @@ public interface ProjectMapper {
 	public Project findById(long projIdx) throws SQLException;
 	
 	
-	public void insertProjectMember(ProjectMember dto);
+	public void insertProjectMember(ProjectMember dto) throws SQLException;
 	
 	
 }

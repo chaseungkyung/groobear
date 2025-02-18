@@ -44,7 +44,7 @@
 					</li>
 					<li>${dto.startDate}</li>
 					<li>${dto.endDate}</li>
-					<li>${dto.empName}</li>
+					<li>${dto.pmEmpName}</li>
 					<li>${dto.createdAt}</li>
 				</ul>
 			</c:forEach>

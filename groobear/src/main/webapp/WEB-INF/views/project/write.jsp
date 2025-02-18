@@ -40,13 +40,13 @@
 		    	return;
 		    }
 		    
-		    if(!f.empIdx.value.trim()) {
+		    if(!f.pmEmpIdx.value.trim()) {
 		    	alert("프로젝트 매니저의 이름을 선택해주세요. ");
-		        f.empName.focus();
+		        f.pmEmpName.focus();
 		        return;
 		    }
 		    $('#teamName').val($('#teamSelect option:selected').text());
-	        $('#empName').val($('#empSelect option:selected').text());
+	        $('#pmEmpName').val($('#pmEmpSelect option:selected').text());
 		
 			f.action = '${pageContext.request.contextPath}/project/${mode}';
 			f.submit();
@@ -66,29 +66,29 @@
 					<table class="textArea">
 						<tr>
 							<th>프로젝트 이름</th>
-							<td><input type="text" name ="projName" ></td>
+							<td><input type="text" name ="projName" value="${dto.projName}"></td>
 						</tr>
 						<tr>
 							<th>시작일</th>
-							<td><input type="date" name ="startDate" id="startDate" min=""></td>
+							<td><input type="date" name ="startDate" id="startDate" value="${dto.startDate}"></td>
 						</tr>
 						<tr>
 							<th>종료일</th>
-							<td><input type="date" name ="endDate"></td>
+							<td><input type="date" name ="endDate" value="${dto.endDate}"></td>
 						</tr>
 						<tr>
 							<th>PM 지정</th>
 							<td>
 								<select name="teamIdx" id="teamSelect">
-									<option value="">개발부 소속 팀을 선택해주세요</option>
+									<option value="${dto.teamName}">개발부 소속 팀을 선택해주세요</option>
 								</select>
 							</td>
 							<td>
-								<select name ="empIdx" id="empSelect">
-									<option value="">이름을 선택해주세요</option>
+								<select name ="pmEmpIdx" id="pmEmpSelect">
+									<option value="${dto.pmEmpName}">이름을 선택해주세요</option>
 								</select>
 								
-								<input type="hidden" name="empName" id="empName">
+								<input type="hidden" name="pmEmpName" id="pmEmpName">
 								<input type="hidden" name="teamName" id="teamName">
 												
 							</td>						
@@ -116,7 +116,7 @@
 	
 <script type="text/javascript">
 const teamSelect = $('#teamSelect');
-const empSelect = $('#empSelect');
+const pmEmpSelect = $('#pmEmpSelect');
 
 $(function(){
     // 개발부 소속 팀 불러오기    
@@ -148,19 +148,19 @@ $(function(){
             ajaxRequest(empUrl, 'GET', { teamIdx: teamIdx }, 'json', function (data) {
             	
                 if (data.state === "true" && data.empNameList) {
-                	empSelect.empty();
-                	empSelect.append('<option value="">이름을 선택해주세요</option>');
+                	pmEmpSelect.empty();
+                	pmEmpSelect.append('<option value="">이름을 선택해주세요</option>');
                     
-                	$.each(data.empNameList, function(index, emp){
-                		empSelect.append('<option value="' + emp.empIdx + '">' + emp.empName + '</option>');
+                	$.each(data.empNameList, function(index, pmEmp){
+                		pmEmpSelect.append('<option value="' + pmEmp.pmEmpIdx + '">' + pmEmp.pmEmpName + '</option>');
                 	});
                 	
                 } else {
-                	empSelect.empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
+                	pmEmpSelect.empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
                 }
             });
         } else {
-        	empSelect.empty().append('<option value="">이름을 선택해주세요</option>');
+        	pmEmpSelect.empty().append('<option value="">이름을 선택해주세요</option>');
         } 	
     });
     

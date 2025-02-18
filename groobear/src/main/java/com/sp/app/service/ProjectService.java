@@ -3,7 +3,7 @@ package com.sp.app.service;
 import java.util.List;
 import java.util.Map;
 
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
 
 public interface ProjectService {

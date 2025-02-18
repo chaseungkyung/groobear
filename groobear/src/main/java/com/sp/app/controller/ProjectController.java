@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.model.Project;
+import com.sp.app.model.SessionInfo;
+import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.ProjectService;
 
@@ -39,7 +40,7 @@ public class ProjectController {
 			@RequestParam(name = "page", defaultValue = "1") int current_page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession session) {
 		
 		try {
 			int size = 10;
@@ -47,6 +48,10 @@ public class ProjectController {
 			int dataCount = 0;
 			
 			kwd = URLDecoder.decode(kwd, "utf-8");
+			
+			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("kwd", kwd);
@@ -97,10 +102,10 @@ public class ProjectController {
 	}
 	
 	@GetMapping("write")
-	public String writeForm() {
+	public String writeForm(Model model) {
 		
 		try {
-			
+			model.addAttribute("mode", "write");
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
@@ -112,6 +117,9 @@ public class ProjectController {
 	public String writeSubmit(Project dto, HttpSession session) throws Exception {
 		
 		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			dto.setCrtEmpIdx(info.getEmpIdx());
 			
 			service.insertProject(dto);
 			
@@ -122,6 +130,41 @@ public class ProjectController {
 		return "redirect:/project/list";
 	}
 	
+	
+	// 프로젝트 상세 보기
+	@GetMapping("detail/{projIdx}")
+	public String detail(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page") String page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model,
+			HttpSession session) {
+		
+		String query = "page=" + page;
+		
+		try {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+			if(! kwd.isBlank()) {
+				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+			}
+			
+			Project dto = Objects.requireNonNull(service.findById(projIdx));
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("query", query);
+			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);			
+			
+			return "project/detail";
+		} catch (Exception e) {
+			log.info("detail : ", e);
+		}
+		
+		return "redirect:/project/list?" + query;
+	}
+	
+	
 	@GetMapping("update")
 	public String updateForm(
 			@RequestParam(name = "projIdx") long projIdx,
@@ -130,14 +173,13 @@ public class ProjectController {
 			HttpSession session) throws Exception {
 		
 		try {
-			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			Project dto = Objects.requireNonNull(service.findById(projIdx));
 			
-			/*
-			 * if(! info.getEmpCode().equals(dto.getEmpCode())) { return
-			 * "redirect:/project/list?page=" + page; }
-			 */
+			if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
+				return "redirect:/project/list?page=" + page;
+			}
 			
 			model.addAttribute("dto", dto);
 			model.addAttribute("page", page);
@@ -167,26 +209,7 @@ public class ProjectController {
 	}
 	
 	
-	// 프로젝트 상세 보기
-	@GetMapping("detail/{projIdx}")
-	public String detail(
-			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page") String page,
-			Model model) {
-		
-		String query = "page=" + page;
-		
-		try {
-			model.addAttribute("projIdx", projIdx);
-			model.addAttribute("page", page);			
-			
-			return "project/detail";
-		} catch (Exception e) {
-			log.info("detail : ", e);
-		}
-		
-		return "redirect:/project/list?" + query;
-	}
+
 	
 	
 	// AJAX-JSON

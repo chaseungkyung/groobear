@@ -5,9 +5,9 @@
 <div class="iconHeader-right">
 	<div class="iconHeader-right-inner">
 		<div class="btnArea">
-			
-			<a href="${pageContext.request.contextPath}/project/update?projIdx=${projIdx}&page=${page}">프로젝트 수정</a>
-			
+			<c:if test="${sessionScope.member.empIdx == dto.crtEmpIdx}">
+				<a href="${pageContext.request.contextPath}/project/update?projIdx=${projIdx}&page=${page}">프로젝트 수정</a>
+			</c:if>
 		</div>
 
 		<ul>

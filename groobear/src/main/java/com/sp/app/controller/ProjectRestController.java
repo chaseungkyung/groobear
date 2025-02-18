@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sp.app.model.Project;
+import com.sp.app.model.project.Project;
 import com.sp.app.service.ProjectService;
 
 import lombok.RequiredArgsConstructor;
