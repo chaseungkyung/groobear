@@ -42,6 +42,7 @@ public class SettingController {
 			@RequestParam(name = "mode") String mode,
 			Model model) {
 		
+		// update
 		model.addAttribute("mode", mode);
 		
 		return "mypage/pwd"; 
@@ -87,15 +88,20 @@ public class SettingController {
 	}
 	
 	@PostMapping("mypage/empSetting")
-	public String settingSubmit(Member dto, final RedirectAttributes reAttr, Model model) {
+	public String settingSubmit(Member dto, final RedirectAttributes reAttr, Model model, HttpSession session) {
 		
 		StringBuilder sb = new StringBuilder();
 		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			dto.setEmpIdx(info.getEmpIdx());
+			
 			service.updateEmployee(dto);
 			
 			sb.append(dto.getEmpName() + "님의 환경설정이 재설정되었습니다.");
 			sb.append("메인 화면으로 이동하시기 바랍니다.<br>");
 		} catch (Exception e) {
+			log.info("settingSubmit : ", e);
 			sb.append(dto.getEmpName() + "님의 환경설정 재설정이 실패했습니다.");
 			sb.append("잠시후 다시 이용해주시길 바랍니다.");
 		}
@@ -124,7 +130,7 @@ public class SettingController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/";
+		return "redirect:/mypage/complete";
 	}
 	
 	@GetMapping("mypage/alarmSetting")
@@ -134,15 +140,15 @@ public class SettingController {
 	
 	@PostMapping("mypage/alarmSetting")
 	public String updateAlarmSubmit() {
-		return "redirect:/mypage/alarmSetting";
+		return "redirect:/mypage/complete";
 	}
 	
 	
 	@GetMapping("mypage/complete")
-	public String complete(@ModelAttribute("massage") String message) throws Exception {
+	public String complete(@ModelAttribute("message") String message) throws Exception {
 		
 		if(message == null || message.isBlank()) {
-			return "redirect:/";
+			return "redirect:/mypage/setting";
 		}
 		return "mypage/complete";
 	}

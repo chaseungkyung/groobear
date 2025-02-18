@@ -58,7 +58,7 @@ function memberOk() {
         return;
     }
 
-    f.action = '${pageContext.request.contextPath}/mypage/${mode}';
+    f.action = '${pageContext.request.contextPath}/mypage/empSetting';
     f.submit();
 }
 </script>
@@ -74,7 +74,7 @@ function memberOk() {
 	<div class="container mainInner">
 	
 		<div class="alert alert-info" role="alert">
-			<i class="bi bi-person-check-fill">환경설정 변경</i>
+			<i class="bi bi-person-check-fill">개인정보 변경</i>
 		</div>
 		
 		<div class="body-main">
@@ -98,7 +98,7 @@ function memberOk() {
 						<div class="row">
 							<div class="col-6">
 								<input type="text" name="empName" id="empName" class="form-control" 
-										value="${dto.empName}" ${mode=='update'?'':'readonly'} placeholder="이름">
+										value="${dto.empName}" ${mode=='update'} placeholder="이름">
 							</div>
 						</div>
 					</div>
@@ -110,7 +110,7 @@ function memberOk() {
 						<div class="row">
 							<div class="col-6">
 								<input type="date" name="birth" id="birth" class="form-control" 
-										value="${dto.birth}" ${mode=='update'?'':'readonly'} placeholder="생년월일">
+										value="${dto.birth}" ${mode=='update'} placeholder="생년월일">
 							</div>
 						</div>
 						<small class="form-control-plaintext" style="margin: 0 auto">생년월일은 YYYY-MM-DD 형식으로 입력해주세요.</small>
@@ -122,7 +122,7 @@ function memberOk() {
 					<div class="col-sm-10 row wrap-email">
 						<div class="col-6 pe-0">
 							<input type="text" name="email" id="email" class="form-control" 
-									value="${dto.email}" ${mode=='update'?'':'readonly'} placeholder="이메일">
+									value="${dto.email}" ${mode=='update'} placeholder="이메일">
 						</div>
 					</div>
 				</div>
@@ -130,9 +130,9 @@ function memberOk() {
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" for="tel">전화번호</label>
 					<div class="col-sm-10 row wrap-tel">
-						<div class="col-3 pe-0">
+						<div class="col-6 pe-0">
 							<input type="text" name="tel" id="tel" class="form-control" 
-									value="${dto.tel}" ${mode=='update'?'':'readonly'} placeholder="전화번호">
+									value="${dto.tel}" ${mode=='update'} placeholder="전화번호">
 						</div>
 					</div>
 				</div>

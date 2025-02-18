@@ -17,28 +17,24 @@
 		WHERE empIdx = #{empIdx}
 	</select>
 
-	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
-		UPDATE employee SET empName= #{empName}
-		<if test="empPwd != null and empPwd !=  ''">
-			, empPwd = #{empPwd}
-		</if>
+	<update id="updateEmpPwd" parameterType="com.sp.app.model.Member">
+		UPDATE employee
+		SET empPwd = #{empPwd}
 		WHERE empIdx = #{empIdx}
 	</update>
 	
 	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
-		UPDATE employeeDetail SET birth = #{birth, jdbcType=VARCHAR},
-			   email = #{email, jdbcType=VARCHAR}, tel = #{tel, jdbcType=VARCHAR},
-			   zipCode = #{zipCode, jdbcType=VARCHAR}, addrMain = #{addrMain, jdbcType=VARCHAR},
-			   addrSub = #{addrSub, jdbcType=VARCHAR}, rrn = #{rrn, jdbcType=VARCHAR}
+		UPDATE employeeDetail 
+		SET    birth = TO_DATE(#{birth},'YYYY-MM-DD'), email = #{email},
+			   tel = #{tel}, zipCode = #{zipCode},
+			   addrMain = #{addrMain}, addrSub = #{addrSub}
 		WHERE empIdx = #{empIdx}
 	</update>
 	
-	<select id="listFindEmployee" parameterType="com.sp.app.model.Member">
+	<select id="listFindEmployee" parameterType="map" resultType="com.sp.app.model.Member">
 		SELECT empIdx, empCode, empName
 		FROM employee
-		<where>
-			empIdx != #{empIdx}	
-		</where>
+		WHERE empIdx = #{empIdx}
 	</select>
 	
 </mapper>

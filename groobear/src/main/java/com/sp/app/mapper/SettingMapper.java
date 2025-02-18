@@ -10,7 +10,7 @@ import com.sp.app.model.Member;
 
 @Mapper
 public interface SettingMapper {
-	public void updateEmployee(Member dto) throws SQLException;
+	public void updateEmpPwd(Member dto) throws SQLException;
 	public void updateEmployeeDetail(Member dto) throws SQLException;
 	
 	public Member findByEmpIdx(Long empIdx);
