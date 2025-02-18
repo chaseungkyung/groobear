@@ -1,5 +1,7 @@
 package com.sp.app.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +11,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.Member;
+import com.sp.app.model.MyPage;
 import com.sp.app.service.MyPageService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -91,33 +94,25 @@ public class MyPageController {
 
     @ResponseBody
     @GetMapping("charts")
-    public Map<String, Object> charts(@RequestParam("userId") String userId) {
+    public Map<String, Object> charts(
+    		@ModelAttribute Member member) {
         Map<String, Object> model = new HashMap<>();
         
         try {
-            // SQL 쿼리 실행: 로그인 시간과 현재 시간의 차이 계산
-            String sql = "SELECT loginTime, ROUND((SYSDATE - TO_DATE(loginTime, 'HH24:MI')), 2) AS workedHours " +
-                         "FROM users WHERE user_id = ?";
-            
-            Map<String, Object> result = jdbcTemplate.queryForMap(sql, userId);
-            
-            String loginTime = (String) result.get("loginTime");
-            Double workedHours = (Double) result.get("workedHours");
-            
-            // 근무 시간 계산 (분 단위로 변환)
-            long workedMinutes = Math.round(workedHours * 60);
-            long hours = workedMinutes / 60;
-            long minutes = workedMinutes % 60;
-            String workedTime = hours + "h " + minutes + "m";
-            
-            model.put("state", "true");
-            model.put("hours", new String[]{"현재"});
-            model.put("hoursWorked", new int[]{(int) workedMinutes});  // 근무 시간(분)
-            model.put("workedTime", workedTime);  // 계산된 근무 시간 표시
-            
+        	MyPage loginTime = service.getLoginTime(member.getEmpIdx());
+        	
+        	
+        	if (loginTime == null) {
+        		model.put("state", "false");
+        		model.put("message", "로그인 정보가 없습니다.");
+        		return model;
+        	}
+        	
+        	model.put("state", "true");
+        	
         } catch (Exception e) {
             model.put("state", "false");
-            e.printStackTrace();  // 예외 출력 (디버깅 용도)
+            e.printStackTrace(); 
         }
         
         return model;

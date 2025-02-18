@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.MyPageMapper;
 import com.sp.app.model.Member;
+import com.sp.app.model.MyPage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +68,18 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public MyPage getLoginTime(long empIdx) {
+		MyPage loginTime = null;
+		try {
+			loginTime = mapper.getLoginTime(empIdx);
+			
+		} catch (Exception e) {
+		
+		}
+		return loginTime;
 	}
 
 

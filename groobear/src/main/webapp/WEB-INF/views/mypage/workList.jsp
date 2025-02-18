@@ -8,7 +8,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/dist/css/mypage/list.css"
 	type="text/css">
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -29,7 +30,7 @@
 					</ul>
 					<ul class="timeTable"></ul>
 					
-					<div id="workChart" style="height:400px;">차트</div>
+					<div class="workChart" style="height:400px;">차트</div>
 				</div>
 			</form>
 		</div>
@@ -39,67 +40,59 @@
 $(function(){
     let url = '${pageContext.request.contextPath}/mypage/charts';
     
-    function fetchDataAndUpdateChart() {
+    function fetchUpdateChart() {
         $.getJSON(url, function(data) {
+        	
             if (data.state === 'true') {
                 drawWorkChart(data); 
+                
+                document.getElementById("workTime").textContent = Math.floor(data.secWorked / 60) + "분";
             } else {
                 console.log('차트 데이터를 불러오는 데 실패했습니다.');
             }
         });
     }
 
-    setInterval(fetchDataAndUpdateChart, 60000);
+    setInterval(fetchUpdateChart, 60000);
 
     function drawWorkChart(data) {
-        var chartDom = document.getElementById('workChart');
-        var myChart = echarts.init(chartDom);  // 차트 인스턴스 생성
-        var option;
+  	
+    	var chartDom = document.getElementById('main');
+    	var myChart = echarts.init(chartDom);
+    	var option;
 
-        option = {
-            title: {
-                text: '근무 시간 현황',
-                left: 'center'
-            },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            yAxis: {
-                type: 'category',
-                data: data.hours
-            },
-            xAxis: {
-                type: 'value',
-                name: '근무 시간 (분)',
-                axisLabel: {
-                    formatter: '{value} 분'
-                }
-            },
-            series: [
-                {
-                    name: '근무 시간',
-                    type: 'bar',
-                    data: data.hoursWorked 
-                }
-            ]
-        };
+    	var secondsWorked = data.secWorked;
+    	
+    	option = {
+    	  tooltip: {
+    	    formatter: '{a} <br/>{b} : {c}분'
+    	  },
+    	  series: [
+    	    {
+    	      name: '근무 시간',
+    	      type: 'gauge',
+    	      progress: {
+    	        show: true
+    	      },
+    	      detail: {
+    	        valueAnimation: true,
+    	        formatter: '{value}분'
+    	      },
+    	      data: [
+    	        {
+    	          value: Math.floor(secondsWorked / 60),
+    	          name: '근무 시간'
+    	        }
+    	      ]
+    	    }
+    	  ]
+    	};
 
-      
-        myChart.setOption(option);
+    	option && myChart.setOption(option);
     }
-
-  
-    fetchDataAndUpdateChart();
+    fetchUpdateChart();
 });
+  
 </script>
 
 </body>
