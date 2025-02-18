@@ -30,57 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/schedule/*")
 public class ScheduleController {
-	private final ScheduleService service;
-	
-	@GetMapping("companySchedule")
-	public ModelAndView companySchedule(HttpSession session, Model model) throws Exception {
-		ModelAndView mav = new ModelAndView("schedule/companySchedule");
-		
-		try {
-			
-			
-		} catch (Exception e) {
-			log.info("companySchedule : ", e);
-		}
-		return mav;
-	}
-	
-	@GetMapping("deptSchedule")
-	public ModelAndView deptSchedule(HttpSession session, Model model) throws Exception {
-		ModelAndView mav = new ModelAndView("schedule/deptSchedule");
-		
-		try {
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("deptIdx", info.getDeptIdx());
-			model.addAttribute("mode", "deptSchedule");
-		} catch (Exception e) {
-			log.info("deptSchedule : ", e);
-		}
-		
-		return mav;
-	}
-	
-	@GetMapping("mySchedule")
-	public ModelAndView mySchedule(HttpSession session, Model model) throws Exception {
-		ModelAndView mav = new ModelAndView("schedule/mySchedule");
-		
-		try {
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("empCode", info.getEmpCode());
-			model.addAttribute("mode", "mySchedule");
-		} catch (Exception e) {
-			log.info("mySchedule : ", e);
-		}
-		
-		return mav;
-	}
-	
+	private final ScheduleService service;	
 	
 	@GetMapping("schedule")
 	public ModelAndView main(HttpSession session) throws Exception {
@@ -88,6 +38,22 @@ public class ScheduleController {
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			if(info == null) {
+				return new ModelAndView("redirect:/");
+			}
+			
+			if(info.getEmpCode() == null) {
+				System.out.println("왜 사번을 못받아오냐고 진짜");
+			} else {
+				System.out.println(info.getEmpName());
+			}
+
+			if(info.getDeptIdx() == null) {
+				System.out.println("왜 부서코드를 못받아오냐고 진짜");
+			} else {
+				System.out.println(info.getDeptName());
+			}
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
@@ -110,6 +76,7 @@ public class ScheduleController {
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empCode", info.getEmpCode());
+			map.put("deptCode", info.getDeptIdx());
 			
 			model.addAttribute("mode", "write");
 			
@@ -126,6 +93,10 @@ public class ScheduleController {
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("empCode", info.getEmpCode());
+			map.put("deptCode", info.getDeptIdx());
 			
 			if(dto.getCategoryIdx() == 0) {
 				dto.setCategoryIdx(0);
@@ -147,7 +118,7 @@ public class ScheduleController {
 	public Map<String, ?> month (
 			@RequestParam(name = "start") String start,
 			@RequestParam(name = "end") String end,
-			@RequestParam(name = "categorys", required = false) List<Long> categorys,
+			@RequestParam(name = "categoryIdx", defaultValue = "3") int categoryIdx,
 			HttpSession session) throws Exception {
 		Map<String, Object> model=new HashMap<>();
 
@@ -165,15 +136,18 @@ public class ScheduleController {
 			}
 			
 			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("categoryList", categorys);
+			
 			map.put("start", start);
 			map.put("end", end);
 			map.put("repeatStart", repeatStart);
 			map.put("repeatEnd", repeatEnd);
+			map.put("categoryIdx", categoryIdx);
+			map.put("deptCode", info.getDeptIdx());
 			map.put("empCode", info.getEmpCode());
 			
 			List<Schedule> list = service.listMonth(map);
-			
+			System.out.println(info.getEmpCode());
+			System.out.println(info.getDeptIdx());
 			for(Schedule dto : list) {
 		    	if(dto.getStartTime() != null && ! dto.getStartTime().isBlank()) {
 		    		// 2021-10-10T10:10

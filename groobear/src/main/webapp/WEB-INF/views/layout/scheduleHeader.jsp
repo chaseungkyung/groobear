@@ -8,9 +8,9 @@
 			<a href="${pageContext.request.contextPath}/schedule/write"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가</a>
 		</div>
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/schedule/${mode}">회사일정</a></li>
-			<li><a href="${pageContext.request.contextPath}/schedule/${mode}">팀일정</a></li>
-			<li><a href="${pageContext.request.contextPath}/schedule/${mode}">개인일정</a></li>
+			<li><a href="${pageContext.request.contextPath}/schedule/schedule">회사일정</a></li>
+			<li><a href="${pageContext.request.contextPath}/schedule/schedule">팀일정</a></li>
+			<li><a href="${pageContext.request.contextPath}/schedule/schedule">개인일정</a></li>
 		</ul>
 	</div>
 </div>

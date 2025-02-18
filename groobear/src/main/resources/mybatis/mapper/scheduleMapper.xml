@@ -6,7 +6,7 @@
 	<insert id="insertSchedule" parameterType="com.sp.app.model.Schedule">
 		INSERT INTO schedule(scheduleIdx, empCode, deptCode, title, categoryIdx, color, startDate, endDate,
 			startTime, endTime, repeat, repeat_cycle, memo, reg_date) 
-		VALUES(schedule_seq.NEXTVAL, #{empCode},#{deptCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR},
+		VALUES(schedule_seq.NEXTVAL, #{empCode}, #{deptCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR},
 			#{categoryIdx, jdbcType=INTEGER}, 
 			#{color}, #{startDate},
 			#{endDate, jdbcType=VARCHAR},
@@ -19,39 +19,41 @@
 	</insert>
 
 	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Schedule">
-		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime,
+		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, deptCode, empCode,
 				categoryIdx, color, repeat, repeat_cycle, memo, reg_date
 		FROM schedule
 		<where>
-			<if test="categoryIdx == 1">
-				empCode = #{empCode} AND categoryIdx == 1
-			</if>
-			<if test="categoryIdx == 2">
-				deptCode = #{deptCode} AND categoryIdx == 2
-			</if>
-			<if test="categoryIdx == 3">
-				categoryIdx == 3
-			</if>
-			AND
-			( 
+			<trim prefixOverrides="AND">
+				<if test="categoryIdx == 1">
+					empCode = #{empCode} AND categoryIdx = 1
+				</if>
+				<if test="categoryIdx == 2">
+					deptCode = #{deptCode, jdbcType=VARCHAR} AND categoryIdx = 2
+				</if>
+				<if test="categoryIdx == 3">
+					categoryIdx = 3
+				</if>
+				AND
 				( 
-					 ( TO_DATE(startDate, 'YYYY-MM-DD') &gt;= TO_DATE(#{start}, 'YYYY-MM-DD')
-						AND TO_DATE(startDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
-					 ) OR ( TO_DATE(endDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{start}, 'YYYY-MM-DD') 
-					    AND TO_DATE(endDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
-					 )
-				) OR (
-					repeat = 1 AND repeat_cycle != 0 
-					   AND ADD_MONTHS(TO_DATE(startDate, 'YYYY-MM-DD'), 12 * repeat_cycle * TRUNC(((SUBSTR(#{repeatStart},1,4) - SUBSTR(startDate,1,4)) / repeat_cycle))) &gt;= TO_DATE(#{repeatStart}, 'YYYY-MM-DD')
-					   AND ADD_MONTHS(TO_DATE(startDate, 'YYYY-MM-DD'), 12 * repeat_cycle * TRUNC(((SUBSTR(#{repeatStart},1,4) - SUBSTR(startDate,1,4)) / repeat_cycle))) &lt;= TO_DATE(#{repeatEnd}, 'YYYY-MM-DD') 
-			    )
-			)
+					( 
+						 ( TO_DATE(startDate, 'YYYY-MM-DD') &gt;= TO_DATE(#{start}, 'YYYY-MM-DD')
+							AND TO_DATE(startDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+						 ) OR ( TO_DATE(endDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{start}, 'YYYY-MM-DD') 
+						    AND TO_DATE(endDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+						 )
+					) OR (
+						repeat = 1 AND repeat_cycle != 0 
+						   AND ADD_MONTHS(TO_DATE(startDate, 'YYYY-MM-DD'), 12 * repeat_cycle * TRUNC(((SUBSTR(#{repeatStart},1,4) - SUBSTR(startDate,1,4)) / repeat_cycle))) &gt;= TO_DATE(#{repeatStart}, 'YYYY-MM-DD')
+						   AND ADD_MONTHS(TO_DATE(startDate, 'YYYY-MM-DD'), 12 * repeat_cycle * TRUNC(((SUBSTR(#{repeatStart},1,4) - SUBSTR(startDate,1,4)) / repeat_cycle))) &lt;= TO_DATE(#{repeatEnd}, 'YYYY-MM-DD') 
+				    )
+				)
+			</trim>
 		</where>
 		ORDER BY startDate ASC, scheduleIdx DESC 
 	</select>
 
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Schedule">
-		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx,
+		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx, deptCode, empCode
 			color, repeat, repeat_cycle, memo, reg_date 
 		FROM schedule 
 		WHERE scheduleIdx = #{scheduleIdx}
