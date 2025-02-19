@@ -47,13 +47,18 @@
 	</main>
 
 <script type="text/javascript">
+
+function workTime(data) {
+	var loginTime = document.getElementById('workTime');
+	
+	let workTime = data.loginTime - today;
+}
+
 $(function(){
     let url = '${pageContext.request.contextPath}/mypage/charts';
     
     function UpdateChart() {
         $.getJSON(url, function(data) {
-        	
-        	console.log(data.loginTime)
         	
             if (data.state === 'true') {
                 WorkChart(data); 

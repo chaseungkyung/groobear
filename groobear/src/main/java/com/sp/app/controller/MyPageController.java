@@ -120,6 +120,7 @@ public class MyPageController {
         		model.put("state", "true");
         		model.put("loginTime", loginTime.getLoginTime());
         		model.put("gap", gap);
+        		model.put("today", today);
         	}
         	
         } catch (Exception e) {
