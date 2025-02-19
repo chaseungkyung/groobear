@@ -42,7 +42,6 @@ public class SettingController {
 			@RequestParam(name = "mode") String mode,
 			Model model) {
 		
-		// update
 		model.addAttribute("mode", mode);
 		
 		return "mypage/pwd"; 
@@ -84,7 +83,7 @@ public class SettingController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	@PostMapping("mypage/empSetting")
@@ -115,7 +114,7 @@ public class SettingController {
 	
 	@PostMapping("mypage/pwdSetting")
 	public String updatePwdSubmit(@RequestParam(name = "empPwd") String empPwd,
-			Model model, HttpSession session) {
+			Model model, HttpSession session) throws Exception {
 	
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -130,7 +129,7 @@ public class SettingController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/mypage/complete";
+		return "redirect:/main";
 	}
 	
 	@GetMapping("mypage/alarmSetting")
@@ -148,7 +147,7 @@ public class SettingController {
 	public String complete(@ModelAttribute("message") String message) throws Exception {
 		
 		if(message == null || message.isBlank()) {
-			return "redirect:/mypage/setting";
+			return "redirect:/";
 		}
 		return "mypage/complete";
 	}

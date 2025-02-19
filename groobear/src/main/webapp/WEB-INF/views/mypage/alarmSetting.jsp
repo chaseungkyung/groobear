@@ -4,11 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+
 </head>
 <body>
 
+
+
+
 </body>
+<footer>
+	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
+</footer>
+
+	<jsp:include page="/WEB-INF/views/layout/footerResources.jsp"/>
+	
 </html>

@@ -169,7 +169,7 @@ function memberOk() {
 				    			onclick="memberOk();"> ${mode=='update'?'':'readonly'}
 				    			<i class="bi bi-check2"></i></button>
 						<button type="button" class="btn btn-danger" 
-								onclick="location.href='${pageContext.request.contextPath}/';"> 
+								onclick="location.href='${pageContext.request.contextPath}/mypage/setting';"> 
 								 ${mode=='update'?'':'readonly'} <i class="bi bi-x"></i></button>
 					</div>
 				</div>

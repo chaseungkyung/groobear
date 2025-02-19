@@ -44,7 +44,7 @@
 								<button type="button" class="btn btn-primary" onclick="sendOk();">
 									변경 완료 <i class="bi bi-check2"></i></button>
 								<button type="button" class="btn btn-danger" 
-									onclick="location.href='${pageContext.request.contextPath}/mypage/setting';">
+									onclick="location.href='${pageContext.request.contextPath}/main';">
 									다음에 변경 <i class="bi bi-x"></i></button>
 							</div>													
 						</form>

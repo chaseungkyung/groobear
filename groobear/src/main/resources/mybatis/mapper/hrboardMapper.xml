@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.board.BoardMapper">
+	
+	<insert id="insertBoard" parameterType="com.sp.app.model.board.Board">
+		INSERT INTO hrBoard(postIdx, empIdx, title, content, regDate, updateDate)
+		VALUES (hrBoard_seq.NEXVAL, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE)
+	</insert> <!-- updateDate null 이어서 insert 안 될 수 있음 -->
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all'">
+				( INSTR(title, #{kwd}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'regDate'">
+				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
+					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'content'">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM hrBoard b
+		JOIN employee e ON b.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>		
+		</where>
+	</select>
+	
+	<select id="listBoard" parameterType="map" resultType="com.sp.app.model.board.Board">
+		SELECT b.postIdx, b.empIdx, empName, title, TO_CHAR(b.regDate, 'YYYY-MM-DD') regDate,
+			   NVL(replyCount, 0) replyCount
+		FROM hrBoard b
+		JOIN employee e ON b.empIdx = e.empIdx
+		LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) replyCount
+			FROM hrBbsCmt
+			GROUP BY postIdx
+		) c ON b.postIdx = c.postIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY postIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY			
+	</select>
+	
+	<select id="findById" parameterType="Long" resultType="com.sp.app.model.board.Board">
+		SELECT b.postIdx, b.empIdx, empName, title, content, b.RegDate
+		FROM hrBoard b
+		JOIN employee e ON b.empIdx = e.empIdx
+		WHERE b.postIdx = #{postIdx}
+	</select>
+
+	<!--이전글 다음글 -->
+<!-- 
+	<select id="findByPrev" parameterType="map" resultType="com.sp.app.model.board.Board">
+	
+	</select>
+		
+	<select id="findByNext" parameterType="map" resultType="com.sp.app.model.board.Board">
+	
+	</select>
+-->	
+
+	<update id="updateBorad" parameterType="com.sp.app.model.board.Board">
+		UPDATE hrBoard SET title=#{title}, content=#{content}
+		WHERE postIdx=#{postIdx}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="Long">
+		DELETE FROM hrBoard
+		WHERE postIdx = #{postIdx}
+	</delete>
+	
+	<!-- 댓글 -->
+<!--  
+	<insert id="insertReply" parameterType="com.sp.app.model.board.Reply">
+		
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+	
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.model.board.Reply">
+	
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+	
+	</delete>
+-->
+	
+</mapper>
