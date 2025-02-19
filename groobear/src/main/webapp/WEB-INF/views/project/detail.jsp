@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/layout/headerResources.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css"
 	type="text/css">
@@ -61,6 +61,9 @@
 					        </div>
 					    </div>
 					    
+					    <div class="">
+					    	dd
+					    </div>
 
 					    
 					</div>
@@ -137,14 +140,14 @@ var options = {
             labels: {
                 formatter: function(value) {
                     let date = new Date(value);
-                    return (date.getMonth() + 1) + '월'; // ✅ "1월, 2월, 3월..." 형식으로 출력
+                    return (date.getMonth() + 1) + '월';
                 }
             },
             axisBorder: {
-                show: false  // ✅ X축 선 제거
+                show: false  // X축 선 제거
             },
             axisTicks: {
-                show: false  // ✅ X축 눈금 제거
+                show: false  // X축 눈금 제거
             }           
         },
         yaxis: {
@@ -180,7 +183,7 @@ const dropdown = document.getElementById('customDropdown');
 const toggle = dropdown.querySelector('.dropdown-toggle');
 const menu = dropdown.querySelector('.dropdown-menu');
 const label = dropdown.querySelector('.dropdown-label');
-const options = dropdown.querySelectorAll('.dropdown-option');
+const opts = dropdown.querySelectorAll('.dropdown-option');
 
 // 드롭다운 열고/닫기
 toggle.addEventListener('click', (e) => {
@@ -189,7 +192,7 @@ toggle.addEventListener('click', (e) => {
 });
 
 // 옵션 클릭 시 선택 및 드롭다운 닫기
-options.forEach((option) => {
+opts.forEach((option) => {
     option.addEventListener('click', (e) => {
         label.textContent = e.target.textContent; // 선택한 옵션 텍스트 표시
         dropdown.classList.remove('open'); // 드롭다운 닫기
