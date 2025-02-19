@@ -22,86 +22,87 @@
 }
 
 
-.inner-middle {
-	position: relative;
+/* 드롭다운 래퍼 */
+.dropdown {
+    position: relative;
+    width: 200px;
+}
+
+/* 드롭다운 버튼(셀렉트 헤더) */
+.dropdown-toggle {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-  	max-width: 1150px;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.3s;
 }
 
-.middle-left{
-	margin: 0 30px 0 0;
+.dropdown-toggle:hover {
+    border-color: #999;
 }
 
-.stage-section {
-    min-width: 800px;
-    height: 250px; /* 박스 높이 */
-    background-color: white;
-    margin-bottom: 50px;
+/* 드롭다운 버튼에 표시될 텍스트 */
+.dropdown-label {
+    font-size: 14px;
+    color: #333;
 }
 
-.stage {
-	border: 1px solid #ddd;
-	padding: 10px;
-	margin: 5px;
-    border-radius: 10px;
+/* 화살표 아이콘(임시로 간단히 구현) */
+.dropdown-arrow {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+    transition: transform 0.3s;
 }
 
-.step-section{
-	min-width: 800px;
-    height: 250px; /* 박스 높이 */
-    background-color: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+/* 드롭다운 활성화 시 화살표 회전 효과 */
+.dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
 }
 
-
-.step {
-	border-bottom: 1px solid #ddd;
-	padding: 10px;
-	margin: 5px;
+/* 드롭다운 옵션 리스트 */
+.dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    z-index: 100;
 }
 
-
-.member-section{
-	width: 250px;
-	padding: 10px;
+/* 드롭다운 열림 상태 */
+.dropdown.open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
-
-.member-container {
-	margin-top: 10px;
-	padding-top: 10px;
-	border: 1px solid #ddd;
-	background-color: white;
-	height: 200px;
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-	padding: 10px;
+/* 옵션 아이템 */
+.dropdown-option {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-.pm-list  {
-	padding-bottom: 10px;
+.dropdown-option:hover {
+    background-color: #f2f2f2;
 }
-
-.member-title {
-	font-weight: 500;
-}
-
-.pm-info {
-	border-bottom: 1px solid #eee;
-	padding-bottom: 5px;
-}
-
-.member-list {
-	padding: 10px 0 10px 0;
-}
-
-.member-info {
-	border-bottom: 1px solid #eee;
-	padding-bottom: 5px;
-}
-
-
 
 		
