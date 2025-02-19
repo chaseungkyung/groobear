@@ -3,7 +3,7 @@ package com.sp.app.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import oracle.sql.DATE;
+// import oracle.sql.DATE;
 
 @Getter
 @Setter
