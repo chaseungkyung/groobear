@@ -4,8 +4,8 @@
 <mapper namespace="com.sp.app.mapper.ProjectMapper">
 
 	<insert id="insertProject" parameterType="com.sp.app.model.project.Project">
-		INSERT INTO project(projIdx, pmEmpIdx, projName, createdAt, startDate, endDate, status, crtEmpIdx)
-		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0, #{crtEmpIdx})
+		INSERT INTO project(projIdx, pmEmpIdx, projName, createdAt, startDate, endDate, status)
+		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
 	
 	<select id="listTeam" parameterType="map" resultType="com.sp.app.model.project.Project">
@@ -30,27 +30,21 @@
 	
 	<select id="listProject" parameterType="map" 
 			resultType="com.sp.app.model.project.Project">
-		SELECT p.projIdx, projName, crtEmpIdx, pmEmpIdx, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
-			e.EmpName crtEmpname, TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
+		SELECT p.projIdx, projName, pmEmpIdx, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
+			TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
 			TO_CHAR(endDate, 'YYYY-MM-DD') endDate
 		FROM project p
-		LEFT OUTER JOIN employee e ON p.crtEmpIdx = e.empIdx
 		<where>
 			<if test="kwd != null and kwd !=''">
 				(INSTR(projName, #{kwd}) &gt; 0)
 			</if>
 			
-			<choose>
-				<when test="crtEmpIdx != null">
-					AND crtEmpIdx = #{crtEmpIdx}
-				</when>
-				
+			<choose>		
 				<when test="pmEmpIdx != null">
                	 	AND pmEmpIdx = #{pmEmpIdx}
             	</when>
 			</choose>			
 		</where>
-		
 		ORDER BY projIdx DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -59,12 +53,10 @@
 	
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.project.Project">
 		SELECT p.projIdx, p.pmEmpIdx, pm.empName AS pmEmpName, t.teamName AS pmTeamName,
-			p.crtEmpIdx, crt.empName AS crtEmpName, 
 			p.projName, p.startDate, p.endDate 
 		FROM project p
 		LEFT OUTER JOIN employee pm ON p.pmEmpIdx = pm.empIdx
 		LEFT OUTER JOIN team t ON pm.teamIdx = t.teamIdx
-		LEFT OUTER JOIN employee crt ON p.crtEmpIdx = crt.empIdx
 		WHERE projIdx=#{projIdx}
 	</select>
 	

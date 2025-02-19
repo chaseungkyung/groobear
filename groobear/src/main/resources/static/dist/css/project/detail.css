@@ -26,6 +26,7 @@
 .dropdown {
     position: relative;
     width: 200px;
+    padding-bottom: 15px;
 }
 
 /* 드롭다운 버튼(셀렉트 헤더) */
@@ -219,5 +220,7 @@
             -ms-transform: rotate(45deg);
                 transform: rotate(45deg);
     }
+
+
 
 		

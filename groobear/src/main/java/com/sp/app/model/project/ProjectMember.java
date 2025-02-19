@@ -8,10 +8,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProjectMember {
-	private long memberIdx;
 	private long projIdx;
 	private long empIdx;
+	private String empName;
 	private String teamName;
 	private String role;
-	public String getEmpName;
 }

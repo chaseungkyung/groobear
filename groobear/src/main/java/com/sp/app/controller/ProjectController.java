@@ -41,49 +41,47 @@ public class ProjectController {
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model,
 			HttpServletRequest req, HttpSession session) {
-		
+
 		try {
 			int size = 10;
 			int total_page = 0;
 			int dataCount = 0;
-			
+
 			kwd = URLDecoder.decode(kwd, "utf-8");
-			
+
 			// SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			
-			
+
 			Map<String, Object> map = new HashMap<>();
 			map.put("kwd", kwd);
-			
+
 			dataCount = service.dataCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
 			current_page = Math.max(current_page, total_page);
-			
+
 			int offset = (current_page - 1) * size;
-			if(offset < 0) {
+			if (offset < 0) {
 				offset = 0;
 			}
-			
+
 			map.put("offset", offset);
 			map.put("size", size);
-			
+
 			List<Project> listProject = service.listProject(map);
-			
+
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
 			String listUrl = cp + "/project/list";
 			String detailUrl = cp + "/project/detail";
-			
-			if(! kwd.isBlank()) {
+
+			if (!kwd.isBlank()) {
 				String qs = "kwd=" + URLEncoder.encode(kwd, "utf-8");
-				
+
 				listUrl += "?" + qs;
-				query += "&" +qs;
+				query += "&" + qs;
 			}
-			
+
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
-				
+
 			model.addAttribute("listProject", listProject);
 			model.addAttribute("page", current_page);
 			model.addAttribute("dataCount", dataCount);
@@ -91,46 +89,43 @@ public class ProjectController {
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("detailUrl", detailUrl);
 			model.addAttribute("paging", paging);
-			
+
 			model.addAttribute("query", query);
-					
+
 		} catch (Exception e) {
 			log.info("listProject : ", e);
 		}
-		
+
 		return "project/list";
 	}
-	
+
 	@GetMapping("write")
 	public String writeForm(Model model) {
-		
+
 		try {
 			model.addAttribute("mode", "write");
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
-		
+
 		return "project/write";
 	}
-	
+
 	@PostMapping("write")
 	public String writeSubmit(Project dto, HttpSession session) throws Exception {
-		
+
 		try {
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			dto.setCrtEmpIdx(info.getEmpIdx());
-			
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+
 			service.insertProject(dto);
-			
+
 		} catch (Exception e) {
 			log.info("writeSubmit : ", e);
 		}
-		
+
 		return "redirect:/project/list";
 	}
-	
-	
+
 	// 프로젝트 상세 보기
 	@GetMapping("detail/{projIdx}")
 	public String detail(
@@ -139,102 +134,95 @@ public class ProjectController {
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model,
 			HttpSession session) {
-		
+
 		String query = "page=" + page;
-		
+
 		try {
 			kwd = URLDecoder.decode(kwd, "utf-8");
-			if(! kwd.isBlank()) {
+			if (!kwd.isBlank()) {
 				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
-			
+
 			Project dto = Objects.requireNonNull(service.findById(projIdx));
-			
+
 			model.addAttribute("dto", dto);
 			model.addAttribute("query", query);
-			
+
 			model.addAttribute("projIdx", projIdx);
-			model.addAttribute("page", page);			
-			
+			model.addAttribute("page", page);
+
 			return "project/detail";
 		} catch (Exception e) {
 			log.info("detail : ", e);
 		}
-		
+
 		return "redirect:/project/list?" + query;
 	}
-	
-	
+
 	@GetMapping("update")
 	public String updateForm(
 			@RequestParam(name = "projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
 			Model model,
 			HttpSession session) throws Exception {
-		
+
 		try {
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+
 			Project dto = Objects.requireNonNull(service.findById(projIdx));
-			
-			if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
-				return "redirect:/project/list?page=" + page;
-			}
-			
+
+			// if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
+			// 	return "redirect:/project/list?page=" + page;
+			// }
+
 			model.addAttribute("dto", dto);
 			model.addAttribute("page", page);
 			model.addAttribute("mode", "update");
-			
+
 			return "project/write";
-			
+
 		} catch (NullPointerException e) {
 		} catch (Exception e) {
 			log.info("updateForm : ", e);
 		}
-		
+
 		return "redirect:/project/list?page=" + page;
 	}
-	
+
 	@PostMapping("update")
 	public String updateSubmit(Project dto,
-			@RequestParam(name = "page")String page) {
-		
+			@RequestParam(name = "page") String page) {
+
 		try {
 			service.updateProject(dto);
 		} catch (Exception e) {
 			log.info("updateSubmit : ", e);
 		}
-		
+
 		return "redirect:/project/list?page=" + page;
 	}
-	
-	
+
 	@GetMapping("post")
 	public String postForm(Model model) throws Exception {
-		
+
 		return "project/postList";
 	}
 
-	
-	
 	// AJAX-JSON
 	@ResponseBody
 	@PostMapping("insertProjectMember")
 	public Map<String, ?> insertProjectMember(ProjectMember dto) throws Exception {
 		Map<String, Object> model = new HashMap<>();
-		
+
 		String state = "false";
 		try {
 			service.insertProjectMember(dto);
 			state = "true";
 		} catch (Exception e) {
 		}
-		
+
 		model.put("state", state);
 		return model;
 	}
-	
-	
-	
-	
+
 }

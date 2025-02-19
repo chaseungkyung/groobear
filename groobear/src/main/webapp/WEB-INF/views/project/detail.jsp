@@ -81,7 +81,17 @@
 					</div>
 					
 					<div class="left-bottom">
-						
+						<div class="task-progress-rate">
+							<div class="zt-skill-bar">
+					    		<div data-width="88" style="">진행율<span>88%</span></div>
+					    	</div>
+					    	<div class="zt-skill-bar">
+					    		<div data-width="88" style="">진행율<span>88%</span></div>
+					    	</div>
+					    	<div class="zt-skill-bar">
+					    		<div data-width="88" style="">진행율<span>88%</span></div>
+					    	</div>
+						</div>
 					</div>
 				</div>
 				

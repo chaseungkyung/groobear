@@ -17,115 +17,110 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProjectServiceImpl implements ProjectService {
 	private final ProjectMapper mapper;
-	
+
 	@Override
 	public List<Project> listTeam(Map<String, Object> map) throws Exception {
 		List<Project> list = null;
-		
+
 		try {
 			list = mapper.listTeam(map);
-			
+
 		} catch (Exception e) {
 			log.info("listSwTeam : ", e);
 		}
-		
+
 		return list;
 	}
 
 	@Override
 	public List<Project> listEmpName(Map<String, Object> map) throws Exception {
 		List<Project> list = null;
-		
+
 		try {
 			list = mapper.listEmpName(map);
-			
+
 		} catch (Exception e) {
 			log.info("listEmpName : ", e);
 		}
-		
+
 		return list;
 	}
-	
-	
+
 	@Override
 	public void insertProject(Project dto) throws Exception {
 		// long empIdx = 0;
+
 		try {
-			
+
 			mapper.insertProject(dto);
-			
+
 		} catch (Exception e) {
 			log.info("insertProject 에러 : ", e);
 			throw e;
-		}	
+		}
 	}
 
 	@Override
 	public List<Project> listProject(Map<String, Object> map) {
-		List<Project> listProject = null; 
-		
+		List<Project> listProject = null;
+
 		try {
 			listProject = mapper.listProject(map);
 
-			
 		} catch (Exception e) {
 			log.info("listProject : ", e);
 		}
-		
+
 		return listProject;
 	}
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
 		int result = 0;
-		
+
 		try {
 			result = mapper.dataCount(map);
 		} catch (Exception e) {
 			log.info("dataCount : ", e);
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public void updateProject(Project dto) throws Exception {
 		try {
 			mapper.updateProject(dto);
-			
+
 		} catch (Exception e) {
 			log.info("updateProject : ", e);
-		}	
+		}
 	}
-	
+
 	@Override
 	public Project findById(long projIdx) throws Exception {
 		Project dto = null;
-		
+
 		try {
 			dto = mapper.findById(projIdx);
-			
+
 		} catch (Exception e) {
 			log.info("findById : ", e);
 		}
-		
+
 		return dto;
 	}
-	
-	
 
 	@Override
 	public void insertProjectMember(ProjectMember dto) throws Exception {
-		try {		
-			
+		try {
+
 			mapper.insertProjectMember(dto);
-			
+
 		} catch (Exception e) {
 			log.info("insertProjectMember : ", e);
 			throw e;
-		}	
+		}
 	}
-
-
 
 }
