@@ -49,22 +49,34 @@
 						<div class="dropdown" id="customDropdown">
 					        <!-- 드롭다운 토글 버튼 -->
 					        <div class="dropdown-toggle">
-					            <span class="dropdown-label">선택해주세요</span>
+					            <span class="dropdown-label">단계 선택</span>
 					            <span class="dropdown-arrow"></span>
 					        </div>
 					        <!-- 드롭다운 옵션 리스트 -->
 					        <div class="dropdown-menu">
-					            <div class="dropdown-option">옵션 1</div>
-					            <div class="dropdown-option">옵션 2</div>
-					            <div class="dropdown-option">옵션 3</div>
-					            <div class="dropdown-option">옵션 4</div>
+					            <div class="dropdown-option">DB 설계</div>
+					            <div class="dropdown-option">디자인 작업</div>
+					            <div class="dropdown-option">기능 개발</div>
+					            <div class="dropdown-option">테스트</div>
+					            <div class="dropdown-option">오류수정</div>
 					        </div>
 					    </div>
 					    
-					    <div class="">
-					    	dd
+					    <div class="task-container">
+					    	<div class="zt-skill-bar">
+					    		<div data-width="88" style="">진행율<span>88%</span></div>
+					    	</div>
+					    	
+					        <!-- Task 리스트 -->
+					        <ul class="task-list">
+					            <li class="task-item"><span class="task-icon">📝</span></li>
+					            <li> Task 1</li>
+					        </ul>
+					        <ul class="task-list">
+					            <li class="task-item"><span class="task-icon">📝</span></li>
+					            <li> Task 1</li>
+					        </ul>
 					    </div>
-
 					    
 					</div>
 					
@@ -205,6 +217,31 @@ window.addEventListener('click', (e) => {
         dropdown.classList.remove('open');
     }
 });
+</script>
+
+<script type="text/javascript">
+(function( $ ) {
+    "use strict";
+    $(function() {
+        function animated_contents() {
+            $(".zt-skill-bar > div ").each(function (i) {
+                var $this  = $(this),
+                    skills = $this.data('width');
+
+                $this.css({'width' : skills + '%'});
+
+            });
+        }
+        
+        if(jQuery().appear) {
+            $('.zt-skill-bar').appear().on('appear', function() {
+                animated_contents();
+            });
+        } else {
+            animated_contents();
+        }
+    });
+}(jQuery));
 </script>
 
 </body>
