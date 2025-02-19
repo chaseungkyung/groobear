@@ -36,6 +36,6 @@
 	<select id="getLoginTime" parameterType="long" resultType="com.sp.app.model.MyPage">
 		SELECT workIdx, empIdx, workDate, loginTime
 		FROM worklog
-		WHERE TO_CHAR(workdate,'yyyy-mm-dd') = TO_CHAR(sysdate,'yyyy-mm-dd') AND empIdx = #{empIdx}
+		WHERE TRUNC(loginTime) = TRUNC(SYSDATE) AND empIdx = #{empIdx}
 	</select>
 </mapper>

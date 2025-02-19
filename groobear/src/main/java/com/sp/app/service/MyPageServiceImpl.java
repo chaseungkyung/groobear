@@ -73,11 +73,18 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public MyPage getLoginTime(long empIdx) {
 		MyPage loginTime = null;
+		
 		try {
-			loginTime = mapper.getLoginTime(empIdx);
+			loginTime = mapper.getLoginTime(empIdx); // 정상
+			
+			if(loginTime == null) {
+				System.out.println("LoginTime데이터 없다" + empIdx);
+			} else {
+				System.out.println("Login Time: " + loginTime.getLoginTime());
+			}
 			
 		} catch (Exception e) {
-		
+			e.printStackTrace();
 		}
 		return loginTime;
 	}
