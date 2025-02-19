@@ -4,7 +4,7 @@
 .btnArea button {width: 100%;}
 
 .textArea {width: 100%; }
-.textArea tr {height: 2.3vw; display: flex; align-items: center; padding: 20px;}
+.textArea tr {height: 2.3vw; display: flex; align-items: center; padding: 25px;}
 .textArea tr th {width: 20%; vertical-align: middle;}
 .textArea tr td {width: 80%;}
 
@@ -12,15 +12,19 @@
 
 .textArea tr input {width: 100%; padding-left: 1%; }
 
-.textArea tr .addressArea {display: flex; justify-content: space-between;}
-.textArea tr .addressArea input {width: 89%;}
-.textArea tr .addressArea button {width: 10%;}
 
-.textArea .contentArea {align-items: flex-start;}
-.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
+.textArea tr td.teamName,
+.textArea tr td.pmName {
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
 
-
-
+.textArea tr td select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
 
 
 /* 테이블 정리 */
@@ -101,7 +105,7 @@
 /* 버튼 그룹 정렬 */
 .text-center {
     text-align: center;
-    margin-top: 15px;
+    padding: 20px;
 }
 
 /* 아이콘 스타일 */

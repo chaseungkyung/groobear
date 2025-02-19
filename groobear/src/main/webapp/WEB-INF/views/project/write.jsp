@@ -78,12 +78,12 @@
 						</tr>
 						<tr>
 							<th>PM 지정</th>
-							<td>
+							<td class="teamName">
 								<select name="teamIdx" id="teamSelect">
 									<option value="${dto.teamName}">개발부 소속 팀을 선택해주세요</option>
 								</select>
 							</td>
-							<td>
+							<td class="pmName">
 								<select name ="pmEmpIdx" id="pmEmpSelect">
 									<option value="${dto.pmEmpName}">이름을 선택해주세요</option>
 								</select>

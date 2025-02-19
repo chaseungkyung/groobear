@@ -209,6 +209,11 @@ public class ProjectController {
 	}
 	
 	
+	@GetMapping("post")
+	public String postForm(Model model) throws Exception {
+		
+		return "project/postList";
+	}
 
 	
 	
@@ -228,6 +233,8 @@ public class ProjectController {
 		model.put("state", state);
 		return model;
 	}
+	
+	
 	
 	
 }
