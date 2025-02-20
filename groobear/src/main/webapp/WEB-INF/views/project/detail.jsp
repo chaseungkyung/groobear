@@ -11,30 +11,28 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/dist/css/project/detail.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/dist/css/project/Modal.css"
+	type="text/css">
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-<style type="text/css">
-/* 차트 크기 조정 */
-#stage-chart {
-	width: 100%;
-	height: 100%;
-}
-</style>
 </head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp" />
+	<jsp:include page="/WEB-INF/views/project/inviteModal.jsp" />
 
 
 	<main>
 		<div class="mainInner">
 			<div class="inner-top">
 				<span class="projectName">${dto.projName}</span>
-				<button type="button" class="invite-button">
-					<i class="bi bi-person-plus"></i> 초대하기
-				</button>
+			    <button id="openModalBtn" class="invite-button">
+			        <i class="bi bi-person-plus"></i> 초대하기
+			    </button>
 			</div>
 
 			<div class="inner-middle">
@@ -44,7 +42,40 @@
 
 				<div class="middle-bottom">
 					<div class="bottom-left">
-						<div class="left-top">
+					
+						<div class="progress-rate-title">
+							<span>프로젝트 진행률</span>
+						</div>
+						
+						<div class="stage-progress-rate">
+							<div class="stage-progress-bar">
+								<div data-width="88" style="">
+									<h3> DB 설계 </h3> 
+									<span>88%</span>
+								</div>
+							</div>
+							<div class="stage-progress-bar">
+								<div data-width="88" style="">
+									<h3> 디자인 작업 </h3>
+									<span>88%</span>
+								</div>
+							</div>
+							<div class="stage-progress-bar">
+								<div data-width="88" style="">
+									<h3> 기능 개발 </h3>
+									<span>88%</span>
+								</div>
+							</div>
+							<div class="stage-progress-bar">
+								<div data-width="88" style="">
+									<h3> xptmxm </h3>
+									<span>88%</span>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="task-progress-rate">
 							<div class="dropdown" id="customDropdown">
 								<!-- 드롭다운 토글 버튼 -->
 								<div class="dropdown-toggle">
@@ -71,39 +102,25 @@
 								<!-- Task 리스트 -->
 								<ul class="task-list">
 									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li></li>
+									<li> Task1 </li>
 								</ul>
 								<ul class="task-list">
 									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li>Task 1</li>
+									<li>Task 2</li>
+								</ul>
+								<ul class="task-list">
+									<li class="task-item"><span class="task-icon">📝</span></li>
+									<li>Task 3</li>
+								</ul>
+								<ul class="task-list">
+									<li class="task-item"><span class="task-icon">📝</span></li>
+									<li>Task 4</li>
 								</ul>
 							</div>
-
 						</div>
 
-						<div class="progress-rate-title">
-							<span>프로젝트 진행률</span>
-						</div>
-						<div class="left-bottom">
 
-							<div class="task-progress-rate">
-								<div class="stage-progress-bar">
-									<div data-width="88" style="">
-										DB 설계<span>88%</span>
-									</div>
-								</div>
-								<div class="stage-progress-bar">
-									<div data-width="88" style="">
-										디자인 작업<span>88%</span>
-									</div>
-								</div>
-								<div class="stage-progress-bar">
-									<div data-width="88" style="">
-										기능 개발<span>88%</span>
-									</div>
-								</div>
-							</div>
-						</div>
+					
 					</div>
 
 					<div class="bottom-right">
@@ -124,8 +141,8 @@
 									</div>
 								</div>
 
-								<div class="separator"></div>
-
+								
+								<div class="member-title">프로젝트 멤버</div>
 								<div class="participant-item">
 									<div class="participant-image"></div>
 									<div class="participant-info">
@@ -194,9 +211,7 @@
 
 
 
-	<script type="text/javascript">
-
-
+<script type="text/javascript">
 
 
 /* 차트 */

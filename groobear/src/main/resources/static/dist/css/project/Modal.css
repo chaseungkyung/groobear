@@ -1,0 +1,353 @@
+@charset "UTF-8";
+
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 600px;
+    position: relative;
+}
+
+/* 컨텐츠 영역 */
+.modal-body {
+    display: flex;
+    height: 350px;
+}
+
+
+/* 모달창 X 버튼 위치 조정 */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.close {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+/* 왼쪽 60% */
+.left-section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+}
+
+/* 검색 영역 */
+.search-box {
+    display: flex;
+    padding: 5px;
+    border: 1px solid #ddd;
+    align-items: center;
+    border-radius: 4px;
+    margin: 10px;
+    width: 90%;
+}
+
+.search-box input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 6px;
+}
+
+.search-box button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+
+/* 리스트 스타일 */
+.user-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* 기본 상태 - 체크박스 회색, 배경 없음 */
+.user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+/* hover 상태 - 연한 보라색 배경 */
+.user-item:hover {
+    background-color: #f4f0ff; /* 연한 보라색 */
+}
+
+
+/* 체크박스 기본 상태 */
+.select-user {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #bbb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 체크박스 hover 상태 */
+.user-item:hover .select-user {
+    border-color: #6c5ce7; /* 보라색 테두리 */
+}
+
+/* 체크박스 선택된 상태 */
+.select-user:checked {
+    background-color: #6c5ce7; /* 보라색 채움 */
+    border-color: #6c5ce7;
+    position: relative;
+}
+
+/* 체크박스 선택 시 체크 아이콘 표시 */
+.select-user:checked::after {
+    content: "✔";
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 선택된 user-item 스타일 */
+.user-item.selected {
+    background-color: #f4f0ff; /* 연한 보라색 배경 */
+}
+
+
+
+
+.user-avatar {
+    background-color: #ff8c00;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+
+/* 오른쪽 섹션 스타일 조정 */
+.right-section {
+    width: 40%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    text-align: left;
+    color: #333;
+}
+
+/* 기본 상태 - "대상을 선택해주세요." */
+.default-text {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+/* 선택된 사용자 목록 */
+.selected-users {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+
+
+/* 선택된 사용자 목록 헤더 */
+.selected-users .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* "전체 삭제" 버튼 */
+.selected-users .remove-all {
+    background: none;
+    border: none;
+    color: #6c5ce7;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.selected-users .remove-all:hover {
+    text-decoration: underline;
+}
+
+
+/* 선택된 사용자 목록을 정렬하는 컨테이너 */
+#selectedUserList {
+    display: flex;
+    flex-wrap: wrap; /* 여러 줄 정렬 */
+    justify-content: space-between; /* 왼쪽, 오른쪽 번갈아 배치 */
+    gap: 8px;
+}
+
+
+/* 개별 선택된 사용자 아이템 */
+.selected-user {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 14px;
+    width: 48%; /* 왼쪽, 오른쪽 배치를 위해 48% 설정 */
+    max-width: 200px;
+    box-sizing: border-box;
+}
+
+
+/* 아바타 컨테이너 */
+.avatar-container {
+    background: #ff8c00;
+    border-radius: 6px 0 0 6px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 선택된 사용자 아바타 */
+.selected-user .user-avatar {
+    background: #ff8c00;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* 선택된 사용자 이름 */
+.selected-user-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+
+/* 선택된 사용자 제거 버튼 */
+.selected-user .remove-user {
+    background: none;
+    border: none;
+    font-size: 14px;
+    margin-left: auto;
+    color: #666;
+    cursor: pointer;
+}
+
+.selected-user .remove-user:hover {
+    color: #333;
+}
+
+
+
+
+/* 버튼 영역 가운데 정렬 */
+.modal-footer {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    gap: 10px; /* 버튼 간격 조정 */
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.modal-cancel-button, .modal-invite-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.modal-cancel-button {
+	display: flex; /* 플렉스 정렬 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    background: #fff;
+    width: 47%;
+    height: 36px;
+    line-height: 34px;
+    text-align: center;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    color: #555;
+    font-size: 13px;
+    max-width: 182px;
+}
+
+.modal-cancel-button:hover {
+    background: #f5f5f5;
+}
+
+/* 초대하기 버튼 */
+.modal-invite-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6c5ce7; /* 보라색 */
+    width: 47%;
+    height: 36px;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    max-width: 182px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.modal-invite-button:hover {
+    background: #5948d4; /* 약간 어두운 보라색 */
+}
+
