@@ -17,10 +17,9 @@
 <style type="text/css">
 /* 차트 크기 조정 */
 #stage-chart {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
-
 </style>
 </head>
 
@@ -29,93 +28,173 @@
 	<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp" />
 
 
-<main>
-	<div class="mainInner">
-		<div class="inner-top">
-			<span class="projectName">프로젝트1</span>
-			<button type="button" class="invite-button">
-				<i class="bi bi-person-plus"></i> 초대하기
-			</button>
-		</div>
-
-		<div class="inner-middle">
-			<div class="middle-top">
-				<div id="stage-chart"></div>
+	<main>
+		<div class="mainInner">
+			<div class="inner-top">
+				<span class="projectName">프로젝트1</span>
+				<button type="button" class="invite-button">
+					<i class="bi bi-person-plus"></i> 초대하기
+				</button>
 			</div>
-			
-			<div class="middle-bottom">
-				<div class="bottom-left">
-					<div class="left-top">
-						<div class="dropdown" id="customDropdown">
-					        <!-- 드롭다운 토글 버튼 -->
-					        <div class="dropdown-toggle">
-					            <span class="dropdown-label">단계 선택</span>
-					            <span class="dropdown-arrow"></span>
-					        </div>
-					        <!-- 드롭다운 옵션 리스트 -->
-					        <div class="dropdown-menu">
-					            <div class="dropdown-option">DB 설계</div>
-					            <div class="dropdown-option">디자인 작업</div>
-					            <div class="dropdown-option">기능 개발</div>
-					            <div class="dropdown-option">테스트</div>
-					            <div class="dropdown-option">오류수정</div>
-					        </div>
-					    </div>
-					    
-					    <div class="task-container">
-					    	<div class="zt-skill-bar">
-					    		<div data-width="88" style="">진행율<span>88%</span></div>
-					    	</div>
-					    	
-					        <!-- Task 리스트 -->
-					        <ul class="task-list">
-					            <li class="task-item"><span class="task-icon">📝</span></li>
-					            <li> Task 1</li>
-					        </ul>
-					        <ul class="task-list">
-					            <li class="task-item"><span class="task-icon">📝</span></li>
-					            <li> Task 1</li>
-					        </ul>
-					    </div>
-					    
-					</div>
-					
-					<div class="left-bottom">
-						<div class="task-progress-rate">
-							<div class="zt-skill-bar">
-					    		<div data-width="88" style="">진행율<span>88%</span></div>
-					    	</div>
-					    	<div class="zt-skill-bar">
-					    		<div data-width="88" style="">진행율<span>88%</span></div>
-					    	</div>
-					    	<div class="zt-skill-bar">
-					    		<div data-width="88" style="">진행율<span>88%</span></div>
-					    	</div>
+
+			<div class="inner-middle">
+				<div class="middle-top">
+					<div id="stage-chart"></div>
+				</div>
+
+				<div class="middle-bottom">
+					<div class="bottom-left">
+						<div class="left-top">
+							<div class="dropdown" id="customDropdown">
+								<!-- 드롭다운 토글 버튼 -->
+								<div class="dropdown-toggle">
+									<span class="dropdown-label">단계 선택</span> <span
+										class="dropdown-arrow"></span>
+								</div>
+								<!-- 드롭다운 옵션 리스트 -->
+								<div class="dropdown-menu">
+									<div class="dropdown-option">DB 설계</div>
+									<div class="dropdown-option">디자인 작업</div>
+									<div class="dropdown-option">기능 개발</div>
+									<div class="dropdown-option">테스트</div>
+									<div class="dropdown-option">오류수정</div>
+								</div>
+							</div>
+
+							<div class="task-container">
+								<div class="task-progress-bar">
+									<div data-width="88" style="">
+										<span>70%</span>
+									</div>
+								</div>
+
+								<!-- Task 리스트 -->
+								<ul class="task-list">
+									<li class="task-item"><span class="task-icon">📝</span></li>
+									<li></li>
+								</ul>
+								<ul class="task-list">
+									<li class="task-item"><span class="task-icon">📝</span></li>
+									<li>Task 1</li>
+								</ul>
+							</div>
+
+						</div>
+
+						<div class="progress-rate-title">
+							<span>프로젝트 진행률</span>
+						</div>
+						<div class="left-bottom">
+
+							<div class="task-progress-rate">
+								<div class="stage-progress-bar">
+									<div data-width="88" style="">
+										DB 설계<span>88%</span>
+									</div>
+								</div>
+								<div class="stage-progress-bar">
+									<div data-width="88" style="">
+										디자인 작업<span>88%</span>
+									</div>
+								</div>
+								<div class="stage-progress-bar">
+									<div data-width="88" style="">
+										기능 개발<span>88%</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="bottom-right">
-				
-				</div>
-			
-			</div>
-			
 
+					<div class="bottom-right">
+						<!-- 오른쪽 참여자 목록 -->
+						<div class="project-participants">
+							<div class="section-title">참여자 7</div>
+
+							<div class="participant-box">
+
+								<!-- 프로젝트 관리자 -->
+								<div class="pm-title">프로젝트 관리자</div>
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">박민기</div>
+										<div class="participant-department">빠르대숑 경영지원팀 (프로젝트
+											관리자)</div>
+									</div>
+								</div>
+
+								<div class="separator"></div>
+
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">김대희 PD</div>
+										<div class="participant-department">필름스튜디오 대표</div>
+									</div>
+								</div>
+
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">김재우 주임</div>
+										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
+									</div>
+								</div>
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">김지수 대리</div>
+										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
+									</div>
+								</div>
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">박보람 주임</div>
+										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
+									</div>
+								</div>
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">송이현 PD</div>
+										<div class="participant-department">필름스튜디오 편집</div>
+									</div>
+								</div>
+								<div class="participant-item">
+									<div class="participant-image"></div>
+									<div class="participant-info">
+										<div class="participant-name">장민준 감독</div>
+										<div class="participant-department">필름스튜디오 촬영</div>
+									</div>
+								</div>
+
+								<!-- 하단 버튼 -->
+								<div class="participant-actions">
+									<button class="chat-btn">💬 채팅</button>
+									<button class="meeting-btn">🎥 화상회의</button>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
 
 		</div>
 
-
-
-
-	</div>
-
-</main>
+	</main>
 
 
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 
 
@@ -198,6 +277,20 @@ var options = {
 	
 </script>
 
+
+<script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".task-progress-bar div").forEach(function (bar) {
+        let width = bar.getAttribute("data-width"); // data-width 값 가져오기
+        bar.style.width = width + "%"; // width 적용
+    });
+});
+
+
+</script>
+
+
 <script>
 
 // 드롭다운 요소 가져오기
@@ -229,12 +322,14 @@ window.addEventListener('click', (e) => {
 });
 </script>
 
+
+<!-- stage-progress-bar -->
 <script type="text/javascript">
 (function( $ ) {
     "use strict";
     $(function() {
         function animated_contents() {
-            $(".zt-skill-bar > div ").each(function (i) {
+            $(".stage-progress-bar > div ").each(function (i) {
                 var $this  = $(this),
                     skills = $this.data('width');
 
@@ -244,7 +339,7 @@ window.addEventListener('click', (e) => {
         }
         
         if(jQuery().appear) {
-            $('.zt-skill-bar').appear().on('appear', function() {
+            $('.stage-progress-bar').appear().on('appear', function() {
                 animated_contents();
             });
         } else {

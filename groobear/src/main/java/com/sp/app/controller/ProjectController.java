@@ -224,5 +224,10 @@ public class ProjectController {
 		model.put("state", state);
 		return model;
 	}
+	
+	@GetMapping("test1")
+	public String test() {
+		return "project/test1";
+	}
 
 }
