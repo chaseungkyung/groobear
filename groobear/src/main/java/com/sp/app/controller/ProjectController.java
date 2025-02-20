@@ -167,7 +167,7 @@ public class ProjectController {
 			HttpSession session) throws Exception {
 
 		try {
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
 
 			Project dto = Objects.requireNonNull(service.findById(projIdx));
 
@@ -195,6 +195,7 @@ public class ProjectController {
 
 		try {
 			service.updateProject(dto);
+			
 		} catch (Exception e) {
 			log.info("updateSubmit : ", e);
 		}

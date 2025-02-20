@@ -16,7 +16,7 @@
 	</select>
 	
 	<select id="listEmpName" parameterType="map" resultType="com.sp.app.model.project.Project">
-		SELECT empIdx pmEmpidx, empName pmEmpName, deptIdx, teamIdx
+		SELECT empIdx AS pmEmpidx, empName AS pmEmpName, deptIdx, teamIdx
 		FROM employee
 		WHERE deptIdx = #{deptIdx} AND teamIdx = #{teamIdx}
 	</select>
@@ -30,10 +30,12 @@
 	
 	<select id="listProject" parameterType="map" 
 			resultType="com.sp.app.model.project.Project">
-		SELECT p.projIdx, projName, pmEmpIdx, TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
+		SELECT p.projIdx, projName, pmEmpIdx, e.empName AS pmEmpName,
+			TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
 			TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
 			TO_CHAR(endDate, 'YYYY-MM-DD') endDate
 		FROM project p
+		JOIN employee e ON p.pmEmpIdx = e.empIdx
 		<where>
 			<if test="kwd != null and kwd !=''">
 				(INSTR(projName, #{kwd}) &gt; 0)

@@ -31,7 +31,7 @@
 	<main>
 		<div class="mainInner">
 			<div class="inner-top">
-				<span class="projectName">프로젝트1</span>
+				<span class="projectName">${dto.projName}</span>
 				<button type="button" class="invite-button">
 					<i class="bi bi-person-plus"></i> 초대하기
 				</button>
@@ -63,8 +63,8 @@
 
 							<div class="task-container">
 								<div class="task-progress-bar">
-									<div data-width="88" style="">
-										<span>70%</span>
+									<div data-width="50" style="">
+										<span>50%</span>
 									</div>
 								</div>
 
