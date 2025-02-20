@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.common.StorageService;
 import com.sp.app.mapper.MemberMapper;
 import com.sp.app.model.Member;
 
@@ -20,7 +21,6 @@ public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper mapper;
 	private final PasswordEncoder bcryptEncoder;	
-
 	
 	@Override
 	public void insertEmployee(Member dto) throws Exception {
@@ -29,8 +29,8 @@ public class MemberServiceImpl implements MemberService {
 			
 			String encPassword = bcryptEncoder.encode(dto.getEmpPwd());
 			dto.setEmpPwd(encPassword);
-			
-			mapper.insertEmployee(dto);
+				
+				mapper.insertEmployee(dto);
 			
 		} catch (Exception e) {
 			log.info("insertEmployee : ", e);
@@ -71,12 +71,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateEmployee(Member dto) throws Exception {
-		
+		try {
+			mapper.updateEmployee(dto);
+			
+		} catch (Exception e) {
+			log.info("updateEmployee", e);
+			throw e;
+		}
 	}
 
 	@Override
 	public void updateEmployeeDetail(Member dto) throws Exception {
-		
+		try {
+			mapper.updateEmployeeDetail(dto);
+		} catch (Exception e) {
+			log.info("updateEmployeeDetail", e);
+			throw e;
+		}
 	}
 
 	@Override

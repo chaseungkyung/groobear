@@ -14,9 +14,10 @@ public interface MemberService {
 	public String getLastEmpCode(String empCode);
 	
 	public void insertEmployee(Member dto) throws Exception;
-	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
 	public void insertEmployeeDetail(Member dto) throws Exception;
 	public void insertEmployeeHistory(Member dto) throws Exception;
+
+	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
 	
 	public void updateLastLogin(String empCode) throws Exception;
 	public void updateMemberStatus(Map<String, Object> map) throws Exception;
@@ -33,10 +34,14 @@ public interface MemberService {
 	public Member findByEmpCode(String emdCode);
 	public Long getMemberIdx(String empCode);
 	
+	// emp list 
 	public List<Member> listFindMember(Map<String, Object> map);
 	public List<Member> listMember(Map<String, Object> map);
 	public List<Member> listMemberAll();
 	
+	// emp list 카운트
 	public int dataCount(Map<String, Object> map);
+	
+	// 비밀번호 확인
 	public boolean isPasswordCheck(String empCode, String empPwd);	
 }

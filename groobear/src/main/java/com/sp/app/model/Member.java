@@ -1,5 +1,7 @@
 package com.sp.app.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +25,8 @@ public class Member {
 	private String retireDate;
 	private String lastLogin;
 	private String loginFails;
+	private String origProfile;
+	private String saveProfile;
 
 	// 사원 상세 table
 	private String birth;
@@ -51,4 +55,6 @@ public class Member {
 	// 직책 table
 	private String positionName;
 	private String parentCode;
+	
+	private MultipartFile selectFile;
 }

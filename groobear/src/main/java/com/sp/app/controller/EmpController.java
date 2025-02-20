@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.Member;
+import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EmpController {
 	private final MemberService service;
 	private final PaginateUtil paginateUtil;
+	
 	
 	@GetMapping("list")
 	public String employeeList(@RequestParam(name="page", defaultValue="1") int current_page,
@@ -108,6 +113,7 @@ public class EmpController {
 			model.addAttribute("departmentList", departmentList);
 			model.addAttribute("teamList", teamList);
 			model.addAttribute("positionList", positionList);
+			model.addAttribute("mode", "write");
 			
 		} catch (Exception e) {
 			log.info("employeeAddForm : ", e);
@@ -147,6 +153,10 @@ public class EmpController {
 			service.insertEmployee(dto);
 			service.insertEmployeeDetail(dto);
 			
+			
+			
+			
+			
 		} catch (Exception e) {
 			log.info("employeeAddSubmit : ", e);
 		}
@@ -164,4 +174,48 @@ public class EmpController {
 				
 	}
 	
+	@GetMapping("update")
+	public String updateForm(
+			@RequestParam(name="empIdx") long empIdx,
+			Model model, HttpSession session ) throws Exception {
+	try {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
+		
+		if( info.getEmpIdx() != dto.getEmpIdx()) {
+			return "redirect:/emp/list";
+		}
+		model.addAttribute("dto", dto);
+		model.addAttribute("empIdx", empIdx);
+		model.addAttribute("mode", "update");
+		
+	} catch (NullPointerException e) {
+		throw e;
+	} catch (Exception e) {
+		log.info("updateForm", e);
+		throw e;
+	}
+		
+	return "emp/list";
+	}
+	
+	@PostMapping("update")
+	public Map<String, ?> updateSubmit(Member dto, 
+			HttpSession session ) throws Exception {
+		
+		Map<String, Object> model = new HashMap<>();
+		String state = "false";
+		try {
+			service.updateEmployee(dto);
+			service.updateEmployeeDetail(dto);
+			service.updateEmployeeHistory(dto);
+			state = "true";
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		model.put("state", state);
+		return model;
+	}
 }
