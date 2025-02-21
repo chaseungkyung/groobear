@@ -89,5 +89,60 @@ public class MyPageServiceImpl implements MyPageService {
 		return loginTime;
 	}
 
+	
+	@Override
+	public Member getEmpInfo(Map<String, Object> map) {
+		Member empInfo = null;
+		try {
+			empInfo = mapper.getEmpInfo(map);
+			
+		} catch (Exception e) {
+			log.info("getEmpInfo : ", e);
+		}
+		return empInfo;
+	}
+	
+	
+	@Override
+	public Member updateEmpInfo(Map<String, Object> map) {
+		Member empInfo = null;
+		try {
+			empInfo = mapper.updateEmpInfo(map);
+			
+		} catch (Exception e) {
+			log.info("updateEmpInfo : ", e);
+		}
+		return empInfo;
+	}
+	
+	@Override
+	public List<Member> getEmpRecord(long empIdx) throws Exception {
+		
+		List<Member> list = null;
+		
+		try {
+			list = mapper.getEmpRecord(empIdx);
+			
+		} catch (Exception e) {
+			log.info("getEmpRecord : ", e);
+		}
+		return list;
+	}
+	
+	
+	@Override
+	public Member updateEmpRecord(Map<String, Object> map) {
+		Member empRecord = null;
+		try {
+			empRecord = mapper.updateEmpRecord(map);
+			
+		} catch (Exception e) {
+			log.info("updateEmpRecord : ", e);
+		}
+		return empRecord;
+	}
+
+
+
 
 }

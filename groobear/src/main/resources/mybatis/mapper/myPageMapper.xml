@@ -3,17 +3,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.MyPageMapper">
 	<select id="workList" parameterType="map" resultType="com.sp.app.model.MyPage">
-		SELECT workIdx, e.empIdx, e.empName, e.deptIdx, e.teamIdx, e.positionCode, TO_CHAR(e.hiredate, 'YYYY-MM-DD') hiredate, workDate, TO_CHAR(loginTime, 'HH24:MI:SS') loginTime
+		SELECT workIdx, e.empIdx, e.empName, workDate, TO_CHAR(loginTime, 'HH24:MI:SS') loginTime
 		FROM workLog w
 		JOIN employee e ON e.empIdx = w.empIdx
 		WHERE e.empIdx = #{empIdx}
 	</select>
 	
-	<select id="timeTable" parameterType="com.sp.app.model.MyPage">
-		SELECT loginTime, ROUND((SYSDATE - TO_DATE(loginTime, 'HH24:MI')), 2) AS workedHours
-		FROM workLog
+	<select id="getEmpInfo" parameterType="long">
+		SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.hireDate, e.retireDate
+		FROM employee e
+		JOIN employeeDetail d ON e.empIdx = d.empIdx
 		WHERE e.empIdx = #{empIdx}
 	</select>
+	
+	<update id="updateEmpInfo" parameterType="map">
+    	UPDATE employee e
+	    JOIN employeeDetail ed ON e.empIdx = ed.empIdx
+	    SET e.empCode = #{empCode}, e.empPwd = #{empPwd}, e.empName = #{empName}, e.deptIdx = #{deptIdx}, e.teamIdx = #{teamIdx}, e.positionCode = #{positionCode},
+	        e.empTel = #{empTel}, e.hireDate = #{hireDate}, e.retireDate = #{retireDate},
+	        ed.tel = #{tel}, ed.email = #{email}, ed.addrMain = #{addrMain}, ed.addrSub = #{addrSub}, ed.rrn = #{rrn}
+	    WHERE e.empIdx = #{empIdx};
+	</update>
+	
+	<select id="getEmpRecord" parameterType ="long">
+		SELECT empIdx, empCode, empName, deptIdx, teamIdx, positionCode
+		FROM employee
+		WHERE empIdx = #{empIdx}
+	</select>
+	
+	<update id ="updateEmpRecord" parameterType="map">
+		UPDATE historyIdx = #{historyIdx}, empIdx = #{empIdx}, startDate = #{startDate}, endDate = #{endDate}, deptName = #{deptName}, teamName = #{teamName}, empRank = #{empRank}, note = #{note}
+		SET employeeHistory
+		WHERE empIdx = #{empIdx}
+	</update>
 
 	
 	<select id="timeKeeping" parameterType="map" resultType="com.sp.app.model.MyPage">
@@ -38,4 +60,6 @@
 		FROM worklog
 		WHERE TRUNC(loginTime) = TRUNC(SYSDATE) AND empIdx = #{empIdx}
 	</select>
+	
+	
 </mapper>

@@ -43,22 +43,22 @@
 
 	<update id="updateLastLogin" parameterType="com.sp.app.model.Member">
 	 	UPDATE EmployeeDetail SET lastLogin= #{lastLogin}
-		WHERE deptIdx = #{deptIdx}
+		WHERE empIdx = #{empIdx}
 	</update>
 	
 	<update id="updateMemberStatus" parameterType="map">
 	 	UPDATE EmployeeDetail SET empStatus= #{empStatus}
-		WHERE deptIdx = #{deptIdx}
+		WHERE empIdx = #{empIdx}
 	</update>
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
 		UPDATE Employee SET deptIdx = #{deptIdx}, teamIdx= #{teamIdx}, positionCode= #{positionCode}, empTel= #{empTel}
-		WHERE deptIdx = #{deptIdx}
+		WHERE empIdx = #{empIdx}
 	</update>
 	
 	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
 	 	UPDATE EmployeeDetail SET tel= #{tel}, email= #{email}
-		WHERE deptIdx = #{deptIdx}
+		WHERE empIdx = #{empIdx}
 	</update>
 	 
 	

@@ -124,7 +124,7 @@
 									</select>
 								</td>
 								<th>주민등록번호</th>
-								<td><input type="text" name="rrn" id=""></td>
+								<td><input type="text" name="rrn" id="rrn"></td>
 							</tr>
 							<tr>
 								<th>직급</th>
@@ -134,11 +134,11 @@
 									</select>           
 								</td>
 								<th>휴대폰번호</th>
-								<td class="tel"><input type="tel" name="tel" id=""></td>
+								<td class="tel"><input type="tel" name="tel" id="tel"></td>
 							</tr>
 							<tr>
 								<th>내선번호</th>
-								<td class="tel"><input type="tel" name="empTel" id=""></td>
+								<td class="tel"><input type="tel" name="empTel" id="empTel"></td>
 								<th>주소</th>
 								<td class="address1">
 									<input type="text" name="zipCode" id="zipCode">
@@ -155,8 +155,8 @@
 						</table>
                         <div class="insertBtn">
 							<button type="reset" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">다시 작성</button>
-							<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/emp/list'" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="update" ? "수정취소" : "등록취소"}</button>
-							<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="update" ? "수정완료" : "등록완료"}</button>
+							<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/emp/list'" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="modify" ? "수정취소" : "등록취소"}</button>
+							<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="modify" ? "수정완료" : "등록완료"}</button>
                    	 	</div>
 	                </div>
 	            </div>

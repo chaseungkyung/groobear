@@ -16,6 +16,11 @@ public interface MyPageMapper {
 	public List<Member> paidOffTime(Map<String, Object> map) throws SQLException;
 	
 	public MyPage getLoginTime(long empIdx);
+	public Member getEmpInfo(Map<String, Object> map) throws SQLException;
+	public Member updateEmpInfo(Map<String, Object> map) throws SQLException;
+	public List<Member> getEmpRecord(long empIdx) throws SQLException;
+	public Member updateEmpRecord(Map<String, Object> map) throws SQLException;
+	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);
 }

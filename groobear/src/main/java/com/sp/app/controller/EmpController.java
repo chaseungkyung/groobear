@@ -154,9 +154,6 @@ public class EmpController {
 			service.insertEmployeeDetail(dto);
 			
 			
-			
-			
-			
 		} catch (Exception e) {
 			log.info("employeeAddSubmit : ", e);
 		}
@@ -201,8 +198,7 @@ public class EmpController {
 	}
 	
 	@PostMapping("update")
-	public Map<String, ?> updateSubmit(Member dto, 
-			HttpSession session ) throws Exception {
+	public Map<String, ?> updateSubmit(Member dto, HttpSession session ) throws Exception {
 		
 		Map<String, Object> model = new HashMap<>();
 		String state = "false";
