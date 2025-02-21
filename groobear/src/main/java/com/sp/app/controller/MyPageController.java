@@ -120,7 +120,7 @@ public class MyPageController {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			Map<String, Object> map = new HashMap<>();
-			
+			System.out.println(dto.getEmpIdx());
 			// 수정된 정보를 서비스한테 전달 
 	        map.put("empIdx", info.getEmpIdx());  // 세션에서 empIdx를 가져와서 map에 넣기
 	        map.put("empCode", dto.getEmpCode());	// Member객체에서 수정된 값을 map에 저장
