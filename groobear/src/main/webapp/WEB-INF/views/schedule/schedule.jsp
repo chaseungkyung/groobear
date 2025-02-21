@@ -19,7 +19,7 @@
 	<jsp:include page="/WEB-INF/views/layout/scheduleHeader.jsp"/>
 	<main>
 		<div class="mainInner">
-			<div id="calendar">
+			<div id="calendar" data-categoryIdx="3">
 			</div>
 			<!-- 일정 상세 보기 Modal -->
 			<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
@@ -125,7 +125,9 @@
 					let url = '${pageContext.request.contextPath}/schedule/month';
 					let startDate = info.startStr.substr(0, 10);
 					let endDate = info.endStr.substr(0, 10);
-					let formData = 'start=' + startDate + '&end=' + endDate;
+					let categoryIdx = $('#calendar').attr('data-categoryIdx');
+					
+					let formData = 'start=' + startDate + '&end=' + endDate + '&categoryIdx=' + categoryIdx;
 		            
 					const fn = function(data){
 						
@@ -242,7 +244,7 @@
 		
 			let categoryIdx = calEvent.extendedProps.categoryIdx;
 			if(! categoryIdx) categoryIdx = 0;
-			let categorys = ['개인일정', '부서일정', '전체일정'];
+			let categorys = ['개인일정', '부서일정', '회사일정'];
 			
 			let startDate = calEvent.extendedProps.startDate;
 			let endDate = calEvent.extendedProps.endDate;
@@ -370,6 +372,11 @@
 			    });
 			});
 		});
+		
+		function scheduleCategory(type) {
+		    $('#calendar').attr('data-categoryIdx', type);
+		    calendar.refetchEvents();
+		}
 	</script>
 </body>
 </html>

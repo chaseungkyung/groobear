@@ -39,25 +39,10 @@ public class ScheduleController {
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
-			if(info == null) {
-				return new ModelAndView("redirect:/");
-			}
-			
-			if(info.getEmpCode() == null) {
-				System.out.println("왜 사번을 못받아오냐고 진짜");
-			} else {
-				System.out.println(info.getEmpName());
-			}
-
-			if(info.getDeptIdx() == null) {
-				System.out.println("왜 부서코드를 못받아오냐고 진짜");
-			} else {
-				System.out.println(info.getDeptName());
-			}
-			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("empCode", info.getEmpCode());
+			map.put("DeptIdx", info.getDeptIdx());
 			
 		} catch (Exception e) {
 			log.info("schedule : ", e);
@@ -103,6 +88,7 @@ public class ScheduleController {
 			}
 			
 			dto.setEmpCode(info.getEmpCode());
+			dto.setDeptCode(info.getDeptIdx());
 			
 			service.insertSchedule(dto);
 		} catch (Exception e) {
@@ -146,8 +132,6 @@ public class ScheduleController {
 			map.put("empCode", info.getEmpCode());
 			
 			List<Schedule> list = service.listMonth(map);
-			System.out.println(info.getEmpCode());
-			System.out.println(info.getDeptIdx());
 			for(Schedule dto : list) {
 		    	if(dto.getStartTime() != null && ! dto.getStartTime().isBlank()) {
 		    		// 2021-10-10T10:10
@@ -247,6 +231,8 @@ public class ScheduleController {
 			}
 			
 			dto.setEmpCode(info.getEmpCode());
+			dto.setDeptCode(info.getDeptIdx());
+	
 			service.updateSchedule(dto);
 		} catch (Exception e) {
 			log.info("updateSubmit : ", e);
@@ -288,10 +274,9 @@ public class ScheduleController {
 	}
 	
 	// 일정 삭제 - AJAX : JSON
-	@PostMapping("delete")
 	@ResponseBody
+	@PostMapping("delete")
 	public Map<String, ?> delete(@RequestParam(name = "num") long num,
-			@RequestParam(name = "empCode") String empCode,
 			HttpSession session) {
 		Map<String, Object> model = new HashMap<String, Object>();
 
@@ -302,7 +287,7 @@ public class ScheduleController {
 			Map<String, Object> map=new HashMap<>();
 			map.put("empCode", info.getEmpCode());
 			map.put("scheduleIdx", num);
-			service.deleteSchedule(num, empCode);
+			service.deleteSchedule(map);
 			
 			state = "true";
 		}catch (Exception e) {

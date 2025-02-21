@@ -97,11 +97,13 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public void deleteSchedule(long num, String empCode) throws Exception {
+	public void deleteSchedule(Map<String, Object> map) throws Exception {
 		try {
-			mapper.deleteSchedule(num, empCode);
+			mapper.deleteSchedule(map);
 		} catch (Exception e) {
 			log.info("deleteSchedule" , e);
+			
+			throw e;
 		}
 	}
 	
