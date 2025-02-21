@@ -12,9 +12,8 @@
 
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/project/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/backlog.png">프로젝트 리스트</a></li>
-			<li><a href="${pageContext.request.contextPath}/project/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">업무 목록</a></li>
-			<li><a href="javascript:void(0);" id="openTaskModal">업무 추가</a></li>
-			<li><a href="${pageContext.request.contextPath}/project/list">캘린더</a></li>
+			<li><a href="${pageContext.request.contextPath}/project/detail/${projIdx}?${query}"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">피드</a></li>
+			<li><a href="${pageContext.request.contextPath}/project/task/${projIdx}?${query}"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">업무</a></li>
 			<li><a href="${pageContext.request.contextPath}/project/post">게시판</a></li>
 
 		</ul>

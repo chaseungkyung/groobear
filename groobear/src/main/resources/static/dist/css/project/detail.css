@@ -243,7 +243,6 @@
     padding: 8px;  
     font-size: 16px;
     font-weight: bold;
-    width: 50px;
 }
 
 .task-item:last-child {
@@ -252,8 +251,9 @@
 
 /* 아이콘 스타일 */
 .task-icon {
-    margin-right: 10px;
-    font-size: 18px;
+    width: 24px; /* 아이콘 크기 조정 */
+    height: 24px;
+    margin-right: 10px; /* 아이콘과 텍스트 간격 조정 */
 }
 
 
@@ -419,6 +419,8 @@
     border-bottom: 1px solid #eee;
 }
 
+
+
 /* 마지막 참여자는 보더 없애기 */
 .participant-item:last-child {
     border-bottom: none;
@@ -453,6 +455,13 @@
 .participant-department {
     font-size: 12px;
     color: #666;
+}
+
+/* 아이콘 스타일 */
+.chat-icon {
+    width: 24px; /* 아이콘 크기 조정 */
+    height: 24px;
+    margin-right: 10px; /* 아이콘과 텍스트 간격 조정 */
 }
 
 /* 하단 버튼 컨테이너 */

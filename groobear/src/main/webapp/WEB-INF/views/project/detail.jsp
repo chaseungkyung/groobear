@@ -5,15 +5,9 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/dist/css/project/detail.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/dist/css/project/Modal.css"
-	type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/detail.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/Modal.css" type="text/css">
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -30,7 +24,7 @@
 		<div class="mainInner">
 			<div class="inner-top">
 				<span class="projectName">${dto.projName}</span>
-			    <button id="openModalBtn" class="invite-button">
+			    <button id="inviteModalBtn" class="invite-button">
 			        <i class="bi bi-person-plus"></i> 초대하기
 			    </button>
 			</div>
@@ -101,20 +95,28 @@
 
 								<!-- Task 리스트 -->
 								<ul class="task-list">
-									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li> Task1 </li>
+									<li class="task-item">
+										<img class="task-icon" alt="" src="${pageContext.request.contextPath}/dist/images/project/request.png">
+										<span> 요구사항 정의와 모델링 정리 </span>
+									</li>
 								</ul>
 								<ul class="task-list">
-									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li>Task 2</li>
+									<li class="task-item">
+										<img class="task-icon" alt="" src="${pageContext.request.contextPath}/dist/images/project/hold.png">
+										<span> Task1 </span>
+									</li>
 								</ul>
 								<ul class="task-list">
-									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li>Task 3</li>
+									<li class="task-item">
+										<img class="task-icon" alt="" src="${pageContext.request.contextPath}/dist/images/project/complete.png">
+										<span> Task1 </span>
+									</li>
 								</ul>
 								<ul class="task-list">
-									<li class="task-item"><span class="task-icon">📝</span></li>
-									<li>Task 4</li>
+									<li class="task-item">
+										<img class="task-icon" alt="" src="${pageContext.request.contextPath}/dist/images/project/progress.png">
+										<span> Task1 </span>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -136,8 +138,7 @@
 									<div class="participant-image"></div>
 									<div class="participant-info">
 										<div class="participant-name">박민기</div>
-										<div class="participant-department">빠르대숑 경영지원팀 (프로젝트
-											관리자)</div>
+										<div class="participant-department">빠르대숑 경영지원팀</div>
 									</div>
 								</div>
 
@@ -148,7 +149,7 @@
 									<div class="participant-info">
 										<div class="participant-name">김대희 PD</div>
 										<div class="participant-department">필름스튜디오 대표</div>
-									</div>
+									</div>							
 								</div>
 
 								<div class="participant-item">

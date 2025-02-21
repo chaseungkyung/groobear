@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.model.SessionInfo;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.ProjectService;
@@ -43,7 +42,7 @@ public class ProjectController {
 			HttpServletRequest req, HttpSession session) {
 
 		try {
-			int size = 10;
+			int size = 5;
 			int total_page = 0;
 			int dataCount = 0;
 
@@ -56,7 +55,7 @@ public class ProjectController {
 
 			dataCount = service.dataCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
-			current_page = Math.max(current_page, total_page);
+			current_page = Math.min(current_page, total_page);
 
 			int offset = (current_page - 1) * size;
 			if (offset < 0) {
@@ -115,7 +114,7 @@ public class ProjectController {
 	public String writeSubmit(Project dto, HttpSession session) throws Exception {
 
 		try {
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			// SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 			service.insertProject(dto);
 
@@ -124,6 +123,49 @@ public class ProjectController {
 		}
 
 		return "redirect:/project/list";
+	}
+	
+	@GetMapping("update")
+	public String updateForm(
+			@RequestParam(name = "projIdx") long projIdx,
+			@RequestParam(name = "page") String page,
+			Model model,
+			HttpSession session) throws Exception {
+
+		try {
+			
+			Project dto = Objects.requireNonNull(service.findById(projIdx));
+
+			// if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
+			// 	return "redirect:/project/list?page=" + page;
+			// }
+
+			model.addAttribute("dto", dto);
+			model.addAttribute("page", page);
+			model.addAttribute("mode", "update");
+
+			return "project/write";
+
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			log.info("updateForm : ", e);
+		}
+
+		return "redirect:/project/list?page=" + page;
+	}
+
+	@PostMapping("update")
+	public String updateSubmit(Project dto,
+			@RequestParam(name = "page") String page) {
+
+		try {
+			service.updateProject(dto);
+			
+		} catch (Exception e) {
+			log.info("updateSubmit : ", e);
+		}
+
+		return "redirect:/project/list?page=" + page;
 	}
 
 	// 프로젝트 상세 보기
@@ -159,55 +201,6 @@ public class ProjectController {
 		return "redirect:/project/list?" + query;
 	}
 
-	@GetMapping("update")
-	public String updateForm(
-			@RequestParam(name = "projIdx") long projIdx,
-			@RequestParam(name = "page") String page,
-			Model model,
-			HttpSession session) throws Exception {
-
-		try {
-			
-
-			Project dto = Objects.requireNonNull(service.findById(projIdx));
-
-			// if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
-			// 	return "redirect:/project/list?page=" + page;
-			// }
-
-			model.addAttribute("dto", dto);
-			model.addAttribute("page", page);
-			model.addAttribute("mode", "update");
-
-			return "project/write";
-
-		} catch (NullPointerException e) {
-		} catch (Exception e) {
-			log.info("updateForm : ", e);
-		}
-
-		return "redirect:/project/list?page=" + page;
-	}
-
-	@PostMapping("update")
-	public String updateSubmit(Project dto,
-			@RequestParam(name = "page") String page) {
-
-		try {
-			service.updateProject(dto);
-			
-		} catch (Exception e) {
-			log.info("updateSubmit : ", e);
-		}
-
-		return "redirect:/project/list?page=" + page;
-	}
-
-	@GetMapping("post")
-	public String postForm(Model model) throws Exception {
-
-		return "project/postList";
-	}
 
 	// AJAX-JSON
 	@ResponseBody
@@ -226,9 +219,40 @@ public class ProjectController {
 		return model;
 	}
 	
-	@GetMapping("test1")
-	public String test() {
-		return "project/test1";
+	@GetMapping("task/{projIdx}")
+	public String task(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model) {
+		
+		String query = "page="+page;
+		
+		try {
+			kwd = URLDecoder.decode(kwd,"utf-8");
+			
+			if(!kwd.isBlank()) {
+				query += "&kwd=" + URLEncoder.encode(kwd,"utf-8");
+			}
+			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);
+			model.addAttribute("query", query);
+			
+			return "project/task";
+		} catch (Exception e) {
+			log.info("task : ", e);
+		}
+		
+		
+		return "redirect:/project/list?" + query;
+	}
+	
+	
+	@GetMapping("post")
+	public String postForm(Model model) throws Exception {
+
+		return "project/postList";
 	}
 
 }
