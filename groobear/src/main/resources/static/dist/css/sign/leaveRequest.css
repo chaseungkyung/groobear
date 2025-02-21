@@ -1,15 +1,23 @@
 @charset "UTF-8";
 
-.mainInner {font-size: 16px;}
 .mainInner > div {width: 80%; margin-left: auto; margin-right: auto;}
 
 table th, table td {border: 1px solid #333;}
 
+.btnArea {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 20px;
+}
+
+.btnArea .cancel {margin-right: 10px;}
+
 .getApprovalLine {margin-bottom: 10px;}
-.getApprovalLine p {text-align: right;}
+.getApprovalLine p {text-align: left;}
 
 .approvalLine {width: 100%; margin-bottom: 20px;}
 .approvalLine table {width: 100%; text-align: center;}
+.approvalLine table:nth-of-type(1) {margin: 20px 0;}
 .approvalLine table tr {height: 40px;}
 .approvalLine table th {width: 25%; background-color: #f9f9f9;}
 .approvalLine table th, .approvalLine table td {vertical-align: middle;}
@@ -46,3 +54,53 @@ textarea {height: 100%; border: unset; line-height: 1.6; padding: 10px;}
 .signature p:first-child {margin-bottom: 10px;}
 
 .company {margin: 30px 0; font-size: 20px; font-weight: bold; text-align: center;}
+
+.backGround {
+	display: none;
+	z-index: 999;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0, 0.5);
+}
+.lineSelectPopUp {
+	display: none;
+	z-index: 999;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color:  #fff;
+	box-sizing: border-box;
+	width: 40%;
+}
+
+.lineSelectPopUp .popUpInner {
+	position: relative;
+	padding: 20px;
+	box-sizing: border-box;
+	height: 500px;
+}
+.lineSelectPopUp .popUpInner .close {position: absolute; top: 1%; right: 1%;}
+.lineSelectPopUp .popUpInner .close:hover {cursor: pointer;}
+
+.lineSelectPopUp .popUpInner .select {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.lineSelectPopUp .popUpInner .select select {width: 29%;}
+.lineSelectPopUp .popUpInner .select button {width: 10%;}
+
+.lineSelectPopUp .popUpInner .listTable {width: 100%; height: 90%; overflow-y: auto;}
+.lineSelectPopUp .popUpInner .listTable table {width: 100%; text-align: center;}
+.lineSelectPopUp .popUpInner .listTable table tr {height: 20px; line-height: 20px;}
+.lineSelectPopUp .popUpInner .listTable table tr th {background-color: #efefef; width: 22.5%;}
+.lineSelectPopUp .popUpInner .listTable table tr th:last-child {width: 10%;}
+.lineSelectPopUp .popUpInner .listTable table tr td input[type='button'] {background-color: unset; border: unset;}
+
+.lineSelectPopUp .popUpInner .listTable table tr:hover td {background-color: #4C73B8; color: #fff;}
+.lineSelectPopUp .popUpInner .listTable table tr:hover td input[type='button'] {color: #fff;}

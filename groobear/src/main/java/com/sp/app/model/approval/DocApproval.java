@@ -13,7 +13,7 @@ public class DocApproval {
 	private Long empIdx;
 	private String deptName;
 	private String teamName;
-	private String empRank;
+	private String positionCode;
 	private String docType;
 	private String regDate;
 	private String paymentStage;

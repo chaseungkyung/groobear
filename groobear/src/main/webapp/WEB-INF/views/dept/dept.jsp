@@ -5,13 +5,15 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<style type="text/css">
-		main {width: 93vw;}
-		main .mainInner {width: 83vw;}
+		main {width: 83%;}
+		main .mainInner {width: 78vw;}
 	</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
 	
 	<main>
 		<div class="mainInner">

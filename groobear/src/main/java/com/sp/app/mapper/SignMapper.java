@@ -1,9 +1,12 @@
 package com.sp.app.mapper;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.sp.app.model.Member;
 import com.sp.app.model.approval.ApprovalLine;
 import com.sp.app.model.approval.ApprovalRef;
 import com.sp.app.model.approval.DocAppFile;
@@ -26,4 +29,5 @@ public interface SignMapper {
 	public void insertIncidentReport(IncidentReport dto) throws SQLException;
 	public void insertApprovalReq(ApprovalReq dto) throws SQLException;
 	
+	public List<Member> listMember(Map<String, Object> map);
 }

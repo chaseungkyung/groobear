@@ -2,27 +2,25 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.SignMapper">
-<!-- 
-	<insert id="insertDocApproval" parameterType="com.sp.app.mapper.SignMapper">
-		INSERT INTO docApproval (APRIDX, EMPIDX, DEPTNAME, TEAMNAME, EMPRANK, DOCTYPE, REGDATE, PAYMENTSTAGE, STATUS, DECISIONAT, REASON)
-					VALUES (approvalLine_seq.NEXTVAL, #{empIdx}, #{deptName}, #{teamName}, #{empRank}, #{docType}, #{regDate}, #{paymentStage}, #{status}, #{decisionAt}, #{reason})
-	</insert>
-	<insert id="insertApprovalLine" parameterType="com.sp.app.mapper.SignMapper">
-		INSERT INTO (APRIDX, WRITEREMP, WRITERINFO, APR1EMP, APR1INFO, APR1RESULT, APR1AT, APR2EMP, APR2INFO, APR2RESULT, APR2AT, APR3EMP, APR3INFO, APR3RESULT, APR3AT)
-					VALUES (#{aprIdx}, #{writerEmp}, #{writerInfo}, #{apr1Emp}, #{apr1Info}, #{apr1Result}, #{apr1At}, #{apr2Emp}, #{apr2Info}, #{apr2Result}, #{apr2At}, #{apr3Emp}, #{apr3Info}, #{apr3Result}, #{apr3At})
-	</insert>
-	<insert id="insertApprovalRef" parameterType="com.sp.app.mapper.SignMapper">
-		INSERT INTO (APRIDX2, EMPIDX, DEPTNAME, TEAMNAME, EMPRANK)
-					VALUES (#{aprIdx}, #{empIdx}, #{deptName}, #{teamName}, #{empRank})
-	</insert>
-	<insert id="insertDocAppFile" parameterType="com.sp.app.mapper.SignMapper">
-		INSERT INTO (FILEIDX, APRIDX, ORIGINALFILENAME, SAVEFILENAME)
-					VALUES (#{fileIdx}, #{aprIdx}, #{originalFilename}, #{saveFilename})
-	</insert>
+
+	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
+		SELECT empIdx, empCode, empName, d.deptIdx, d.deptName, t.teamIdx, t.teamName, p.positionCode, p.positionName, empStatus
+		FROM employee e
+		LEFT OUTER JOIN department d ON e.deptIdx = d.deptIdx
+		LEFT OUTER JOIN team t ON e.teamIdx = t.teamIdx
+		LEFT OUTER JOIN position p ON e.positionCode = p.positioncode
+		<where>
+			empStatus = 0
+			<if test="deptIdx != null and deptIdx != '' ">
+				AND d.deptIdx = #{deptIdx}
+			</if>
+			<if test="teamIdx != null and teamIdx != '' ">
+				AND t.teamIdx = #{teamIdx}
+			</if>
+			<if test="positionCode != null and positionCode != 0 ">
+				AND p.positionCode = #{positionCode}
+			</if>
+		</where>
+	</select>
 	
-	<insert id="insertLeaveRequest" parameterType="com.sp.app.mapper.SignMapper">
-		INSERT INTO (LVREQIDX, APRIDX, LEAVETYPE, STARTDATE, ENDDATE, LEAVEDAYS, LEAVEREASON, REMARKS)
-					VALUES (#{lvReqIdx}, #{aprIdx}, #{leaveType}, #{startDate}, #{endDate}, #{leaveDays}, #{leaveReason}, #{remarks})
-	</insert>
- -->
 </mapper>

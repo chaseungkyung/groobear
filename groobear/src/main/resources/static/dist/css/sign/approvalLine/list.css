@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.mainInner {display: flex; justify-content: space-between;}
+.left {width: 30%;}
+.left ul {width: 100%;}
+.left ul li:nth-child(1) {width: 15%;}
+.left ul li:nth-child(2) {width: 85%;}
+
+.right {width: 68%;}
+
+.right select {width: 90%;}
+
+.right .addNshow {margin-bottom: 20px;}
+
+.right ul li:nth-child(1) {width: 10%;}
+.right ul li:nth-child(2),
+.right ul li:nth-child(3),
+.right ul li:nth-child(4),
+.right ul li:nth-child(5) {width: 22.5%;}
+
+.right .btnArea {text-align: right;}
