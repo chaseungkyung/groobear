@@ -63,7 +63,6 @@
 							<th>제목</th>
 							<th width="100">작성자</th>
 							<th width="100">작성일</th>
-							<th width="70">조회수</th>
 							<th width="50">파일</th>
 						</tr>
 					</thead>
@@ -148,7 +147,6 @@ function searchList() {
 		return;
 	}
 	
-	// form 요소는 FormData를 이용하여 URLSearchParams 으로 변환
 	const formData = new FormData(f);
 	let requestParams = new URLSearchParams(formData).toString();
 	

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sp.app.mapper.board.BoardMapper">
+<mapper namespace="com.sp.app.mapper.BoardMapper">
+	
+	<select id="BoardSeq" resultType="Long">
+		SELECT hrBoard_seq.NEXTVAL FROM dual
+	</select>
 	
 	<insert id="insertBoard" parameterType="com.sp.app.model.board.Board">
 		INSERT INTO hrBoard(postIdx, empIdx, title, content, regDate, updateDate)
-		VALUES (hrBoard_seq.NEXVAL, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE)
+		VALUES (#{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE)
 	</insert> <!-- updateDate null 이어서 insert 안 될 수 있음 -->
 	
 	<sql id="where-list">
@@ -18,8 +22,14 @@
 				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
 					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
 			</when>
+			<when test="schType == 'title'">
+				INSTR(title, #{kwd}) &gt; 0
+			</when>
 			<when test="schType == 'content'">
 				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'empName'">
+				INSTR(empName, #{kwd}) &gt; 0
 			</when>
 			<otherwise>
 				INSTR(${schType}, #{kwd}) &gt; 0
@@ -39,8 +49,8 @@
 	</select>
 	
 	<select id="listBoard" parameterType="map" resultType="com.sp.app.model.board.Board">
-		SELECT b.postIdx, b.empIdx, empName, title, TO_CHAR(b.regDate, 'YYYY-MM-DD') regDate,
-			   NVL(replyCount, 0) replyCount
+		SELECT b.postIdx, b.empIdx, empName, title, regDate, b.updateDate,
+			   NVL(replyCount, 0) replyCount, NVL(fileCount, 0) fileCount
 		FROM hrBoard b
 		JOIN employee e ON b.empIdx = e.empIdx
 		LEFT OUTER JOIN (
@@ -48,6 +58,11 @@
 			FROM hrBbsCmt
 			GROUP BY postIdx
 		) c ON b.postIdx = c.postIdx
+		LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) fileCount 
+			FROM hrBbsFile
+			GROUP BY postIdx
+		) f ON b.postIdx = f.postIdx
 		<where>
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
@@ -58,26 +73,44 @@
 	</select>
 	
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.board.Board">
-		SELECT b.postIdx, b.empIdx, empName, title, content, b.RegDate
+		SELECT postIdx, b.empIdx, empName, title, content, regDate, updateDate
 		FROM hrBoard b
 		JOIN employee e ON b.empIdx = e.empIdx
-		WHERE b.postIdx = #{postIdx}
+		WHERE postIdx = #{postIdx}
 	</select>
 
 	<!--이전글 다음글 -->
-<!-- 
 	<select id="findByPrev" parameterType="map" resultType="com.sp.app.model.board.Board">
-	
+		SELECT postIdx, title
+		FROM hrBoard b
+		JOIN employee e ON b.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (postIdx &gt; #{postIdx})
+		</where>
+		ORDER BY postIdx ASC
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 		
 	<select id="findByNext" parameterType="map" resultType="com.sp.app.model.board.Board">
-	
+		SELECT postIdx, title
+		FROM hrBoard b
+		JOIN employee e ON b.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (postIdx &lt; #{postIdx})
+		</where>
+		ORDER BY postIdx DESC
+		FETCH FIRST 1 ROWS ONLY	
 	</select>
--->	
 
 	<update id="updateBorad" parameterType="com.sp.app.model.board.Board">
-		UPDATE hrBoard SET title=#{title}, content=#{content}
-		WHERE postIdx=#{postIdx}
+		UPDATE hrBoard SET title=#{title}, content=#{content}, updateDate=SYSDATE
+		WHERE postIdx = #{postIdx}
 	</update>
 	
 	<delete id="deleteBoard" parameterType="Long">
@@ -85,23 +118,52 @@
 		WHERE postIdx = #{postIdx}
 	</delete>
 	
+	<!-- 파일 -->
+	<insert id="insertFile" parameterType="com.sp.app.model.board.Board">
+		INSERT INTO hrBbsFile(fileIdx, postIdx, saveFilename, originalFilename)
+		VALUES (hrBbsFile_seq.NEXTVAL, #{postIdx}, #{saveFilename}, #{originalFilename})
+	</insert>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.model.board.Board">
+		SELECT fileIdx, postIdx, saveFilename, originalFilename
+		FROM hrBbsFile
+		WHERE postIdx = #{postIdx}
+	</select>
+	
+	<select id="findByFileId" parameterType="Long" resultType="com.sp.app.model.board.Board">
+		SELECT fileIdx, postIdx, saveFilename, originalFilename
+		FROM hrBbsFile
+		WHERE fileIdx = #{fileIdx}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM hrBbsFile
+		WHERE ${filed} = #{postIdx}
+	</delete>
+	
 	<!-- 댓글 -->
-<!--  
 	<insert id="insertReply" parameterType="com.sp.app.model.board.Reply">
-		
+		INSERT INTO hrBbsCmt(cmtIdx, postIdx, empIdx, content, regDate)
+		VALUES (hrBbsCmt_seq.NEXTVAL, #{postIdx}, #{empIdx}, #{content}, SYSDATE)
 	</insert>
 	
 	<select id="replyCount" parameterType="map" resultType="Integer">
-	
+		SELECT NVL(COUNT(*), 0)
+		FROM hrBbsCmt
+		WHERE postIdx=#{postIdx}
 	</select>
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.app.model.board.Reply">
-	
+		SELECT r.cmtIdx, r.empIdx, e.empName, r.PostIdx, r.content, r.regDate
+		FROM hrBbsCmt r
+		JOIN employee e ON r.empIdx = e.empIdx
+		ORDER BY r.cmtIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
 	</select>
 	
 	<delete id="deleteReply" parameterType="map">
-	
+		DELETE FROM hrBbsCmt
+		WHERE cmtIdx = #{cmtIdx}
 	</delete>
--->
 	
 </mapper>

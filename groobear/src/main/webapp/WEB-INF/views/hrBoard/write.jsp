@@ -115,7 +115,7 @@ function sendOk() {
 								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/hrBoard/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 								
 								<c:if test="${mode == 'update' }">
-									<input type="hidden" name="num" value="${dto.postIdx}">
+									<input type="hidden" name="postIdx" value="${dto.postIdx}">
 									<input type="hidden" name="saveFilename" value="${dto.saveFilename}">								
 									<input type="hidden" name="originalFilename" value="${dto.originalFilename}">								
 									<input type="hidden" name="page" value="${page}">								
@@ -142,7 +142,6 @@ function sendOk() {
 		}
 	</script>
 </c:if>
-
 
 <footer>
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
