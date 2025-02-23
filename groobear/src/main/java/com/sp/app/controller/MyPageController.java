@@ -49,7 +49,7 @@ public class MyPageController {
 	
 	@GetMapping("workList")
 	public String workList(Model model,  HttpServletRequest req) throws Exception {
-		
+		 
 		return "mypage/workList"; 
 	}
 	
