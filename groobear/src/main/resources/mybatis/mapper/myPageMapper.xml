@@ -7,7 +7,7 @@
 		FROM workLog w
 		JOIN employee e ON e.empIdx = w.empIdx
 		WHERE e.empIdx = #{empIdx}
-	</select> 
+	</select>  
 	
 	<select id="getEmpInfo" parameterType="long">
 	    SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.hireDate, e.retireDate, 
