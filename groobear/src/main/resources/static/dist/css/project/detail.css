@@ -4,7 +4,8 @@
 	display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
 }
 
 
@@ -16,10 +17,26 @@
 
 
 /* 초대하기 버튼 */
-.invite-button {
-	position: absolute;
-	right: 100px;
+.btn-area {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
 }
+
+.team-button {
+    background-color: #6c5ce7;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.team-button:hover {
+    background-color: #7163c4; 
+}
+
 
 .invite-button {
     display: flex;
@@ -31,6 +48,12 @@
     border-radius: 4px;
     border: none;
     cursor: pointer;
+}
+
+.invite-button:hover {
+	background: #7163c4;
+    border-color: #7163c4;
+    color: #fff;
 }
 
 .invite-button i {
@@ -427,21 +450,48 @@
 }
 
 
-.participant-image {
+.participant-image img {
     width: 40px;
     height: 40px;
     background-color: #ddd;
     /* 실제로는 img 태그로 대체 가능 */
-    border-radius: 50%;
+    border-radius: 10px;
     margin-right: 12px;
     flex-shrink: 0;
 }
+
+
 
 /* 참여자 정보 */
 .participant-info {
     display: flex;
     flex-direction: column;
 }
+
+.chat-image {
+    margin-left: auto; /* 정렬 조정 */
+    opacity: 0.5; /* 회색 톤 효과 */
+    cursor: pointer;    
+}
+
+
+
+.chat-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    filter: grayscale(100%); /* 기본적으로 회색 처리 */
+    transition: filter 0.3s ease, opacity 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 마우스를 올렸을 때 img 색상을 보라색으로 변경 */
+.chat-image:hover img {
+    filter: invert(40%) sepia(50%) saturate(1000%) hue-rotate(220deg) brightness(90%) contrast(90%);
+    opacity: 1; /* 밝기 조정 */
+}
+
 
 /* 이름 스타일 */
 .participant-name {
@@ -463,6 +513,7 @@
     height: 24px;
     margin-right: 10px; /* 아이콘과 텍스트 간격 조정 */
 }
+
 
 /* 하단 버튼 컨테이너 */
 .participant-actions {
@@ -491,16 +542,13 @@
 
 /* 화상회의 버튼 */
 .meeting-btn {
-    background-color: #007bff;
-    color: white;
+    background-color: #f2f2f2;
+    color: #333;
     margin-left: 10px;
 }
 
-/* 구분선 */
-.separator {
-    border-bottom: 1px solid #eee;
-    margin: 12px 0;
-}
+
+
 
 
 

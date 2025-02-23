@@ -235,6 +235,9 @@ public class ProjectController {
 				query += "&kwd=" + URLEncoder.encode(kwd,"utf-8");
 			}
 			
+			Project dto = Objects.requireNonNull(service.findById(projIdx));
+			
+			model.addAttribute("dto", dto);
 			model.addAttribute("projIdx", projIdx);
 			model.addAttribute("page", page);
 			model.addAttribute("query", query);
