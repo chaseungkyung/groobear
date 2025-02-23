@@ -1,0 +1,199 @@
+@charset "UTF-8";
+
+/* 모달 배경 */
+.stage-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 컨텐츠 */
+.stage-modal-content {
+    background-color: white;
+    width: 400px;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 모달 헤더 */
+.stage-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stage-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stage-modal-close {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* 모달 바디 */
+.stage-modal-body {
+    margin-top: 10px;
+}
+
+
+.stage-modal-title {
+	width: calc(100% - 20px);
+	padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+
+
+
+/* 업무 입력 폼 */
+.stage-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 전체 너비를 차지하도록 설정 */
+    width: 100%; /* 부모 요소의 크기에 맞춤 */
+}
+
+.team-select-title {
+	margin:0px 0px 5px 5px;
+}
+
+
+/* 상태 입력 버튼 */
+.stage-status-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.stage-status-btns button {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    margin-right: 11px;
+}
+
+.stage-status-btns .active {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-status {
+	display: block;
+    float: left;
+    width: auto;
+    min-width: 84px;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 13px;
+    background: #eee;
+    color: #777;
+}
+
+.modal-status.request.active{ 
+	background-color: #00b2ff; }
+.modal-status.progress.active{ 
+	background-color: #00b01c; }
+.modal-status.complete.active{ 
+	background-color: #402a9d; }
+.modal-status.hold.active{ 
+	background-color: #777; }
+
+.stage-form input, 
+.stage-form textarea {
+    width: calc(100% - 20px); /* 부모 너비를 넘지 않도록 조정 */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.stage-form textarea {
+	height: 60px;
+	margin-top: 15px;
+}
+
+.stage-form select {
+	padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* 날짜 선택 */
+.stage-date-container {
+    display: flex;
+    justify-content: space-between; /* 시작일, 종료일을 좌우 배치 */
+    gap: 10px; /* 두 입력 필드 사이 여백 */
+    width: 100%;
+}
+
+.stage-date-group {
+    display: flex;
+    flex-direction: column; /* 라벨과 input을 세로 정렬 */
+    width: 48%; /* 적절한 너비 설정 */
+}
+
+.stage-label {
+    font-weight: 550;
+    margin: 15px 0px 5px 5px
+}
+
+.stage-date-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+
+/* 버튼 영역 */
+.stage-modal-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.stage-cancel-button, .stage-add-button {
+    padding: 8px 40px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.stage-cancel-button {
+    background-color: #ddd;
+}
+
+.stage-add-button {
+    background-color: #6c5ce7;
+    color: white;
+}
+
+.stage-add-button:hover {
+	background-color: #7163c4;
+	color: #fff;
+	
+}

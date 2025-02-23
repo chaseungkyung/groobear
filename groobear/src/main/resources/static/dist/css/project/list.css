@@ -16,3 +16,7 @@
     width: 330px; /* 원하는 크기로 조정 */
 }
 
+.project-name {
+	display: flex;
+	text-align: left;
+}

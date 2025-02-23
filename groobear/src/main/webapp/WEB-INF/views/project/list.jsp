@@ -43,10 +43,8 @@
 				<c:forEach var="dto" items="${listProject}" varStatus="status">
 					<ul>
 						<li>${dataCount - (page - 1) * size - status.index}</li>
-						<li>
-							<a href="${detailUrl}/${dto.projIdx}?${query}">${dto.projName}</a>
-							<button type="button" class="btnProjectSet"> : </button>
-							
+						<li class="project-name">
+							<a href="${detailUrl}/${dto.projIdx}?${query}">${dto.projName}</a>							
 						</li>
 						<li>${dto.startDate}</li>
 						<li>${dto.endDate}</li>

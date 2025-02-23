@@ -7,7 +7,9 @@
 <jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/detail.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/Modal.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/inviteModal.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/teamModal.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -18,15 +20,20 @@
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp" />
 	<jsp:include page="/WEB-INF/views/project/inviteModal.jsp" />
-
+	<jsp:include page="/WEB-INF/views/project/teamModal.jsp" />
 
 	<main>
 		<div class="mainInner">
 			<div class="inner-top">
 				<span class="projectName">${dto.projName}</span>
-			    <button id="inviteModalBtn" class="invite-button">
-			        <i class="bi bi-person-plus"></i> 초대하기
-			    </button>
+				<div class="btn-area">
+				    <button id="teamModalBtn" class="team-button">
+				        팀 편성
+				    </button>
+				    <button id="inviteModalBtn" class="invite-button">
+				        <i class="bi bi-person-plus"></i> 초대하기
+				    </button>
+			    </div>
 			</div>
 
 			<div class="inner-middle">
@@ -135,57 +142,104 @@
 								<!-- 프로젝트 관리자 -->
 								<div class="pm-title">프로젝트 관리자</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">박민기</div>
 										<div class="participant-department">빠르대숑 경영지원팀</div>
+									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
 									</div>
 								</div>
 
 								
 								<div class="member-title">프로젝트 멤버</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">김대희 PD</div>
 										<div class="participant-department">필름스튜디오 대표</div>
-									</div>							
+									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>															
 								</div>
 
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>									
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">김재우 주임</div>
 										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
 									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>									
 								</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>									
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">김지수 대리</div>
 										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
 									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>									
 								</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>							
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">박보람 주임</div>
 										<div class="participant-department">닥터미소 코스메틱 마케팅팀</div>
 									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>									
 								</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>									
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">송이현 PD</div>
 										<div class="participant-department">필름스튜디오 편집</div>
 									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>								
 								</div>
 								<div class="participant-item">
-									<div class="participant-image"></div>
+									<div class="participant-image">
+										<div class="participant-image">
+											<img alt="" src="${pageContext.request.contextPath}/dist/images/project/employee_img1.png">
+										</div>									
+									</div>
 									<div class="participant-info">
 										<div class="participant-name">장민준 감독</div>
 										<div class="participant-department">필름스튜디오 촬영</div>
 									</div>
+									<div class="chat-image">
+										<img alt="" src="${pageContext.request.contextPath}/dist/images/project/chat.png">
+									</div>									
 								</div>
 
 								<!-- 하단 버튼 -->
