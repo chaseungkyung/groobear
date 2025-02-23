@@ -74,9 +74,11 @@ $(function(){
     	var myChart = echarts.init(chartDom);
     	var option;
     	
-    	let gap = data.gap;
+    	let gap = Math.max(0,data.gap);
     	let loginTime = data.loginTime;	
 
+
+        
     	option = {
     	  tooltip: {
     	    formatter: '{a} <br/>{b} : {c}%'

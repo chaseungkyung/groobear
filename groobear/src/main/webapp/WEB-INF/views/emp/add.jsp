@@ -65,7 +65,7 @@
 		
 		let mode = '${mode}';
 		
-	 	f.action = '${pageContext.request.contextPath}/emp/${mode}';
+	 	f.action = '${pageContext.request.contextPath}/mypage/${mode}';
 	    f.submit();
 			
 	}
@@ -96,13 +96,13 @@
 	                    <table>
 							<tr>
 								<th>사원번호</th>
-								<td><input type="text" name="empCode" class="readonly" readonly ></td>
+								<td><input type="text" name="empCode" class="readonly" readonly value="${empInfo.empIdx}"></td>
 								<th>비밀번호</th>
 								<td><input type="text" name="empPwd" class="readonly" readonly></td>
 							</tr>
 							<tr>
 								<th>성명</th>
-								<td><input type="text" name="empName"></td>
+								<td><input type="text" name="empName" value="${empInfo.empName}"></td>
 								<th>입사년월</th>
 								<td><input type="date" name="hireDate" id=""></td>
 							</tr>
@@ -110,7 +110,7 @@
 								<th>부서</th>
 								<td>
 									<select name="deptIdx" id="deptIdx">
-										<option value="" readOnly>부서를 선택해주세요</option>
+										<option value="${empInfo.deptName}" readOnly>부서를 선택해주세요</option>
 									 </select>
 								</td>
 								<th>퇴사년월일</th>
@@ -120,37 +120,37 @@
 								<th>소속</th>
 								<td>
 									<select name="teamIdx" id="teamIdx">
-										<option value="" readOnly>소속을 선택해주세요</option>
+										<option value="${empInfo.teamName}" readOnly>소속을 선택해주세요</option>
 									</select>
 								</td>
 								<th>주민등록번호</th>
-								<td><input type="text" name="rrn" id="rrn"></td>
+								<td><input type="text" name="rrn" id="rrn" value="${empInfo.rrn}"></td>
 							</tr>
 							<tr>
 								<th>직급</th>
 								<td>
 									<select name="positionCode" id="positionCode">
-										<option value="" readOnly>직급을 선택해주세요</option>
+										<option value="${empInfo.positionCode}" readOnly >직급을 선택해주세요</option>
 									</select>           
 								</td>
 								<th>휴대폰번호</th>
-								<td class="tel"><input type="tel" name="tel" id="tel"></td>
+								<td class="tel"><input type="tel" name="tel" id="tel" value="${empInfo.tel}"></td>
 							</tr>
 							<tr>
 								<th>내선번호</th>
-								<td class="tel"><input type="tel" name="empTel" id="empTel"></td>
+								<td class="tel"><input type="tel" name="empTel" id="empTel" value="${empInfo.empTel}"></td>
 								<th>주소</th>
 								<td class="address1">
-									<input type="text" name="zipCode" id="zipCode">
-									<input type="text" name="addrMain" id="addrMain">
+									<input type="text" name="zipCode" id="zipCode" value="${empInfo.zipCode}">
+									<input type="text" name="addrMain" id="addrMain" value="${empInfo.addrMain}">
 									<input type="button" value="주소검색">
 								</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td class="eMail"><input type="text" name="email" class="readonly" readonly> @ <input value="groobear.co.kr" disabled></td>	
+								<td class="eMail"><input type="text" name="email" class="readonly" readonly value="${empInfo.email}"> @ <input value="groobear.co.kr" disabled></td>	
 								<th></th>
-								<td class="address2"><input type="text" name="addrSub" id="addrSub"></td>
+								<td class="address2"><input type="text" name="addrSub" id="addrSub" value="${empInfo.addrSub}"></td>
 							</tr>
 						</table>
                         <div class="insertBtn">
@@ -173,17 +173,16 @@
                         <th>직급</th>
                         <th>비고</th>
                     </tr>
-                    <c:if test="">
-	                    <c:forEach var="dto" items="${list}">
+	                    <c:forEach var="empRecord" items="${list}">
 		                    <tr>
-		                        <td>${dto.hireDate}</td>
-		                        <td>${dto.deptIdx}</td>
-		                        <td>${dto.tempIdx}</td>
-		                        <td>${dto.positionName}</td>
-		                        <td>${dto.empStatus}</td>
+		                        <td style="padding-left: 30px;">${empRecord.startDate} ~ ${empRecord.endDate}</td>
+		                        <td>${empRecord.deptName}</td>
+		                        <td>${empRecord.teamName}</td>
+		                        <td>${empRecord.empRank}</td>
+		                        <td>${empRecord.note}</td>
 		                    </tr>
 	                    </c:forEach>
-					</c:if>
+
                 </table>
             </div>
             <div class="back">

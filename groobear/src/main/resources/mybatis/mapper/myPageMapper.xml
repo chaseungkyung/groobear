@@ -10,12 +10,21 @@
 	</select>
 	
 	<select id="getEmpInfo" parameterType="long">
-		SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.hireDate, e.retireDate
-		FROM employee e
-		JOIN employeeDetail d ON e.empIdx = d.empIdx
-		WHERE e.empIdx = #{empIdx}
+	    SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.hireDate, e.retireDate, 
+	           d.email, d.tel, d.zipCode, d.addrMain, d.addrSub, d.rrn, h.deptName, h.teamName, h.startDate
+	    FROM employee e
+	    JOIN employeeDetail d ON e.empIdx = d.empIdx
+	    JOIN (
+	        SELECT h.empIdx, h.deptName, h.teamName, h.startDate
+	        FROM (
+	            SELECT h.*, ROW_NUMBER() OVER (PARTITION BY empIdx ORDER BY startDate DESC) AS rn
+	            FROM employeeHistory h
+	        ) h
+	        WHERE h.rn = 1 
+	    ) h ON e.empIdx = h.empIdx
+	    WHERE e.empIdx = #{empIdx}
 	</select>
-	
+ 
 	<update id="updateEmpInfo" parameterType="map">
     	UPDATE employee e
 	    JOIN employeeDetail ed ON e.empIdx = ed.empIdx
@@ -25,9 +34,9 @@
 	    WHERE e.empIdx = #{empIdx};
 	</update>
 	
-	<select id="getEmpRecord" parameterType ="long">
-		SELECT empIdx, empCode, empName, deptIdx, teamIdx, positionCode
-		FROM employee
+	<select id="getEmpRecord" parameterType ="long" resultType="com.sp.app.model.EmpRecord">
+		SELECT historyIdx, empIdx, deptName, teamName, empRank, TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, note
+		FROM employeeHistory
 		WHERE empIdx = #{empIdx}
 	</select>
 	

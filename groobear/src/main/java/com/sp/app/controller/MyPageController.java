@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 import com.sp.app.model.MyPage;
 import com.sp.app.model.SessionInfo;
@@ -99,10 +100,13 @@ public class MyPageController {
 			
 			// 서비스 이용해서 사원정보를 empInfo에 담고
 			Member empInfo = service.getEmpInfo(map);
+			List<EmpRecord> list = service.getEmpRecord(empIdx);
+
 			
 			// 조회한 정보를 뷰에 전달해야지.. 수정할 정보 전달하고 수정 모드 설정하고
 			model.addAttribute("empInfo", empInfo);
 			model.addAttribute("mode", "modify");
+			model.addAttribute("list", list);
 			
 			return "emp/add";
 			

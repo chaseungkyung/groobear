@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.MyPageMapper;
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 import com.sp.app.model.MyPage;
 
@@ -116,9 +117,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
-	public List<Member> getEmpRecord(long empIdx) throws Exception {
+	public List<EmpRecord> getEmpRecord(long empIdx) throws Exception {
 		
-		List<Member> list = null;
+		List<EmpRecord> list = null;
 		
 		try {
 			list = mapper.getEmpRecord(empIdx);
