@@ -21,22 +21,77 @@
 	margin-bottom: 30px;
 }
 
+/* 근투현황, 추가근무내역, 휴가내역 공통 css */
+a.custom-button {
+    background-color: #4C73B8; 
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+}
+
+a.select-button {
+    background-color: #365491; 
+}
+a.custom-button:hover {
+    background-color: #365491; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button-group {
+    padding-left: 50px; 
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+
 /* 근태 내역 */
-.tkListArea ul li:nth-child(1) {width: 15%; padding-left: 20px;} /* 일자 */
-.tkListArea ul li:nth-child(2) {width: 10%;} /* 이름 */
-.tkListArea ul li:nth-child(3) {width: 10%;} /* 부서 */
-.tkListArea ul li:nth-child(4) {width: 15%;} /* 팀 */
-.tkListArea ul li:nth-child(5) {width: 15%;} /* 직급 */
-.tkListArea ul li:nth-child(6) {width: 10%;} /* 추가시간*/
+.tkListArea ul li:nth-child(1) {width: 10%; padding-left: 20px;} /* 이름*/
+.tkListArea ul li:nth-child(2) {width: 10%;} /* 부서 */
+.tkListArea ul li:nth-child(3) {width: 10%;} /* 팀 */
+.tkListArea ul li:nth-child(4) {width: 10%;} /* 직급 */
+.tkListArea ul li:nth-child(5) {width: 20%;} /* 추가 일자*/
+.tkListArea ul li:nth-child(6) {width: 10%;} /* 추가 시간*/
 .tkListArea ul li:nth-child(7) {width: 30%;} /* 사유 */
 
 /* 휴가내역 */
-.ptoListArea ul li:nth-child(1) {width: 10%; padding-left: 20px;} /* 시작일자*/
-.ptoListArea ul li:nth-child(2) {width: 10%;} /* 종료일자 */
-.ptoListArea ul li:nth-child(3) {width: 8%; padding-left: 20px;} /* 일수 */
-.ptoListArea ul li:nth-child(4) {width: 10%;} /* 이름 */
-.ptoListArea ul li:nth-child(5) {width: 10%;} /* 부서 */
-.ptoListArea ul li:nth-child(6) {width: 10%;} /* 팀 */
-.ptoListArea ul li:nth-child(7) {width: 10%;} /* 직급 */
-.ptoListArea ul li:nth-child(8) {width: 10%;} /* 종류 */
-.ptoListArea ul li:nth-child(9) {width: 10%;} /* 비고 */
+.ptoListArea ul li:nth-child(1) {width: 20%; padding-left: 20px;} /* 기간 */
+.ptoListArea ul li:nth-child(2) {width: 10%; padding-left: 20px;} /* 일수 */
+.ptoListArea ul li:nth-child(3) {width: 10%;} /* 이름 */
+.ptoListArea ul li:nth-child(4) {width: 10%;} /* 부서 */
+.ptoListArea ul li:nth-child(5) {width: 10%;} /* 팀 */
+.ptoListArea ul li:nth-child(6) {width: 10%;} /* 직급 */
+.ptoListArea ul li:nth-child(7) {width: 10%;} /* 종류 */
+.ptoListArea ul li:nth-child(8) {width: 10%;} /* 비고 */
+
+
+.chart-box {
+    width: 80%;
+    height: 500px;
+    padding: 20px;              
+    background-color: #eee;    
+    border-radius: 20px;        
+    border: 2px solid #ddd;    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;          
+    margin: 10px;
+}
+
+/* 컨테이너 정렬 */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}

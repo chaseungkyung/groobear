@@ -20,7 +20,6 @@ public interface MyPageMapper {
 	public Member getEmpInfo(Map<String, Object> map) throws SQLException;
 	public Member updateEmpInfo(Map<String, Object> map) throws SQLException;
 	public List<EmpRecord> getEmpRecord(long empIdx) throws SQLException;
-	public Member updateEmpRecord(Map<String, Object> map) throws SQLException;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);

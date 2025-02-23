@@ -131,19 +131,5 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	
-	@Override
-	public Member updateEmpRecord(Map<String, Object> map) {
-		Member empRecord = null;
-		try {
-			empRecord = mapper.updateEmpRecord(map);
-			
-		} catch (Exception e) {
-			log.info("updateEmpRecord : ", e);
-		}
-		return empRecord;
-	}
-
-
-
 
 }

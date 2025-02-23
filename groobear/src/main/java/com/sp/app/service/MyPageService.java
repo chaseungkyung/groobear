@@ -17,7 +17,6 @@ public interface MyPageService {
 	public Member getEmpInfo(Map<String, Object> map) throws Exception;
 	public Member updateEmpInfo(Map<String, Object> map) throws Exception;
 	public List<EmpRecord> getEmpRecord(long empIdx) throws Exception;
-	public Member updateEmpRecord(Map<String, Object> map) throws Exception;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);

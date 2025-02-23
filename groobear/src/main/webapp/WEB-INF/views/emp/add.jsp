@@ -89,7 +89,7 @@
 	                        <img src="https://placehold.co/225x300" alt="샘플이미지">
 	                    </div>
 	                    <div class="buttonArea">
-	                        <button type="button">사진 추가하기</button>
+	                        <button type="button" class="custom-button">사진 추가하기</button>
 	                    </div>
 	                </div>
 	                <div class="info">
@@ -98,29 +98,49 @@
 								<th>사원번호</th>
 								<td><input type="text" name="empCode" class="readonly" readonly value="${empInfo.empIdx}"></td>
 								<th>비밀번호</th>
-								<td><input type="text" name="empPwd" class="readonly" readonly></td>
+								<td><input type="text" name="empPwd" class="readonly" value="${mode=='modify' ? '****' : ''}" readonly></td>
 							</tr>
 							<tr>
 								<th>성명</th>
 								<td><input type="text" name="empName" value="${empInfo.empName}"></td>
 								<th>입사년월</th>
-								<td><input type="date" name="hireDate" id=""></td>
+								<td><input type="date" name="hireDate" id="" value="${mode=='modify' ? empInfo.hireDate : ''}" readOnly>
+								
+								</td>
 							</tr>
 							<tr>
 								<th>부서</th>
 								<td>
 									<select name="deptIdx" id="deptIdx">
-										<option value="${empInfo.deptName}" readOnly>부서를 선택해주세요</option>
+										<option value="${mode == 'modify' ? empInfo.deptIdx : ''}" readOnly>
+											<c:choose>
+												<c:when test="${mode == 'modify'}">
+													${empInfo.deptName}
+												</c:when>
+												<c:otherwise>
+													부서를 선택해주세요
+												</c:otherwise>
+											</c:choose>
+										</option>	
 									 </select>
 								</td>
 								<th>퇴사년월일</th>
-								<td><input type="date" name="retireDate"></td>
+								<td><input type="date" name="retireDate" readOnly></td>
 							</tr>
 							<tr>
 								<th>소속</th>
 								<td>
 									<select name="teamIdx" id="teamIdx">
-										<option value="${empInfo.teamName}" readOnly>소속을 선택해주세요</option>
+										<option value="${mode =='modify' ? empInfo.teamName : ''}" readOnly>
+											<c:choose>
+												<c:when test="${mode == 'modify'}" >
+													${empInfo.teamName}
+												</c:when>
+												<c:otherwise>
+													소속을 선택해주세요
+												</c:otherwise>											
+											</c:choose>
+										</option>
 									</select>
 								</td>
 								<th>주민등록번호</th>
@@ -130,7 +150,16 @@
 								<th>직급</th>
 								<td>
 									<select name="positionCode" id="positionCode">
-										<option value="${empInfo.positionCode}" readOnly >직급을 선택해주세요</option>
+										<option value="${mode == 'modify' ? empInfo.positionCode : ''}" readOnly >
+											<c:choose>
+												<c:when test="${mode=='modify'}">
+													${empInfo.positionCode}
+												</c:when>
+												<c:otherwise>
+													직급을 선택해주세요											
+												</c:otherwise>
+											</c:choose>
+										</option>
 									</select>           
 								</td>
 								<th>휴대폰번호</th>
@@ -154,9 +183,9 @@
 							</tr>
 						</table>
                         <div class="insertBtn">
-							<button type="reset" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">다시 작성</button>
-							<button type="button" class="" onclick="location.href='${pageContext.request.contextPath}/emp/list'" style="color:black; border:1px solid #2f5ea2; border-radius: 5px; padding: 4px;">${mode=="modify" ? "수정취소" : "등록취소"}</button>
-							<button type="button" class="" onclick="insertEmp();" style="background-color:#2f5ea2; color:white;" >${mode=="modify" ? "수정완료" : "등록완료"}</button>
+							<button type="reset" class="custom-button" >다시 작성</button>
+							<button type="button" class="custom-button" onclick="location.href='${pageContext.request.contextPath}/emp/list'" >${mode=="modify" ? "수정취소" : "등록취소"}</button>
+							<button type="button" class="custom-button select-button" onclick="insertEmp();" >${mode=="modify" ? "수정완료" : "등록완료"}</button>
                    	 	</div>
 	                </div>
 	            </div>
@@ -185,9 +214,16 @@
 
                 </table>
             </div>
-            <div class="back">
-            	<a href="${pageContext.request.contextPath}/emp/list">뒤로가기</a>
-            </div>
+			<div class="back">
+			    <c:choose>
+			        <c:when test="${mode == 'modify'}">
+			            <a href="${pageContext.request.contextPath}/mypage/mypage" class="custom-button">뒤로가기</a>
+			        </c:when>
+			        <c:otherwise>
+			            <a href="${pageContext.request.contextPath}/emp/list" class="custom-button">뒤로가기</a>
+			        </c:otherwise>
+			    </c:choose>
+			</div>
 		</div>
 	</main>
 </body>

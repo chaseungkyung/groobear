@@ -14,9 +14,9 @@
             display: flex;
             justify-content: center;
         }
-        .workChart, .workClock {
+        .workChart, .workClock, .workChartWeek {
             width: 100%; 
-            height: 700px;
+            height: 500px;
         }
     </style>
 </head>
@@ -25,20 +25,20 @@
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp" />
 
 	<main>
-	<h3>근무 현황</h3>
-		<div class="mainInner">
-			<div>
-				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">근무 현황</button>
-				<button type="button" class="" onclick="window.location.href='${pageContext.request.contextPath}/mypage/timeKeeping';" style="background-color: #2f5ea2; color: white;">근태 내역</button>
-				<button type="button" class="" onclick="window.location.href='${pageContext.request.contextPath}/mypage/paidOffTime';" style="background-color: #2f5ea2; color: white;">휴가 내역</button>
-			</div>
+    	<div class="mainInner">
+	        <div class="button-group">
+		        <a href="${pageContext.request.contextPath}/mypage/workList" class="custom-button select-button">근무 현황</a>
+		        <a href="${pageContext.request.contextPath}/mypage/timeKeeping" class="custom-button">근태 내역</a>
+		        <a href="${pageContext.request.contextPath}/mypage/paidOffTime" class="custom-button">휴가 내역</a>
+		    </div>
 			<form action="">
 				<div class="wlListArea">
 					<div id="workTime">${loginTime}</div>
 					
 					<div class="container">
-						<div id="workChart" class="workChart">차트</div>
-						<div id="workClock" class="workClock">시계</div>
+						<div id="workChart" class="workChart"></div>
+						<div id="workClock" class="workClock"></div>
+						<div id="workChartWeek" class="workChartWeek"></div>
 					</div>
 				</div>
 				
@@ -100,7 +100,7 @@ $(function(){
     	      data: [
     	        {
     	          value: gap,
-    	          name: '오늘 근무 시간'
+    	          name: '금일 근무 시간'
     	        }
     	      ]
     	    }
@@ -340,6 +340,57 @@ $(function(){
 	option && myChart.setOption(option);	
 });
 
+$(function() {
+	var chartDom = document.getElementById('workChartWeek');
+	var myChart = echarts.init(chartDom);
+	var option;
+
+	const axisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+	const data = axisData.map(function (item, i) {
+	  return Math.round(Math.random() * 1000 * (i + 1));
+	});
+	const links = data.map(function (item, i) {
+	  return {
+	    source: i,
+	    target: i + 1
+	  };
+	});
+	links.pop();
+	option = {
+	  title: {
+	    text: 'Graph on Cartesian'
+	  },
+	  tooltip: {},
+	  xAxis: {
+	    type: 'category',
+	    boundaryGap: false,
+	    data: axisData
+	  },
+	  yAxis: {
+	    type: 'value'
+	  },
+	  series: [
+	    {
+	      type: 'graph',
+	      layout: 'none',
+	      coordinateSystem: 'cartesian2d',
+	      symbolSize: 40,
+	      label: {
+	        show: true
+	      },
+	      edgeSymbol: ['circle', 'arrow'],
+	      edgeSymbolSize: [4, 10],
+	      data: data,
+	      links: links,
+	      lineStyle: {
+	        color: '#2f4554'
+	      }
+	    }
+	  ]
+	};
+
+	option && myChart.setOption(option);
+});
 </script>
 
 </body>

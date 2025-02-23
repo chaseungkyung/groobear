@@ -25,7 +25,7 @@
 .empHistory .title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
 
 .empHistory table {width: 49%; text-align: center;}
-.empHistory table tr {height: 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eeee;}
+.empHistory table tr {height: 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee;}
 .empHistory table tr:first-child {background-color: #efefef;}
 
 .empHistory table td:first-child {padding-left: 10px; text-align: left;}
@@ -36,3 +36,35 @@
 .empHistory table th:nth-child(5), .empHistory table td:nth-child(5) {width: 10%;}
 
 .readonly {background-color: #eee; border: 1px solid #999;}
+
+.custom-button, a.custom-button {
+    color: #2f518b;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+}
+
+.custom-button:hover, a.custom-button:hover {
+    background-color: #365491; 
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-group {
+    padding-right: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+}
+
+.select-button {
+    background-color: #eee;
+}

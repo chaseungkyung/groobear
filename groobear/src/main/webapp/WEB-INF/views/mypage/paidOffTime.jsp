@@ -15,18 +15,16 @@
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp" />
 
 	<main>
-	<h3>휴가 내역</h3>
 		<div class="mainInner">
-			<div class="">
-				<button type="button" class="" onclick="${pageContext.request.contextPath}/mypage/workList" style="background-color: #2f5ea2; color: white;">근무 현황</button>
-				<button type="button" class="" onclick="" style="background-color: #2f5ea2; color: white;">근태 내역</button>
-				<button type="button" class="" onclick="${pageContext.request.contextPath}/mypage/paidOffTime" style="background-color: #2f5ea2; color: white;">휴가 내역</button>
-			</div>
+			<div class="button-group">
+		        <a href="${pageContext.request.contextPath}/mypage/workList" class="custom-button">근무 현황</a>
+		        <a href="${pageContext.request.contextPath}/mypage/timeKeeping" class="custom-button">근태 내역</a>
+		        <a href="${pageContext.request.contextPath}/mypage/paidOffTime" class="custom-button select-button">휴가 내역</a>
+		       </div>
 			<form action="">
 				<div class="ptoListArea">
 					<ul>
 						<li>기간</li>
-						<li></li>
 						<li>일수</li>
 						<li>이름</li>
 						<li>부서</li>
@@ -38,8 +36,7 @@
 					</ul>
 					<c:forEach var="vo" items="${list}">
 					<ul>
-						<li>${vo.startDate}</li>
-						<li>~ ${vo.endDate}</li>
+						<li>${vo.startDate} ~ ${vo.endDate}</li>
 						<li>${vo.leaveDays}</li>
 						<li>${vo.empName}</li>
 						<li>${vo.deptIdx}</li>
