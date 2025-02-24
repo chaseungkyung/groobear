@@ -19,7 +19,7 @@
 		SELECT teamIdx, t.deptIdx, teamName
 		FROM team t
 		LEFT OUTER JOIN department d ON t.deptIdx = d.deptIdx
-		WHERE t.deptIdx = #{deptIdx}
+		WHERE t.deptIdx = #{deptIdx, jdbcType=NUMERIC}
 	</select>
 	
 	<select id="listPosition" resultType="com.sp.app.model.Member">
@@ -100,6 +100,10 @@
 		ORDER BY empCode DESC
 	</select>
 
-
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) AS dataCount
+		FROM employee e
+		JOIN employeedetail d ON e.empIdx = d.empIdx
+	</select>
 	
 </mapper>

@@ -44,7 +44,7 @@ public class MyPageController {
     
 	@GetMapping("mypage")
 	public String mypage(Model model, HttpServletRequest req) throws Exception {
-		return "mypage/mypage";
+		return "mypage/workList";
 	}
 	
 	@GetMapping("workList")
@@ -108,11 +108,11 @@ public class MyPageController {
 			model.addAttribute("mode", "modify");
 			model.addAttribute("list", list);
 			
-			return "emp/add";
+			return "mypage/me";
 			
 		} catch (Exception e) {
 			log.info("modify GET : ", e);
-			return "redirect:/mypage/mypage";
+			return "redirect:/mypage/workList";
 		}		
 	}
 	
@@ -127,7 +127,7 @@ public class MyPageController {
 			System.out.println(dto.getEmpIdx());
 			// 수정된 정보를 서비스한테 전달 
 	        map.put("empIdx", info.getEmpIdx());  // 세션에서 empIdx를 가져와서 map에 넣기
-	        map.put("empCode", dto.getEmpCode());	// Member객체에서 수정된 값을 map에 저장
+	        map.put("empCode", dto.getEmpCode());	// Member 객체에서 수정된 값을 map에 저장
 	        map.put("empPwd", dto.getEmpPwd());
 	        map.put("empName", dto.getEmpName());
 	        map.put("deptIdx", dto.getDeptIdx());
@@ -147,7 +147,7 @@ public class MyPageController {
 			
 		} catch (Exception e) {
 			log.info("modifySubmit", e);
-			return "redirect:/mypage/mypage";
+			return "redirect:/mypage/workList";
 			// 컨트롤러가 사용자 요청을 받았고. 이제 서비스한테 파라미터 전달해줘야한다. 전달할 파라미터를 맵에 저장해두고.
 		}
 	}
@@ -169,7 +169,7 @@ public class MyPageController {
                 model.put("state", "false");    
         	} else {
     			long gap;
-    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH24:MI:SS");
     			LocalDateTime today = LocalDateTime.now();
 
     			LocalDateTime dateTime = LocalDateTime.parse(loginTime.getLoginTime(), formatter);

@@ -7,7 +7,6 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.sp.app.common.StorageService;
 import com.sp.app.mapper.MemberMapper;
 import com.sp.app.model.Member;
 
@@ -142,13 +141,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		int result = 0;
+		int dataCount = 0;
 		try {
-			result = mapper.dataCount(map);
+			dataCount = mapper.dataCount(map);
 		} catch (Exception e) {
 			log.info("dataCount : ", e);
 		}
-		return result;
+		return dataCount;
 	}
 
 	@Override

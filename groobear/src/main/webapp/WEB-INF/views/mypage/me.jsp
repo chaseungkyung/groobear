@@ -93,7 +93,7 @@
 		          	        	<c:when test="${mode='modify'}">
 		          	        	</c:when>
 		          	        	<c:otherwise>
-		          	            	<button type="button" class="custom-button">사진 추가하기</button>
+		          	            	<button type="button" class="custom-button">사진 수정하기</button>
 		          	        	</c:otherwise>
 	                    	</c:choose>
 	                    </div>
@@ -102,104 +102,81 @@
 	                    <table>
 							<tr>
 								<th>사원번호</th>
-								<td><input type="text" name="empCode" class="readonly" value="${mode='update' ? empInfo.empIdx : ''}" readonly></td>
+								<td><input type="text" name="empCode" class="readonly" readonly value="${empInfo.empIdx}"></td>
 								<th>비밀번호</th>
-								<td><input type="text" name="empPwd" class="readonly" readonly ></td>
+								<td><input type="text" name="empPwd" class="readonly" value="${mode=='modify' ? '****' : ''}" ></td>
 							</tr>
 							<tr>
 								<th>성명</th>
-								<td><input type="text" name="empName" value="${empInfo.empName}"></td>
+								<td><input type="text" name="empName" class="readonly" value="${empInfo.empName}"></td>
 								<th>입사년월</th>
-								<td><input type="date" name="hireDate" id="" value="${mode=='modify' ? empInfo.hireDate : ''}" >
+								<td><input type="date" name="hireDate" id="" class="readonly" value="${mode=='update' ? empInfo.hireDate : ''}" readOnly>
 								
 								</td>
 							</tr>
 							<tr>
 								<th>부서</th>
-								<td>
-									<select name="deptIdx" id="deptIdx">
-										<option value="${mode == 'modify' ? empInfo.deptIdx : ''}">
-											<c:choose>
-												<c:when test="${mode == 'modify'}">
-													${empInfo.deptName}
-												</c:when>
-												<c:otherwise>
-													부서를 선택해주세요
-												</c:otherwise>
-											</c:choose>
-										</option>	
-									 </select>
-								</td>
+								<td><input type="text" class="readonly" value="${empInfo.deptName}" readonly></td>
 								<th>퇴사년월일</th>
-								<td><input type="date" name="retireDate" ></td>
+								<td><input type="date" class="readonly" name="retireDate" readOnly></td>
 							</tr>
 							<tr>
 								<th>소속</th>
-								<td>
-									<select name="teamIdx" id="teamIdx">
-										<option value="${mode =='modify' ? empInfo.teamName : ''}" >
-											<c:choose>
-												<c:when test="${mode == 'modify'}" >
-													${empInfo.teamName}
-												</c:when>
-												<c:otherwise>
-													소속을 선택해주세요
-												</c:otherwise>											
-											</c:choose>
-										</option>
-									</select>
-								</td>
+								<td><input type="text" class="readonly" value="${empInfo.teamName}" readonly></td>
 								<th>주민등록번호</th>
-								<td><input type="text" name="rrn" id="rrn" value="${empInfo.rrn}"></td>
+								<td><input type="text" class="readonly" name="rrn" id="rrn" value="${empInfo.rrn}" readOnly></td>
 							</tr>
 							<tr>
 								<th>직급</th>
-								<td>
-									<select name="positionCode" id="positionCode">
-										<option value="${mode == 'modify' ? empInfo.positionCode : ''}"  >
-											<c:choose>
-												<c:when test="${mode=='modify'}">
-													${empInfo.positionCode}
-												</c:when>
-												<c:otherwise>
-													직급을 선택해주세요											
-												</c:otherwise>
-											</c:choose>
-										</option>
-									</select>           
-								</td>
+								<td><input type="text" class="readonly" value="${empInfo.positionCode}" readonly></td>
 								<th>휴대폰번호</th>
-								<td class="tel"><input type="tel" name="tel" id="tel" value="${empInfo.tel}"></td>
+								<td class="tel"><input type="tel" name="tel" id="tel" class="readonly" value="${empInfo.tel}" readOnly></td>
 							</tr>
 							<tr>
 								<th>내선번호</th>
-								<td class="tel"><input type="tel" name="empTel" id="empTel" value="${empInfo.empTel}"></td>
+								<td class="tel"><input type="tel" name="empTel" id="empTel" class="readonly" value="${empInfo.empTel}" readonly></td>
 								<th>주소</th>
 								<td class="address1">
-									<input type="text" name="zipCode" id="zipCode" value="${empInfo.zipCode}">
-									<input type="text" name="addrMain" id="addrMain" value="${empInfo.addrMain}">
-									<input type="button" value="주소검색">
+									<input type="text" name="zipCode" id="zipCode" class="readonly" value="${empInfo.zipCode}"readOnly>
+									<input type="text" name="addrMain" id="addrMain" class="readonly" value="${empInfo.addrMain}"readOnly>
 								</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td class="eMail"><input type="text" name="email" value="${empInfo.email}"> @ <input value="groobear.co.kr" disabled></td>	
+								<td class="eMail"><input type="text" name="email" class="readonly"  value="${empInfo.email}" readOnly> @ <input value="groobear.co.kr" disabled></td>	
 								<th></th>
-								<td class="address2"><input type="text" name="addrSub" id="addrSub" value="${empInfo.addrSub}"></td>
+								<td class="address2"><input type="text" name="addrSub" id="addrSub" class="readonly" value="${empInfo.addrSub}" readOnly></td>
 							</tr>
 						</table>
-                        <div class="insertBtn">
-	                        <button type="reset" class="custom-button" >다시 작성</button>
-							<button type="button" class="custom-button" onclick="location.href='${pageContext.request.contextPath}/emp/list'" >${mode=="update" ? "수정취소" : "등록취소"}</button>
-							<button type="button" class="custom-button select-button" onclick="insertEmp();" >${mode=="update" ? "수정완료" : "등록완료"}</button>
-                   	 	</div>
 	                </div>
 	            </div>
             </form>
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>
-
+            <div class="empHistory">
+                <div class="title">
+                    <p>사원 이력</p>
+                </div>
+                <table>
+                    <tr>
+                        <th>기간</th>
+                        <th>부서</th>
+                        <th>팀</th>
+                        <th>직급</th>
+                        <th>비고</th>
+                    </tr>
+	                <c:forEach var="empRecord" items="${list}">
+		                <tr>
+		                	<td style="padding-left: 30px;">${empRecord.startDate} ~ ${empRecord.endDate}</td>
+							<td>${empRecord.deptName}</td>
+							<td>${empRecord.teamName}</td>
+							<td>${empRecord.empRank}</td>
+							<td>${empRecord.note}</td>
+		                </tr>
+	               </c:forEach>
+                </table>
+            </div>
 		</div>
 	</main>
 </body>
