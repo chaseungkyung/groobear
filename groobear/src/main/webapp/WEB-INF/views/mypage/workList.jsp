@@ -15,7 +15,7 @@
             justify-content: center;
         }
         .workChart, .workClock, .workChartWeek {
-            width: 100%; 
+            width: 100%;
             height: 500px;
         }
     </style>
@@ -30,6 +30,7 @@
 		        <a href="${pageContext.request.contextPath}/mypage/workList" class="custom-button select-button">근무 현황</a>
 		        <a href="${pageContext.request.contextPath}/mypage/timeKeeping" class="custom-button">근태 내역</a>
 		        <a href="${pageContext.request.contextPath}/mypage/paidOffTime" class="custom-button">휴가 내역</a>
+	        	<a href="${pageContext.request.contextPath}/mypage/modify" class="custom-button">나의 정보 수정</a>
 		    </div>
 			<form action="">
 				<div class="wlListArea">
@@ -132,7 +133,7 @@ $(function(){
 	      clockwise: true,
 	      axisLine: {
 	        lineStyle: {
-	          width: 13,
+	          width: 6,
 	          color: [[1, 'rgba(0,0,0,0.7)']],
 	          shadowColor: 'rgba(0, 0, 0, 0.5)',
 	          shadowBlur: 15
@@ -147,8 +148,8 @@ $(function(){
 	        }
 	      },
 	      axisLabel: {
-	        fontSize: 50,
-	        distance: 25,
+	        fontSize: 20,
+	        distance: 20,
 	        formatter: function (value) {
 	          if (value === 0) {
 	            return '';
@@ -347,7 +348,7 @@ $(function() {
 
 	const axisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 	const data = axisData.map(function (item, i) {
-	  return Math.round(Math.random() * 1000 * (i + 1));
+	  return Math.round(Math.random() * (i + 1));
 	});
 	const links = data.map(function (item, i) {
 	  return {

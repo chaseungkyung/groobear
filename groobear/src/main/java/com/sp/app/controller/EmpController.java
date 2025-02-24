@@ -1,6 +1,7 @@
 package com.sp.app.controller;
 
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.Member;
@@ -41,11 +41,11 @@ public class EmpController {
 			Model model, HttpServletRequest req) throws Exception{
 		
 		try {
-			int size = 5;
+			int size = 10;
 			int total_page = 0;
 			int dataCount = 0;
 			
-			kwd = URLEncoder.encode(kwd, "UTF-8");
+			kwd = URLDecoder.decode(kwd, "UTF-8");
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("schType", schType);
@@ -57,9 +57,7 @@ public class EmpController {
 			current_page = Math.min(current_page, total_page);
 			
 			int offset = (current_page -1) * size;
-			if(offset < 0) {
-				offset = 0;
-			}
+			if(offset < 0) offset = 0;
 			
 			map.put("offset", offset);
 			map.put("size", size);
@@ -68,8 +66,8 @@ public class EmpController {
 			
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
-			String listUrl = cp + "/bbs/list";
-			String articleUrl = cp + "/bbs/article";
+			String listUrl = cp + "/emp/list";
+			String updateUrl = cp + "/emp/add";
 
 			if (!kwd.isBlank()) {
 				String qs = "schType" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
@@ -86,7 +84,7 @@ public class EmpController {
 			model.addAttribute("size", size);
 			model.addAttribute("page", current_page);
 			model.addAttribute("total_page", total_page);
-			model.addAttribute("articleUrl", articleUrl);
+			model.addAttribute("updateUrl", updateUrl);
 			model.addAttribute("paging", paging);
 
 			model.addAttribute("schType", schType);
@@ -113,7 +111,7 @@ public class EmpController {
 			model.addAttribute("departmentList", departmentList);
 			model.addAttribute("teamList", teamList);
 			model.addAttribute("positionList", positionList);
-			model.addAttribute("mode", "write");
+			model.addAttribute("mode", "add");
 			
 		} catch (Exception e) {
 			log.info("employeeAddForm : ", e);

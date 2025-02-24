@@ -20,6 +20,7 @@
 		        <a href="${pageContext.request.contextPath}/mypage/workList" class="custom-button">근무 현황</a>
 		        <a href="${pageContext.request.contextPath}/mypage/timeKeeping" class="custom-button select-button">근태 내역</a>
 		        <a href="${pageContext.request.contextPath}/mypage/paidOffTime" class="custom-button">휴가 내역</a>
+				<a href="${pageContext.request.contextPath}/mypage/modify" class="custom-button">나의 정보 수정</a>
 			</div>
 			<form action="">
 				<div class="tkListArea">

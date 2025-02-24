@@ -16,10 +16,12 @@
 	<main>
 		<div class="mainInner">
 			<div class="searchArea">
-                <div class="search">
-                    <input type="text" name="" id="">
-                    <button><img alt="" src="${pageContext.request.contextPath}/dist/images/common/search.png"></button>
-                </div>
+				<form name="searchForm">
+	                <div class="search">
+	                    <input type="text" name="" id="">
+	                    <button onclick="searchList()"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/search.png"></button>
+	                </div>
+	            </form>
                 <div class="selectAdd">
                     <select name="" id="">
                         <option value="" selected>재직</option>
@@ -92,11 +94,38 @@
 	</main>
 	
 <script type="text/javascript">
+// 검색 키워드 입력란에서 엔터 눌렀을 때 서버 전송 제한 코드
+window.addEventListener('load', () => {
+	const inputEL = document.querySelector('form input[name=kwd]'); 
+	inputEL.addEventListener('keydown', function (evt) {
+	    if(evt.key === 'Enter') {
+	    	evt.preventDefault();
+	    	
+	    	searchList();
+	    }
+	});
+});
+
 
 function printEmp() {
 	let url = '${pageContext.request.contextPath}/emp/print';
 	window.open(url, 'emp', 'width=800, height=800, left=600, top=100');
 };
+
+
+
+function searchList(){
+	const f = document.searchForm;
+	if(! f.kwd.value.trim()) {
+		return;
+	}
+	
+	const formData = new FormData(f);
+	let requestParam = new URLSearchParams(formData).toString();
+	
+	let url = '${pageContext.request.contextPath}/emp/list';
+	location.href = url + '?' + requestParams;
+}
 
 </script>
 </body>

@@ -19,7 +19,7 @@
 .info table .address1 input:nth-child(2) {width: 58%;}
 .info table .address1 input:nth-child(3) {width: 20%;}
 
-.insertBtn {text-align: right;}
+.insertBtn {text-align: right; margin-top: 50px;}
 
 .empHistory {width: 100%;}
 .empHistory .title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
@@ -67,4 +67,9 @@
 
 .select-button {
     background-color: #eee;
+}
+
+.back {
+	text-align: right;
+	
 }
