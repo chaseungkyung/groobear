@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
+<jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/task.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/stageModal.css" type="text/css">
@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<jsp:include page="/WEB-INF/views/layout/projectHeader2.jsp" />
+<jsp:include page="/WEB-INF/views/project/projectHeader2.jsp" />
 <jsp:include page="/WEB-INF/views/project/stageModal.jsp" />
 <jsp:include page="/WEB-INF/views/project/taskModal.jsp" />
 
@@ -66,7 +66,7 @@
 	                <tr>
 						<td class="task-title">
 							<div>
-								<img class="arrow-img" src="${pageContext.request.contextPath}/dist/images/project/curvedArrow.png">
+								<img class="arrow-img" src="${pageContext.request.contextPath}/dist/images/project/skyarrow.png">
 						    	<span> 하위 1111</span>
 							</div>
 						    <div class="right-group">	                    	
@@ -84,7 +84,7 @@
 	                <tr>
 	                    <td class="task-title">
 							<div>
-								<img class="arrow-img" src="${pageContext.request.contextPath}/dist/images/project/curvedArrow.png">
+								<img class="arrow-img" src="${pageContext.request.contextPath}/dist/images/project/skyarrow.png">
 						    	<span> 하위 2222</span>
 							</div>
 	                    	<div class="right-group">

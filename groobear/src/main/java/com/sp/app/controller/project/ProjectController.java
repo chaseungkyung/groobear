@@ -34,7 +34,7 @@ public class ProjectController {
 	private final ProjectService service;
 	private final PaginateUtil paginateUtil;
 
-	@GetMapping("list")
+	@GetMapping("projectList")
 	public String projectAllList(
 			@RequestParam(name = "page", defaultValue = "1") int current_page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
@@ -94,10 +94,10 @@ public class ProjectController {
 			model.addAllAttributes(map);
 
 		} catch (Exception e) {
-			log.info("listProject : ", e);
+			log.info("projectList : ", e);
 		}
 
-		return "project/list";
+		return "project/projectList";
 	}
 
 	@GetMapping("write")
@@ -251,10 +251,15 @@ public class ProjectController {
 		return "redirect:/project/list?" + query;
 	}
 
-	@GetMapping("post")
-	public String postForm(Model model) throws Exception {
-
-		return "project/postList";
+	@GetMapping("post/{projIdx}")
+	public String postForm(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model) throws Exception {
+		
+		
+		return "project/projectPostList";
 	}
 
 }

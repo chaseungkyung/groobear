@@ -75,6 +75,11 @@
 		WHERE projIdx=#{projIdx}
 	</update>
 	
+	<delete id="deleteProject" parameterType="com.sp.app.model.project.Project">
+		DELETE FROM project
+		WHERE projIdx=#{projIdx}
+	</delete>
+	
 	
 	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
 		INSERT INTO projectMember(memberIdx, projIdx, empIdx, teamName, role)

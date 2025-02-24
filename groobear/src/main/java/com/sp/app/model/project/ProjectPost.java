@@ -8,5 +8,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProjectPost {
-
+	private long postIdx;
+	private long projIdx;
+	private String title;
+	private String content;
+	private String regDate;
+	private String updateDate;
 }
