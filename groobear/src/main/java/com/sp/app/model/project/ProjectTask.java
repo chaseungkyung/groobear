@@ -1,5 +1,23 @@
 package com.sp.app.model.project;
 
-public class ProjectTask {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+public class ProjectTask {
+    private long taskIdx;
+    private long stageIdx;
+
+    private String taskName;
+    private String stageName;
+
+    private String createdAt;
+    private String startDate;
+    private String endDate;
+
+    private String content;
+    private int status;
 }

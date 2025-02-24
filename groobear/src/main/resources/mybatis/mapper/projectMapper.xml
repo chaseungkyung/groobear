@@ -8,21 +8,22 @@
 		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
 	
-	<select id="listTeam" parameterType="map" resultType="com.sp.app.model.project.Project">
+	<select id="getDevTeamList" parameterType="map" resultType="com.sp.app.model.core.OrgUnit">
 		SELECT teamIdx, t.deptIdx, teamName
 		FROM team t
 		LEFT OUTER JOIN department d ON t.deptIdx = d.deptIdx
 		WHERE t.deptIdx = #{deptIdx}
 	</select>
 	
-	<select id="listEmpName" parameterType="map" resultType="com.sp.app.model.project.Project">
-		SELECT empIdx AS pmEmpidx, empName AS pmEmpName, deptIdx, teamIdx
+	<select id="getEmpNameListFromDevTeam" parameterType="map"
+		resultType="com.sp.app.model.core.Member">
+		SELECT empIdx, empName, deptIdx, teamIdx
 		FROM employee
 		WHERE deptIdx = #{deptIdx} AND teamIdx = #{teamIdx}
 	</select>
 	
 	
-	<select id="dataCount" parameterType="map" resultType="Integer">
+	<select id="getProjectCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(projIdx), 0)
 		FROM project p
 		JOIN employee e ON p.pmEmpIdx = e.empIdx
@@ -33,8 +34,8 @@
 		</where>
 	</select>
 	
-	<select id="listProject" parameterType="map" 
-			resultType="com.sp.app.model.project.Project">
+	<select id="getProjectList" parameterType="map"
+		resultType="com.sp.app.model.project.Project">
 		SELECT p.projIdx, projName, pmEmpIdx, e.empName AS pmEmpName,
 			TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
 			TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
@@ -58,7 +59,7 @@
 	
 	
 	
-	<select id="findById" parameterType="Long" resultType="com.sp.app.model.project.Project">
+	<select id="getProjectById" parameterType="Long" resultType="com.sp.app.model.project.Project">
 		SELECT p.projIdx, p.pmEmpIdx, pm.empName AS pmEmpName, t.teamName AS pmTeamName,
 			p.projName, p.startDate, p.endDate 
 		FROM project p

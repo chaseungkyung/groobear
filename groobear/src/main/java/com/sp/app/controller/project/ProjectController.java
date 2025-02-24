@@ -1,4 +1,4 @@
-package com.sp.app.controller;
+package com.sp.app.controller.project;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
-import com.sp.app.service.ProjectService;
+import com.sp.app.service.project.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -53,7 +53,7 @@ public class ProjectController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("kwd", kwd);
 
-			dataCount = service.dataCount(map);
+			dataCount = service.getProjectCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
 			current_page = Math.min(current_page, total_page);
 
@@ -65,7 +65,7 @@ public class ProjectController {
 			map.put("offset", offset);
 			map.put("size", size);
 
-			List<Project> listProject = service.listProject(map);
+			List<Project> listProject = service.getProjectList(map);
 
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
@@ -90,6 +90,8 @@ public class ProjectController {
 			model.addAttribute("paging", paging);
 
 			model.addAttribute("query", query);
+
+			model.addAllAttributes(map);
 
 		} catch (Exception e) {
 			log.info("listProject : ", e);
@@ -124,7 +126,7 @@ public class ProjectController {
 
 		return "redirect:/project/list";
 	}
-	
+
 	@GetMapping("update")
 	public String updateForm(
 			@RequestParam(name = "projIdx") long projIdx,
@@ -133,8 +135,8 @@ public class ProjectController {
 			HttpSession session) throws Exception {
 
 		try {
-			
-			Project dto = Objects.requireNonNull(service.findById(projIdx));
+
+			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
 
 			// if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
 			// 	return "redirect:/project/list?page=" + page;
@@ -160,7 +162,7 @@ public class ProjectController {
 
 		try {
 			service.updateProject(dto);
-			
+
 		} catch (Exception e) {
 			log.info("updateSubmit : ", e);
 		}
@@ -185,7 +187,7 @@ public class ProjectController {
 				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
 
-			Project dto = Objects.requireNonNull(service.findById(projIdx));
+			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
 
 			model.addAttribute("dto", dto);
 			model.addAttribute("query", query);
@@ -200,7 +202,6 @@ public class ProjectController {
 
 		return "redirect:/project/list?" + query;
 	}
-
 
 	// AJAX-JSON
 	@ResponseBody
@@ -218,40 +219,38 @@ public class ProjectController {
 		model.put("state", state);
 		return model;
 	}
-	
+
 	@GetMapping("task/{projIdx}")
 	public String task(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page", defaultValue = "1") String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model) {
-		
-		String query = "page="+page;
-		
+
+		String query = "page=" + page;
+
 		try {
-			kwd = URLDecoder.decode(kwd,"utf-8");
-			
-			if(!kwd.isBlank()) {
-				query += "&kwd=" + URLEncoder.encode(kwd,"utf-8");
+			kwd = URLDecoder.decode(kwd, "utf-8");
+
+			if (!kwd.isBlank()) {
+				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
-			
-			Project dto = Objects.requireNonNull(service.findById(projIdx));
-			
+
+			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+
 			model.addAttribute("dto", dto);
 			model.addAttribute("projIdx", projIdx);
 			model.addAttribute("page", page);
 			model.addAttribute("query", query);
-			
+
 			return "project/task";
 		} catch (Exception e) {
 			log.info("task : ", e);
 		}
-		
-		
+
 		return "redirect:/project/list?" + query;
 	}
-	
-	
+
 	@GetMapping("post")
 	public String postForm(Model model) throws Exception {
 
