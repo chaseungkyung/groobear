@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/task.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectTask.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/stageModal.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/taskModal.css" type="text/css">
 

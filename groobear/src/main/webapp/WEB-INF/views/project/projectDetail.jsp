@@ -6,7 +6,7 @@
 <head>
 <jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/detail.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectDetail.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/inviteModal.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/teamModal.css" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">

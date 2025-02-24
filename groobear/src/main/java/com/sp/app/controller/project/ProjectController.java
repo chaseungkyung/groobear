@@ -69,8 +69,8 @@ public class ProjectController {
 
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
-			String listUrl = cp + "/project/list";
-			String detailUrl = cp + "/project/detail";
+			String listUrl = cp + "/project/projectList";
+			String detailUrl = cp + "/project/projectDetail";
 
 			if (!kwd.isBlank()) {
 				String qs = "kwd=" + URLEncoder.encode(kwd, "utf-8");
@@ -100,20 +100,20 @@ public class ProjectController {
 		return "project/projectList";
 	}
 
-	@GetMapping("write")
-	public String writeForm(Model model) {
+	@GetMapping("projectCreate")
+	public String projectCreateForm(Model model) {
 
 		try {
 			model.addAttribute("mode", "write");
 		} catch (Exception e) {
-			log.info("writeForm : ", e);
+			log.info("projectCreateForm : ", e);
 		}
 
-		return "project/write";
+		return "project/projectCreate";
 	}
 
-	@PostMapping("write")
-	public String writeSubmit(Project dto, HttpSession session) throws Exception {
+	@PostMapping("projectCreate")
+	public String projectCreateSubmit(Project dto, HttpSession session) throws Exception {
 
 		try {
 			// SessionInfo info = (SessionInfo) session.getAttribute("member");
@@ -121,14 +121,14 @@ public class ProjectController {
 			service.insertProject(dto);
 
 		} catch (Exception e) {
-			log.info("writeSubmit : ", e);
+			log.info("projectCreateSubmit : ", e);
 		}
 
-		return "redirect:/project/list";
+		return "redirect:/project/projectList";
 	}
 
-	@GetMapping("update")
-	public String updateForm(
+	@GetMapping("projectUpdate")
+	public String projectUpdateForm(
 			@RequestParam(name = "projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
 			Model model,
@@ -146,33 +146,33 @@ public class ProjectController {
 			model.addAttribute("page", page);
 			model.addAttribute("mode", "update");
 
-			return "project/write";
+			return "project/projectCreate";
 
 		} catch (NullPointerException e) {
 		} catch (Exception e) {
-			log.info("updateForm : ", e);
+			log.info("projectUpdateForm : ", e);
 		}
 
-		return "redirect:/project/list?page=" + page;
+		return "redirect:/project/projectList?page=" + page;
 	}
 
-	@PostMapping("update")
-	public String updateSubmit(Project dto,
+	@PostMapping("projectUpdate")
+	public String projectUpdateSubmit(Project dto,
 			@RequestParam(name = "page") String page) {
 
 		try {
 			service.updateProject(dto);
 
 		} catch (Exception e) {
-			log.info("updateSubmit : ", e);
+			log.info("projectUpdateSubmit : ", e);
 		}
 
-		return "redirect:/project/list?page=" + page;
+		return "redirect:/project/projectList?page=" + page;
 	}
 
 	// 프로젝트 상세 보기
-	@GetMapping("detail/{projIdx}")
-	public String detail(
+	@GetMapping("projectDetail/{projIdx}")
+	public String projectDetail(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
@@ -195,12 +195,12 @@ public class ProjectController {
 			model.addAttribute("projIdx", projIdx);
 			model.addAttribute("page", page);
 
-			return "project/detail";
+			return "project/projectDetail";
 		} catch (Exception e) {
-			log.info("detail : ", e);
+			log.info("projectDetail : ", e);
 		}
 
-		return "redirect:/project/list?" + query;
+		return "redirect:/project/projectList?" + query;
 	}
 
 	// AJAX-JSON
@@ -220,8 +220,8 @@ public class ProjectController {
 		return model;
 	}
 
-	@GetMapping("task/{projIdx}")
-	public String task(
+	@GetMapping("projectTask/{projIdx}")
+	public String projectTask(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page", defaultValue = "1") String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
@@ -243,23 +243,37 @@ public class ProjectController {
 			model.addAttribute("page", page);
 			model.addAttribute("query", query);
 
-			return "project/task";
+			return "project/projectTask";
+			
 		} catch (Exception e) {
 			log.info("task : ", e);
 		}
 
-		return "redirect:/project/list?" + query;
+		return "redirect:/project/projectList?" + query;
 	}
 
-	@GetMapping("post/{projIdx}")
-	public String postForm(
+	@GetMapping("projectPostList/{projIdx}")
+	public String projectPostList(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page", defaultValue = "1") String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model) throws Exception {
 		
+		String query = "page=" + page;
+		
+		model.addAttribute("projIdx", projIdx);
+		model.addAttribute("page", page);
+		model.addAttribute("kwd", kwd);
+		model.addAttribute("query", query);
 		
 		return "project/projectPostList";
+	}
+	
+	
+	@GetMapping("projectPostWrite")
+	public String projectPostWriteForm() {
+		
+		return "project/projectPostWrite";
 	}
 
 }

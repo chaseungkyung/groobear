@@ -6,7 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/write.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectCreate.css" type="text/css">
 	
 	
 	<script type="text/javascript">
@@ -99,7 +99,7 @@
 							<td class="text-center">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=="update" ? "수정완료" : "프로젝트 만들기"}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectList';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 							
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="projIdx" value="${dto.projIdx}">
