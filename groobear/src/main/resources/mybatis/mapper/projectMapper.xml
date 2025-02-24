@@ -81,9 +81,33 @@
 	</delete>
 	
 	
+	<!-- 프로젝트 멤버 테이블 -->
 	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
-		INSERT INTO projectMember(memberIdx, projIdx, empIdx, teamName, role)
-		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{teamName}, #{role})
+		INSERT INTO projectMember(projMemberIdx, projIdx, empIdx, projTeamIdx)
+		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx})
 	</insert>
+	
+	
+	<delete id="deleteProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
+		DELETE FROM projectMember
+		WHERE projMemberIdx=#{projMemberIdx}
+	</delete>
+	
+	<select id="getProjectMemberList" parameterType="map" resultType="com.sp.app.model.project.ProjectMember">
+		SELECT projMemberIdx, projIdx, e.empIdx, pt.projTeamIdx, pt.projTeamName
+		FROM projectMember pmb
+		LEFT OUTER JOIN projectTeam pt ON pmb.projTeamIdx = pt.projTeamIdx
+		LEFT OUTER JOIN employee e ON pmb.empIdx = e.empIdx
+		WHERE projMemberIdx = #{projMemberIdx}
+	</select>
+	
+	<select id="getProjectMemberCount" parameterType="map" resultType="Integer">
+		SELECT NVL(count(projMemberIdx),0)
+		FROM projectMember
+	</select>
+	
+	
+	<!-- PROJECTSTAGE 테이블 -->
+	
 
 </mapper>

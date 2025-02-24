@@ -252,19 +252,10 @@ public class ProjectController {
 		return "redirect:/project/projectList?" + query;
 	}
 
-	@GetMapping("projectPostList/{projIdx}")
-	public String projectPostList(
-			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page", defaultValue = "1") String page,
-			@RequestParam(name = "kwd", defaultValue = "") String kwd,
-			Model model) throws Exception {
+	@GetMapping("projectPostList")
+	public String projectPostList() throws Exception {
 		
-		String query = "page=" + page;
 		
-		model.addAttribute("projIdx", projIdx);
-		model.addAttribute("page", page);
-		model.addAttribute("kwd", kwd);
-		model.addAttribute("query", query);
 		
 		return "project/projectPostList";
 	}
@@ -272,6 +263,8 @@ public class ProjectController {
 	
 	@GetMapping("projectPostWrite")
 	public String projectPostWriteForm() {
+		
+	
 		
 		return "project/projectPostWrite";
 	}

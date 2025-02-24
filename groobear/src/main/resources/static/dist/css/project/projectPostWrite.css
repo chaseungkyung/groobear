@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+}
+
+.body-title h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.write-form td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.board-title-tr {
+	border-top: 2px solid;
+}
+
+.form-control-plaintext {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+
+.write-form tr > td:first-child {
+	background-color: #f8f9fa;
+	font-weight: bold;
+    width: 20%;
+    color: #555;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-control {
+    width: 96%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+}
+
+
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 5px;
+}
+
+.btn-dark {
+    background-color: #343a40;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #23272b;
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+}
+
+.text-center {
+    text-align: center;
+    padding: 10px;
+}
+
+
+

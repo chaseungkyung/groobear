@@ -17,77 +17,84 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-<jsp:include page="/WEB-INF/views/project/projectHeader2.jsp"/>
+<jsp:include page="/WEB-INF/views/project/projectHeader3.jsp"/>
 
 <main>
 	
 <div class="mainInner">
-    <div class="board-container">
-        <div class="board-title">
-        	<span>프로젝트 게시판</span> 
-        </div>
-        
-        <div class="row board-list-footer">
-			<div class="col">
-				<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostList/${projIdx}?${query}';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
-			</div>
-			<div class="col-6 text-center">
-				<form class="row" name="searchForm">
-					<div class="col-auto p-1">
-						<select name="schType" class="form-select">
-							<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
-							<option value="userName" ${schType=="empName"?"selected":""}>작성자</option>
-							<option value="reg_date" ${schType=="regDate"?"selected":""}>등록일</option>
-							<option value="subject" ${schType=="title"?"selected":""}>제목</option>
-							<option value="content" ${schType=="content"?"selected":""}>내용</option>
-						</select>
-					</div>
-					<div class="col-auto p-1">
-						<input type="text" name="kwd" value="${kwd}" class="form-control">
-					</div>
-					<div class="col-auto p-1">
-						<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
-					</div>
-				</form>
-			</div>
-			<div class="col text-end">
-				<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostWrite';">글올리기</button>
-			</div>
+	<div class="board-title">
+		<span>프로젝트 게시판</span> 
+	</div> 
+	
+	<div class="button-container">
+		<div class="reset-btn">
+		    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostList/${projIdx}?${query}';" title="새로고침">
+		        <i class="bi bi-arrow-counterclockwise"></i>
+		    </button>
+	    </div>
+	    <div class="post-btn">
+	    	<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostWrite';">글올리기</button>
 		</div>
-        
-        <table class="board-table">
-            <thead>
-                <tr>
-                    <th width="50%">제목</th>
-                    <th width="8%">작성자</th>
-                    <th width="8%">작성날짜</th>
-                    <th width="8%">수정날짜</th>
-                    <th width="8%">첨부파일</th>
-                    <th width="8%">댓글</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-hasfile="true" data-comments="5">
-                    <td ><a class="table-board-title" href="#" class="item-title">게시글 제목 1</a></td>
-                    <td>홍길동</td>
-                    <td>2024-02-24</td>
-                    <td>2024-02-25</td>
-                    <td><i class="fas fa-paperclip file-icon"></i></td>
-                    <td><i class="fas fa-comments"></i> <span class="comment-count">0</span></td>
-                </tr>
-                <tr data-hasfile="false" data-comments="2">
-                    <td ><a class="table-board-title" href="#" class="item-title">게시글 제목 2</a></td>
-                    <td>이몽룡</td>
-                    <td>2024-02-22</td>
-                    <td>2024-02-23</td>
-                    <td><i class="fas fa-paperclip file-icon"></i></td>
-                    <td><i class="fas fa-comments"></i> <span class="comment-count">0</span></td>
-                </tr>
-            </tbody>
-		</table>
+	</div>
+
+	<div class="listArea">
+		<ul>
+			<li>제목</li>
+			<li>작성자</li>
+			<li>작성날짜</li>
+			<li>수정날짜</li>
+			<li>첨부파일</li>
+			<li>댓글</li>			
+		</ul>
 		
+		<ul>
+			<li>게시글 제목1</li>
+			<li class="board-author">홍길동</li>
+			<li>2025-02-15</li>
+			<li>2025-02-20</li>
+			<li><i class="fas fa-paperclip file-icon"></i></li>
+			<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
+		</ul>
 		
-    </div>
+		<ul>
+			<li>게시글 제목2</li>
+			<li class="board-author">박민우</li>
+			<li>2025-02-20</li>
+			<li>-</li>
+			<li><i class="fas fa-paperclip file-icon"></i></li>
+			<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
+		</ul>		
+	</div>
+	
+	<div class="page-navigation">
+		${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
+	</div>
+	
+	<div class="row board-list-footer">
+		
+		<div class="col-4 text-center">
+			<form class="row" name="searchForm">
+				
+				<div class="col-auto p-1">
+					<select name="schType" class="form-select">
+						<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
+						<option value="userName" ${schType=="userName"?"selected":""}>작성자</option>
+						<option value="reg_date" ${schType=="reg_date"?"selected":""}>등록일</option>
+						<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
+						<option value="content" ${schType=="content"?"selected":""}>내용</option>
+					</select>
+				</div>
+				<div class="col-auto p-1">
+					<input type="text" name="kwd" value="${kwd}" class="form-control">
+				</div>
+				<div class="col-auto p-1">
+					<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+
 </div>
 
 </main>

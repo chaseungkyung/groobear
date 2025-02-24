@@ -53,6 +53,7 @@ public interface ProjectMapper {
 	public void insertProjectMember(ProjectMember dto) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 수정하는 메소드
+	// 참여자는 수정이 필요한건지 의문
 	public void updateProjectMember(ProjectMember dto) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 삭제하는 메소드
