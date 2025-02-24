@@ -22,7 +22,8 @@ public class Schedule {
 	private int repeat_cycle;
 	private String memo;
 	private String reg_date;
-
+	private long positionCode;
+	
 	private String all_day;
 	
 	// FullCalendar 에서 사용하는 필드

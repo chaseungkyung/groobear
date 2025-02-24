@@ -33,7 +33,9 @@ public class ScheduleController {
 	private final ScheduleService service;	
 	
 	@GetMapping("schedule")
-	public ModelAndView main(HttpSession session) throws Exception {
+	public ModelAndView main(
+			@RequestParam(name = "categoryIdx", defaultValue = "3") int categoryIdx,
+			HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("schedule/schedule");
 		
 		try {
@@ -43,11 +45,13 @@ public class ScheduleController {
 			
 			map.put("empCode", info.getEmpCode());
 			map.put("DeptIdx", info.getDeptIdx());
+			map.put("positionCode", info.getPositionCode());
 			
 		} catch (Exception e) {
 			log.info("schedule : ", e);
 		}
 		
+		mav.addObject("categoryIdx", categoryIdx);
 		return mav;
 	}
 	
@@ -62,12 +66,15 @@ public class ScheduleController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empCode", info.getEmpCode());
 			map.put("deptCode", info.getDeptIdx());
+			map.put("positionCode", info.getPositionCode());
 			
 			model.addAttribute("mode", "write");
 			
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
+		
+		model.addAttribute("categoryIdx", 3);
 		
 		return "schedule/write";
 	}
@@ -76,26 +83,26 @@ public class ScheduleController {
 	public String writeSubmit(Schedule dto,
 			HttpSession session) throws Exception {
 		
+		int categoryIdx = 3;
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
+			categoryIdx = dto.getCategoryIdx();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empCode", info.getEmpCode());
 			map.put("deptCode", info.getDeptIdx());
-			
-			if(dto.getCategoryIdx() == 0) {
-				dto.setCategoryIdx(0);
-			}
+			map.put("positionCode", info.getPositionCode());
 			
 			dto.setEmpCode(info.getEmpCode());
 			dto.setDeptCode(info.getDeptIdx());
+			dto.setPositionCode(info.getPositionCode());
 			
 			service.insertSchedule(dto);
 		} catch (Exception e) {
 			log.info("writeSubmit : ", e);
 		}
 		
-		return "redirect:/schedule/schedule";
+		return "redirect:/schedule/schedule?categoryIdx="+ categoryIdx;
 	}
 	
 	// 월별 일정 - AJAX : JSON 
@@ -130,6 +137,7 @@ public class ScheduleController {
 			map.put("categoryIdx", categoryIdx);
 			map.put("deptCode", info.getDeptIdx());
 			map.put("empCode", info.getEmpCode());
+			map.put("positionCode", info.getPositionCode());
 			
 			List<Schedule> list = service.listMonth(map);
 			for(Schedule dto : list) {
@@ -179,11 +187,12 @@ public class ScheduleController {
 			HttpSession session,
 			Model model) throws Exception {
 		
+		int categoryIdx = 3;
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			Schedule dto = Objects.requireNonNull(service.findById(num));
-			
+			categoryIdx = dto.getCategoryIdx();
 			if(! info.getEmpCode().equals(dto.getEmpCode())) {
 				return "redirect:/schedule/schedule";
 			}
@@ -204,8 +213,9 @@ public class ScheduleController {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empCode", info.getEmpCode());
-			
+			map.put("positionCode", info.getPositionCode());
 			model.addAttribute("mode", "update");
+			model.addAttribute("categoryIdx", categoryIdx);
 			model.addAttribute("dto", dto);
 			
 			return "schedule/write";
@@ -222,23 +232,21 @@ public class ScheduleController {
 	@PostMapping("update")
 	public String updateSubmit(Schedule dto,
 			HttpSession session) throws Exception {
-		
+		int categoryIdx = 3;
 		try {
 			SessionInfo info=(SessionInfo)session.getAttribute("member");
 			
-			if(dto.getCategoryIdx() == 0) {
-				dto.setCategoryIdx(0);
-			}
 			
+			categoryIdx = dto.getCategoryIdx();
 			dto.setEmpCode(info.getEmpCode());
 			dto.setDeptCode(info.getDeptIdx());
-	
+			dto.setPositionCode(info.getPositionCode());
 			service.updateSchedule(dto);
 		} catch (Exception e) {
 			log.info("updateSubmit : ", e);
 		}
 		
-		return "redirect:/schedule/schedule";
+		return "redirect:/schedule/schedule?categoryIdx="+categoryIdx;
 	}
 
 	// 일정을 드래그 한 경우 수정 완료 - AJAX : JSON
@@ -258,6 +266,7 @@ public class ScheduleController {
 			
 			// 반복 일정은 종료 날짜등이 수정되지 않도록 설정
 			if(dto.getRepeat() == 1 && dto.getRepeat_cycle() != 0) {
+				dto.setCategoryIdx(0);
 				dto.setEndDate("");
 				dto.setStartTime("");
 				dto.setEndTime("");

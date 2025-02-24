@@ -13,7 +13,7 @@
 				<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가
 			</a>
 		</div>
-		<ul class = "tab-menu">
+		<ul class = "tab-menu" onsubmit="handleSubmit(event)">
 			<li id = "companySchedule" class = "active" onclick="scheduleCategory(3)"><a>회사일정</a></li>
 			<li id = "deptSchedule" onclick="scheduleCategory(2)"><a>부서일정</a></li>
 			<li id = "mySchedule"onclick="scheduleCategory(1)"><a>개인일정</a></li>

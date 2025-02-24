@@ -19,7 +19,7 @@
 	<jsp:include page="/WEB-INF/views/layout/scheduleHeader.jsp"/>
 	<main>
 		<div class="mainInner">
-			<div id="calendar" data-categoryIdx="3">
+			<div id="calendar" data-categoryIdx="${categoryIdx}" data-positionCode="${positionCode}">
 			</div>
 			<!-- 일정 상세 보기 Modal -->
 			<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
@@ -72,13 +72,18 @@
 								</tr>
 							</table>
 							
+							<p>${positionCode}포지션</p>
+							<p>${dto.positionCode}코드</p>
+
 							<table class="table table-borderless">
-								<tr>
-									<td class="text-end">
-										<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
-						    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
-									</td>
-								</tr>
+								<c:if test="${positionCode == '8'}">
+									<tr>
+										<td class="text-end">
+											<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+							    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+										</td>
+									</tr>
+								</c:if>
 							</table>
 						</div>
 					</div>
@@ -334,7 +339,7 @@
 			let repeat = calEvent.extendedProps.repeat;
 			let repeat_cycle = calEvent.extendedProps.repeat_cycle;
 			
-			let startDate='', endDate='', startTime='', endTime='', all_day='';
+			let startDate='', endDate='', startTime=startTime, endTime=endTime, all_day='';
 			if(allDay) {
 				startDate = start;
 				endDate = end;

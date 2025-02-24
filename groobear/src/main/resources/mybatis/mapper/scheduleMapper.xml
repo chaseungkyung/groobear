@@ -4,12 +4,13 @@
 
 <mapper namespace="com.sp.app.mapper.ScheduleMapper">
 	<insert id="insertSchedule" parameterType="com.sp.app.model.Schedule">
-		INSERT INTO schedule(scheduleIdx, empCode, deptCode, title, categoryIdx, color, startDate, endDate,
+		INSERT INTO schedule(scheduleIdx, empCode, deptCode, title, categoryIdx, color, startDate, endDate, positionCode,
 			startTime, endTime, repeat, repeat_cycle, memo, reg_date) 
 		VALUES(schedule_seq.NEXTVAL, #{empCode}, #{deptCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR},
 			#{categoryIdx, jdbcType=INTEGER}, 
 			#{color}, #{startDate},
 			#{endDate, jdbcType=VARCHAR},
+			#{positionCode},
 			#{startTime, jdbcType=VARCHAR},
 			#{endTime, jdbcType=VARCHAR},
 			#{repeat}, #{repeat_cycle},
@@ -19,7 +20,7 @@
 	</insert>
 
 	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Schedule">
-		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, deptCode, empCode,
+		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, deptCode, empCode, positionCode,
 				categoryIdx, color, repeat, repeat_cycle, memo, reg_date
 		FROM schedule
 		<where>
@@ -70,6 +71,7 @@
 			repeat = #{repeat},
 			repeat_cycle = #{repeat_cycle},
 			deptCode = #{deptCode, jdbcType=VARCHAR},
+			positionCode,
 			memo = #{memo, jdbcType=VARCHAR}
 		WHERE scheduleIdx = #{scheduleIdx, jdbcType=INTEGER} AND empCode = #{empCode, jdbcType=VARCHAR}
 	</update>

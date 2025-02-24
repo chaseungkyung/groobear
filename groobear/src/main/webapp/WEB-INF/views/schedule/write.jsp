@@ -68,7 +68,8 @@ function sendOk() {
 	if( f.repeat.value !=  '0' && f.repeat_cycle.value < 1 ) {
 		f.repeat_cycle.focus();
 		return;
-	}	
+	}
+	
 	
 	// 종일일정의 경우 종료일자는 종료일자+1로 저장해서 불러와야 함
 	if($('#form-endDate').val() && $('#form-all_day').is(':checked')) {
@@ -137,6 +138,11 @@ $(function(){
 		$(this).css('background-color', $(this).val());
 	});
 });
+
+window.onload = function() {
+    const activeTab = localStorage.getItem('activeTab') || '3';
+    loadTab(activeTab);
+};
 </script>
 
 </head>
@@ -175,9 +181,9 @@ $(function(){
 								<div class="row">
 									<div class="col-5">
 										<select name="categoryIdx" id="form-categoryIdx" class="form-select">
-											<option value="1" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>개인일정</option>
-											<option value="2" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>부서일정</option>
-											<option value="3" ${dto.categoryIdx == vo.categoryIdx ? "selected":""}>회사일정</option>
+											<option value="1" ${dto.categoryIdx == 1 ? "selected":""}>개인일정</option>
+											<option value="2" ${dto.categoryIdx == 2 ? "selected":""}>부서일정</option>
+											<option value="3" ${dto.categoryIdx == 3 ? "selected":""}>회사일정</option>
 										</select>
 									</div>
 								</div>
@@ -285,7 +291,7 @@ $(function(){
 							<td class="text-center">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=='update'?'수정완료':'일정등록'}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/schedule/schedule';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/schedule/schedule?categoryIdx=${categoryIdx}';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="scheduleIdx" value="${dto.scheduleIdx}">
 								</c:if>
