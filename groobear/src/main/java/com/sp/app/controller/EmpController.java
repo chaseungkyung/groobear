@@ -79,6 +79,7 @@ public class EmpController {
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
 
 			model.addAttribute("list", list);
+		
 
 			model.addAttribute("dataCount", dataCount);
 			model.addAttribute("size", size);
@@ -173,43 +174,34 @@ public class EmpController {
 	public String updateForm(
 			@RequestParam(name="empIdx") long empIdx,
 			Model model, HttpSession session ) throws Exception {
-	try {
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
-		
-		if( info.getEmpIdx() != dto.getEmpIdx()) {
-			return "redirect:/emp/list";
+		try {
+			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
+			
+			model.addAttribute("empInfo", dto);
+			model.addAttribute("mode", "update");
+					
+			return "emp/add";
+		} catch (NullPointerException e) {
+		} catch (Exception e) {
+			log.info("updateForm", e);
 		}
-		model.addAttribute("dto", dto);
-		model.addAttribute("empIdx", empIdx);
-		model.addAttribute("mode", "update");
 		
-	} catch (NullPointerException e) {
-		throw e;
-	} catch (Exception e) {
-		log.info("updateForm", e);
-		throw e;
-	}
-		
-	return "emp/list";
+		return "redirect:/emp/list";
 	}
 	
 	@PostMapping("update")
-	public Map<String, ?> updateSubmit(Member dto, HttpSession session ) throws Exception {
+	public String updateSubmit(Member dto, HttpSession session ) throws Exception {
 		
-		Map<String, Object> model = new HashMap<>();
-		String state = "false";
 		try {
 			service.updateEmployee(dto);
 			service.updateEmployeeDetail(dto);
-			service.updateEmployeeHistory(dto);
-			state = "true";
-			
+					
 		} catch (Exception e) {
 			throw e;
 		}
-		model.put("state", state);
-		return model;
+		
+		return "redirect:/emp/list";
 	}
 }

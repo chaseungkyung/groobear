@@ -32,7 +32,7 @@ public interface MemberService {
 	
 	public Member findByEmpIdx(long empIdx);
 	public Member findByEmpCode(String emdCode);
-	public Long getMemberIdx(String empCode);
+	public Long getMemberIdx(long empIdx);
 	
 	// emp list 
 	public List<Member> listFindMember(Map<String, Object> map);

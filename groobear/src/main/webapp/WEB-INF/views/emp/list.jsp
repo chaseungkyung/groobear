@@ -39,7 +39,6 @@
             <form action="">
 	            <div class="listArea">
 	                <ul>
-	                	<li></li>
 	                    <li>사원번호</li>
 	                    <li>이름</li>
 	                    <li>부서</li>
@@ -48,11 +47,11 @@
 	                    <li>입사년월일</li>
 	                    <li>전화번호</li>
 	                    <li>내선번호</li>
+	                    <li></li>
 	                    <li hidden>재직상태</li>
 	                </ul>
 	                <c:forEach var="vo" items="${list}">
 		                <ul>
-		                    <li><input type="button" name="update" id="" value="수정"></li>
 		                    <li><a href="javascript:;"></a>${vo.empCode}</li>
 			                <li>${vo.empName}</li>
 		                    <li>${vo.deptName}</li>
@@ -61,6 +60,7 @@
 		                    <li>${vo.hireDate}</li>
 		                    <li>${vo.tel}</li>
 		                    <li>${vo.empTel}</li>
+		                    <li><button type="button" name="update" class="updatebtn" onclick="location.href='${pageContext.request.contextPath}/emp/update?empIdx=${vo.empIdx}';">수정</button>
 		                    <li hidden>${vo.empStatus}</li>
 		                </ul>
 	                </c:forEach>
@@ -99,6 +99,7 @@ function printEmp() {
 };
 
 
+
 function searchList(){
 	const f = document.searchForm;
 	if(! f.kwd.value.trim()) {
@@ -110,7 +111,7 @@ function searchList(){
 	
 	let url = '${pageContext.request.contextPath}/emp/list';
 	location.href = url + '?' + requestParams;
-}
+};
 
 </script>
 </body>

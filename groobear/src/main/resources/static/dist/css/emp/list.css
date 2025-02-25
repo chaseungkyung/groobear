@@ -28,12 +28,21 @@
 .listArea {margin-bottom: 20px;}
 .listArea ul li {border-bottom: 1px solid #eee;}
 
-.listArea ul li:nth-child(1) {width: 10%;} /* 수정버튼 */
-.listArea ul li:nth-child(2) {width: 15%;} /* 사원번호 */
-.listArea ul li:nth-child(3) {width: 10%;} /* 이름 */
-.listArea ul li:nth-child(4) {width: 10%;} /* 부서 */
-.listArea ul li:nth-child(5) {width: 10%;} /* 팀 */
-.listArea ul li:nth-child(6) {width: 10%;} /* 직급 */
-.listArea ul li:nth-child(7) {width: 10%;} /* 입사년월일 */
-.listArea ul li:nth-child(8) {width: 15%;} /* 전화번호 */
-.listArea ul li:nth-child(9) {width: 10%;} /* 내선번호 */
+.listArea ul li:nth-child(1) {width: 15%; margin-left: 20px;} /* 사원번호 */
+.listArea ul li:nth-child(2) {width: 10%;} /* 이름 */
+.listArea ul li:nth-child(3) {width: 10%;} /* 부서 */
+.listArea ul li:nth-child(4) {width: 10%;} /* 팀 */
+.listArea ul li:nth-child(5) {width: 10%;} /* 직급 */
+.listArea ul li:nth-child(6) {width: 10%;} /* 입사년월일 */
+.listArea ul li:nth-child(7) {width: 15%;} /* 전화번호 */
+.listArea ul li:nth-child(8) {width: 10%;} /* 수정버튼 */
+.listArea ul li:nth-child(9) {width: 5%;} /* 내선번호 */
+
+.updatebtn {
+	color: #2f518b;
+	background-color : white;
+    padding: 5px 5px;
+    font-size: 14px;
+    border: none; 
+    cursor: pointer;
+}

@@ -36,8 +36,8 @@
 	</insert>
 	
 	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">
-		INSERT INTO EmployeeDetail(empIdx, birth, email, tel, zipCode, addrMain, addrSub)
-		VALUES (#{empIdx}, #{birth}, #{email}, #{tel}, #{zipCode}, #{addrMain}, #{addrSub})
+		INSERT INTO EmployeeDetail(empIdx, birth, email, tel, zipCode, addrMain, addrSub, rrn)
+		VALUES (#{empIdx}, #{birth}, #{email}, #{tel}, #{zipCode}, #{addrMain}, #{addrSub}, #{rrn})
 	</insert>
 
 
@@ -52,25 +52,21 @@
 	</update>
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
-		UPDATE Employee SET deptIdx = #{deptIdx}, teamIdx= #{teamIdx}, positionCode= #{positionCode}, empTel= #{empTel}
+		UPDATE Employee e JOIN EmployeeDetail d ON d.empIdx = e.empIdx
+		SET e.deptIdx = #{deptIdx}, e.teamIdx= #{teamIdx}, e.positionCode= #{positionCode}, e.empTel= #{empTel}, d.email= #{email}, e.hireDate=#{hireDate}, e.retireDate=#{retireDate}, d.rrn = #{rrn}, d.tel= #{tel}, d.addrMain=#{addrMain}, d.addrSub=#{addrSub}, e.empStatus=#{empStatus} 
 		WHERE empIdx = #{empIdx}
 	</update>
-	
-	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
-	 	UPDATE EmployeeDetail SET tel= #{tel}, email= #{email}
-		WHERE empIdx = #{empIdx}
-	</update>
-	 
+
 	
 	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
-		select empIdx, empCode, empName, empPwd, e.deptIdx, e.teamIdx, e.positionCode, emptel, empStatus, 
-				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+		select e.empIdx, e.empCode, e.empName, e.empPwd, e.deptIdx, e.teamIdx, e.positionCode, e.emptel, e.empStatus, 
+				TO_CHAR(e.hiredate, 'YYYY-MM-DD') hireDate, TO_CHAR(e.retiredate,'YYYY-MM-DD') retiredate, d.deptName, t.teamName, p.positionName, ed.tel, SUBSTR(ed.email, 1, INSTR(ed.email, '@') -1) AS email, ed.addrmain, ed.addrSub, ed.zipcode, ed.rrn
 		from employee e
+        left outer join employeedetail ed ON ed.empIdx = e.empIdx
 		left outer join department d ON d.deptidx = e.deptidx
 		left outer join team t On t.teamidx = e.teamidx
 		left outer join position p ON p.positionCode = e.positioncode
-		WHERE empIdx = #{empIdx}
-		ORDER BY empCode DESC	
+		WHERE e.empIdx = #{empIdx}
 	</select>
 		
 	<select id="findByEmpCode" parameterType="String" resultType="com.sp.app.model.Member" >
@@ -91,7 +87,7 @@
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
 		select e.empidx, empCode, empname, e.deptidx, e.teamidx, e.positioncode, emptel, empstatus, tel, email,
-				TO_CHAR(hiredate, 'YYYY-MM-DD') hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+				TO_CHAR(hiredate, 'YYYY-MM-DD') hiredate, retiredate, d.deptName, t.teamName, p.positionName
 		from employee e
 		left outer JOIN employeedetail ed ON e.empIdx = ed.empIdx
 		left outer join department d ON d.deptidx = e.deptidx

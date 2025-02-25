@@ -218,14 +218,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateMemberEnabled(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public Long getMemberIdx(String empCode) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -255,5 +248,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return false;		
+	}
+
+	@Override
+	public Long getMemberIdx(long empIdx) {
+		
+		return null;
 	}
 }

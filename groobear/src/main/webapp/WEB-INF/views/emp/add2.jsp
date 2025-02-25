@@ -22,20 +22,11 @@
 			// dept 
 			if(data){
 				if(data.dept){
-					// let html = "<option value=''>부서를 선택해주세요</option>";
-					let html = "";
+					let html = "<option value=''>부서를 선택해주세요</option>";
 					for(item of data.dept){
 						html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
 					}
 					$("#deptIdx").append(html);
-					
-					let deptIdx = '${empInfo.deptIdx}';
-					$("#deptIdx").val(deptIdx);
-					
-					if(deptIdx) {
-						$("#deptIdx").trigger('change');
-					}
-					
 				}
 				if(data.position){
 					let html = "";
@@ -43,8 +34,6 @@
 						html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
 					}
 					$("#positionCode").append(html);
-					
-					$("#positionCode").val('${empInfo.positionCode}');
 				}
 			}
 		};
@@ -62,8 +51,6 @@
 						html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
 					}
 					$("#teamIdx").html(html);
-					
-					$("#teamIdx").val('${empInfo.teamIdx}');
 				}
 			};
 			let formData = 'deptIdx=' + $("#deptIdx").val();
@@ -109,9 +96,9 @@
 	                    <table>
 							<tr>
 								<th>사원번호</th>
-								<td><input type="text" name="empCode" class="readonly" value="${mode=='update' ? empInfo.empCode : ''}" readonly></td>
+								<td><input type="text" name="empCode" class="readonly" value="${mode='update' ? empInfo.empIdx : ''}" readonly></td>
 								<th>비밀번호</th>
-								<td><input type="text" name="empPwd" class="readonly"  value="${mode=='update' ? '****' : '' }" readonly ></td>
+								<td><input type="text" name="empPwd" class="readonly" readonly ></td>
 							</tr>
 							<tr>
 								<th>성명</th>
@@ -125,7 +112,16 @@
 								<th>부서</th>
 								<td>
 									<select name="deptIdx" id="deptIdx">
-										<option value="">부서를 선택해주세요</option>	
+										<option value="${mode == 'modify' ? empInfo.deptIdx : ''}">
+											<c:choose>
+												<c:when test="${mode == 'modify'}">
+													${empInfo.deptName}
+												</c:when>
+												<c:otherwise>
+													부서를 선택해주세요
+												</c:otherwise>
+											</c:choose>
+										</option>	
 									 </select>
 								</td>
 								<th>퇴사년월일</th>
@@ -135,7 +131,16 @@
 								<th>소속</th>
 								<td>
 									<select name="teamIdx" id="teamIdx">
-										<option value="" >소속을 선택해주세요	</option>
+										<option value="${mode =='modify' ? empInfo.teamName : ''}" >
+											<c:choose>
+												<c:when test="${mode == 'modify'}" >
+													${empInfo.teamName}
+												</c:when>
+												<c:otherwise>
+													소속을 선택해주세요
+												</c:otherwise>											
+											</c:choose>
+										</option>
 									</select>
 								</td>
 								<th>주민등록번호</th>
@@ -145,7 +150,16 @@
 								<th>직급</th>
 								<td>
 									<select name="positionCode" id="positionCode">
-										<option value="">직급을 선택해주세요</option>
+										<option value="${mode == 'modify' ? empInfo.positionCode : ''}"  >
+											<c:choose>
+												<c:when test="${mode=='modify'}">
+													${empInfo.positionCode}
+												</c:when>
+												<c:otherwise>
+													직급을 선택해주세요											
+												</c:otherwise>
+											</c:choose>
+										</option>
 									</select>           
 								</td>
 								<th>휴대폰번호</th>
@@ -167,16 +181,20 @@
 								<th></th>
 								<td class="address2"><input type="text" name="addrSub" id="addrSub" value="${empInfo.addrSub}"></td>
 							</tr>
-							<tr>
-								<th>재직상태</th>
-							     	<td class="empStatus">
-							        <select name="empStatus" id="empStatus">
-							        	<option value="0" ${empInfo.empStatus=='0'?'selected':''}>재직</option> 
-							            <option value="1" ${empInfo.empStatus=='1'?'selected':''}>휴직</option> 
-							            <option value="2" ${empInfo.empStatus=='2'?'selected':''}>퇴직</option> 							                    
-							        </select>
-							        </td>
-								</tr>
+							<c:choose>
+							    <c:when test="${mode == 'modify'}">
+							        <tr>
+							            <th>재직상태</th>
+							            <td class="empStatus">
+							                <select name="empStatus" id="empStatus">
+							                    <option value="0"}>재직</option> 
+							                    <option value="1"}>휴직</option> 
+							                    <option value="2"}>퇴직</option> 							                    
+							                </select>
+							            </td>
+							        </tr>
+							    </c:when>
+							</c:choose>
 						</table>
                         <div class="insertBtn">
 	                        <button type="reset" class="custom-button" >다시 작성</button>
