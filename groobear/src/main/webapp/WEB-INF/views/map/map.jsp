@@ -21,7 +21,7 @@
 		<div class="mainInner">
 			<img alt=""src="${pageContext.request.contextPath}/dist/images/common/map.png">
 		</div>
-		<div class = "organiztionMap">
+			<div class = "organiztionMap">
 		</div>
 	</main>
 

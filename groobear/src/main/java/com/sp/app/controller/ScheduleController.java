@@ -84,18 +84,22 @@ public class ScheduleController {
 			HttpSession session) throws Exception {
 		
 		int categoryIdx = 3;
+		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			categoryIdx = dto.getCategoryIdx();
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empCode", info.getEmpCode());
 			map.put("deptCode", info.getDeptIdx());
 			map.put("positionCode", info.getPositionCode());
+			map.put("startDate", dto.getStartDate());
 			
 			dto.setEmpCode(info.getEmpCode());
 			dto.setDeptCode(info.getDeptIdx());
 			dto.setPositionCode(info.getPositionCode());
+			dto.setStartDate(dto.getStartDate());
 			
 			service.insertSchedule(dto);
 		} catch (Exception e) {
@@ -235,7 +239,6 @@ public class ScheduleController {
 		int categoryIdx = 3;
 		try {
 			SessionInfo info=(SessionInfo)session.getAttribute("member");
-			
 			
 			categoryIdx = dto.getCategoryIdx();
 			dto.setEmpCode(info.getEmpCode());

@@ -54,7 +54,7 @@
 	</select>
 
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Schedule">
-		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx, deptCode, empCode,
+		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx, deptCode, empCode,positionCode,
 			color, repeat, repeat_cycle, memo, reg_date 
 		FROM schedule 
 		WHERE scheduleIdx = #{scheduleIdx}
@@ -71,7 +71,7 @@
 			repeat = #{repeat},
 			repeat_cycle = #{repeat_cycle},
 			deptCode = #{deptCode, jdbcType=VARCHAR},
-			positionCode,
+			positionCode = #{positionCode},
 			memo = #{memo, jdbcType=VARCHAR}
 		WHERE scheduleIdx = #{scheduleIdx, jdbcType=INTEGER} AND empCode = #{empCode, jdbcType=VARCHAR}
 	</update>

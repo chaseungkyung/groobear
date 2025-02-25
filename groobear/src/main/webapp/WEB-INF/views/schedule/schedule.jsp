@@ -19,7 +19,7 @@
 	<jsp:include page="/WEB-INF/views/layout/scheduleHeader.jsp"/>
 	<main>
 		<div class="mainInner">
-			<div id="calendar" data-categoryIdx="${categoryIdx}" data-positionCode="${positionCode}">
+			<div id="calendar" data-categoryIdx="${categoryIdx}">
 			</div>
 			<!-- 일정 상세 보기 Modal -->
 			<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
@@ -70,20 +70,34 @@
 										<p class="form-control-plaintext view-memo"></p>
 									</td>
 								</tr>
-							</table>
-							
-							<p>${positionCode}포지션</p>
-							<p>${dto.positionCode}코드</p>
-
+							</table>							
 							<table class="table table-borderless">
-								<c:if test="${positionCode == '8'}">
-									<tr>
-										<td class="text-end">
-											<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
-							    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
-										</td>
-									</tr>
-								</c:if>
+								<c:choose>
+									<c:when test="${categoryIdx == '3' && (sessionScope.member.positionCode <= '2' ||sessionScope.member.deptIdx == 'A' )}">
+										<tr>
+											<td class="text-end">
+												<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+								    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+											</td>
+										</tr>
+									</c:when>
+									<c:when test="${categoryIdx == '2' && sessionScope.member.positionCode <= '6'}">
+										<tr>
+											<td class="text-end">
+												<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+								    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+											</td>
+										</tr>
+									</c:when>
+									<c:when test="${categoryIdx == '1'}">
+										<tr>
+											<td class="text-end">
+												<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+								    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+											</td>
+										</tr>
+									</c:when>
+								</c:choose>
 							</table>
 						</div>
 					</div>
