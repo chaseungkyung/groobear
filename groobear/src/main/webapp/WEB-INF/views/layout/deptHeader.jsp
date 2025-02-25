@@ -6,12 +6,12 @@
 	<div class="iconHeader-right-inner">
 		<div class="titleArea" style="width: 100%; margin-bottom: 10%; display: flex; justify-content: center;">
 			<div class="btnArea">
-				<a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">글쓰기</a>
+				<a href="${pageContext.request.contextPath}/dept/hrBoard/write"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">글쓰기</a>
 			</div>
 		</div>
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/backlog.png">부서 공지사항</a></li>
-			<li><a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">부서 자료실</a></li>
+			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/noticeList"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/backlog.png">부서 공지사항</a></li>
+			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">부서 게시판</a></li>
 		</ul>
 	</div>
 </div>
