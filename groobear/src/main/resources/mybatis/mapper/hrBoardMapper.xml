@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sp.app.mapper.BoardMapper">
-	
-	<select id="BoardSeq" resultType="Long">
+<mapper namespace="temp">
+
+	<select id="boardSeq" resultType="Long">
 		SELECT hrBoard_seq.NEXTVAL FROM dual
 	</select>
 	
@@ -165,5 +165,5 @@
 		DELETE FROM hrBbsCmt
 		WHERE cmtIdx = #{cmtIdx}
 	</delete>
-	
+
 </mapper>

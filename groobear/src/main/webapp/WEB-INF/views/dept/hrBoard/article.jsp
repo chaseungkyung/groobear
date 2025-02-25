@@ -4,20 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>인사부</title>
 
-	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-
-<style type="text/css">
-.body-container {
-	max-width: 800px;
-}
-
-.board-article img { max-width: 100%; }
-</style>
+<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 </head>
@@ -26,7 +15,7 @@
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
 </header>
 	
 <main>
@@ -62,23 +51,23 @@
 								${dto.content}
 							</td>
 						</tr>
-
-						<tr>
-							<td colspan="2">
-								<c:if test="${not empty dto.saveFilename}">
-									<p class="border text-secondary my-1 p-2">
-										<i class="bi bi-folder2-open"></i>
-										<a href="${pageContext.request.contextPath}/hrBoard/download?postIdx=${dto.postIdx}">${dto.originalFilename}</a>
-									</p>
-								</c:if>
-							</td>
-						</tr>
+						
+							<tr>
+								<td colspan="2">
+									<c:forEach var="dto" items="${listFile}" varStatus="status">
+										<p class="border text-secondary my-1 p-2">
+											<i class="bi bi-folder2-open"></i>
+											<a href="${pageContext.request.contextPath}/dept/hrBoard/download?fileIdx=${dto.fileIdx}" class="text-reset">${dto.originalFilename}</a>
+										</p>	
+									</c:forEach>
+								</td>
+							</tr>
 
 						<tr>
 							<td colspan="2">
 								이전글 :
 								<c:if test="${not empty prevDto}">
-									<a href="${pageContext.request.contextPath}/hrBoard/article/${prevDto.postIdx}?${query}">${prevDto.title}</a>
+									<a href="${pageContext.request.contextPath}/dept/hrBoard/article?${query}&postIdx=${prevDto.postIdx}">${prevDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -86,7 +75,7 @@
 							<td colspan="2">
 								다음글 :
 								<c:if test="${not empty nextDto}">
-									<a href="${pageContext.request.contextPath}/hrBoard/article/${nextDto.postIdx}?${query}">${nextDto.title}</a>
+									<a href="${pageContext.request.contextPath}/dept/hrBoard/article?${query}&postIdx=${nextDto.postIdx}">${nextDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -98,15 +87,14 @@
 						<td width="50%">
 							<c:choose>
 								<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/hrBoard/update?postIdx=${dto.postIdx}&page=${page}';">수정</button>
+									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/update?postIdx=${dto.postIdx}&page=${page}';">수정</button>
 								</c:when>
 								<c:otherwise>
 									<button type="button" class="btn btn-light" disabled>수정</button>
 								</c:otherwise>
 							</c:choose>
-							
 							<c:choose>
-								<c:when test="${sessionScope.member.empIdx}">
+								<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
 				    				<button type="button" class="btn btn-light" onclick="deleteOk();">삭제</button>
 								</c:when>
 								<c:otherwise>
@@ -115,7 +103,7 @@
 							</c:choose>
 						</td>
 						<td class="text-end">
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/hrBoard/list?${query}';">리스트</button>
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/list?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>
@@ -151,9 +139,9 @@
 <c:if test="${sessionScope.member.empIdx==dto.empIdx}">
 	<script type="text/javascript">
 		function deleteOk() {
-			if(confirm('게시글을 삭제 하시겠습니까 ? ')) {
-				let qs = 'postIdx=${dto.postIdx}&${query}';
-				let url = '${pageContext.request.contextPath}/hrBoard/delete?' + qs;
+			let qs = 'postIdx=${dto.postIdx}&${query}';
+			let url = '${pageContext.request.contextPath}/dept/hrBoard/delete?' + query;
+				if(confirm('게시글을 삭제 하시겠습니까 ? ')) {	
 				location.href = url;
 			}
 		}
@@ -168,7 +156,7 @@ $(function(){
 
 // 댓글 리스트
 function listPage(page) {
-	let url = '${pageContext.request.contextPath}/hrBoard/listReply';
+	let url = '${pageContext.request.contextPath}/dept/hrBoard/listReply';
 	let postIdx = '${dto.postIdx}';
 	let params = {postIdx:postIdx, pageNo:page};
 	
@@ -189,7 +177,7 @@ $(function(){
 		let cmtIdx = $(this).attr('data-cmtIdx');
 		let page = $(this).attr('data-pageNo');
 		
-		let url = '${pageContext.request.contextPath}/hrBoard/deleteReply';
+		let url = '${pageContext.request.contextPath}/dept/hrBoard/deleteReply';
 		let params = {cmtIdx:cmtIdx, mode:'reply'};
 		
 		const fn = function(data) {

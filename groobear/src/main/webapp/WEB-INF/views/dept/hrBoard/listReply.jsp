@@ -24,7 +24,7 @@
 				<div class="reply-menu">
 					<c:choose>
 						<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
-							<div class="deleteReply reply-menu-item" data-replyIdx="${dto.replyIdx}" data-pageNo="${pageNo}">삭제</div>
+							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-pageNo="${pageNo}">삭제</div>
 						</c:when>
 					</c:choose>
 				</div>

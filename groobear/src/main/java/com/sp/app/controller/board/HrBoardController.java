@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/hrBoard/*")
+@RequestMapping("/dept/hrBoard/*")
 public class HrBoardController {
 	private final BoardService service;
 	private final StorageService storageService;
@@ -48,7 +48,7 @@ public class HrBoardController {
 	
 	@PostConstruct
 	public void init() {
-		uploadPath = this.storageService.getRealPath("/uploads/hrBoard");
+		uploadPath = this.storageService.getRealPath("/uploads/dept/hrBoard");
 	}
 	
 	@GetMapping("list")
@@ -85,8 +85,8 @@ public class HrBoardController {
 			
 			String cp = req.getContextPath();
 			String query = "";
-			String listUrl = cp + "/hrBoard/list";
-			String articleUrl = cp + "/hrBoard/article?page=" + current_page;
+			String listUrl = cp + "/dept/hrBoard/list";
+			String articleUrl = cp + "/dept/hrBoard/article?page=" + current_page;
 			if(! kwd.isBlank()) {
 				query = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 				
@@ -96,10 +96,10 @@ public class HrBoardController {
 			
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
 			
-			model.addAttribute("boardList", list);
+			model.addAttribute("list", list);
 			model.addAttribute("page", current_page);
-			model.addAttribute("boardList", dataCount);
-			model.addAttribute("boarsizedList", size);
+			model.addAttribute("dataCount", dataCount);
+			model.addAttribute("size", size);
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("paging", paging);
 			model.addAttribute("articleUrl", articleUrl);
@@ -111,14 +111,14 @@ public class HrBoardController {
 			log.info("list : ", e);
 		}
 		
-		return "hrBoard/list";
+		return "dept/hrBoard/list";
 	}
 	
 	@GetMapping("write")
 	public String writeForm(Model model, HttpSession session) throws Exception {
 		model.addAttribute("mode", "write");
 		
-		return "hrBoard/write";
+		return "dept/hrBoard/write";
 	}
 	
 	@PostMapping("write")
@@ -134,7 +134,7 @@ public class HrBoardController {
 			log.info("writeSubmit : ", e);
 		}
 		
-		return "redirect:/hrBoard/list";
+		return "redirect:/dept/hrBoard/list";
 	}
 	
 	@GetMapping("article")
@@ -154,8 +154,6 @@ public class HrBoardController {
 			
 			Board dto = Objects.requireNonNull(service.findById(postIdx));
 			
-			dto.setEmpName(myUtil.nameMasking(dto.getEmpName()));
-			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("schType", schType);
 			map.put("kwd", kwd);
@@ -173,7 +171,7 @@ public class HrBoardController {
 			model.addAttribute("page", page);
 			model.addAttribute("query", query);
 			
-			return "hrBoard/article";
+			return "dept/hrBoard/article";
 			
 		} catch (NullPointerException e) {
 			log.info("article : ", e);
@@ -181,7 +179,7 @@ public class HrBoardController {
 			log.info("article : ", e);
 		}
 		
-		return "redirect:/hrBoard/list?" + query;
+		return "redirect:/dept/hrBoard/list?" + query;
 	}
 	
 	@GetMapping("update")
@@ -194,7 +192,7 @@ public class HrBoardController {
 			
 			Board dto = Objects.requireNonNull(service.findById(postIdx));
 			if(info.getEmpIdx() != dto.getEmpIdx()) {
-				return "redirect:/hrBoard/list?page=" + page;
+				return "redirect:/dept/hrBoard/list?page=" + page;
 			}
 			
 			List<Board> listFile = service.listFile(postIdx);
@@ -204,7 +202,7 @@ public class HrBoardController {
 			model.addAttribute("dto", dto);
 			model.addAttribute("listFile", listFile);
 			
-			return "hrBoard/write";
+			return "dept/hrBoard/write";
 			
 		} catch (NullPointerException e) {
 			log.info("updateForm : ", e);
@@ -212,7 +210,7 @@ public class HrBoardController {
 			log.info("updateForm : ", e);
 		}
 
-		return "redirect:/hrBoard/list?page=" + page;
+		return "redirect:/dept/hrBoard/list?page=" + page;
 	}
 	
 	@PostMapping("update")
@@ -229,7 +227,7 @@ public class HrBoardController {
 			log.info("updateSubmit : ", e);
 		}
 		
-		return "redirect:/hrBoard/list?page=" + page;
+		return "redirect:/dept/hrBoard/list?page=" + page;
 	}
 	
 	@GetMapping("delete")
@@ -252,7 +250,7 @@ public class HrBoardController {
 			log.info("deleteBoard : ", e);
 		}
 		
-		return "redirect:/hrBoard/list?" + query;
+		return "redirect:/dept/hrBoard/list?" + query;
 	}
 	
 	//파일
@@ -402,8 +400,9 @@ public class HrBoardController {
 			throw e;
 		}
 		
-		return "hrBoard/listReply";
+		return "dept/hrBoard/listReply";
 	}
+	
 	
 	public Map<String, ?> deleteReply(@RequestParam Map<String, Object> paramMap) {
 		Map<String, Object> model = new HashMap<>();

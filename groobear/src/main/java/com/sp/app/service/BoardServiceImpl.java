@@ -34,7 +34,6 @@ public class BoardServiceImpl implements BoardService {
 		try {
 			long seq = mapper.boardSeq();
 			dto.setPostIdx(seq);
-			
 			mapper.insertBoard(dto);
 			
 			if(! dto.getSelectFile().isEmpty()) {
@@ -86,7 +85,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			throw e;			
 		}
-		
 	}
 	
 	@Override

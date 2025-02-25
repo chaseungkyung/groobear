@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>인사부</title>
+<title>인사부 공지사항</title>
 
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
@@ -46,7 +46,7 @@
 	<div class="container innerMain">
 		<div class="body-container">
 			<div class="body-title">
-				<h3><i class="bi bi-app">인사부</i></h3>
+				<h3><i class="bi bi-app">인사부 공지사항</i></h3>
 			</div>
 			
 			<div class="body-main">
@@ -96,7 +96,7 @@
 				
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/hrBoard/list';" title="새로고침">
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/noticeList';" title="새로고침">
 						<i class="bi bi-arrow-counterclockwise"></i></button>
 					</div>
 					<div class="col-6 text-center">
