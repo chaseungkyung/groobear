@@ -3,11 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.mapper.ProjectMapper">
 
-	<insert id="insertProject" parameterType="com.sp.app.model.project.Project">
-		INSERT INTO project(projIdx, pmEmpIdx, projName, createdAt, startDate, endDate, status)
-		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
-	</insert>
-	
 	<select id="getDevTeamList" parameterType="map" resultType="com.sp.app.model.core.OrgUnit">
 		SELECT teamIdx, t.deptIdx, teamName
 		FROM team t
@@ -23,51 +18,12 @@
 	</select>
 	
 	
-	<select id="getProjectCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(projIdx), 0)
-		FROM project p
-		JOIN employee e ON p.pmEmpIdx = e.empIdx
-		<where>
-			<if test="kwd != null and kwd !=''">
-				(INSTR(projName, #{kwd}) &gt; 0)
-			</if>
-		</where>
-	</select>
-	
-	<select id="getProjectList" parameterType="map"
-		resultType="com.sp.app.model.project.Project">
-		SELECT p.projIdx, projName, pmEmpIdx, e.empName AS pmEmpName,
-			TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
-			TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
-			TO_CHAR(endDate, 'YYYY-MM-DD') endDate
-		FROM project p
-		JOIN employee e ON p.pmEmpIdx = e.empIdx
-		<where>
-			<if test="kwd != null and kwd !=''">
-				(INSTR(projName, #{kwd}) &gt; 0)
-			</if>
-			
-			<choose>		
-				<when test="pmEmpIdx != null">
-               	 	AND pmEmpIdx = #{pmEmpIdx}
-            	</when>
-			</choose>			
-		</where>
-		ORDER BY projIdx DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
-	</select>
-	
-	
-	
-	<select id="getProjectById" parameterType="Long" resultType="com.sp.app.model.project.Project">
-		SELECT p.projIdx, p.pmEmpIdx, pm.empName AS pmEmpName, t.teamName AS pmTeamName,
-			p.projName, p.startDate, p.endDate 
-		FROM project p
-		LEFT OUTER JOIN employee pm ON p.pmEmpIdx = pm.empIdx
-		LEFT OUTER JOIN team t ON pm.teamIdx = t.teamIdx
-		WHERE projIdx=#{projIdx}
-	</select>
-	
+	<!-- PROJECT 테이블 -->
+
+	<insert id="insertProject" parameterType="com.sp.app.model.project.Project">
+		INSERT INTO project(projIdx, pmEmpIdx, projName, createdAt, startDate, endDate, status)
+		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
+	</insert>
 	
 	<update id="updateProject" parameterType="com.sp.app.model.project.Project">
 		UPDATE project SET pmEmpIdx=#{pmEmpIdx}, projName=#{projName}, 
@@ -80,15 +36,63 @@
 		WHERE projIdx=#{projIdx}
 	</delete>
 	
+	<select id="getProjectList" parameterType="map"
+		resultType="com.sp.app.model.project.Project">
+		SELECT p.projIdx, projName, p.pmEmpIdx, e.empName AS pmEmpName,
+			e.empIdx, e.empName,
+			TO_CHAR(createdAt, 'YYYY-MM-DD') createdAt, 
+			TO_CHAR(startDate, 'YYYY-MM-DD') startDate,  
+			TO_CHAR(endDate, 'YYYY-MM-DD') endDate
+		FROM project p
+		LEFT JOIN employee e ON p.pmEmpIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd !=''">
+				(INSTR(p.projName, #{kwd}) &gt; 0)
+			</if>
+			
+			<!-- choose 필요? -->		
+		</where>
+		ORDER BY projIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 	
-	<!-- 프로젝트 멤버 테이블 -->
+	
+	<select id="getProjectCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(projIdx), 0)
+		FROM project p
+		JOIN employee e ON p.pmEmpIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd !=''">
+				(INSTR(projName, #{kwd}) &gt; 0)
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getProjectById" parameterType="Long" resultType="com.sp.app.model.project.Project">
+		SELECT p.projIdx, p.pmEmpIdx, pm.empName AS pmEmpName, t.teamName AS pmTeamName, p.projName,
+			TO_CHAR(p.startDate, 'YYYY-MM-DD') startDate, TO_CHAR(p.endDate, 'YYYY-MM-DD') endDate  
+		FROM project p
+		LEFT OUTER JOIN employee pm ON p.pmEmpIdx = pm.empIdx
+		LEFT OUTER JOIN team t ON pm.teamIdx = t.teamIdx
+		WHERE projIdx=#{projIdx}
+	</select>
+	
+		
+	
+	<!-- projectMember 테이블 -->
+	
 	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
 		INSERT INTO projectMember(projMemberIdx, projIdx, empIdx, projTeamIdx)
 		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx})
 	</insert>
 	
+	<update id="updateProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
+		UPDATE projectMember SET projTeamIdx=#{projTeamIdx}
+		WHERE projMemberIdx = #{projMemberIdx}
+	</update>
 	
-	<delete id="deleteProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
+	<delete id="deleteProjectMember" parameterType="Long">
 		DELETE FROM projectMember
 		WHERE projMemberIdx=#{projMemberIdx}
 	</delete>
@@ -107,7 +111,85 @@
 	</select>
 	
 	
-	<!-- PROJECTSTAGE 테이블 -->
+	<!-- projectStage 테이블 -->
 	
+	<insert id="insertProjectStage" parameterType="com.sp.app.model.project.ProjectStage">
+		INSERT INTO projectStage(stageIdx, projIdx, stageName, status, 
+			startDate, endDate, createdAt, projTeamIdx, projTeamName, content)
+		VALUES(projectStage_seq.NEXTVAL, #{projIdx}, #{stageName}, #{status},
+			#{startDate}, #{endDate}, SYSDATE, #{projTeamIdx}, 
+			#{projTeamName, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateProjectStage" parameterType="com.sp.app.model.project.ProjectStage">
+		UPDATE projectStage SET stageName=#{stageName}, status=#{status},
+			startDate=#{startDate}, endDate=#{endDate}, projTeamIdx=#{projTeamIdx},
+			projTeamName=#{projTeamName}, content=#{content}
+	</update>
+	
+	<delete id="deleteProjectStage" parameterType="Long">
+		DELETE FROM projectStage
+		WHERE stageIdx = #{stageIdx}
+	</delete>
+	
+	<select id="getProjectStageList" parameterType="map" resultType="com.sp.app.model.project.ProjectStage">
+		SELECT stageIdx, projIdx, stageName, status, startDate, endDate, createdAt, 
+			projTeamIdx, projTeamName, content
+		FROM projectStage ps
+		LEFT OUTER JOIN projectTeam pt ON ps.projTeamIdx = pt.projTeamIdx
+		ORDER BY startDate ASC
+	</select>
+	
+	<select id="getProjectStageCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(stageIdx), 0)
+		FROM projectStage
+	</select>
+	
+	<select id="getProjectStageById" parameterType="Long" resultType="com.sp.app.model.project.ProjectStage">
+		SELECT stageIdx, projIdx, stageName, status, startDate, endDate, createdAt, 
+			projTeamIdx, projTeamName, content
+		FROM projectStage
+		WHERE stageIdx = #{stageIdx}
+	</select>
+	
+	
+	<!-- projectTask 테이블 -->
+	
+	<insert id="insertProjectTask" parameterType="com.sp.app.model.project.ProjectTask">
+		INSERT INTO projectTask(taskIdx, stageIdx, taskName, status, 
+			startDate, endDate, createdAt, content)
+		VALUES(projectTask_seq.NEXTVAL, #{stageIdx}, #{taskName}, #{status}, 
+			#{startDate}, #{endDate}, SYSDATE, #{content})	
+	</insert>
+	
+	<update id="updateProjectTask" parameterType="com.sp.app.model.project.ProjectTask">
+		UPDATE projectTask SET taskName=#{taskName}, status=#{status},
+			startDate=#{startDate}, endDate=#{endDate}, content=#{content}
+		WHERE taskIdx=#{taskIdx}
+	</update>
+	
+	<delete id="deleteProjectTask" parameterType="Long">
+		DELETE FROM projectTask
+		WHERE taskIdx=#{taskIdx}
+	</delete>
+	
+	<!-- stage 의 하위 task 리스트 -->
+	<select id="getProjectTaskList" parameterType="map" 
+		resultType="com.sp.app.model.project.ProjectTask">
+		SELECT taskIdx, stageIdx, taskName, status, 
+			startDate, endDate, createdAt, content
+		FROM projectTask
+		WHERE stageIdx=#{stageIdx}
+	</select>
+	
+	<select id="getProjectTaskCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(taskIdx), 0)
+		FROM projectTask	
+	</select>
+	
+	<select id="getProjectTaskById" parameterType="Long" 
+		resultType="com.sp.app.model.project.ProjectTask">
+		
+	</select>
 
 </mapper>

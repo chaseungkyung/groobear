@@ -53,17 +53,19 @@ public interface ProjectMapper {
 	public void insertProjectMember(ProjectMember dto) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 수정하는 메소드
-	// 참여자는 수정이 필요한건지 의문
 	public void updateProjectMember(ProjectMember dto) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 삭제하는 메소드
-	public void deleteProjectMember(ProjectMember dto) throws SQLException;
+	public void deleteProjectMember(long projMemberIdx) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자 목록을 List로 가져오는 메소드
 	public List<ProjectMember> getProjectMemberList(Map<String, Object> map);
 
 	// PROJECTMEMBER 테이블에 프로젝트 참여자 개수를 가져오는 메소드
 	public int getProjectMemberCount(Map<String, Object> map);
+	
+	// 사원테이블에 검색한 회원 정보가 나와야 될때?
+	
 
 	/*
 	 * PROJECTSTAGE 테이블
@@ -75,7 +77,7 @@ public interface ProjectMapper {
 	public void updateProjectStage(ProjectStage dto) throws SQLException;
 
 	// PROJECTSTAGE 테이블에서 프로젝트 단계를 삭제하는 메소드
-	public void deleteProjectStage(ProjectStage dto) throws SQLException;
+	public void deleteProjectStage(long stageIdx) throws SQLException;
 
 	// PROJECTSTAGE 테이블에서 프로젝트 단계 목록을 List로 가져오는 메소드
 	public List<ProjectStage> getProjectStageList(Map<String, Object> map);
@@ -96,7 +98,7 @@ public interface ProjectMapper {
 	public void updateProjectTask(ProjectTask dto) throws SQLException;
 
 	// PROJECTTASK 테이블에서 프로젝트 업무를 삭제하는 메소드
-	public void deleteProjectTask(ProjectTask dto) throws SQLException;
+	public void deleteProjectTask(long taskIdx) throws SQLException;
 
 	// PROJECTTASK 테이블에서 프로젝트 업무 목록을 List로 가져오는 메소드
 	public List<ProjectTask> getProjectTaskList(Map<String, Object> map);
