@@ -28,12 +28,12 @@
 	
 	<div class="button-container">
 		<div class="reset-btn">
-		    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostList/${projIdx}?${query}';" title="새로고침">
+		    <button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostList/${projIdx}';" title="새로고침">
 		        <i class="bi bi-arrow-counterclockwise"></i>
 		    </button>
 	    </div>
 	    <div class="post-btn">
-	    	<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostWrite';">글올리기</button>
+	    	<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostWrite/${projIdx}';">글올리기</button>
 		</div>
 	</div>
 

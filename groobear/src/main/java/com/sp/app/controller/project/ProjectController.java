@@ -252,21 +252,56 @@ public class ProjectController {
 		return "redirect:/project/projectList?" + query;
 	}
 
-	@GetMapping("projectPostList")
-	public String projectPostList() throws Exception {
+	@GetMapping("projectPostList/{projIdx}")
+	public String projectPostList(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model) throws Exception {
 		
+		String query = "page=" + page;
 		
+		try {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+			
+			if(! kwd.isBlank()) {
+				query += "kwd=" + URLEncoder.encode(kwd, "utf-8");
+			}
+			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);
+			model.addAttribute("query", query);
+			
+			return "project/projectPostList";
+			
+		} catch (Exception e) {
+			log.info("projectPostList : ", e);
+		}
 		
-		return "project/projectPostList";
+		return "redirect:/project/projectList?" + query;
 	}
 	
 	
-	@GetMapping("projectPostWrite")
-	public String projectPostWriteForm() {
+	@GetMapping("projectPostWrite/{projIdx}")
+	public String projectPostWriteForm(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			Model model) {
 		
-	
+		String query = "page=" + page;
+			
+		try {
+			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);
+			
+			return "project/projectPostWrite";
+		} catch (Exception e) {
+			log.info("projectPostWriteForm : ", e);
+		}
 		
-		return "project/projectPostWrite";
+		
+		return "redirect:/project/projectList?" + query;
 	}
 
 }
