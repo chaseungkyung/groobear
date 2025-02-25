@@ -57,6 +57,7 @@ public class ScheduleController {
 	
 	@GetMapping("write")
 	public String writeForm(@ModelAttribute(value = "dto") Schedule dto,
+			@RequestParam(name="categoryIdx", defaultValue = "1") int categoryIdx,
 			HttpSession session,
 			Model model) throws Exception {
 		
@@ -64,17 +65,17 @@ public class ScheduleController {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 
 			Map<String, Object> map = new HashMap<String, Object>();
+			
 			map.put("empCode", info.getEmpCode());
 			map.put("deptCode", info.getDeptIdx());
 			map.put("positionCode", info.getPositionCode());
 			
 			model.addAttribute("mode", "write");
+			model.addAttribute("categoryIdx", categoryIdx);
 			
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
-		
-		model.addAttribute("categoryIdx", 3);
 		
 		return "schedule/write";
 	}
@@ -278,6 +279,7 @@ public class ScheduleController {
 			service.updateSchedule(dto);
 			
 			state = "true";
+			
 		} catch (Exception e) {
 		}
 

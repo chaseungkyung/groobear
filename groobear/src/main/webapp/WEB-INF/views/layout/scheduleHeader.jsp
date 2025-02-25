@@ -10,12 +10,12 @@
 	<div class="iconHeader-right-inner">
 		<div class="btnArea">
 			<c:choose>
-				<c:when test="${categoryIdx == 3 && sessionScope.member.positionCode <= 2}">
+				<c:when test="${categoryIdx == 3 && (sessionScope.member.positionCode <= 2 || sessionScope.member.deptIdx == 'A' || sessionScope.member.positionCode == 100)}">
 					<a href="${pageContext.request.contextPath}/schedule/write">
 						<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가
 					</a>
 				</c:when>
-				<c:when test="${categoryIdx == 2 && sessionScope.member.positionCode <= 6}">
+				<c:when test="${categoryIdx == 2 && sessionScope.member.positionCode <= 6 || sessionScope.member.positionCode == 100}">
 					<a href="${pageContext.request.contextPath}/schedule/write">
 						<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">일정 추가
 					</a>
@@ -26,7 +26,6 @@
 					</a>
 				</c:when>
 			</c:choose>		
-
 		</div>
 		<ul class = "tab-menu">
 			<li id = "companySchedule" class = "active" onclick="scheduleCategory(3)"><a href = "${pageContext.request.contextPath}/schedule/schedule?categoryIdx=3">회사일정</a></li>

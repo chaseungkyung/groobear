@@ -180,11 +180,22 @@ window.onload = function() {
 							<td>
 								<div class="row">
 									<div class="col-5">
-										<select name="categoryIdx" id="form-categoryIdx" class="form-select">
-											<option value="1" ${dto.categoryIdx == 1 ? "selected":""}>개인일정</option>
-											<option value="2" ${dto.categoryIdx == 2 ? "selected":""}>부서일정</option>
-											<option value="3" ${dto.categoryIdx == 3 ? "selected":""}>회사일정</option>
-										</select>
+									
+										<c:choose>
+											<c:when test="${categoryIdx == 3}">
+												<p>회사일정</p>
+												<input type= "hidden" name="categoryIdx" value="3">
+											</c:when>
+											
+											<c:when test="${categoryIdx == 2}">
+												<p>부서일정</p>
+												<input type= "hidden" name="categoryIdx" value="2">
+											</c:when>
+											<c:otherwise>
+												<p>개인일정</p>
+												<input type= "hidden" name="categoryIdx" value="1">
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</td>

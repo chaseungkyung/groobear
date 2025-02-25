@@ -71,9 +71,10 @@
 									</td>
 								</tr>
 							</table>							
+							
 							<table class="table table-borderless">
 								<c:choose>
-									<c:when test="${categoryIdx == '3' && (sessionScope.member.positionCode <= '2' ||sessionScope.member.deptIdx == 'A' )}">
+									<c:when test="${categoryIdx == '3' && (sessionScope.member.positionCode <= '2' || sessionScope.member.deptIdx == 'A' || sessionScope.member.positionCode == 100)}">
 										<tr>
 											<td class="text-end">
 												<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
@@ -81,7 +82,7 @@
 											</td>
 										</tr>
 									</c:when>
-									<c:when test="${categoryIdx == '2' && sessionScope.member.positionCode <= '6'}">
+									<c:when test="${categoryIdx == '2' && sessionScope.member.positionCode <= '6' || sessionScope.member.positionCode == 100}">
 										<tr>
 											<td class="text-end">
 												<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
@@ -112,7 +113,19 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/js/dateUtil.js"></script>
 	
 	<script type="text/javascript">
-		var calendar = null;  
+		var calendar = null; 
+		
+			let categoryIdx = ${categoryIdx};
+			let deptIdx = '${sessionScope.member.deptIdx}';
+			let positionCode = parseInt('${sessionScope.member.positionCode}' || '9');
+			let bEditable = true;
+			if(categoryIdx == 3 && (deptIdx != 'A' && positionCode > 2) && positionCode != 100) {
+				bEditable = false;
+			}
+			if(categoryIdx == 2 && positionCode > 6  && positionCode != 100 ) {
+				bEditable = false;
+			}
+			
 		document.addEventListener('DOMContentLoaded', function() {
 			const calendarEl = document.getElementById('calendar');
 		
@@ -124,7 +137,7 @@
 				},
 				initialView: 'dayGridMonth', // 처음 화면에 출력할 뷰
 				locale: 'ko',
-				editable: true,
+				editable: bEditable,
 				navLinks: true, // 일자 클릭 시 일자내 시간 스케줄 화면으로 이동
 				dayMaxEvents: true,
 				dayCellContent : function(info) { // 숫자 뒤에 일 삭제
@@ -181,8 +194,7 @@
 							
 							arr.push(obj);
 						}
-						
-						successCallback(arr);
+							successCallback(arr);							
 					};
 		        	
 		        	ajaxRequest(url, 'get', formData, 'json', fn);
@@ -207,8 +219,6 @@
 				},
 				eventDrop: function(info) {
 					// 일정을 드래그 한 경우
-					
-					// 수정하기
 					updateDrag(info.event);
 				},
 				eventResize: function(info) {
@@ -226,6 +236,10 @@
 		
 		// 일정 등록 폼
 		function insertSchedule(startStr, endStr, allDay) {
+			if(! bEditable) {
+				return;
+			}
+			
 			let qs;
 			
 			if( allDay ) {
@@ -242,6 +256,8 @@
 				qs += '&endTime=' + endStr.substr(11, 5);
 				qs += '&all_day=0';
 			}
+			
+			qs += '&categoryIdx=${categoryIdx}';
 		
 			location.href = '${pageContext.request.contextPath}/schedule/write?' + qs;
 		}
