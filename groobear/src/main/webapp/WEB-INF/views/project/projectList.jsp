@@ -98,7 +98,7 @@ function searchList() {
 	const formData = new FormData(f);
 	let requestParams = new URLSearchParams(formData).toString();
 	
-	let url = '${pageContext.request.contextPath}/project/projectList';
+	let url = '${pageContext.request.contextPath}/project/list';
 	location.href = url + '?' + requestParams;
 }
 </script>

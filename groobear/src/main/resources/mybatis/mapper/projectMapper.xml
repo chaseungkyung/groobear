@@ -71,7 +71,8 @@
 	
 	<select id="getProjectById" parameterType="Long" resultType="com.sp.app.model.project.Project">
 		SELECT p.projIdx, p.pmEmpIdx, pm.empName AS pmEmpName, t.teamName AS pmTeamName, p.projName,
-			TO_CHAR(p.startDate, 'YYYY-MM-DD') startDate, TO_CHAR(p.endDate, 'YYYY-MM-DD') endDate  
+			TO_CHAR(p.startDate, 'YYYY-MM-DD') AS startDate, TO_CHAR(p.endDate, 'YYYY-MM-DD') AS endDate,
+			t.teamIdx AS pmTeamIdx 
 		FROM project p
 		LEFT OUTER JOIN employee pm ON p.pmEmpIdx = pm.empIdx
 		LEFT OUTER JOIN team t ON pm.teamIdx = t.teamIdx
@@ -180,6 +181,7 @@
 			startDate, endDate, createdAt, content
 		FROM projectTask
 		WHERE stageIdx=#{stageIdx}
+		ORDER BY startDate ASC
 	</select>
 	
 	<select id="getProjectTaskCount" parameterType="map" resultType="Integer">
@@ -189,7 +191,11 @@
 	
 	<select id="getProjectTaskById" parameterType="Long" 
 		resultType="com.sp.app.model.project.ProjectTask">
-		
+		SELECT taskIdx, ps.stageIdx, taskName, status, startDate, 
+			endDate, createdAt, content, ps.stageName
+		FROM projectTask pt
+		LEFT OUTER JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
+		WHERE taskIdx = #{taskIdx}
 	</select>
 
 </mapper>

@@ -34,7 +34,12 @@ public class ProjectController {
 	private final ProjectService service;
 	private final PaginateUtil paginateUtil;
 
-	@GetMapping("projectList")
+	@GetMapping("")
+	public String projectHome() {
+		return "redirect:/project/projectList";
+	}
+
+	@GetMapping("list")
 	public String projectAllList(
 			@RequestParam(name = "page", defaultValue = "1") int current_page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
@@ -69,8 +74,8 @@ public class ProjectController {
 
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
-			String listUrl = cp + "/project/projectList";
-			String detailUrl = cp + "/project/projectDetail";
+			String listUrl = cp + "/project/list";
+			String detailUrl = cp + "/project/detail";
 
 			if (!kwd.isBlank()) {
 				String qs = "kwd=" + URLEncoder.encode(kwd, "utf-8");
@@ -91,8 +96,6 @@ public class ProjectController {
 
 			model.addAttribute("query", query);
 
-			model.addAllAttributes(map);
-
 		} catch (Exception e) {
 			log.info("projectList : ", e);
 		}
@@ -100,11 +103,11 @@ public class ProjectController {
 		return "project/projectList";
 	}
 
-	@GetMapping("projectCreate")
+	@GetMapping("create")
 	public String projectCreateForm(Model model) {
 
 		try {
-			model.addAttribute("mode", "write");
+			model.addAttribute("mode", "create");
 		} catch (Exception e) {
 			log.info("projectCreateForm : ", e);
 		}
@@ -112,7 +115,7 @@ public class ProjectController {
 		return "project/projectCreate";
 	}
 
-	@PostMapping("projectCreate")
+	@PostMapping("create")
 	public String projectCreateSubmit(Project dto, HttpSession session) throws Exception {
 
 		try {
@@ -127,7 +130,7 @@ public class ProjectController {
 		return "redirect:/project/projectList";
 	}
 
-	@GetMapping("projectUpdate")
+	@GetMapping("update")
 	public String projectUpdateForm(
 			@RequestParam(name = "projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
@@ -156,11 +159,12 @@ public class ProjectController {
 		return "redirect:/project/projectList?page=" + page;
 	}
 
-	@PostMapping("projectUpdate")
+	@PostMapping("update")
 	public String projectUpdateSubmit(Project dto,
 			@RequestParam(name = "page") String page) {
 
 		try {
+
 			service.updateProject(dto);
 
 		} catch (Exception e) {
@@ -171,7 +175,7 @@ public class ProjectController {
 	}
 
 	// 프로젝트 상세 보기
-	@GetMapping("projectDetail/{projIdx}")
+	@GetMapping("detail/{projIdx}")
 	public String projectDetail(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page") String page,
@@ -203,24 +207,9 @@ public class ProjectController {
 		return "redirect:/project/projectList?" + query;
 	}
 
-	// AJAX-JSON
-	@ResponseBody
-	@PostMapping("insertProjectMember")
-	public Map<String, ?> insertProjectMember(ProjectMember dto) throws Exception {
-		Map<String, Object> model = new HashMap<>();
 
-		String state = "false";
-		try {
-			service.insertProjectMember(dto);
-			state = "true";
-		} catch (Exception e) {
-		}
 
-		model.put("state", state);
-		return model;
-	}
-
-	@GetMapping("projectTask/{projIdx}")
+	@GetMapping("task/{projIdx}")
 	public String projectTask(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page", defaultValue = "1") String page,
@@ -244,63 +233,11 @@ public class ProjectController {
 			model.addAttribute("query", query);
 
 			return "project/projectTask";
-			
+
 		} catch (Exception e) {
-			log.info("task : ", e);
+			log.info("projectTask : ", e);
 		}
 
-		return "redirect:/project/projectList?" + query;
-	}
-
-	@GetMapping("projectPostList/{projIdx}")
-	public String projectPostList(
-			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page", defaultValue = "1") String page,
-			@RequestParam(name = "kwd", defaultValue = "") String kwd,
-			Model model) throws Exception {
-		
-		String query = "page=" + page;
-		
-		try {
-			kwd = URLDecoder.decode(kwd, "utf-8");
-			
-			if(! kwd.isBlank()) {
-				query += "kwd=" + URLEncoder.encode(kwd, "utf-8");
-			}
-			
-			model.addAttribute("projIdx", projIdx);
-			model.addAttribute("page", page);
-			model.addAttribute("query", query);
-			
-			return "project/projectPostList";
-			
-		} catch (Exception e) {
-			log.info("projectPostList : ", e);
-		}
-		
-		return "redirect:/project/projectList?" + query;
-	}
-	
-	
-	@GetMapping("projectPostWrite/{projIdx}")
-	public String projectPostWriteForm(
-			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page", defaultValue = "1") String page,
-			Model model) {
-		
-		String query = "page=" + page;
-			
-		try {
-			
-			model.addAttribute("projIdx", projIdx);
-			model.addAttribute("page", page);
-			
-			return "project/projectPostWrite";
-		} catch (Exception e) {
-			log.info("projectPostWriteForm : ", e);
-		}
-		
-		
 		return "redirect:/project/projectList?" + query;
 	}
 

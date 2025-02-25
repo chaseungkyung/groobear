@@ -11,7 +11,7 @@
 			<li><a href="${pageContext.request.contextPath}/chat/chat"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/chat_w.png">채팅</a></li>
 			<li><a href="${pageContext.request.contextPath}/sign/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/sign_w.png">결재</a></li>
 			<c:if test="${sessionScope.member.deptIdx == 'B' || sessionScope.member.deptIdx == 'F' || sessionScope.member.empCode == 'admin' || sessionScope.member.positionCode == 1 || sessionScope.member.positionCode == 2}">
-				<li><a href="${pageContext.request.contextPath}/project/projectList"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/project_w.png">프로젝트</a></li>
+				<li><a href="${pageContext.request.contextPath}/project/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/project_w.png">프로젝트</a></li>
 			</c:if>
 			<li><a href="${pageContext.request.contextPath}/reservation/main"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/reservation_w.png">예약</a></li>
 			<li><a href="${pageContext.request.contextPath}/contact/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/addressBook_w.png">주소록</a></li>

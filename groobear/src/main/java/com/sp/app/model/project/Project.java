@@ -22,4 +22,6 @@ public class Project extends OrgUnit {
 	// Project Manager
 	private long pmEmpIdx; // 프로젝트 매니저 idx
 	private String pmEmpName; // 프로젝트 매니저 이름
+	private String pmTeamName;
+	private long pmTeamIdx;
 }

@@ -80,15 +80,15 @@
 							<th>PM 지정</th>
 							<td class="teamName">
 								<select name="teamIdx" id="teamSelect">
-									<option value="${dto.teamName}">개발부 소속 팀을 선택해주세요</option>
+									<option value="${dto.pmTeamIdx}">${mode == "update" ? dto.pmTeamName : "개발부 소속 팀을 선택해주세요."} </option>
 								</select>
 							</td>
 							<td class="pmName">
 								<select name ="pmEmpIdx" id="pmEmpSelect">
-									<option value="${dto.pmEmpName}">이름을 선택해주세요</option>
+									<option value="${dto.pmEmpIdx}">${mode == "update" ? dto.pmEmpName : "이름을 선택해주세요."}</option>
 								</select>
 								
-								<input type="hidden" name="pmEmpName" id="pmEmpName">
+								<input type="hidden" name="empName" id="empName">
 								<input type="hidden" name="teamName" id="teamName">
 												
 							</td>						
@@ -99,7 +99,7 @@
 							<td class="text-center">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=="update" ? "수정완료" : "프로젝트 만들기"}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectList';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 							
 								<c:if test="${mode=='update'}">
 									<input type="hidden" name="projIdx" value="${dto.projIdx}">
@@ -151,8 +151,8 @@ $(function(){
                 	pmEmpSelect.empty();
                 	pmEmpSelect.append('<option value="">이름을 선택해주세요</option>');
                     
-                	$.each(data.empNameList, function(index, pmEmp){
-                		pmEmpSelect.append('<option value="' + pmEmp.pmEmpIdx + '">' + pmEmp.pmEmpName + '</option>');
+                	$.each(data.empNameList, function(index, emp){
+                		pmEmpSelect.append('<option value="' + emp.empIdx + '">' + emp.empName + '</option>');
                 	});
                 	
                 } else {
