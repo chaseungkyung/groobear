@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectTask.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/stageModal.css" type="text/css">
@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<jsp:include page="/WEB-INF/views/project/projectHeader3.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/projectHeader3.jsp" />
 <jsp:include page="/WEB-INF/views/project/stageModal.jsp" />
 <jsp:include page="/WEB-INF/views/project/taskModal.jsp" />
 

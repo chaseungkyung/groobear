@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectDetail.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/inviteModal.css" type="text/css">
@@ -18,7 +18,7 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
-	<jsp:include page="/WEB-INF/views/project/projectHeader2.jsp" />
+	<jsp:include page="/WEB-INF/views/layout/project/projectHeader2.jsp" />
 	<jsp:include page="/WEB-INF/views/project/inviteModal.jsp" />
 	<jsp:include page="/WEB-INF/views/project/teamModal.jsp" />
 

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-<jsp:include page="/WEB-INF/views/project/headerResources.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/headerResources.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/project/projectPostWrite.css" type="text/css">
 <title>Insert title here</title>
@@ -17,7 +17,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<jsp:include page="/WEB-INF/views/project/projectHeader4.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/project/projectHeader4.jsp"/>
 
 <main>
 	<div class="mainInner">
