@@ -17,7 +17,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<jsp:include page="/WEB-INF/views/layout/project/projectHeader4.jsp"/>
+<jsp:include page="/WEB-INF/views/layout/project/projectHeader2.jsp"/>
 
 <main>
 	<div class="mainInner">
@@ -81,7 +81,7 @@
 								<td class="text-center">
 									<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=="update" ? "수정완료" : "등록완료"}&nbsp;<i class="bi bi-check2"></i></button>
 									<button type="reset" class="btn btn-light">다시입력</button>
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/projectPostList/${projIdx}';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
+									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/list/${projIdx}';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 									
 									<c:if test="${mode == 'update' }">
 										<input type="hidden" name="num" value="${dto.num}">

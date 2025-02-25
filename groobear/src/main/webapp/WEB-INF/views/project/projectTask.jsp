@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
-<jsp:include page="/WEB-INF/views/layout/project/projectHeader3.jsp" />
+<jsp:include page="/WEB-INF/views/layout/project/projectHeader2.jsp" />
 <jsp:include page="/WEB-INF/views/project/stageModal.jsp" />
 <jsp:include page="/WEB-INF/views/project/taskModal.jsp" />
 

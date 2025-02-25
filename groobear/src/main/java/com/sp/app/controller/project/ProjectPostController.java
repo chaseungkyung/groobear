@@ -50,7 +50,7 @@ public class ProjectPostController {
             log.info("projectPostList : ", e);
         }
 
-        return "redirect:/project/projectList?" + query;
+        return "redirect:/project/post/list?" + query;
     }
 
     @GetMapping("write/{projIdx}")
@@ -71,6 +71,6 @@ public class ProjectPostController {
             log.info("projectPostWriteForm : ", e);
         }
 
-        return "redirect:/project/projectList?" + query;
+        return "redirect:/project/post/list?" + query;
     }
 }

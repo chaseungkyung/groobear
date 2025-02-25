@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.project.Project;
-import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.project.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -127,7 +125,7 @@ public class ProjectController {
 			log.info("projectCreateSubmit : ", e);
 		}
 
-		return "redirect:/project/projectList";
+		return "redirect:/project/list";
 	}
 
 	@GetMapping("update")
@@ -156,7 +154,7 @@ public class ProjectController {
 			log.info("projectUpdateForm : ", e);
 		}
 
-		return "redirect:/project/projectList?page=" + page;
+		return "redirect:/project/list?page=" + page;
 	}
 
 	@PostMapping("update")
@@ -171,7 +169,7 @@ public class ProjectController {
 			log.info("projectUpdateSubmit : ", e);
 		}
 
-		return "redirect:/project/projectList?page=" + page;
+		return "redirect:/project/list?page=" + page;
 	}
 
 	// 프로젝트 상세 보기
@@ -204,7 +202,7 @@ public class ProjectController {
 			log.info("projectDetail : ", e);
 		}
 
-		return "redirect:/project/projectList?" + query;
+		return "redirect:/project/detail?" + query;
 	}
 
 
@@ -238,7 +236,7 @@ public class ProjectController {
 			log.info("projectTask : ", e);
 		}
 
-		return "redirect:/project/projectList?" + query;
+		return "redirect:/project/detail?" + query;
 	}
 
 }
