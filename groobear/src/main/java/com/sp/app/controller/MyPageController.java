@@ -143,7 +143,7 @@ public class MyPageController {
 			// 위에서 서비스 호출해서 수정이 완료된 거야.. 이제 수정된 거를 model 그릇에 담아서 뷰로 전달해야지
 			model.addAttribute("empInfo", empInfo);
 			
-			return "redirect:/emp/add";
+			return "redirect:/mypage/me"; 
 			
 		} catch (Exception e) {
 			log.info("modifySubmit", e);
