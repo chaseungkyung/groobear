@@ -96,16 +96,6 @@ public class ProjectServiceImpl implements ProjectService {
 		return dto;
 	}
 
-	@Override
-	public void insertProjectMember(ProjectMember dto) throws Exception {
-		try {
-			mapper.insertProjectMember(dto);
-
-		} catch (Exception e) {
-			log.info("insertProjectMember : ", e);
-			throw e;
-		}
-	}
 
 	@Override
 	public int getProjectCount(Map<String, Object> map) {
@@ -119,4 +109,91 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return result;
 	}
+	
+	
+	
+	// 프로젝트 멤버
+	
+	@Override
+	public void insertProjectMember(ProjectMember dto) throws Exception {
+		try {
+			mapper.insertProjectMember(dto);
+			
+		} catch (Exception e) {
+			log.info("insertProjectMember : ", e);
+			throw e;
+		}
+	}
+
+	@Override
+	public void updateProjectMember(ProjectMember dto) throws Exception {
+		try {
+			mapper.updateProjectMember(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProjectMember : ", e);
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void deleteProjectMember(long projMemberIdx) throws Exception {
+		try {
+			
+			mapper.deleteProjectMember(projMemberIdx);
+			
+		} catch (Exception e) {
+			log.info("deleteProjectMember : ", e);
+		}
+		
+	}
+
+	@Override
+	public List<ProjectMember> getProjectMemberList(Map<String, Object> map) {
+		List<ProjectMember> list = null;
+		
+		try {
+			list = mapper.getProjectMemberList(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectMemberList : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int getProjectMemberCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.getProjectMemberCount(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectMemberCount : ", e);
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<Member> getEmployList(String empSearch) {
+		List<Member> list = null;
+		
+		try {
+			list = mapper.getEmployList(empSearch);
+			
+		} catch (Exception e) {
+			log.info("getEmployList : ", e);
+		}
+		
+		return list;
+	}
+
+
+
+
+
+	
 }

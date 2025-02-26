@@ -64,7 +64,8 @@ public interface ProjectMapper {
 	// PROJECTMEMBER 테이블에 프로젝트 참여자 개수를 가져오는 메소드
 	public int getProjectMemberCount(Map<String, Object> map);
 	
-	// 사원테이블에 검색한 회원 정보가 나와야 될때?
+	// 사원테이블에 검색한 회원 정보를 가져오는 메소드
+	public List<Member> getEmployList(String empSearch);
 	
 
 	/*

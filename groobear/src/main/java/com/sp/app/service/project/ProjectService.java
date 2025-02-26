@@ -14,7 +14,9 @@ public interface ProjectService {
 
 	// 개발부 팀으로부터 팀원 리스트를 가져오는 메소드. 임시 메소드임. RestAPI로 분리할 예정
 	public List<Member> getEmpNameListFromDevTeam(Map<String, Object> map) throws Exception;
-
+	
+	
+	// 프로젝트
 	public void insertProject(Project dto) throws Exception;
 
 	public void updateProject(Project dto) throws Exception;
@@ -24,6 +26,22 @@ public interface ProjectService {
 	public int getProjectCount(Map<String, Object> map);
 
 	public Project getProjectById(long projIdx) throws Exception;
-
+	
+	
+	
+	// 프로젝트 멤버
 	public void insertProjectMember(ProjectMember dto) throws Exception;
+	
+	public void updateProjectMember(ProjectMember dto) throws Exception;
+
+	public void deleteProjectMember(long projMemberIdx) throws Exception;
+
+	public List<ProjectMember> getProjectMemberList(Map<String, Object> map);
+
+	public int getProjectMemberCount(Map<String, Object> map);
+	
+	public List<Member> getEmployList(String empSearch);
+	
+	
+
 }

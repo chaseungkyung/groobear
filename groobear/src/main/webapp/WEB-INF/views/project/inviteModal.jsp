@@ -20,35 +20,13 @@
                     <button id="invite-searchBtn"><i class="bi bi-search"></i></button>
                 </div>
 
-                <!-- 사용자 리스트 -->
+                <!-- 검색한 직원 리스트 -->
                 <div class="invite-user-list">
                     <ul id="userList">
-                        <li class="invite-user-item">
-                            <input type="checkbox" class="invite-select-user">
-                            <span class="invite-user-avatar">설</span>
-                            <div class="user-info">
-                                <p class="user-name">설탕</p>
-                                <p class="user-role">test</p>
-                            </div>
-                        </li>
-                        <li class="invite-user-item">
-                            <input type="checkbox" class="invite-select-user">
-                            <span class="invite-user-avatar">홍</span>
-                            <div class="user-info">
-                                <p class="user-name">홍길동</p>
-                                <p class="user-role">developer</p>
-                            </div>
-                        </li>
-                        <li class="invite-user-item">
-                            <input type="checkbox" class="invite-select-user">
-                            <span class="invite-user-avatar">이</span>
-                            <div class="user-info">
-                                <p class="user-name">이순신</p>
-                                <p class="user-role">manager</p>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
+                
             </div>
 
             <!-- 오른쪽 영역 (대상 선택 정보) -->
@@ -83,7 +61,58 @@
         $(".invite-close, #invite-cancelBtn").click(function(){
             $("#inviteModal").hide();
         });
-
+		
+        
+        // 검색 엔터 기능
+        $('#searchInput').on('keydown', function(evt){
+        	let key = evt.key || evt.keyCode;
+        	
+        	if(key === 'Enter' || key === 13) {
+        		evt.preventDefault();
+        		let searchValue = $(this).val().trim();
+        		
+        		
+        		if(searchValue) {
+        			let url = '${pageContext.request.contextPath}/project/getEmpList';
+	        		let params = {empSearch:searchValue};
+	        		
+	        		
+        			const fn = function(data) {
+        				console.log(data);
+        				let empList = data.empList;
+        				let userList = $('#userList');
+        				userList.empty();
+        				
+        				if(empList) {
+        					empList.forEach(emp => {
+        						let firstChar = emp.empName.charAt(0);
+        						let listItem= '';
+        						listItem += '<li class="invite-user-item">';
+        						listItem += '  <input type="checkbox" class="invite-select-user">';
+        						listItem += '  <span class="invite-user-avatar">' + firstChar + '</span>';
+        						listItem += '  <div class="user-info">';
+        						listItem += '    <p class="user-name">' + emp.empName +'</p>';
+        						listItem += '    <p class="user-role">' + emp.orgUnitName + '</p>';
+        						listItem += '  </div>';
+        						listItem += '</li>';
+        						
+        						userList.append(listItem);
+        					});
+        				} else {
+        					userList.append('<li>검색된 직원이 없습니다.</li>');
+        				}
+        				
+        			};
+        		ajaxRequest(url, 'GET', params, 'json', fn);
+        		
+        		}	
+ 
+        	}
+        });
+ 
+        
+        
+        /*
         // 검색 기능
         $("#invite-searchBtn").click(function(){
             var searchValue = $("#searchInput").val().toLowerCase();
@@ -92,6 +121,7 @@
                 $(this).toggle(userText.includes(searchValue));
             });
         });
+        */
 
      // 체크박스 선택 시 업데이트 실행
         $(".invite-select-user").change(function(){

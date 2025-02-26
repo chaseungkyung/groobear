@@ -20,6 +20,8 @@ public class Member extends OrgUnit {
     private long empIdx;
     private String empCode;
     private String empName;
+    
+    private String orgUnitName; // teamName|| ' ' ||positionName
 
     /* 아래의 내용을 포함하고 있음.
     private long deptIdx;

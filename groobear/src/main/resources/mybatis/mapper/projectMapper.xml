@@ -111,6 +111,18 @@
 		FROM projectMember
 	</select>
 	
+	<select id="getEmployList" parameterType="String" 
+		resultType="com.sp.app.model.core.Member">
+		SELECT empIdx, empName, (teamName|| ' ' ||positionName) AS orgUnitName
+		FROM employee e
+		LEFT OUTER JOIN team t ON e.teamIdx = t.teamIdx
+		LEFT OUTER JOIN position p ON e.positionCode = p.positionCode
+		WHERE t.deptIdx = 'F'
+			AND (empName LIKE '%'||#{empSearch}||'%'
+			OR teamName LIKE '%'||#{empSearch}||'%'
+			OR empTel LIKE '%'||#{empSearch}||'%')
+	</select>
+	
 	
 	<!-- projectStage 테이블 -->
 	

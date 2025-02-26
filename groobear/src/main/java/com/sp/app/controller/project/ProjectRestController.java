@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.app.model.core.Member;
@@ -86,14 +84,16 @@ public class ProjectRestController {
 	// 6) 사람들 팀 지정하는 selectbox -> 다시 AJAX -> getProjectTeam
 	// 7) 초대하기 누르면 -> 그건 그냥 Controller (insertProjectMember) -> redirect:/project/projectDetail
 
+	// AJAX - JSON
 	@GetMapping("getEmpList")
 	public Map<String, Object> getEmpList(
-			@RequestParam(name = "kwd", defaultValue = "") String kwd) {
+			@RequestParam(name = "empSearch", defaultValue = "") String empSearch) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			// List<Member> empList = service.empList갖고오는 서비스메서드
-			/* 아까 우리가 짜놓은 mapper. */
-			// map.put("empList", empList);
+			
+			List<Member> empList = service.getEmployList(empSearch);
+			map.put("empList", empList);
+			
 		} catch (Exception e) {
 			log.info("getEmpList : ", e);
 		}
