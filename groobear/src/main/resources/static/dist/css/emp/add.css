@@ -30,10 +30,17 @@
 
 .empHistory table td:first-child {padding-left: 10px; text-align: left;}
 
-.empHistory table th:nth-child(1), .empHistory table td:nth-child(1) {width: 35%;}
+.empHistory {width: 120%; border-collapse: collapse;}
+
+.empHistory th, .empHistory td {text-align: center; padding: 8px;}
+
+/* 테이블 스타일 */
+.empHistory {width: 130%; border-collapse: collapse;}
+
+.empHistory table th:nth-child(1), .empHistory table td:nth-child(1) {width:10%}
 .empHistory table th:nth-child(2), .empHistory table th:nth-child(3), .empHistory table th:nth-child(4),
-.empHistory table td:nth-child(2), .empHistory table td:nth-child(3), .empHistory table td:nth-child(4) {width: 15%;}
-.empHistory table th:nth-child(5), .empHistory table td:nth-child(5) {width: 10%;}
+.empHistory table td:nth-child(2), .empHistory table td:nth-child(3), .empHistory table td:nth-child(4) {width: 8%;}
+.empHistory table th:nth-child(5), .empHistory table td:nth-child(5) {width: 8%;}
 
 .readonly {background-color: #eee; border: 1px solid #999;}
 

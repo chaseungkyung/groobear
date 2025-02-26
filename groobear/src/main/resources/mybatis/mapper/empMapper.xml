@@ -31,8 +31,8 @@
 		<selectKey keyProperty="empIdx" resultType="java.lang.Long" order="BEFORE">
 	        SELECT employee_seq.NEXTVAL FROM DUAL
 	    </selectKey>
-		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, positionCode, empTel, hireDate, empStatus)
-		VALUES (#{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx, jdbcType=VARCHAR}, #{teamIdx, jdbcType=VARCHAR}, #{positionCode, jdbcType=VARCHAR}, #{empTel}, #{hireDate}, 0)
+		INSERT INTO Employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, positionCode, empTel, hireDate, empStatus, origProfile, saveProfile)
+		VALUES (#{empIdx}, #{empCode}, #{empName}, #{empPwd}, #{deptIdx, jdbcType=VARCHAR}, #{teamIdx, jdbcType=VARCHAR}, #{positionCode, jdbcType=VARCHAR}, #{empTel}, #{hireDate}, 0, #{origProfile, jdbcType=VARCHAR}, #{saveProfile, jdbcType=VARCHAR})
 	</insert>
 	
 	<insert id="insertEmployeeDetail" parameterType="com.sp.app.model.Member">

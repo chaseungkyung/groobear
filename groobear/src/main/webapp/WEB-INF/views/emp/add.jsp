@@ -12,85 +12,127 @@
 	</style>
 	
 <script type="text/javascript">
-	window.addEventListener('load', function(){
+window.addEventListener('load', function(){
 		
-		// request Dept
+	// request Dept
+	const fn = function(data){
+		if(data.state === 'false') {
+			return false;
+		}
+		// dept 
+		if(data){
+			if(data.dept){
+				// let html = "<option value=''>부서를 선택해주세요</option>";
+				let html = "";
+				for(item of data.dept){
+					html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
+				}
+				$("#deptIdx").append(html);
+				
+				let deptIdx = '${dto.deptIdx}';
+				$("#deptIdx").val(deptIdx);
+				
+				if(deptIdx) {
+					$("#deptIdx").trigger('change');
+				}
+				
+			}
+			if(data.position){
+				let html = "";
+				for(item of data.position){
+					html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
+				}
+				$("#positionCode").append(html);
+				
+				$("#positionCode").val('${dto.positionCode}');
+			}
+		}
+	};
+	ajaxRequest('/emp/getDeptAndPosition', 'get', null, 'json', fn);
+	
+	// Dept Change Event / request Team
+	$("#deptIdx").on("change", function() {
 		const fn = function(data){
 			if(data.state === 'false') {
 				return false;
 			}
-			// dept 
-			if(data){
-				if(data.dept){
-					// let html = "<option value=''>부서를 선택해주세요</option>";
-					let html = "";
-					for(item of data.dept){
-						html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
-					}
-					$("#deptIdx").append(html);
-					
-					let deptIdx = '${dto.deptIdx}';
-					$("#deptIdx").val(deptIdx);
-					
-					if(deptIdx) {
-						$("#deptIdx").trigger('change');
-					}
-					
+			if(data && data.team){
+				let html = "<option value='' selected disabled>소속을 선택해주세요</option>";
+				for(item of data.team){
+					html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
 				}
-				if(data.position){
-					let html = "";
-					for(item of data.position){
-						html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
-					}
-					$("#positionCode").append(html);
-					
-					$("#positionCode").val('${dto.positionCode}');
-				}
+				$("#teamIdx").html(html);
+				
+				$("#teamIdx").val('${dto.teamIdx}');
 			}
 		};
-		ajaxRequest('/emp/getDeptAndPosition', 'get', null, 'json', fn);
+		let formData = 'deptIdx=' + $("#deptIdx").val();
+		ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
+	})
 		
-		// Dept Change Event / request Team
-		$("#deptIdx").on("change", function() {
-			const fn = function(data){
-				if(data.state === 'false') {
-					return false;
-				}
-				if(data && data.team){
-					let html = "<option value='' selected disabled>소속을 선택해주세요</option>";
-					for(item of data.team){
-						html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
-					}
-					$("#teamIdx").html(html);
-					
-					$("#teamIdx").val('${dto.teamIdx}');
-				}
-			};
-			let formData = 'deptIdx=' + $("#deptIdx").val();
-			ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
-		})
-		
-	});
+});
 
-	function insertEmp() {
-		const f = document.empForm;
-		let str;
+function insertEmp() {
+	const f = document.empForm;
+	let str;
 		
-		let mode = '${mode}';
+	let mode = '${mode}';
 		
-	 	f.action = '${pageContext.request.contextPath}/emp/${mode}';
-	    f.submit();
+ 	f.action = '${pageContext.request.contextPath}/emp/${mode}';
+    f.submit();
 			
+}
+	
+function updateEmpHistory() {
+	const f = document.historyForm;
+	let str;
+	let mode = '${mode}';
+		
+	f.action = '${pageContext.request.contextPath}/emp/${mode}';
+	f.submit();
+}
+
+$(function() {
+	let img = '${dto.origProfile}';
+	if( img ) { // 수정인 경우
+		img = '${pageContext.request.contextPath}/uploads/photo/' + img;
+		$('.empForm .img-viewer').empty();
+		$('.empForm .img-viewer').css('background-image', 'url(' + img + ')');
 	}
 	
-	function updateEmpHistory() {
-		const f = document.historyForm;
-		let str;
-		let mode = '${mode}';
+	$('.empForm .img-viewer').click(function(){
+		$('form[name=photoForm] input[name=selectFile]').trigger('click'); 
+	});
+	
+	$('form[name=photoForm] input[name=selectFile]').change(function(){
+		let file = this.files[0];
+		if(! file) {
+			$('.empForm .img-viewer').empty();
+			if( img ) {
+				img = '${pageContext.request.contextPath}/uploads/photo/' + img;
+			} else {
+				img = '${pageContext.request.contextPath}/dist/images/add_photo.png';
+			}
+			$('.empForm .img-viewer').css('background-image', 'url(' + img + ')');
+			
+			return false;
+		}
 		
-		f.action = '${pageContext.request.contextPath}/emp/${mode}';
-		f.submit();
-	}
+		if(! file.type.match('image.*')) {
+			this.focus();
+			return false;
+		}
+		
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			$('.empForm .img-viewer').empty();
+			$('.empForm .img-viewer').css('background-image', 'url(' + e.target.result + ')');
+		}
+		reader.readAsDataURL(file);
+	});
+});
+}
+
 </script>
 
 
@@ -99,14 +141,15 @@
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<main>
 		<div class="mainInner">
-			<form name="empForm" method="post">
+			<form name="empForm" method="post"  enctype="multipart/form-data">
 				<div class="empInfo">
 	                <div class="photoArea">
-	                    <div class="photo">
-	                        <img src="https://placehold.co/225x300" alt="샘플이미지">
-	                    </div>
 	                    <div class="buttonArea">
           	            	<button type="button" class="custom-button" onclick="">사진 등록</button>
+	                    </div>
+	                    <div class="img-viewer">
+	                        <!-- <img src="https://placehold.co/225x300" alt="샘플이미지"> -->
+	                        <input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 	                    </div>
 	                </div>
 	                <div class="info">
@@ -202,34 +245,40 @@
 	                <div class="title">
 	                    <p>사원 이력</p>
 	                </div>
-	                <table>
-	                    <tr>
-	                        <th>기간</th>
-	                        <th></th>
-	                        <th>부서</th>
-	                        <th>팀</th>
-	                        <th>직급</th>
-	                        <th>비고</th>
-	                        <th></th>
-	                    </tr>
-	                    <tr>
-			                <td><input type="text" ></td>
-							<td><input type="text" ></td>
-							<td><input type="text" ></td>
-							<td><input type="text" ></td>
-							<td><input type="text" ></td>
-							<td><button type="button" class="" onclick="updateEmpHistory();" >등록</button></td>
-			            </tr>
-		                <c:forEach var="empInfo" items="${list}">
-			                <tr>
-			                	<td style="padding-left: 30px;">${empInfo.startDate} ~ ${empInfo.endDate}</td>
-								<td>${empInfo.deptName}</td>
-								<td>${empInfo.teamName}</td>
-								<td>${empInfo.empRank}</td>
-								<td>${empInfo.note}</td>
-			                </tr>
-		               </c:forEach>
-	                </table>
+					<table class="empHistory">
+					    <tr>
+					        <th class="date-col">시작일</th>
+					        <th></th>
+					        <th class="date2-col">종료일</th>
+					        <th class="dept-col">부서</th>
+					        <th class="team-col">팀</th>
+					        <th class="rank-col">직급</th>
+					        <th class="note-col">비고</th>
+					        <th class="action-col"></th>
+					    </tr>
+					    <tr>
+					        <td><input type="text" class="input-small date-col"></td>
+					        <td>~</td>
+					        <td><input type="text" class="input-small date2-col"></td>
+					        <td><input type="text" class="input-small dept-col"></td>
+					        <td><input type="text" class="input-small team-col"></td>
+					        <td><input type="text" class="input-small rank-col"></td>
+					        <td><input type="text" class="input-small note-col"></td>
+					        <td><button type="button" class="action-col" onclick="updateEmpHistory();">등록</button></td>
+					    </tr>
+					    <c:forEach var="empInfo" items="${list}">
+					        <tr>
+					            <td class="date-col">${empInfo.startDate}</td>
+					            <td>~</td>
+					            <td class="date2-col">${empty empInfo.endDate ? '' : empInfo.endDate}</td>
+					            <td class="dept-col">${empInfo.deptName}</td>
+					            <td class="team-col">${empInfo.teamName}</td>
+					            <td class="rank-col">${empInfo.empRank}</td>
+					            <td class="action-col">${empInfo.note}</td>
+					            <td></td>
+					        </tr>
+					    </c:forEach>
+					</table>
 	            </div>
             </form>
 		</div>
