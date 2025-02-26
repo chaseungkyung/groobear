@@ -23,15 +23,16 @@
 				<span class="reply-dropdown"><i class="bi bi-three-dots-vertical"></i></span>
 				<div class="reply-menu">
 					<c:choose>
-						<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
+						<c:when test="${sessionScope.member.empIdx==dto.empIdx}">
 							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-pageNo="${pageNo}">삭제</div>
+							<div class="hideReply reply-menu-item">숨김</div>
 						</c:when>
 					</c:choose>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" valign="top" class="text-primary text-opacity-50">${dto.content}</td>
+			<td colspan="2" valign="top" class="text-primary text-opacity-30">${dto.content}</td>
 		</tr>
 	</c:forEach>
 </table>

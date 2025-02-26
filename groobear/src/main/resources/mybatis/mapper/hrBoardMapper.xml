@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="temp">
-
+<mapper namespace="com.sp.app.mapper.BoardMapper">
 	<select id="boardSeq" resultType="Long">
 		SELECT hrBoard_seq.NEXTVAL FROM dual
 	</select>
@@ -108,7 +107,7 @@
 		FETCH FIRST 1 ROWS ONLY	
 	</select>
 
-	<update id="updateBorad" parameterType="com.sp.app.model.board.Board">
+	<update id="updateBoard" parameterType="com.sp.app.model.board.Board">
 		UPDATE hrBoard SET title=#{title}, content=#{content}, updateDate=SYSDATE
 		WHERE postIdx = #{postIdx}
 	</update>
@@ -138,7 +137,7 @@
 	
 	<delete id="deleteFile" parameterType="map">
 		DELETE FROM hrBbsFile
-		WHERE ${filed} = #{postIdx}
+		WHERE ${field} = #{postIdx}
 	</delete>
 	
 	<!-- 댓글 -->
@@ -157,6 +156,7 @@
 		SELECT r.cmtIdx, r.empIdx, e.empName, r.PostIdx, r.content, r.regDate
 		FROM hrBbsCmt r
 		JOIN employee e ON r.empIdx = e.empIdx
+		WHERE postIdx=#{postIdx}
 		ORDER BY r.cmtIdx DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
 	</select>
@@ -165,5 +165,5 @@
 		DELETE FROM hrBbsCmt
 		WHERE cmtIdx = #{cmtIdx}
 	</delete>
-
+	
 </mapper>

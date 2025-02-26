@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sp.app.common.MyUtil;
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.common.StorageService;
 import com.sp.app.model.SessionInfo;
@@ -42,7 +41,6 @@ public class HrBoardController {
 	private final BoardService service;
 	private final StorageService storageService;
 	private final PaginateUtil paginateUtil;
-	private final MyUtil myUtil;
 	
 	private String uploadPath;
 	
@@ -276,9 +274,9 @@ public class HrBoardController {
 	}
 	
 	@GetMapping("zipdownload")
-	public ResponseEntity<?> zipdownload(@RequestParam(name = "fileIdx") long fileIdx) throws Exception {
+	public ResponseEntity<?> zipdownload(@RequestParam(name = "postIdx") long postIdx) throws Exception {
 		try {
-			List<Board> listFile = service.listFile(fileIdx);
+			List<Board> listFile = service.listFile(postIdx);
 			if(listFile.size() > 0) {
 				String[] sources = new String[listFile.size()];
 				String[] originals = new String[listFile.size()];
@@ -338,7 +336,7 @@ public class HrBoardController {
 	//댓글
 	@PostMapping("insertReply")
 	@ResponseBody
-	public Map<String, Object> insertReply(Board dto, HttpSession session) {
+	public Map<String, Object> insertReply(Reply dto, HttpSession session) {
 		Map<String, Object> model = new HashMap<>();
 		
 		String state = "true";
@@ -347,7 +345,7 @@ public class HrBoardController {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			
 			dto.setEmpIdx(info.getEmpIdx());
-			service.insertReply(null);
+			service.insertReply(dto);
 			
 		} catch (Exception e) {
 			state = "false";
@@ -365,7 +363,7 @@ public class HrBoardController {
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			
-			int size = 0;
+			int size = ５;
 			int total_page = 0;
 			int dataCount = 0;
 			
@@ -403,7 +401,8 @@ public class HrBoardController {
 		return "dept/hrBoard/listReply";
 	}
 	
-	
+	@ResponseBody
+	@PostMapping("deleteReply")
 	public Map<String, ?> deleteReply(@RequestParam Map<String, Object> paramMap) {
 		Map<String, Object> model = new HashMap<>();
 	

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
 <script type="text/javascript">
-function sendOk() {
+ function sendOk() {
     const f = document.boardForm;
     let str;
 	
@@ -29,8 +29,8 @@ function sendOk() {
     }
 
     f.action = '${pageContext.request.contextPath}/dept/hrBoard/${mode}';
-    f.submit;
-}
+    f.submit();
+} 
 </script>
 </head>
 
@@ -45,7 +45,6 @@ function sendOk() {
 	<div class="mainInner">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-app"></i> 인사부 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -76,23 +75,22 @@ function sendOk() {
 						<tr>
 							<td class="bg-light col-sm-2" scope="row">첨 부</td>
 							<td>
-								<input type="file" name="selectFile" class="form-control">
+								<input type="file" name="selectFile" class="form-control" multiple>
 							</td>
 						</tr>
 						
-						<c:if test="${mode == 'update'}">
-							<tr>
-								<td class="bg-light col-sm-2" scope="row">첨부된 파일</td>
-								<td>
-									<p class="form-control-plaintext">
-										<c:if test="${not empty dto.saveFilename}">
-											<a href="javascript:deleteFile('${dto.postIdx}')"><i class="bi bi-trash"></i></a>
+						<c:if test="${mode=='update'}">
+							<c:forEach var="dto" items="${listFile}">
+								<tr> 
+									<td class="bg-light col-sm-2">첨부된 파일</td>
+									<td>
+										<p class="form-control-plaintext">
+											<span class="delete-file" data-fileIdx="${dto.fileIdx}"><i class="bi bi-trash"></i></span> 
 											${dto.originalFilename}
-										</c:if>
-										&nbsp;
-									</p>
-								</td>
-							</tr>
+										</p>
+									</td>
+								  </tr>
+							</c:forEach>
 						</c:if>
 						
 					</table>
@@ -120,16 +118,24 @@ function sendOk() {
 	</div>
 </main>
 
-<c:if test="${mode == 'update'}">
+<c:if test="${mode=='update'}">
 	<script type="text/javascript">
-		function deleteFile(postIdx) {
-			if(! confirm('파일을 삭제하시겠습니까 ? ')) {
-				return;
+		$('.delete-file').click(function(){
+			if(! confirm('선택한 파일을 삭제 하시겠습니까 ? ')) {
+				return false;
 			}
 			
-			let url = '${pageContext.request.contextPath}/dept/hrBoard/deleteFile?postIdx=' + postIdx + '&page=${page}';
-			location.href = url;
-		}
+			let $tr = $(this).closest('tr');
+			let fileIdx = $(this).attr('data-fileIdx');
+			let url = '${pageContext.request.contextPath}/dept/hrBoard/deleteFile';
+			
+			$.ajaxSetup({ beforeSend: function(e) { e.setRequestHeader('AJAX', true); } });
+			$.post(url, {fileIdx:fileIdx}, function(data){
+				$($tr).remove();
+			}, 'json').fail(function(jqXHR){
+				console.log(jqXHR.responseText);
+			});
+		});
 	</script>
 </c:if>
 

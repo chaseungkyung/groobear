@@ -22,10 +22,9 @@
 
 
 <main>
-	<div class="container innerMain">
+	<div class="innerMain">
 		<div class="body-container">
 			<div class="body-title">
-				<h3><i class="bi bi-app">인사부</i></h3>
 			</div>
 			
 			<div class="body-main">
@@ -51,20 +50,19 @@
 								<td ${dataCount - (page-1) * size - status.index}></td>
 								<td class="left">
 									<div class="text-wrap">
-										<a href="${articleUrl}&postIdx=${dto.postIdx}" class="text-reset">${dto.title}</a>
+									<a href="${articleUrl}&postIdx=${dto.postIdx}" class="text-reset">${dto.title}</a>
 									</div>
 									<c:if test="${dto.replyCount != 0}">(${dto.replyCount})</c:if>
 								</td>
 								<td>${dto.empName}</td>
 								<td>${dto.regDate}</td>
-								<td>
+								<td></td>
 									<!--  
 									<c:if test="${not empty dto.saveFilename}">
 										<a href="${pageContext.request.contextPath}/dept/hrBoard/download?postIdx=${dto.postIdx}" class="text-reset">
 										<i class="bi bi-file-arrow-down"></i></a>
 									</c:if>
 									-->
-								</td>
 							</tr>						
 						</c:forEach>
 					</tbody>
