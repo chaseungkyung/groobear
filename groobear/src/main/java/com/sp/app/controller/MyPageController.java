@@ -169,7 +169,7 @@ public class MyPageController {
                 model.put("state", "false");    
         	} else {
     			long gap;
-    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH24:MI:SS");
+    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     			LocalDateTime today = LocalDateTime.now();
 
     			LocalDateTime dateTime = LocalDateTime.parse(loginTime.getLoginTime(), formatter);

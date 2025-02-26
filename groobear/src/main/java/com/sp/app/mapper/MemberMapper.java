@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 
 @Mapper
@@ -39,6 +40,8 @@ public interface MemberMapper {
 	public void updateFailureCount(String empCode) throws SQLException;
 	
 	public Member findByEmpIdx(long empIdx);
+	
+	public List<EmpRecord> getEmpRecord(long empIdx) throws SQLException;
 	
 	// 사번 찾기
 	public Member findByEmpCode(String emdCode);

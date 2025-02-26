@@ -29,7 +29,7 @@
 					}
 					$("#deptIdx").append(html);
 					
-					let deptIdx = '${empInfo.deptIdx}';
+					let deptIdx = '${dto.deptIdx}';
 					$("#deptIdx").val(deptIdx);
 					
 					if(deptIdx) {
@@ -44,7 +44,7 @@
 					}
 					$("#positionCode").append(html);
 					
-					$("#positionCode").val('${empInfo.positionCode}');
+					$("#positionCode").val('${dto.positionCode}');
 				}
 			}
 		};
@@ -63,7 +63,7 @@
 					}
 					$("#teamIdx").html(html);
 					
-					$("#teamIdx").val('${empInfo.teamIdx}');
+					$("#teamIdx").val('${dto.teamIdx}');
 				}
 			};
 			let formData = 'deptIdx=' + $("#deptIdx").val();
@@ -83,10 +83,14 @@
 			
 	}
 	
-	function selectDept() {
+	function updateEmpHistory() {
+		const f = document.historyForm;
+		let str;
+		let mode = '${mode}';
 		
+		f.action = '${pageContext.request.contextPath}/emp/${mode}';
+		f.submit();
 	}
-	
 </script>
 
 
@@ -102,22 +106,22 @@
 	                        <img src="https://placehold.co/225x300" alt="샘플이미지">
 	                    </div>
 	                    <div class="buttonArea">
-          	            	<button type="button" class="custom-button">사진 추가하기</button>
+          	            	<button type="button" class="custom-button" onclick="">사진 등록</button>
 	                    </div>
 	                </div>
 	                <div class="info">
 	                    <table>
 							<tr>
 								<th>사원번호</th>
-								<td><input type="text" name="empCode" class="readonly" value="${mode=='update' ? empInfo.empCode : ''}" readonly></td>
+								<td><input type="text" name="empCode" class="readonly" value="${mode=='update' ? dto.empCode : ''}" readonly></td>
 								<th>비밀번호</th>
 								<td><input type="text" name="empPwd" class="readonly"  value="${mode=='update' ? '****' : '' }" readonly ></td>
 							</tr>
 							<tr>
 								<th>성명</th>
-								<td><input type="text" name="empName" value="${empInfo.empName}"></td>
+								<td><input type="text" name="empName" value="${dto.empName}"></td>
 								<th>입사년월</th>
-								<td><input type="date" name="hireDate" id="" value="${empInfo.hireDate}" >
+								<td><input type="date" name="hireDate" id="" value="${dto.hireDate}" >
 								
 								</td>
 							</tr>
@@ -139,7 +143,7 @@
 									</select>
 								</td>
 								<th>주민등록번호</th>
-								<td><input type="text" name="rrn" id="rrn" value="${empInfo.rrn}"></td>
+								<td><input type="text" name="rrn" id="rrn" value="${dto.rrn}"></td>
 							</tr>
 							<tr>
 								<th>직급</th>
@@ -149,31 +153,32 @@
 									</select>           
 								</td>
 								<th>휴대폰번호</th>
-								<td class="tel"><input type="tel" name="tel" id="tel" value="${empInfo.tel}"></td>
+								<td class="tel"><input type="tel" name="tel" id="tel" value="${dto.tel}"></td>
 							</tr>
 							<tr>
 								<th>내선번호</th>
-								<td class="tel"><input type="tel" name="empTel" id="empTel" value="${empInfo.empTel}"></td>
+								<td class="tel"><input type="tel" name="empTel" id="empTel" value="${dto.empTel}"></td>
 								<th>주소</th>
 								<td class="address1">
-									<input type="text" name="zipCode" id="zipCode" value="${empInfo.zipCode}">
-									<input type="text" name="addrMain" id="addrMain" value="${empInfo.addrMain}">
+									<input type="text" name="zipCode" id="zipCode" value="${dto.zipCode}" placeholder="우편번호">
+									<input type="text" name="addrMain" id="addrMain" value="${dto.addrMain}">
 									<input type="button" value="주소검색">
 								</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td class="eMail"><input type="text" name="email" value="${empInfo.email}"> @ <input value="groobear.co.kr" disabled></td>	
+								<td class="eMail"><input type="text" name="email" value="${dto.email}"> @ <input value="groobear.co.kr" disabled></td>	
 								<th></th>
-								<td class="address2"><input type="text" name="addrSub" id="addrSub" value="${empInfo.addrSub}"></td>
+								<td class="address2"><input type="text" name="addrSub" id="addrSub" value="${dto.addrSub}"></td>
 							</tr>
 							<tr>
+								<th></th> <td></td>
 								<th>재직상태</th>
 							     	<td class="empStatus">
 							        <select name="empStatus" id="empStatus">
-							        	<option value="0" ${empInfo.empStatus=='0'?'selected':''}>재직</option> 
-							            <option value="1" ${empInfo.empStatus=='1'?'selected':''}>휴직</option> 
-							            <option value="2" ${empInfo.empStatus=='2'?'selected':''}>퇴직</option> 							                    
+							        	<option value="0" ${dto.empStatus=='0'?'selected':''}>재직</option> 
+							            <option value="1" ${dto.empStatus=='1'?'selected':''}>휴직</option> 
+							            <option value="2" ${dto.empStatus=='2'?'selected':''}>퇴직</option> 							                    
 							        </select>
 							        </td>
 								</tr>
@@ -182,14 +187,51 @@
 	                        <button type="reset" class="custom-button" >다시 작성</button>
 							<button type="button" class="custom-button" onclick="location.href='${pageContext.request.contextPath}/emp/list'" >${mode=="update" ? "수정취소" : "등록취소"}</button>
 							<button type="button" class="custom-button select-button" onclick="insertEmp();" >${mode=="update" ? "수정완료" : "등록완료"}</button>
-                   	 	</div>
+							<c:if test="${mode=='update'}">
+								<input type='hidden' name="empIdx" value="${dto.empIdx}">
+							</c:if>
+                   	 	</div> 
 	                </div>
 	            </div>
             </form>
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>
-
+			<form name="historyForm" method="post">
+	            <div class="empHistory">
+	                <div class="title">
+	                    <p>사원 이력</p>
+	                </div>
+	                <table>
+	                    <tr>
+	                        <th>기간</th>
+	                        <th></th>
+	                        <th>부서</th>
+	                        <th>팀</th>
+	                        <th>직급</th>
+	                        <th>비고</th>
+	                        <th></th>
+	                    </tr>
+	                    <tr>
+			                <td><input type="text" ></td>
+							<td><input type="text" ></td>
+							<td><input type="text" ></td>
+							<td><input type="text" ></td>
+							<td><input type="text" ></td>
+							<td><button type="button" class="" onclick="updateEmpHistory();" >등록</button></td>
+			            </tr>
+		                <c:forEach var="empInfo" items="${list}">
+			                <tr>
+			                	<td style="padding-left: 30px;">${empInfo.startDate} ~ ${empInfo.endDate}</td>
+								<td>${empInfo.deptName}</td>
+								<td>${empInfo.teamName}</td>
+								<td>${empInfo.empRank}</td>
+								<td>${empInfo.note}</td>
+			                </tr>
+		               </c:forEach>
+	                </table>
+	            </div>
+            </form>
 		</div>
 	</main>
 </body>

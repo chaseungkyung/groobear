@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
@@ -173,13 +174,17 @@ public class EmpController {
 	@GetMapping("update")
 	public String updateForm(
 			@RequestParam(name="empIdx") long empIdx,
-			Model model, HttpSession session ) throws Exception {
+			Model model) throws Exception {
 		try {
-			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Map<String, Object> map = new HashMap<>();
 			
 			Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
+			List<EmpRecord> list = service.getEmpRecord(empIdx);
 			
-			model.addAttribute("empInfo", dto);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("dto", dto);
 			model.addAttribute("mode", "update");
 					
 			return "emp/add";
@@ -187,21 +192,24 @@ public class EmpController {
 		} catch (Exception e) {
 			log.info("updateForm", e);
 		}
-		
+				
 		return "redirect:/emp/list";
 	}
 	
 	@PostMapping("update")
-	public String updateSubmit(Member dto, HttpSession session ) throws Exception {
+	public String updateSubmit(
+			@RequestParam(name="empIdx") long empIdx,
+			Member dto, HttpSession session ) throws Exception {
 		
 		try {
 			service.updateEmployee(dto);
 			service.updateEmployeeDetail(dto);
+			service.updateEmployeeHistory(dto);
 					
 		} catch (Exception e) {
 			throw e;
 		}
 		
-		return "redirect:/emp/list";
+		return "redirect:/emp/update?empIdx=" + empIdx;
 	}
 }

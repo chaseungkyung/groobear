@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.mapper.MemberMapper;
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -42,20 +43,23 @@ public class MemberServiceImpl implements MemberService {
 	public void insertEmployeeDetail(Member dto) throws Exception {
 		
 		try {
-			
 			mapper.insertEmployeeDetail(dto);
 			
 		} catch (Exception e) {
 			log.info("insertEmployeeDetail : ", e);
-			
 			throw e;
 		}
-		
 	}
 
 	@Override
 	public void insertEmployeeHistory(Member dto) throws Exception {
-		
+		try {
+			mapper.insertEmployeeHistory(dto);
+			
+		} catch (Exception e) {
+			log.info("insertEmployeeHistory : ", e);
+			throw e;
+		}
 	}
 
 	@Override
@@ -70,14 +74,33 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateEmployee(Member dto) throws Exception {
-		try {
-			mapper.updateEmployee(dto);
-			
-		} catch (Exception e) {
-			log.info("updateEmployee", e);
-			throw e;
-		}
+	    try {
+	        Member emp = findByEmpIdx(dto.getEmpIdx());
+
+	        // 이메일을 추가
+	        dto.setEmail(dto.getEmail() + "@groobear.co.kr");
+
+	        // 직원 정보 업데이트
+	        mapper.updateEmployee(dto);
+
+	        // Long 타입으로 수정하여 null 값을 처리
+	        Long positionCode = emp.getPositionCode();  // Long 타입으로 수정
+	        Long dtoPositionCode = dto.getPositionCode();  // Long 타입으로 수정
+
+	        // 조건을 수정하여 null 값을 안전하게 처리
+	        if ((emp.getTeamIdx() == null && positionCode == null) || 
+	            !emp.getDeptIdx().equals(dto.getDeptIdx()) || 
+	            !Objects.equals(positionCode, dtoPositionCode) || 
+	            !Objects.equals(emp.getTeamIdx(), dto.getTeamIdx())) {
+	            // 위 조건들이 만족되면 실행할 로직을 여기에 추가
+	        }
+
+	    } catch (Exception e) {
+	        log.info("updateEmployee", e);
+	        throw e;
+	    }
 	}
+
 
 	@Override
 	public void updateEmployeeDetail(Member dto) throws Exception {
@@ -114,6 +137,10 @@ public class MemberServiceImpl implements MemberService {
 		Member dto = null;
 		try {
 			dto = mapper.findByEmpIdx(empIdx);
+			if(dto.getEmail() != null) {
+				
+				dto.setEmail(dto.getEmail().split("@")[0]);
+			}
 		} catch (Exception e) {
 			log.info("findByEmpIdx", e);
 		}
@@ -250,9 +277,15 @@ public class MemberServiceImpl implements MemberService {
 		return false;		
 	}
 
+
 	@Override
-	public Long getMemberIdx(long empIdx) {
-		
-		return null;
+	public List<EmpRecord> getEmpRecord(long empIdx) throws Exception {
+		List<EmpRecord> list = null;
+		try {
+			list = mapper.getEmpRecord(empIdx);
+		} catch (Exception e) {
+			log.info("getEmpRecord : ", e);
+		}
+		return list;
 	}
 }

@@ -52,15 +52,20 @@
 	</update>
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
-		UPDATE Employee e JOIN EmployeeDetail d ON d.empIdx = e.empIdx
-		SET e.deptIdx = #{deptIdx}, e.teamIdx= #{teamIdx}, e.positionCode= #{positionCode}, e.empTel= #{empTel}, d.email= #{email}, e.hireDate=#{hireDate}, e.retireDate=#{retireDate}, d.rrn = #{rrn}, d.tel= #{tel}, d.addrMain=#{addrMain}, d.addrSub=#{addrSub}, e.empStatus=#{empStatus} 
+		UPDATE Employee
+		SET empName=#{empName}, deptIdx=#{deptIdx, jdbcType=VARCHAR}, teamIdx=#{teamIdx, jdbcType=VARCHAR}, positionCode=#{positionCode, jdbcType=VARCHAR}, empTel= #{empTel}, empStatus=#{empStatus}, hireDate=#{hireDate}, retireDate=#{retireDate}
 		WHERE empIdx = #{empIdx}
 	</update>
-
+	
+	<update id="updateEmployeeDetail" parameterType="com.sp.app.model.Member">
+		UPDATE EmployeeDetail 
+		SET email= #{email}, rrn = #{rrn}, tel= #{tel}, addrMain=#{addrMain}, addrSub=#{addrSub} 
+		WHERE empIdx = #{empIdx}
+	</update>
 	
 	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
 		select e.empIdx, e.empCode, e.empName, e.empPwd, e.deptIdx, e.teamIdx, e.positionCode, e.emptel, e.empStatus, 
-				TO_CHAR(e.hiredate, 'YYYY-MM-DD') hireDate, TO_CHAR(e.retiredate,'YYYY-MM-DD') retiredate, d.deptName, t.teamName, p.positionName, ed.tel, SUBSTR(ed.email, 1, INSTR(ed.email, '@') -1) AS email, ed.addrmain, ed.addrSub, ed.zipcode, ed.rrn
+				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, TO_CHAR(e.retireDate,'YYYY-MM-DD') retireDate, d.deptName, t.teamName, p.positionName, ed.tel, ed.email, ed.addrmain, ed.addrSub, ed.zipcode, ed.rrn
 		from employee e
         left outer join employeedetail ed ON ed.empIdx = e.empIdx
 		left outer join department d ON d.deptidx = e.deptidx
@@ -86,20 +91,32 @@
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		select e.empidx, empCode, empname, e.deptidx, e.teamidx, e.positioncode, emptel, empstatus, tel, email,
-				TO_CHAR(hiredate, 'YYYY-MM-DD') hiredate, retiredate, d.deptName, t.teamName, p.positionName
+		select e.empIdx, empCode, empName, e.deptIdx, e.teamIdx, e.positionCode, e.teamIdx, e.emptel, e.empstatus, ed.tel, ed.email,
+				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, e.retireDate, d.deptName, t.teamName, p.positionName
 		from employee e
 		left outer JOIN employeedetail ed ON e.empIdx = ed.empIdx
 		left outer join department d ON d.deptidx = e.deptidx
 		left outer join team t On t.teamidx = e.teamidx
 		left outer join position p ON p.positionCode = e.positioncode
-		ORDER BY empCode DESC
+		ORDER BY deptName ASC
 	</select>
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) AS dataCount
 		FROM employee e
 		JOIN employeedetail d ON e.empIdx = d.empIdx
+	</select>
+	
+	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
+		INSERT INTO employeeHistory(historyIdx, empIdx, startdate, enddate, deptname, teamname, emprank, note) 
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, #{startDate}, #{endDate}, #{deptName}, #{teamName}, #{empRank}, #{note})
+	</insert>
+	
+	<select id="getEmpRecord"  parameterType ="long" resultType="com.sp.app.model.EmpRecord">
+		SELECT historyIdx, empIdx, deptName, teamName, empRank, TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, note
+		FROM employeeHistory
+		WHERE empIdx = #{empIdx}
+		ORDER BY startDate DESC
 	</select>
 	
 </mapper>

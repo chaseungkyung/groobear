@@ -13,51 +13,6 @@
 	
 <script type="text/javascript">
 	window.addEventListener('load', function(){
-		
-		// request Dept
-		const fn = function(data){
-			if(data.state === 'false') {
-				return false;
-			}
-			// dept 
-			if(data){
-				if(data.dept){
-					let html = "";
-					for(item of data.dept){
-						html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
-					}
-					$("#deptIdx").append(html);
-				}
-				if(data.position){
-					let html = "";
-					for(item of data.position){
-						html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
-					}
-					$("#positionCode").append(html);
-				}
-			}
-		};
-		ajaxRequest('/emp/getDeptAndPosition', 'get', null, 'json', fn);
-		
-		// Dept Change Event / request Team
-		$("#deptIdx").on("change", function() {
-			const fn = function(data){
-				if(data.state === 'false') {
-					return false;
-				}
-				if(data && data.team){
-					let html = "<option value='' selected disabled>소속을 선택해주세요</option>";
-					for(item of data.team){
-						html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
-					}
-					$("#teamIdx").html(html);
-				}
-			};
-			let formData = 'deptIdx=' + $("#deptIdx").val();
-			ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
-		})
-		
-	});
 
 	function insertEmp() {
 		const f = document.empForm;

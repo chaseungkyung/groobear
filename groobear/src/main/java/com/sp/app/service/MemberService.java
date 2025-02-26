@@ -3,6 +3,7 @@ package com.sp.app.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 
 public interface MemberService {	
@@ -32,7 +33,9 @@ public interface MemberService {
 	
 	public Member findByEmpIdx(long empIdx);
 	public Member findByEmpCode(String emdCode);
-	public Long getMemberIdx(long empIdx);
+	
+	// emphistory
+	public List<EmpRecord> getEmpRecord(long empIdx) throws Exception;
 	
 	// emp list 
 	public List<Member> listFindMember(Map<String, Object> map);
