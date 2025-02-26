@@ -31,7 +31,11 @@ main .mainInner {
 
 .mainInner ul {display: flex; border-radius: 0.2vw; height: 2.6vw;}
 .mainInner ul li {padding: 10px 0; text-align: center; display: flex; justify-content: center; align-items: center;}
+.mainInner ul:not(:first-child) li {border-bottom: 1px solid #eee;}
 .mainInner ul:first-child {background-color: #efefef;}
+
+.page-navigation ul {background-color: unset !important;}
+.page-navigation ul li {border-bottom: unset !important;}
 
 button, .back a {
 	border: 1px solid #333;
