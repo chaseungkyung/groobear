@@ -9,20 +9,6 @@
 	<style type="text/css">
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
-		
-		.empInfo .img-viewer {
-			cursor: pointer;
-			border: 1px solid #ccc;
-			width: 225px;
-			height: 300px;
-			border-radius: 15px;
-			background-image: url("https://placehold.co/225x300");
-			position: relative;
-			z-index: 9999;
-			background-repeat : no-repeat;
-			background-size : cover;
-		}
-		
 	</style>
 	
 <script type="text/javascript">
@@ -157,6 +143,9 @@ $(function() {
 	<main>
 		<div class="mainInner">
 			<form name="empForm" method="post"  enctype="multipart/form-data">
+				<div class="title">
+                    <p>사원 정보</p>
+                </div>
 				<div class="empInfo">
 	                <div class="photoArea">
                         <div class="img-viewer"></div>

@@ -12,9 +12,8 @@
 	</style>
 	
 <script type="text/javascript">
-	window.addEventListener('load', function(){
 
-	function insertEmp() {
+function insertEmp() {
 		const f = document.empForm;
 		let str;
 		
@@ -23,12 +22,48 @@
 	 	f.action = '${pageContext.request.contextPath}/mypage/${mode}';
 	    f.submit();
 			
+}
+
+$(function() {
+	let img = '${dto.saveProfile}';
+	if( img ) { // 수정인 경우
+		img = '${pageContext.request.contextPath}/uploads/emp/' + img;
+		$('.empInfo .img-viewer').empty();
+		$('.empInfo .img-viewer').css('background-image', 'url(' + img + ')');
 	}
 	
-	function selectDept() {
+	$('.empInfo .img-viewer').click(function(){
+		$('form[name=empForm] input[name=selectFile]').trigger('click'); 
+	});
 		
-	}
-	
+	$('form[name=empForm] input[name=selectFile]').change(function(){
+		let file = this.files[0];
+		if(! file) {
+			$('.empInfo .img-viewer').empty();
+			if( img ) {
+				img = '${pageContext.request.contextPath}/uploads/emp/' + img;
+			} else {
+				img = 'https://placehold.co/225x300';
+			}
+			$('.empInfo .img-viewer').css('background-image', 'url(' + img + ')');
+			
+			return false;
+		}
+			
+		if(! file.type.match('image.*')) {
+			this.focus();
+			return false;
+		}
+			
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			$('.empInfo .img-viewer').empty();
+			$('.empInfo .img-viewer').css('background-image', 'url(' + e.target.result + ')');
+		}
+		reader.readAsDataURL(file);
+	});
+});
+
 </script>
 
 
@@ -37,21 +72,14 @@
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<main>
 		<div class="mainInner">
-			<form name="empForm" method="post">
+			<form name="empForm" method="post" enctype="multipart/form-data">
+				<div class="title">
+                    <p>나의 정보</p>
+                </div>
 				<div class="empInfo">
 	                <div class="photoArea">
-	                    <div class="photo">
-	                        <img src="https://placehold.co/225x300" alt="샘플이미지">
-	                    </div>
-	                    <div class="buttonArea">
-	                    	<c:choose>
-		          	        	<c:when test="${mode='modify'}">
-		          	        	</c:when>
-		          	        	<c:otherwise>
-		          	            	<button type="button" class="custom-button">사진 수정하기</button>
-		          	        	</c:otherwise>
-	                    	</c:choose>
-	                    </div>
+                        <div class="img-viewer"></div>
+                        <input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 	                </div>
 	                <div class="info">
 	                    <table>
@@ -106,30 +134,36 @@
 	                </div>
 	            </div>
             </form>
+            <div style= "text-align: left; margin-left: 55px;">
+			    <button type="button" class="custom-button" onclick="location.href='${pageContext.request.contextPath}/mypage/modify'" >사진 수정 완료</button>
+            </div>
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>
-            <div class="empHistory">
+            <div style="width:1000px; padding: 15px;">
                 <div class="title">
-                    <p>사원 이력</p>
+                    <p>나의 이력</p>
                 </div>
-                <table>
-                    <tr>
-                        <th>기간</th>
-                        <th>부서</th>
-                        <th>팀</th>
-                        <th>직급</th>
-                        <th>비고</th>
+                <table class="table table-bordered">
+              	  <thead class="table-light">
+                    <tr  align="center">
+                        <th width="250">날짜</th>
+                        <th width="200">부서</th>
+                        <th width="200">팀</th>
+                        <th width="200">직급</th>
+                        <th width="250">비고</th>
                     </tr>
-	                <c:forEach var="empRecord" items="${list}">
-		                <tr>
-		                	<td style="padding-left: 30px;">${empRecord.startDate} ~ ${empRecord.endDate}</td>
-							<td>${empRecord.deptName}</td>
-							<td>${empRecord.teamName}</td>
-							<td>${empRecord.empRank}</td>
-							<td>${empRecord.note}</td>
-		                </tr>
-	               </c:forEach>
+                   <tbody>
+		                <c:forEach var="empRecord" items="${list}">
+			                <tr  align="center">
+			                	<td style="padding-left: 30px;">${empRecord.startDate} ~ ${empty empRecord.endDate ? '현재' : empRecord.endDate}</td>
+								<td>${empRecord.deptName}</td>
+								<td>${empRecord.teamName}</td>
+								<td>${empRecord.empRank}</td>
+								<td>${empRecord.note}</td>
+			                </tr>
+		               </c:forEach>
+                   </tbody>
                 </table>
             </div>
 		</div>

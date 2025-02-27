@@ -21,26 +21,7 @@
 
 .insertBtn {text-align: right; margin-top: 50px;}
 
-.empHistory {width: 100%;}
-.empHistory .title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
-
-.empHistory table {width: 49%; text-align: center;}
-.empHistory table tr {height: 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee;}
-.empHistory table tr:first-child {background-color: #efefef;}
-
-.empHistory table td:first-child {padding-left: 10px; text-align: center;}
-
-.empHistory {width: 120%; border-collapse: collapse;}
-
-.empHistory th, .empHistory td {text-align: center; padding: 8px;}
-
-/* 테이블 스타일   border-collapse: collapse; */
-.empHistory {width: 100%;}
-
-.empHistory table th:nth-child(1), .empHistory table td:nth-child(1) {width:10%}
-.empHistory table th:nth-child(2), .empHistory table th:nth-child(3), .empHistory table th:nth-child(4),
-.empHistory table td:nth-child(2), .empHistory table td:nth-child(3), .empHistory table td:nth-child(4) {width: 8%;}
-.empHistory table th:nth-child(5), .empHistory table td:nth-child(5) {width: 8%;}
+.title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
 
 .readonly {background-color: #eee; border: 1px solid #999;}
 
@@ -77,6 +58,18 @@
 }
 
 .back {
-	text-align: right;
-	
+	text-align: right;	
+}
+
+.empInfo .img-viewer {
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 225px;
+	height: 300px;
+	border-radius: 15px;
+	background-image: url("https://placehold.co/225x300");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
 }

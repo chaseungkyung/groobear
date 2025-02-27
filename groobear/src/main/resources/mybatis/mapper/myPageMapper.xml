@@ -26,11 +26,8 @@
 	</select>
  
 	<update id="updateEmpInfo" parameterType="map">
-    	UPDATE employee e
-	    JOIN employeeDetail ed ON e.empIdx = ed.empIdx
-	    SET e.empCode = #{empCode}, e.empPwd = #{empPwd}, e.empName = #{empName}, e.deptIdx = #{deptIdx}, e.teamIdx = #{teamIdx}, e.positionCode = #{positionCode},
-	        e.empTel = #{empTel}, e.hireDate = #{hireDate}, e.retireDate = #{retireDate},
-	        ed.tel = #{tel}, ed.email = #{email}, ed.addrMain = #{addrMain}, ed.addrSub = #{addrSub}, ed.rrn = #{rrn}
+    	UPDATE employee
+	    SET saveProfile = #{saveProfile, jdbcType=VARCHAR}
 	    WHERE e.empIdx = #{empIdx};
 	</update>
 	

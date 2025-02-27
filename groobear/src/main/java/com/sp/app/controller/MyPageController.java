@@ -134,20 +134,22 @@ public class MyPageController {
 	        map.put("empTel", dto.getEmpTel());
 	        map.put("hireDate", dto.getHireDate());
 	        map.put("retireDate", dto.getRetireDate());
-			
+			map.put("saveProfile", dto.getSaveProfile());
+	        
 			// 서비스 호출해서 수정하는 거야
 			Member empInfo = service.updateEmpInfo(map);
 			
 			// 위에서 서비스 호출해서 수정이 완료된 거야.. 이제 수정된 거를 model 그릇에 담아서 뷰로 전달해야지
 			model.addAttribute("empInfo", empInfo);
 			
-			return "redirect:/mypage/me"; 
+			
 			
 		} catch (Exception e) {
 			log.info("modifySubmit", e);
 			return "redirect:/mypage/workList";
 			// 컨트롤러가 사용자 요청을 받았고. 이제 서비스한테 파라미터 전달해줘야한다. 전달할 파라미터를 맵에 저장해두고.
 		}
+		return "redirect:/mypage/me"; 
 	}
 	
 	

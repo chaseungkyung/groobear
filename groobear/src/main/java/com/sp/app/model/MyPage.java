@@ -17,6 +17,7 @@ public class MyPage {
 	private String teamIdx;
 	private String teamName;
 	private String positionCode;
+	private String saveProfile;
 	
 	// 근무현황 : 오늘 출근해서 일하는 거
 	private String workIdx;
