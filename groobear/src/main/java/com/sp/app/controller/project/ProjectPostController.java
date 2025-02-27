@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.service.project.ProjectService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,4 +74,26 @@ public class ProjectPostController {
 
         return "redirect:/project/post/list?" + query;
     }
+        
+    /*
+    @GetMapping("article")
+    public String article(
+    		@PathVariable("projIdx") long projIdx,
+    		@PathVariable("postIdx") long postIdx,
+    		@RequestParam(name = "page", defaultValue = "1") String page,
+    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
+    		@RequestParam(name = "sType", defaultValue = "all") String sType,
+    		@RequestParam(name = "postKwd", defaultValue = "") String postKwd,
+    		HttpSession session) throws Exception {
+    	
+    	return "project/projectPostArticle";
+    }
+    */
+    
+    @GetMapping("article")
+    public String article() {
+    	
+    	return "project/projectPostArticle";
+    }
+    
 }

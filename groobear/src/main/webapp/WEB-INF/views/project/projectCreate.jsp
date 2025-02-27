@@ -77,22 +77,28 @@
 							<td><input type="date" name ="endDate" value="${dto.endDate}"></td>
 						</tr>
 						<tr>
-							<th>PM 지정</th>
-							<td class="teamName">
-								<select name="teamIdx" id="teamSelect">
-									<option value="${dto.pmTeamIdx}">${mode == "update" ? dto.pmTeamName : "개발부 소속 팀을 선택해주세요."} </option>
-								</select>
-							</td>
-							<td class="pmName">
-								<select name ="pmEmpIdx" id="pmEmpSelect">
-									<option value="${dto.pmEmpIdx}">${mode == "update" ? dto.pmEmpName : "이름을 선택해주세요."}</option>
-								</select>
-								
-								<input type="hidden" name="empName" id="empName">
-								<input type="hidden" name="teamName" id="teamName">
-												
-							</td>						
+						    <th>${mode == "update" ? "PM 수정" : "PM 지정"}</th>
+						    <td class="teamName">
+						        <select name="teamIdx" id="teamSelect">
+						            <option value="">개발부 소속 팀을 선택해주세요.</option>
+						            <c:forEach var="team" items="${teamList}">
+						                <option value="${team.teamIdx}" ${team.teamIdx == dto.pmTeamIdx ? 'selected' : ''}>${team.teamName}</option>
+						            </c:forEach>
+						        </select>
+						    </td>
+						    <td class="pmName">
+						        <select name="pmEmpIdx" id="pmEmpSelect">
+						            <option value="">이름을 선택해주세요.</option>
+						            <c:forEach var="emp" items="${empList}">
+						                <option value="${emp.empIdx}" ${emp.empIdx == dto.pmEmpIdx ? 'selected' : ''}>${emp.empName}</option>
+						            </c:forEach>
+						        </select>
+						
+						        <input type="hidden" name="empName" id="empName">
+						        <input type="hidden" name="teamName" id="teamName">
+						    </td>						
 						</tr>
+
 					</table>
 					<table class="table table-borderless">
 	 					<tr>
@@ -118,53 +124,59 @@
 const teamSelect = $('#teamSelect');
 const pmEmpSelect = $('#pmEmpSelect');
 
-$(function(){
-    // 개발부 소속 팀 불러오기    
-    const fn = function(data){
-    	if(data.state === 'false') {
-    		return false;
-    	}
-    	
-    	if(data){
-    		if(data.teamList){
-    			let html = '';
-    			for(let item of data.teamList){
-    				html += "<option value=" + item.teamIdx + ">" + item.teamName + "</option>";
-    			}
-    			teamSelect.append(html);
-    		}	
-    	}	
-    };
-    ajaxRequest('/project/getTeam', 'get', {deptIdx: "F"}, 'json', fn);
+const selectedTeamIdx = "${dto.pmTeamIdx}";
+const selectedPmEmpIdx = "${dto.pmEmpIdx}";
 
-	
-    // 팀을 선택하면 해당 팀의 직원 이름 가져오기
-    teamSelect.on('change', function(){
-        let teamIdx = $(this).val();
+$(function(){   
+    function loadTeams() {
+        ajaxRequest('/project/getTeam', 'GET', { deptIdx: "F" }, 'json', function (data) {
+            if (data.state === 'false') return false;
 
-        if (teamIdx) {
-            let empUrl = '/project/getEmpName';
+            if (data.teamList) {
+                teamSelect.empty().append('<option value="">개발부 소속 팀을 선택해주세요.</option>');
+                
+                $.each(data.teamList, function(index, team) {
+                    let selected = team.teamIdx == selectedTeamIdx ? "selected" : "";
+                    teamSelect.append('<option value="' + team.teamIdx + '" ' + selected + '>' + team.teamName + '</option>');
+                });
 
-            ajaxRequest(empUrl, 'GET', { teamIdx: teamIdx }, 'json', function (data) {
-            	
-                if (data.state === "true" && data.empNameList) {
-                	pmEmpSelect.empty();
-                	pmEmpSelect.append('<option value="">이름을 선택해주세요</option>');
-                    
-                	$.each(data.empNameList, function(index, emp){
-                		pmEmpSelect.append('<option value="' + emp.empIdx + '">' + emp.empName + '</option>');
-                	});
-                	
-                } else {
-                	pmEmpSelect.empty().append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
+                if (selectedTeamIdx) {
+                    loadPmList(selectedTeamIdx);
                 }
-            });
+            }
+        });
+    }
+
+
+    function loadPmList(teamIdx) {
+        let empUrl = '/project/getEmpName';
+
+        ajaxRequest(empUrl, 'GET', { teamIdx: teamIdx }, 'json', function (data) {
+            pmEmpSelect.empty().append('<option value="">이름을 선택해주세요</option>');
+
+            if (data.state === "true" && data.empNameList) {
+                $.each(data.empNameList, function(index, emp) {
+                    let selected = emp.empIdx == selectedPmEmpIdx ? "selected" : "";
+                    pmEmpSelect.append('<option value="' + emp.empIdx + '" ' + selected + '>' + emp.empName + '</option>');
+                });
+            } else {
+                pmEmpSelect.append('<option value="">직원 목록을 불러올 수 없습니다.</option>');
+            }
+        });
+    }
+
+    teamSelect.on('change', function() {
+        let teamIdx = $(this).val();
+        if (teamIdx) {
+            loadPmList(teamIdx);
         } else {
-        	pmEmpSelect.empty().append('<option value="">이름을 선택해주세요</option>');
-        } 	
+            pmEmpSelect.empty().append('<option value="">이름을 선택해주세요</option>');
+        }
     });
-    
+
+    loadTeams();
 });
+
 
 
 </script>

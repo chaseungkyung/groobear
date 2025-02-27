@@ -13,6 +13,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 </head>
 
@@ -20,7 +22,7 @@
 	<jsp:include page="/WEB-INF/views/layout/header.jsp" />
 	<jsp:include page="/WEB-INF/views/layout/project/projectHeader2.jsp" />
 	<jsp:include page="/WEB-INF/views/project/inviteModal.jsp" />
-	<jsp:include page="/WEB-INF/views/project/teamModal.jsp" />
+	<jsp:include page="/WEB-INF/views/project/teamModal2.jsp" />
 
 	<main>
 		<div class="mainInner">
@@ -417,6 +419,22 @@ window.addEventListener('click', (e) => {
         }
     });
 }(jQuery));
+</script>
+
+<script>
+	// 팀 추가 버튼 클릭 시 getProjectMemberList 라는 주소로 AJAX 요청 갔다와서 projMemberlist 받아오기
+	$('#teamModalBtn').click(function () {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/project/fetchProjectMemberList",
+			type: "GET",
+			data : {projIdx : ${dto.projIdx}},
+			dataType: "json",
+			success: function (data) {
+				console.log(data);
+			}
+		});
+	});
+
 </script>
 
 </body>

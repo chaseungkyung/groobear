@@ -45,153 +45,243 @@
         <!-- 버튼 영역 -->
         <div class="invite-modal-footer">
             <button id="invite-cancelBtn" class="invite-cancel-button">취소</button>
-            <button id="inviteBtn" class="modal-invite-button">초대하기</button>
+            <button type="button" id="inviteBtn" class="modal-invite-button">초대하기</button>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function(){
-        // 모달 열기
-        $("#inviteModalBtn").click(function(){
-            $("#inviteModal").show();
-        });
+let selectedUsers = [];
+const projIdx = ${projIdx};
 
-        // 모달 닫기
-        $(".invite-close, #invite-cancelBtn").click(function(){
-            $("#inviteModal").hide();
-        });
-		
-        
-        // 검색 엔터 기능
-        $('#searchInput').on('keydown', function(evt){
-        	let key = evt.key || evt.keyCode;
-        	
-        	if(key === 'Enter' || key === 13) {
-        		evt.preventDefault();
-        		let searchValue = $(this).val().trim();
-        		
-        		
-        		if(searchValue) {
-        			let url = '${pageContext.request.contextPath}/project/getEmpList';
-	        		let params = {empSearch:searchValue};
-	        		
-	        		
-        			const fn = function(data) {
-        				console.log(data);
-        				let empList = data.empList;
-        				let userList = $('#userList');
-        				userList.empty();
-        				
-        				if(empList) {
-        					empList.forEach(emp => {
-        						let firstChar = emp.empName.charAt(0);
-        						let listItem= '';
-        						listItem += '<li class="invite-user-item">';
-        						listItem += '  <input type="checkbox" class="invite-select-user">';
-        						listItem += '  <span class="invite-user-avatar">' + firstChar + '</span>';
-        						listItem += '  <div class="user-info">';
-        						listItem += '    <p class="user-name">' + emp.empName +'</p>';
-        						listItem += '    <p class="user-role">' + emp.orgUnitName + '</p>';
-        						listItem += '  </div>';
-        						listItem += '</li>';
-        						
-        						userList.append(listItem);
-        					});
-        				} else {
-        					userList.append('<li>검색된 직원이 없습니다.</li>');
-        				}
-        				
-        			};
-        		ajaxRequest(url, 'GET', params, 'json', fn);
-        		
-        		}	
- 
-        	}
-        });
- 
-        
-        
-        /*
-        // 검색 기능
-        $("#invite-searchBtn").click(function(){
-            var searchValue = $("#searchInput").val().toLowerCase();
-            $(".invite-user-item").each(function(){
-                var userText = $(this).text().toLowerCase();
-                $(this).toggle(userText.includes(searchValue));
-            });
-        });
-        */
+$(document).ready(function () {
+    // 모달 열기
+    $("#inviteModalBtn").click(function () {
+        $("#inviteModal").show();
+    });
 
-     // 체크박스 선택 시 업데이트 실행
-        $(".invite-select-user").change(function(){
-            updateSelectedUsers();
-        });
+    // 모달 닫기
+    $(".invite-close, #invite-cancelBtn").click(function () {
+        $("#inviteModal").hide();
+    });
 
-        // 전체 삭제 버튼 클릭 시
-        $(".remove-all").click(function(){
-            $(".invite-select-user").prop("checked", false); // 모든 체크 해제
-            updateSelectedUsers();
-        });
+    // AJAX - 사원 검색
+    $('#searchInput').on('keydown', function (evt) {
+        let key = evt.key || evt.keyCode;
 
-     // 선택된 사용자 목록 업데이트 함수
-        function updateSelectedUsers() {
-            var selectedUsersHtml = "";
-            var selectedCount = 0;
+        if (key === 'Enter' || key === 13) {
+            evt.preventDefault();
+            let searchKwd = $(this).val().trim();
 
-            $(".invite-select-user:checked").each(function(){
-                var name = $(this).siblings(".user-info").find(".user-name").text();
-                var avatar = $(this).siblings(".invite-user-avatar").text();
+            if (searchKwd) {
+                const url = '${pageContext.request.contextPath}/project/fetchEmpList';
+                
+                let params = { searchKwd: searchKwd, projIdx: projIdx};
 
-                selectedUsersHtml += '<div class="selected-user">';
-                selectedUsersHtml += '    <div class="avatar-container">';
-                selectedUsersHtml += '        <span class="invite-user-avatar">' + avatar + '</span>';
-                selectedUsersHtml += '    </div>';
-                selectedUsersHtml += '    <div class="user-info-container">';
-                selectedUsersHtml += '        <span class="selected-user-name">' + name + '</span>';
-                selectedUsersHtml += '        <select>';
-                selectedUsersHtml += '            <option>카테고리1</option>';
-                selectedUsersHtml += '            <option>카테고리2</option>';
-                selectedUsersHtml += '            <option>카테고리3</option>';
-                selectedUsersHtml += '        </select>';
-                selectedUsersHtml += '        <button class="remove-user">✖</button>';
-                selectedUsersHtml += '    </div>';
-                selectedUsersHtml += '</div>';
+                const fn = function (data) {
+                    let empList = data.empList;
+                    let userList = $('#userList');
+                    userList.empty();
+                    console.log(empList);
 
-                selectedCount++;
-            });
+                    if (empList.length !== 0) {
+                        empList.forEach(emp => {
+                            let firstChar = emp.empName.charAt(0);
+                            let listItem = '';
 
-            // 선택된 사용자 목록 업데이트
-            if (selectedCount > 0) {
-                $(".default-text").hide();
-                $(".selected-users").show();
-                $("#selectedUserList").html(selectedUsersHtml);
-                $(".select-count").text(selectedCount + "건 선택");
-            } else {
-                $(".default-text").show();
-                $(".selected-users").hide();
+                            listItem += '<li class="invite-user-item">';
+                            listItem += '  <input type="checkbox" class="invite-select-user" data-empidx="' + emp.empIdx + '"';
+
+                            // 기존에 선택된 사용자라면 체크 유지
+                            if (selectedUsers.find(user => user.empIdx === emp.empIdx)) {
+                                listItem += ' checked';
+                            }
+                            listItem += '>';
+
+                            listItem += '  <span class="invite-user-avatar">' + firstChar + '</span>';
+                            listItem += '  <div class="user-info">';
+                            listItem += '    <p class="user-name">' + emp.empName + '</p>';
+                            listItem += '    <p class="user-role">' + emp.orgUnitName + '</p>';
+                            listItem += '  </div>';
+                            listItem += '</li>';
+
+                            userList.append(listItem);
+                        });
+                    } else {
+                        userList.append('<li>검색된 직원이 없습니다.</li>');
+                    }
+                };
+                ajaxRequest(url, 'GET', params, 'json', fn);
             }
         }
+    });
 
-     		// 개별 삭제 버튼 클릭 시
-        	$(document).on("click", ".remove-user", function(){
-            	var userDiv = $(this).closest(".selected-user"); // 현재 선택된 사용자 div
-            	var name = userDiv.find(".selected-user-name").text().trim(); // 이름 가져오기
-            
-            // 체크박스에서 해당 사용자 체크 해제
-            $(".invite-user-item").each(function(){
-                if ($(this).find(".user-name").text().trim() === name) {
-                    $(this).find(".invite-select-user").prop("checked", false);
-                }
-            });
+    // AJAX - 프로젝트 팀 목록 조회
+    const fetchProjTeamList = function (selectedUserEL) {
+        const url = '${pageContext.request.contextPath}/project/fetchProjectTeams';
+        let params = { projIdx };
 
-            // 해당 사용자 요소 삭제
-            userDiv.remove();
+        const fn = function (data) {
+            let projTeamList = data.projTeamList;
+            let selectOptions = '';
 
-            // 업데이트 함수 실행 (남은 사용자 체크)
-            updateSelectedUsers();
+            if (projTeamList) {
+                projTeamList.forEach(team => {
+                    selectOptions += '<option value="' + team.projTeamIdx + '">' + team.projTeamName + '</option>';
+                });
+            }
+
+            selectedUserEL.html(selectOptions);
+        };
+        ajaxRequest(url, 'GET', params, 'json', fn);
+    };
+
+    // AJAX - selectedUsers 배열을 JSON으로 서버에 전송
+    const sendSelectedUsers = function () {
+        const url = '${pageContext.request.contextPath}/project/sendProjectMemberList?projIdx=' + projIdx;
+
+        const fn = function (data) {
+            if (data.state === 'true') {
+                alert('초대가 완료되었습니다.');
+                location.reload();
+            } else {
+                alert('초대에 실패했습니다.');
+            }
+        };
+
+        const settings = {
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(selectedUsers),
+            success: fn
+        };
+
+        $.ajax(url, settings);
+    };
+
+    // 참여자 객체를 목록에 추가하는 함수
+    function addSelectedUser(user) {
+        selectedUsers.push(user);
+
+        let selectedUserHtml = "";
+        selectedUserHtml += '<div class="selected-user" data-empidx="' + user.empIdx + '">';
+        selectedUserHtml += '    <div class="user-info-container">';
+        selectedUserHtml += '        <span class="selected-user-name">' + user.empName + '</span>';
+        selectedUserHtml += '        <select class="select-projTeam">';
+        selectedUserHtml += '            <option value="">팀 선택하기</option>';
+        selectedUserHtml += '        </select>';
+        selectedUserHtml += '        <button class="remove-user">✖</button>';
+        selectedUserHtml += '    </div>';
+        selectedUserHtml += '</div>';
+
+        $("#selectedUserList").append(selectedUserHtml);
+
+        // 팀 선택을 moudedown 시 프로젝트 팀 목록 조회하는 이벤트 핸들러 추가
+        // 이벤트가 일어난 객체만 ajax요청을 갖다 오고 나머지 selected-user 객체들은 그대로 둔다.
+        $(".select-projTeam").on("mousedown", function () {
+            fetchProjTeamList($(this.closest(".selected-user")).find(".select-projTeam"));
+        });
+
+        // 선택된 참여자 목록 업데이트
+        countSelectedUsers();
+    };
+
+    // 체크박스 toggle 시 참여자 추가 / 삭제
+    $(document).on("change", ".invite-select-user", function () {
+        const empIdx = $(this).data("empidx");
+        const userItem = $(this).closest(".invite-user-item");
+        const empName = userItem.find(".user-name").text();
+
+        const user = { empIdx, empName };
+        if ($(this).is(":checked")) {
+            addSelectedUser(user);
+        } else {
+            removeSelectedUser(empIdx);
+        }
+    });
+
+    // 오른쪽 목록에서 전체 삭제 버튼 클릭 시
+    $(".remove-all").click(function () {
+        // selectedUsers 배열 초기화
+        selectedUsers = [];
+
+        // 선택된 참여자 삭제
+        $(".selected-user").remove();
+
+        // 체크 해제
+        $(".invite-select-user").prop("checked", false);
+        
+        // 선택한 참여자 수 업데이트
+        countSelectedUsers();
+    });
+
+    // 오른쪽 목록에서 선택된 참여자 삭제
+    $(document).on("click", ".remove-user", function () {
+        const userEL = $(this).closest(".selected-user");
+        const empIdx = userEL.data("empidx");
+        /*
+        // 참여자를 목록에서 삭제
+        userEL.remove();
+
+        // selectedUsers 배열에서 삭제
+        selectedUsers = selectedUsers.filter(user => user.empIdx !== empIdx);
+
+        // 선택한 참여자 수 업데이트
+        countSelectedUsers();
+        */
+        removeSelectedUser(empIdx);
+        // 왼쪽 체크박스에서 해당 참여자 체크 해제
+        $(".invite-user-item").each(function () {
+            if ($(this).find(".invite-select-user").data("empidx") === empIdx) {
+                $(this).find(".invite-select-user").prop("checked", false);
+            }
         });
     });
+
+    // 참여자를 삭제하는 함수
+    function removeSelectedUser(empIdx) {
+
+        // selectedUsers 배열에서 삭제
+        selectedUsers = selectedUsers.filter(user => user.empIdx !== empIdx);
+
+        // 참여자를 오른쪽 목록에서 삭제
+        $(".selected-user[data-empidx='" + empIdx + "']").remove();
+
+        // 선택한 참여자 수 업데이트
+        countSelectedUsers();
+    };
+
+    // 선택한 참여자 수 계산 및 업데이트
+    // selected-user div의 개수를 계산
+    function countSelectedUsers() {
+        const selectedCount = selectedUsers.length;
+        $(".select-count").text(selectedCount + "건 선택");
+
+        if (selectedCount > 0) {
+            $(".default-text").hide();
+            $(".selected-users").show();
+        } else {
+            $(".default-text").show();
+            $(".selected-users").hide();
+        }
+    };
+
+    // 초대하기 버튼 클릭 시 이벤트
+    // 1) selectedUsers 배열에 선택한 팀 정보를 추가
+    // 2) sendSelectedUsers 함수를 호출하여 서버에 전송
+    $("#inviteBtn").click(function () {
+        $(".selected-user").each(function () {
+            const empIdx = $(this).data("empidx");
+            const projTeamIdx = $(this).find(".select-projTeam").val();
+
+            const user = selectedUsers.find(user => user.empIdx === empIdx);
+            user.projTeamIdx = projTeamIdx;
+        });
+
+        sendSelectedUsers();
+    });
+});
+
 </script>
 
 

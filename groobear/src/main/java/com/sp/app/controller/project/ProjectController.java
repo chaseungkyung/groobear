@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
+import com.sp.app.model.SessionInfo;
 import com.sp.app.model.project.Project;
+import com.sp.app.model.project.ProjectMember;
 import com.sp.app.service.project.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -112,14 +115,18 @@ public class ProjectController {
 
 		return "project/projectCreate";
 	}
-
+	
+	@Transactional
 	@PostMapping("create")
-	public String projectCreateSubmit(Project dto, HttpSession session) throws Exception {
+	public String projectCreateSubmit(Project projectDto) throws Exception {
 
 		try {
-			// SessionInfo info = (SessionInfo) session.getAttribute("member");
 
-			service.insertProject(dto);
+			service.insertProject(projectDto);
+			
+			ProjectMember memberDto = new ProjectMember();
+			memberDto.setProjIdx(projectDto.getProjIdx());
+			memberDto.setEmpIdx(projectDto.getPmEmpIdx());
 
 		} catch (Exception e) {
 			log.info("projectCreateSubmit : ", e);
@@ -131,17 +138,19 @@ public class ProjectController {
 	@GetMapping("update")
 	public String projectUpdateForm(
 			@RequestParam(name = "projIdx") long projIdx,
-			@RequestParam(name = "page") String page,
+			@RequestParam(name = "page", defaultValue = "1") String page,
 			Model model,
 			HttpSession session) throws Exception {
 
 		try {
 
 			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
-
-			// if(info.getEmpIdx() != dto.getCrtEmpIdx()) {
-			// 	return "redirect:/project/list?page=" + page;
-			// }
+			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			if(info == null || !"F".equals(info.getDeptIdx()) || info.getPositionCode() != 5) {
+				return "redirect:/project/list?page=" + page;
+			}
 
 			model.addAttribute("dto", dto);
 			model.addAttribute("page", page);
@@ -159,7 +168,7 @@ public class ProjectController {
 
 	@PostMapping("update")
 	public String projectUpdateSubmit(Project dto,
-			@RequestParam(name = "page") String page) {
+			@RequestParam(name = "page", defaultValue = "1") String page) {
 
 		try {
 
@@ -171,6 +180,32 @@ public class ProjectController {
 
 		return "redirect:/project/list?page=" + page;
 	}
+	
+
+	@Transactional
+	@GetMapping("delete")
+	public String projectDelete(
+	        @RequestParam(name = "projIdx") long projIdx,
+	        @RequestParam(name = "page", defaultValue = "1") String page,
+	        HttpSession session) {
+			
+	    try {
+	        SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+	        if (info == null || !"F".equals(info.getDeptIdx()) || info.getPositionCode() != 5) {
+	            return "redirect:/project/list?page=" + page;
+	        }
+
+	        service.deleteProject(projIdx);
+
+	    } catch (Exception e) {
+	        log.info("projectDelete : ", e);
+	    }
+
+	    return "redirect:/project/list?page=" + page;
+	}	
+
+	
 
 	// 프로젝트 상세 보기
 	@GetMapping("detail/{projIdx}")
@@ -205,7 +240,38 @@ public class ProjectController {
 		return "redirect:/project/detail?" + query;
 	}
 
+	
+	@GetMapping("insertProjectMember/{projIdx}")
+	public String insertProjectMember(
+			@PathVariable("projIdx") long projIdx,
+			@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model) {
+		
+		String query = "page=" + page;
 
+		try {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+
+			if (!kwd.isBlank()) {
+				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+			}
+
+			
+			model.addAttribute("projIdx", projIdx);
+			model.addAttribute("page", page);
+			model.addAttribute("query", query);
+
+			return "project/projectTask";
+
+		} catch (Exception e) {
+			log.info("projectTask : ", e);
+		}
+
+		return "redirect:/project/detail?" + query;
+	}
+	
+	
 
 	@GetMapping("task/{projIdx}")
 	public String projectTask(

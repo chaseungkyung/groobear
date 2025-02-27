@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
 import com.sp.app.model.project.ProjectMember;
+import com.sp.app.model.project.ProjectTeam;
 import com.sp.app.service.project.ProjectService;
 
 import lombok.RequiredArgsConstructor;
@@ -85,51 +88,72 @@ public class ProjectRestController {
 	// 7) 초대하기 누르면 -> 그건 그냥 Controller (insertProjectMember) -> redirect:/project/projectDetail
 
 	// AJAX - JSON
-	@GetMapping("getEmpList")
+	@GetMapping("fetchEmpList")
 	public Map<String, Object> getEmpList(
-			@RequestParam(name = "empSearch", defaultValue = "") String empSearch) {
+			@RequestParam(name = "searchKwd", defaultValue = "") String searchKwd,
+			@RequestParam(name = "projIdx") long projIdx) {
 		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> condition = new HashMap<>();
 		try {
-			
-			List<Member> empList = service.getEmployList(empSearch);
+			condition.put("searchKwd", searchKwd);
+			condition.put("projIdx", projIdx);
+
+			List<Member> empList = service.getEmployList(condition);
 			map.put("empList", empList);
-			
+
 		} catch (Exception e) {
 			log.info("getEmpList : ", e);
 		}
 		return map;
 	}
 
-	@GetMapping("getProjectTeams")
-	public Map<String, Object> getProjectTeams(@RequestParam long projIdx) {
-		Map<String, Object> map = new HashMap<>();
+	@GetMapping("fetchProjectTeams")
+	public Map<String, Object> getProjectTeams(
+			@RequestParam(name = "projIdx") long projIdx) {
+		Map<String, Object> result = new HashMap<>();
 		try {
-			// List<ProjectMember> teamList = service.getTeamList(projIdx);
-			/*
-			 * SELECT projTeamIdx, projTeamName FROM project_team WHERE projIdx= #{projIdx}
-			 */
-			// map.put("teamList", teamList);
+			List<ProjectTeam> projTeamList = service.getProjectTeamList(projIdx);
+			result.put("projTeamList", projTeamList);
 		} catch (Exception e) {
 			log.info("getProjectTeams : ", e);
 		}
-		return map;
+		return result;
 	}
-	
-	// AJAX-JSON
-	@GetMapping("insertProjectMember")
-	public Map<String, ?> insertProjectMember(ProjectMember dto) throws Exception {
-		Map<String, Object> model = new HashMap<>();
 
-		String state = "false";
+	@GetMapping("fetchProjectMemberList")
+	public Map<String, Object> getProjectMmeberList(
+			@RequestParam(name = "projIdx") long projIdx) {
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> condition = new HashMap<>();
+
 		try {
-			service.insertProjectMember(dto);
-			state = "true";
+			condition.put("projIdx", projIdx);
+
+			List<ProjectMember> list = service.getProjectMemberList(condition);
+			result.put("projMemberlist", list);
 		} catch (Exception e) {
+			log.info("getProjectMmeberList : ", e);
+		}
+		return result;
+	}
+
+	@PostMapping("sendProjectMemberList")
+	public Map<String, Object> insertProjectMember(
+			@RequestBody List<ProjectMember> selectedUser,
+			@RequestParam(name = "projIdx") long projIdx) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			for (ProjectMember dto : selectedUser) {
+				dto.setProjIdx(projIdx);
+				service.insertProjectMember(dto);
+			}
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("insertProjectMember : ", e);
+			result.put("state", "false");
 		}
 
-		model.put("state", state);
-		return model;
+		return result;
 	}
-	
 
 }

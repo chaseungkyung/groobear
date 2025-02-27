@@ -45,6 +45,17 @@
 						<li>${dataCount - (page - 1) * size - status.index}</li>
 						<li class="project-name">
 							<a href="${detailUrl}/${dto.projIdx}?${query}">${dto.projName}</a>							
+			            <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.positionCode == 5}">
+			                <span class="project-actions">
+								<button type="button" class="btn btn-sm btn-update" title="수정" onclick="updateProject(${dto.projIdx})">
+								    <i class="bi bi-pencil"></i>
+								</button>
+
+			                    <button type="button" class="btn btn-sm btn-delete" title="삭제" onclick="deleteProject(${dto.projIdx})">
+			                        <i class="bi bi-trash"></i>
+			                    </button>
+			                </span>
+			            </c:if>							
 						</li>
 						<li>${dto.startDate}</li>
 						<li>${dto.endDate}</li>
@@ -101,6 +112,22 @@ function searchList() {
 	let url = '${pageContext.request.contextPath}/project/list';
 	location.href = url + '?' + requestParams;
 }
+
+
+function updateProject(projIdx) {
+    location.href = '${pageContext.request.contextPath}/project/update?projIdx=' + projIdx + '&page=' + "${page}";
+}
+
+
+
+function deleteProject(projIdx) {
+    if (confirm("정말 이 프로젝트를 삭제하시겠습니까?")) {
+        let url = '${pageContext.request.contextPath}/project/delete?projIdx=' + projIdx + '&' + "${query}";
+        location.href = url;
+    }
+}
+
+
 </script>
 
 </body>

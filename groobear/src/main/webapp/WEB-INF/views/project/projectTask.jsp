@@ -49,11 +49,11 @@
 	                    <td class="stage-title">
 	                    	<span>1111</span>
 	                    	<div class="right-group">
-		                    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.positionCode == 5}">	
-		                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>	                    	
-		                    	<img class="stage-update" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">		                    	                 
-		                    	<img class="stage-delete" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
-	                    	</c:if>	                   
+			                    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">	
+			                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>	                    	
+			                    	<img class="stage-update" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">		                    	                 
+			                    	<img class="stage-delete" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+		                    	</c:if>	                   
 	                    	</div>
 	                    </td>
 	                    <td class="stage-satus"><span class="status request">요청</span></td>
@@ -103,23 +103,28 @@
 	                    <td class="stage-title">
 	                    	<span>2222</span>
 	                    	<div class="right-group">
-		                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+			                    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">	
+			                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>	                    	
+			                    	<img class="stage-update" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">		                    	                 
+			                    	<img class="stage-delete" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+		                    	</c:if>	                   
 	                    	</div>
 	                    </td>
 	                    <td class="stage-satus"><span class="status progress">진행</span></td>
 	                    <td class="stage-team">-</td>
 	                    <td class="stage-start">-</td>
 	                    <td class="stage-end">-</td>
-	                    <td class="stage-regdate">2025-02-21</td>	                </tr>
+	                    <td class="stage-regdate">2025-02-21</td>	                
+	                </tr>
 	                <tr>
 	                    <td class="stage-title">
 	                    	<span>3333</span>
 	                    	<div class="right-group">
-		                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+			                    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">	
+			                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>	                    	
+			                    	<img class="stage-update" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">		                    	                 
+			                    	<img class="stage-delete" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+		                    	</c:if>	                   
 	                    	</div>
 	                    </td>
 	                    <td class="stage-satus"><span class="status complete">완료</span></td>
@@ -131,16 +136,19 @@
 	                    <td class="stage-title">
 	                    	<span>4444</span>
 	                    	<div class="right-group">
-		                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">
-		                    	<img alt="" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+			                    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">	
+			                    	<button id="taskAddBtn" class="task-add-btn">업무 추가</button>	                    	
+			                    	<img class="stage-update" src="${pageContext.request.contextPath}/dist/images/project/pencil.png">		                    	                 
+			                    	<img class="stage-delete" src="${pageContext.request.contextPath}/dist/images/project/delete.png">
+		                    	</c:if>	                   
 	                    	</div>
 	                    </td>
 	                    <td class="stage-satus"><span class="status hold">보류</span></td>
 	                    <td class="stage-team">-</td>
 	                    <td class="stage-start">-</td>
 	                    <td class="stage-end">-</td>
-	                    <td class="stage-regdate">2025-02-21</td>	                </tr>
+	                    <td class="stage-regdate">2025-02-21</td>	                
+	            	</tr>
 	            </tbody>
 	        </table>
 
