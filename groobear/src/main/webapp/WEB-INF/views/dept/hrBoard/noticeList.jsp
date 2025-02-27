@@ -4,49 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>인사부 공지사항</title>
+
 
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
-<style type="text/css">
-.body-container {
-	max-width: 800px;
-}
-</style>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
-<style type="text/css">
-/* flex 말줄임 */
-.text-wrap { 
-    display: inline-flex;
-    max-width: 380px;
-    > a {
-        flex: 1;  /* 플렉스아이템이 자신의 컨테이너가 차지하는 공간을 맞추기 위해 크기를 키우거나 줄이는 방법 지정 */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-</style>
 </head>
 
 <body>
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
 </header>
 
 
 <main>
-	<div class="container innerMain">
+	<div class="innerMain">
 		<div class="body-container">
 			<div class="body-title">
-				<h3><i class="bi bi-app">인사부 공지사항</i></h3>
 			</div>
 			
 			<div class="body-main">
@@ -63,7 +41,6 @@
 							<th>제목</th>
 							<th width="100">작성자</th>
 							<th width="100">작성일</th>
-							<th width="50">파일</th>
 						</tr>
 					</thead>
 					
@@ -73,18 +50,19 @@
 								<td ${dataCount - (page-1) * size - status.index}></td>
 								<td class="left">
 									<div class="text-wrap">
-										<a href="${articleUrl}/${dto.postIdx}>${query}" class="text-reset">${dto.title}</a>
+									<a href="${articleUrl}&postIdx=${dto.postIdx}" class="text-reset">${dto.title}</a>
 									</div>
 									<c:if test="${dto.replyCount != 0}">(${dto.replyCount})</c:if>
 								</td>
 								<td>${dto.empName}</td>
 								<td>${dto.regDate}</td>
-								<td>
+								<td></td>
+									<!--  
 									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/hrBoard/download?postIdx=${dto.postIdx}" class="text-reset">
+										<a href="${pageContext.request.contextPath}/dept/hrBoard/download?postIdx=${dto.postIdx}" class="text-reset">
 										<i class="bi bi-file-arrow-down"></i></a>
 									</c:if>
-								</td>
+									-->
 							</tr>						
 						</c:forEach>
 					</tbody>
@@ -118,9 +96,11 @@
 							</div>
 						</form>
 					</div>	
+					<!--  
 					<div>
-						<button type="button" class="btn btn-light" onabort="location.href='${pageContext.request.contextPath}/hrBoard/write';">글올리기</button>
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/write';">글올리기</button>
 					</div>
+					-->
 				</div>
 				
 			</div>
@@ -150,7 +130,7 @@ function searchList() {
 	const formData = new FormData(f);
 	let requestParams = new URLSearchParams(formData).toString();
 	
-	let url = '${pageContext.request.contextPath}/hrBoard/list';
+	let url = '${pageContext.request.contextPath}/dept/hrBoard/noticeList';
 	location.href = url + '?' + requestParams;
 }
 </script>

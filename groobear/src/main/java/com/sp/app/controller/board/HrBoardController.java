@@ -417,4 +417,292 @@ public class HrBoardController {
 		
 		return model;
 	}
+	
+	//공지사항
+	
+	@GetMapping("noticeList")
+	public String noticeList(@RequestParam(name= "page", defaultValue = "1") int current_page,
+			@RequestParam(name = "schType", defaultValue = "all") String schType,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			Model model, HttpServletRequest req) throws Exception {
+		
+		try {
+			int size = 10;
+			int total_page = 0;
+			int dataCount = 0;
+			
+			kwd = URLDecoder.decode(kwd,"utf-8");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("schType", schType);
+			map.put("kwd", kwd);
+			
+			dataCount = service.dataCount(map);
+			if(dataCount != 0) {
+				total_page = paginateUtil.pageCount(dataCount, size);
+			}
+			
+			current_page = Math.min(current_page, total_page);
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			List<Board> list = service.listBoard(map);
+			
+			String cp = req.getContextPath();
+			String query = "";
+			String listUrl = cp + "/dept/hrBoard/noticeList";
+			String articleUrl = cp + "/dept/hrBoard/noticeArticle?page=" + current_page;
+			if(! kwd.isBlank()) {
+				query = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+				
+				listUrl += "?" + query;
+				articleUrl += "&" + query;
+			}
+			
+			String paging = paginateUtil.paging(current_page, total_page, listUrl);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("page", current_page);
+			model.addAttribute("dataCount", dataCount);
+			model.addAttribute("size", size);
+			model.addAttribute("total_page", total_page);
+			model.addAttribute("paging", paging);
+			model.addAttribute("articleUrl", articleUrl);
+			
+			model.addAttribute("schType", schType);
+			model.addAttribute("kwd", kwd);
+	
+		} catch (Exception e) {
+			log.info("noticeList : ", e);
+		}
+		
+		return "dept/hrBoard/noticeList";
+	}
+	
+	@GetMapping("noticeWrite")
+	public String noticeWriteForm(Model model, HttpSession session) throws Exception {
+		model.addAttribute("mode", "write");
+		
+		return "dept/hrBoard/noticeWrite";
+	}
+	
+	@PostMapping("noticeWrite")
+	public String noticeWriteSubmit(Board dto, HttpSession session) throws Exception {
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			dto.setEmpIdx(info.getEmpIdx());
+			service.insertBoard(dto, uploadPath);
+			
+		} catch (Exception e) {
+			log.info("noticeWriteSubmit : ", e);
+		}
+		
+		return "redirect:/dept/hrBoard/noticeList";
+	}
+	
+	@GetMapping("noticeArticle")
+	public String noticeArticle(@RequestParam(name = "postIdx") long postIdx,
+			@RequestParam(name = "page") String page,
+			@RequestParam(name = "schType", defaultValue = "all") String schType,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd, Model model) throws Exception {
+		
+		String query = "page=" + page; 
+
+		try {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+			
+			if(! kwd.isBlank()) {
+				query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+			}
+			
+			Board dto = Objects.requireNonNull(service.findById(postIdx));
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("schType", schType);
+			map.put("kwd", kwd);
+			map.put("postIdx", postIdx);
+
+			Board prevDto = service.findByPrev(map);
+			Board nextDto = service.findByNext(map);
+			
+			List<Board> listFile = service.listFile(postIdx);
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("prevDto", prevDto);
+			model.addAttribute("nextDto", nextDto);
+			model.addAttribute("listFile", listFile);
+			model.addAttribute("page", page);
+			model.addAttribute("query", query);
+			
+			return "dept/hrBoard/noticeArticle";
+			
+		} catch (NullPointerException e) {
+			log.info("noticeArticle : ", e);
+		} catch (Exception e) {
+			log.info("noticeArticle : ", e);
+		}
+		
+		return "redirect:/dept/hrBoard/noticeList?" + query;
+	}
+	
+	@GetMapping("noticeUpdate")
+	public String noticeUpdateFrom(@RequestParam(name = "postIdx") long postIdx,
+			@RequestParam(name = "page") String page,
+			Model model, HttpSession session) throws Exception {
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			Board dto = Objects.requireNonNull(service.findById(postIdx));
+			if(info.getEmpIdx() != dto.getEmpIdx()) {
+				return "redirect:/dept/hrBoard/noticeList?page=" + page;
+			}
+			
+			List<Board> listFile = service.listFile(postIdx);
+			
+			model.addAttribute("mode", "update");
+			model.addAttribute("page", page);
+			model.addAttribute("dto", dto);
+			model.addAttribute("listFile", listFile);
+			
+			return "dept/hrBoard/noticeWrite";
+			
+		} catch (NullPointerException e) {
+			log.info("noticeUpdateForm : ", e);
+		} catch (Exception e) {
+			log.info("noticeUpdateForm : ", e);
+		}
+
+		return "redirect:/dept/hrBoard/noticeList?page=" + page;
+	}
+	
+	@PostMapping("noticeUpdate")
+	public String noticeUpdateSubmit(Board dto , @RequestParam(name = "page") String page,
+			HttpSession session) throws Exception {
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			dto.setEmpIdx(info.getEmpIdx());
+			service.updateBoard(dto, uploadPath);
+			
+		} catch (Exception e) {
+			log.info("noticeUpdateSubmit : ", e);
+		}
+		
+		return "redirect:/dept/hrBoard/noticeList?page=" + page;
+	}
+	
+	@GetMapping("noticeDelete")
+	public String noticeDeleteBoard(@RequestParam(name = "postIdx") long postIdx,
+			@RequestParam(name = "page") String page,
+			@RequestParam(name = "schType", defaultValue = "all") String schType,
+			@RequestParam(name = "kwd", defaultValue = "") String kwd,
+			HttpSession session) throws Exception {
+		
+		String query = "page=" + page;
+		try {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+			if(! kwd.isBlank()) {
+				query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+			}
+			
+			service.deleteBoard(postIdx, uploadPath);
+			
+		} catch (Exception e) {
+			log.info("noticeDeleteBoard : ", e);
+		}
+		
+		return "redirect:/dept/hrBoard/noticeList?" + query;
+	}
+	
+	@ResponseBody
+	@PostMapping("noticeInsertReply")
+	public Map<String, Object> noticeInsertReply(Reply dto, HttpSession session) {
+		Map<String, Object> model = new HashMap<>();
+		
+		String state = "true";
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			dto.setEmpIdx(info.getEmpIdx());
+			service.insertReply(dto);
+			
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		model.put("state", state);
+		return model;
+	}
+	
+	@GetMapping("noticeListReply")
+	public String noticeListReply(@RequestParam(name = "postIdx") long postIdx,
+			@RequestParam(name = "pageNo", defaultValue = "1") int current_page,
+			Model model, HttpServletResponse resp, HttpSession session) throws Exception {
+		
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			
+			int size = 10;
+			int total_page = 0;
+			int dataCount = 0;
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("postIdx", postIdx);
+			map.put("empIdx", info.getEmpIdx());
+			
+			dataCount = service.replyCount(map);
+			total_page = paginateUtil.pageCount(dataCount, size);
+			current_page = Math.min(current_page, total_page);
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset= 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			List<Reply> listReply = service.listReply(map);
+			
+			String paging = paginateUtil.pagingMethod(current_page, total_page, "listPage");
+			
+			model.addAttribute("listReply", listReply);
+			model.addAttribute("pageNo", current_page);
+			model.addAttribute("replyCount", dataCount);
+			model.addAttribute("total_page", total_page);
+			model.addAttribute("paging", paging);
+
+		} catch (Exception e) {
+			log.info("noticeListReply : ", e);
+			
+			resp.sendError(406);
+			throw e;
+		}
+		
+		return "dept/hrBoard/noticeListReply";
+	}
+	
+	@ResponseBody
+	@PostMapping("noticeDeleteReply")
+	public Map<String, Object> noticeDeleteReply(@RequestParam Map<String, Object> paramMap) {
+		Map<String, Object> model = new HashMap<>();
+		
+		String state = "true";
+		
+		try {
+			service.deleteReply(paramMap);
+		} catch (Exception e) {
+			state = "false";
+		}
+		model.put("state", state);
+		
+		return model;
+	}
 }
