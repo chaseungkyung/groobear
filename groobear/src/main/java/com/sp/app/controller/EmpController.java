@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.model.EmpRecord;
+import com.sp.app.common.StorageService;
 import com.sp.app.model.Member;
 import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 public class EmpController {
 	private final MemberService service;
 	private final PaginateUtil paginateUtil;
-	
 	
 	@GetMapping("list")
 	public String employeeList(@RequestParam(name="page", defaultValue="1") int current_page,
@@ -180,7 +180,7 @@ public class EmpController {
 			Map<String, Object> map = new HashMap<>();
 			
 			Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
-			List<EmpRecord> list = service.getEmpRecord(empIdx);
+			List<Member> list = service.getEmpRecord(empIdx);
 			
 			
 			model.addAttribute("list", list);
@@ -212,4 +212,24 @@ public class EmpController {
 		
 		return "redirect:/emp/update?empIdx=" + empIdx;
 	}
+	
+	@PostMapping("historyCreated")
+	public String historyCreated(
+			Member dto, HttpSession session ) throws Exception {
+		
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			dto.setUpdateCode(info.getEmpCode());
+			dto.setUpdateName(info.getEmpName());
+			
+			service.insertEmployeeHistory(dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return "redirect:/emp/update?empIdx=" + dto.getEmpIdx();
+	}
+	
+	
 }

@@ -41,10 +41,10 @@ public class Member {
 	private long historyIdx;
 	private String startDate;
 	private String endDate;
-	private String historyDeptName;
-	private String historyTeamName;
-	private String empHistoryRank;
+	private String empRank;
 	private String note;
+	private String updateCode;
+	private String updateName;
 	
 	// 부서 table
 	private String deptName;

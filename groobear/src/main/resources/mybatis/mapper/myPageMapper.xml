@@ -34,7 +34,7 @@
 	    WHERE e.empIdx = #{empIdx};
 	</update>
 	
-	<select id="getEmpRecord" parameterType ="long" resultType="com.sp.app.model.EmpRecord">
+	<select id="getEmpRecord" parameterType ="long" resultType="com.sp.app.model.Member">
 		SELECT historyIdx, empIdx, deptName, teamName, empRank, TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, note
 		FROM employeeHistory
 		WHERE empIdx = #{empIdx}

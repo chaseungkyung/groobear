@@ -7,10 +7,11 @@ import java.util.Objects;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.sp.app.common.StorageService;
 import com.sp.app.mapper.MemberMapper;
-import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,17 +21,29 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberMapper mapper;
-	private final PasswordEncoder bcryptEncoder;	
+	private final PasswordEncoder bcryptEncoder;
+	private final StorageService storageService;
+	
+	private String uploadPath;	
+	
+	@PostConstruct
+	public void init() {
+		uploadPath = this.storageService.getRealPath("/uploads/emp");		
+	}
 	
 	@Override
 	public void insertEmployee(Member dto) throws Exception {
 		
 		try {
+			String saveFilename = storageService.uploadFileToServer(dto.getSelectFile(), uploadPath);
+			if(saveFilename != null) {
+				dto.setSaveProfile(saveFilename);
+			}
 			
 			String encPassword = bcryptEncoder.encode(dto.getEmpPwd());
 			dto.setEmpPwd(encPassword);
 				
-				mapper.insertEmployee(dto);
+			mapper.insertEmployee(dto);
 			
 		} catch (Exception e) {
 			log.info("insertEmployee : ", e);
@@ -54,7 +67,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertEmployeeHistory(Member dto) throws Exception {
 		try {
+			
+			// History endDate 변경
+			Member his = mapper.lastEmpHistory(dto.getEmpIdx());
+			if(his != null) {
+				his.setEndDate(dto.getStartDate());
+				mapper.updateEmployeeHistory(his);
+			}
+			
 			mapper.insertEmployeeHistory(dto);
+			mapper.updateEmployee2(dto);
 			
 		} catch (Exception e) {
 			log.info("insertEmployeeHistory : ", e);
@@ -75,6 +97,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateEmployee(Member dto) throws Exception {
 	    try {
+			String saveFilename = storageService.uploadFileToServer(dto.getSelectFile(), uploadPath);
+			if(saveFilename != null) {
+				dto.setSaveProfile(saveFilename);
+			}
+			
 	        Member emp = findByEmpIdx(dto.getEmpIdx());
 
 	        // 이메일을 추가
@@ -279,8 +306,8 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public List<EmpRecord> getEmpRecord(long empIdx) throws Exception {
-		List<EmpRecord> list = null;
+	public List<Member> getEmpRecord(long empIdx) throws Exception {
+		List<Member> list = null;
 		try {
 			list = mapper.getEmpRecord(empIdx);
 		} catch (Exception e) {

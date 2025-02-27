@@ -9,16 +9,33 @@
 	<style type="text/css">
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
+		
+		.empInfo .img-viewer {
+			cursor: pointer;
+			border: 1px solid #ccc;
+			width: 225px;
+			height: 300px;
+			border-radius: 15px;
+			background-image: url("https://placehold.co/225x300");
+			position: relative;
+			z-index: 9999;
+			background-repeat : no-repeat;
+			background-size : cover;
+		}
+		
 	</style>
 	
 <script type="text/javascript">
 window.addEventListener('load', function(){
-		
+	
+	const mode = '${mode}';
+	
 	// request Dept
 	const fn = function(data){
 		if(data.state === 'false') {
 			return false;
 		}
+		
 		// dept 
 		if(data){
 			if(data.dept){
@@ -28,6 +45,9 @@ window.addEventListener('load', function(){
 					html += "<option value="+ item.deptIdx +">" + item.deptName +"</option>";
 				}
 				$("#deptIdx").append(html);
+				if(mode == 'update') {
+					$("#deptIdx2").append(html);
+				}
 				
 				let deptIdx = '${dto.deptIdx}';
 				$("#deptIdx").val(deptIdx);
@@ -43,6 +63,9 @@ window.addEventListener('load', function(){
 					html += "<option value="+ item.positionCode +">" + item.positionName +"</option>";
 				}
 				$("#positionCode").append(html);
+				if(mode == 'update') {
+					$("#positionCode2").append(html);
+				}
 				
 				$("#positionCode").val('${dto.positionCode}');
 			}
@@ -66,6 +89,7 @@ window.addEventListener('load', function(){
 				$("#teamIdx").val('${dto.teamIdx}');
 			}
 		};
+		
 		let formData = 'deptIdx=' + $("#deptIdx").val();
 		ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
 	})
@@ -77,43 +101,35 @@ function insertEmp() {
 	let str;
 		
 	let mode = '${mode}';
+	
+	
 		
  	f.action = '${pageContext.request.contextPath}/emp/${mode}';
     f.submit();
-			
-}
-	
-function updateEmpHistory() {
-	const f = document.historyForm;
-	let str;
-	let mode = '${mode}';
-		
-	f.action = '${pageContext.request.contextPath}/emp/${mode}';
-	f.submit();
 }
 
 $(function() {
-	let img = '${dto.origProfile}';
+	let img = '${dto.saveProfile}';
 	if( img ) { // 수정인 경우
-		img = '${pageContext.request.contextPath}/uploads/photo/' + img;
-		$('.empForm .img-viewer').empty();
-		$('.empForm .img-viewer').css('background-image', 'url(' + img + ')');
+		img = '${pageContext.request.contextPath}/uploads/emp/' + img;
+		$('.empInfo .img-viewer').empty();
+		$('.empInfo .img-viewer').css('background-image', 'url(' + img + ')');
 	}
 	
-	$('.empForm .img-viewer').click(function(){
-		$('form[name=photoForm] input[name=selectFile]').trigger('click'); 
+	$('.empInfo .img-viewer').click(function(){
+		$('form[name=empForm] input[name=selectFile]').trigger('click'); 
 	});
 	
-	$('form[name=photoForm] input[name=selectFile]').change(function(){
+	$('form[name=empForm] input[name=selectFile]').change(function(){
 		let file = this.files[0];
 		if(! file) {
-			$('.empForm .img-viewer').empty();
+			$('.empInfo .img-viewer').empty();
 			if( img ) {
-				img = '${pageContext.request.contextPath}/uploads/photo/' + img;
+				img = '${pageContext.request.contextPath}/uploads/emp/' + img;
 			} else {
-				img = '${pageContext.request.contextPath}/dist/images/add_photo.png';
+				img = 'https://placehold.co/225x300';
 			}
-			$('.empForm .img-viewer').css('background-image', 'url(' + img + ')');
+			$('.empInfo .img-viewer').css('background-image', 'url(' + img + ')');
 			
 			return false;
 		}
@@ -125,13 +141,12 @@ $(function() {
 		
 		let reader = new FileReader();
 		reader.onload = function(e) {
-			$('.empForm .img-viewer').empty();
-			$('.empForm .img-viewer').css('background-image', 'url(' + e.target.result + ')');
+			$('.empInfo .img-viewer').empty();
+			$('.empInfo .img-viewer').css('background-image', 'url(' + e.target.result + ')');
 		}
 		reader.readAsDataURL(file);
 	});
 });
-}
 
 </script>
 
@@ -144,13 +159,8 @@ $(function() {
 			<form name="empForm" method="post"  enctype="multipart/form-data">
 				<div class="empInfo">
 	                <div class="photoArea">
-	                    <div class="buttonArea">
-          	            	<button type="button" class="custom-button" onclick="">사진 등록</button>
-	                    </div>
-	                    <div class="img-viewer">
-	                        <!-- <img src="https://placehold.co/225x300" alt="샘플이미지"> -->
-	                        <input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
-	                    </div>
+                        <div class="img-viewer"></div>
+                        <input type="file" name="selectFile" accept="image/*" class="form-control" style="display: none;">
 	                </div>
 	                <div class="info">
 	                    <table>
@@ -171,7 +181,7 @@ $(function() {
 							<tr>
 								<th>부서</th>
 								<td>
-									<select name="deptIdx" id="deptIdx">
+									<select name="deptIdx" id="deptIdx" style="${mode=='update' ? 'pointer-events: none; background: #eee;':''}">
 										<option value="">부서를 선택해주세요</option>	
 									 </select>
 								</td>
@@ -181,7 +191,7 @@ $(function() {
 							<tr>
 								<th>소속</th>
 								<td>
-									<select name="teamIdx" id="teamIdx">
+									<select name="teamIdx" id="teamIdx" style="${mode=='update' ? 'pointer-events: none; background: #eee;':''}">
 										<option value="" >소속을 선택해주세요	</option>
 									</select>
 								</td>
@@ -191,7 +201,7 @@ $(function() {
 							<tr>
 								<th>직급</th>
 								<td>
-									<select name="positionCode" id="positionCode">
+									<select name="positionCode" id="positionCode" style="${mode=='update' ? 'pointer-events: none; background: #eee;':''}">
 										<option value="">직급을 선택해주세요</option>
 									</select>           
 								</td>
@@ -240,47 +250,131 @@ $(function() {
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>
-			<form name="historyForm" method="post">
-	            <div class="empHistory">
-	                <div class="title">
-	                    <p>사원 이력</p>
-	                </div>
-					<table class="empHistory">
-					    <tr>
-					        <th class="date-col">시작일</th>
-					        <th></th>
-					        <th class="date2-col">종료일</th>
-					        <th class="dept-col">부서</th>
-					        <th class="team-col">팀</th>
-					        <th class="rank-col">직급</th>
-					        <th class="note-col">비고</th>
-					        <th class="action-col"></th>
-					    </tr>
-					    <tr>
-					        <td><input type="text" class="input-small date-col"></td>
-					        <td>~</td>
-					        <td><input type="text" class="input-small date2-col"></td>
-					        <td><input type="text" class="input-small dept-col"></td>
-					        <td><input type="text" class="input-small team-col"></td>
-					        <td><input type="text" class="input-small rank-col"></td>
-					        <td><input type="text" class="input-small note-col"></td>
-					        <td><button type="button" class="action-col" onclick="updateEmpHistory();">등록</button></td>
-					    </tr>
-					    <c:forEach var="empInfo" items="${list}">
-					        <tr>
-					            <td class="date-col">${empInfo.startDate}</td>
-					            <td>~</td>
-					            <td class="date2-col">${empty empInfo.endDate ? '' : empInfo.endDate}</td>
-					            <td class="dept-col">${empInfo.deptName}</td>
-					            <td class="team-col">${empInfo.teamName}</td>
-					            <td class="rank-col">${empInfo.empRank}</td>
-					            <td class="action-col">${empInfo.note}</td>
-					            <td></td>
-					        </tr>
-					    </c:forEach>
-					</table>
-	            </div>
-            </form>
+			
+			<c:if test="${mode=='update'}">
+			
+				<form name="historyForm" method="post">
+		            <div style="width:1450px; padding: 15px;">
+		                <div class="title">
+		                    <p>사원 이력</p>
+		                </div>
+		                
+						<table class="table table-bordered">
+							<thead class="table-light">
+							    <tr align="center">
+							        <th width="250">날짜</th>
+							        <th width="200">부서</th>
+							        <th width="200">팀</th>
+							        <th width="200">직급</th>
+							        <th width="250">비고</th>
+							        <th width="100">담당</th>
+							        <th>변경</th>
+							    </tr>
+						    </thead>
+						    <tbody>
+							    <tr align="center">
+							        <td><input type="date" name="startDate" class="form-control form-control-sm"></td>
+							        <td>
+							        	<select name="deptIdx" id="deptIdx2" class="form-control form-control-sm">
+											<option value="">부서를 선택해주세요</option>	
+										 </select>
+										 <input type="hidden" name="deptName">
+									</td>
+									<td>
+							        	<select name="teamIdx" id="teamIdx2" class="form-control form-control-sm">
+											<option value="" >소속을 선택해주세요	</option>
+										</select>
+										<input type="hidden" name="teamName">
+									</td>
+									<td>
+							        	<select name="positionCode" id="positionCode2" class="form-control form-control-sm">
+											<option value="">직급을 선택해주세요</option>
+										</select>
+										<input type="hidden" name="empRank">
+							        </td>
+							        <td><input type="text" name="note" class="form-control form-control-sm"></td>
+							        <td>
+							        	${sessionScope.member.empName}
+									</td>
+							        <td>
+							        	<input type="hidden" name="empIdx" value="${dto.empIdx}">
+							        	<button type="button" class="action-col" onclick="updateEmpHistory();">등록</button>
+							        </td>
+							    </tr>
+						    </tbody>
+						    <tfoot>
+							    <c:forEach var="empInfo" items="${list}">
+							        <tr align="center">
+							            <td>${empInfo.startDate} ~ ${empty empInfo.endDate ? '현재' : empInfo.endDate}</td>
+							            <td>${empInfo.deptName}</td>
+							            <td>${empInfo.teamName}</td>
+							            <td>${empInfo.empRank}</td>
+							            <td align="left">${empInfo.note}</td>
+							            <td>${empInfo.updateName}</td>
+							            <td></td>
+							        </tr>
+							    </c:forEach>
+						    </tfoot>
+						</table>
+		            </div>
+	            </form>
+	            
+	            <script type="text/javascript">
+		            window.addEventListener('load', function(){
+		            	
+		            	// Dept Change Event / request Team
+		            	$("#deptIdx2").on("change", function() {
+		            		const fn = function(data){
+		            			if(data.state === 'false') {
+		            				return false;
+		            			}
+		            			if(data && data.team){
+		            				let html = "<option value='' selected disabled>소속을 선택해주세요</option>";
+		            				for(item of data.team){
+		            					html += "<option value="+ item.teamIdx +">" + item.teamName +"</option>";
+		            				}
+		            				$("#teamIdx2").html(html);
+		            			}
+		            		};
+		            		let formData = 'deptIdx=' + $("#deptIdx2").val();
+		            		ajaxRequest('/emp/getTeam', 'get', formData, 'json', fn);
+		            	})
+		            });
+		            
+		            function updateEmpHistory() {
+		            	const f = document.historyForm;
+
+		            	if(! f.startDate.value) {
+		            		f.startDate.focus();
+		            		return;
+		            	}
+
+		            	if(! f.deptIdx.value) {
+		            		f.deptIdx.focus();
+		            		return;
+		            	}
+		            	f.deptName.value = $('#deptIdx2 :selected').text();
+		            	
+		            	if(! f.teamIdx.value) {
+		            		f.deptIdx.focus();
+		            		return;
+		            	}
+		            	f.teamName.value = $('#teamIdx2 :selected').text();
+
+		            	if(! f.positionCode.value) {
+		            		f.deptIdx.focus();
+		            		return;
+		            	}
+		            	f.empRank.value = $('#positionCode2 :selected').text();
+
+		            	f.action = '${pageContext.request.contextPath}/emp/historyCreated';
+		            	f.submit();
+		            }
+		            
+	            </script>
+	            
+            </c:if>
+            
 		</div>
 	</main>
 </body>

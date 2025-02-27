@@ -53,7 +53,17 @@
 
 	<update id="updateEmployee" parameterType="com.sp.app.model.Member">
 		UPDATE Employee
-		SET empName=#{empName}, deptIdx=#{deptIdx, jdbcType=VARCHAR}, teamIdx=#{teamIdx, jdbcType=VARCHAR}, positionCode=#{positionCode, jdbcType=VARCHAR}, empTel= #{empTel}, empStatus=#{empStatus}, hireDate=#{hireDate}, retireDate=#{retireDate}
+		SET empName=#{empName}, deptIdx=#{deptIdx, jdbcType=VARCHAR}, teamIdx=#{teamIdx, jdbcType=VARCHAR}, 
+		positionCode=#{positionCode, jdbcType=VARCHAR}, empTel= #{empTel}, empStatus=#{empStatus}, 
+		saveProfile = #{saveProfile, jdbcType=VARCHAR},
+		hireDate=#{hireDate}, retireDate=#{retireDate}
+		WHERE empIdx = #{empIdx}
+	</update>
+
+	<update id="updateEmployee2" parameterType="com.sp.app.model.Member">
+		UPDATE Employee
+		SET deptIdx=#{deptIdx, jdbcType=VARCHAR}, teamIdx=#{teamIdx, jdbcType=VARCHAR}, 
+		positionCode=#{positionCode, jdbcType=VARCHAR}
 		WHERE empIdx = #{empIdx}
 	</update>
 	
@@ -65,7 +75,8 @@
 	
 	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.Member" >
 		select e.empIdx, e.empCode, e.empName, e.empPwd, e.deptIdx, e.teamIdx, e.positionCode, e.emptel, e.empStatus, 
-				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, TO_CHAR(e.retireDate,'YYYY-MM-DD') retireDate, d.deptName, t.teamName, p.positionName, ed.tel, ed.email, ed.addrmain, ed.addrSub, ed.zipcode, ed.rrn
+				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, TO_CHAR(e.retireDate,'YYYY-MM-DD') retireDate, d.deptName, t.teamName, p.positionName, 
+				ed.tel, ed.email, ed.addrmain, ed.addrSub, ed.zipcode, ed.rrn, saveProfile
 		from employee e
         left outer join employeedetail ed ON ed.empIdx = e.empIdx
 		left outer join department d ON d.deptidx = e.deptidx
@@ -108,15 +119,32 @@
 	</select>
 	
 	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
-		INSERT INTO employeeHistory(historyIdx, empIdx, startdate, enddate, deptname, teamname, emprank, note) 
-		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, #{startDate}, #{endDate}, #{deptName}, #{teamName}, #{empRank}, #{note})
+		INSERT INTO employeeHistory(historyIdx, empIdx, startdate, deptname, teamname, emprank, note, updateCode, updateName) 
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, #{startDate}, #{deptName}, #{teamName}, #{empRank}, #{note}, #{updateCode}, #{updateName})
 	</insert>
 	
-	<select id="getEmpRecord"  parameterType ="long" resultType="com.sp.app.model.EmpRecord">
-		SELECT historyIdx, empIdx, deptName, teamName, empRank, TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, note
+	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">
+		UPDATE employeeHistory SET enddate = TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		WHERE historyIdx = #{historyIdx}
+	</update>
+
+	<select id="getEmpRecord" parameterType ="long" resultType="com.sp.app.model.Member">
+		SELECT historyIdx, empIdx, deptName, teamName, empRank, 
+			TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, 
+			note, updateName, updateCode
 		FROM employeeHistory
 		WHERE empIdx = #{empIdx}
-		ORDER BY startDate DESC
+		ORDER BY historyIdx DESC
+	</select>
+
+	<select id="lastEmpHistory" parameterType ="long" resultType="com.sp.app.model.Member">
+		SELECT historyIdx, empIdx, deptName, teamName, empRank, 
+			TO_CHAR(startDate,'YYYY-MM-DD') AS startDate, TO_CHAR(endDate,'YYYY-MM-DD') AS endDate, 
+			note, updateName, updateCode
+		FROM employeeHistory
+		WHERE empIdx = #{empIdx}
+		ORDER BY historyIdx DESC
+		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
 </mapper>

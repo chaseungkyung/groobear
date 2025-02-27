@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 import com.sp.app.model.MyPage;
 
@@ -19,7 +18,7 @@ public interface MyPageMapper {
 	public MyPage getLoginTime(long empIdx);
 	public Member getEmpInfo(Map<String, Object> map) throws SQLException;
 	public Member updateEmpInfo(Map<String, Object> map) throws SQLException;
-	public List<EmpRecord> getEmpRecord(long empIdx) throws SQLException;
+	public List<Member> getEmpRecord(long empIdx) throws SQLException;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sp.app.model.EmpRecord;
 import com.sp.app.model.Member;
 
 @Mapper
@@ -31,6 +30,7 @@ public interface MemberMapper {
 	public void updateMemberStatus(Map<String, Object> map) throws SQLException;
 	
 	public void updateEmployee(Member dto) throws SQLException;
+	public void updateEmployee2(Member dto) throws SQLException;
 	public void updateEmployeeDetail(Member dto) throws SQLException;
 	public void updateEmployeeHistory(Member dto) throws SQLException;
 
@@ -41,7 +41,8 @@ public interface MemberMapper {
 	
 	public Member findByEmpIdx(long empIdx);
 	
-	public List<EmpRecord> getEmpRecord(long empIdx) throws SQLException;
+	public List<Member> getEmpRecord(long empIdx) throws SQLException;
+	public Member lastEmpHistory(long empIdx) throws SQLException;
 	
 	// 사번 찾기
 	public Member findByEmpCode(String emdCode);

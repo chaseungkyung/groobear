@@ -28,14 +28,14 @@
 .empHistory table tr {height: 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee;}
 .empHistory table tr:first-child {background-color: #efefef;}
 
-.empHistory table td:first-child {padding-left: 10px; text-align: left;}
+.empHistory table td:first-child {padding-left: 10px; text-align: center;}
 
 .empHistory {width: 120%; border-collapse: collapse;}
 
 .empHistory th, .empHistory td {text-align: center; padding: 8px;}
 
-/* 테이블 스타일 */
-.empHistory {width: 130%; border-collapse: collapse;}
+/* 테이블 스타일   border-collapse: collapse; */
+.empHistory {width: 100%;}
 
 .empHistory table th:nth-child(1), .empHistory table td:nth-child(1) {width:10%}
 .empHistory table th:nth-child(2), .empHistory table th:nth-child(3), .empHistory table th:nth-child(4),
