@@ -13,19 +13,16 @@
 	
 <script type="text/javascript">
 
-function insertEmp() {
-		const f = document.empForm;
-		let str;
-		
-		let mode = '${mode}';
-		
-	 	f.action = '${pageContext.request.contextPath}/mypage/${mode}';
-	    f.submit();
-			
+function insertEmp(){
+	const f = document.empForm;
+	let str;
+	
+	f.action = '${pageContext.request.contextPath}/mypage/modify';
+	f.submit();
 }
 
 $(function() {
-	let img = '${dto.saveProfile}';
+	let img = '${empInfo.saveProfile}';
 	if( img ) { // 수정인 경우
 		img = '${pageContext.request.contextPath}/uploads/emp/' + img;
 		$('.empInfo .img-viewer').empty();
@@ -93,7 +90,7 @@ $(function() {
 								<th>성명</th>
 								<td><input type="text" name="empName" class="readonly" value="${empInfo.empName}"></td>
 								<th>입사년월</th>
-								<td><input type="date" name="hireDate" id="" class="readonly" value="${mode=='update' ? empInfo.hireDate : ''}" readOnly>
+								<td><input type="date" name="hireDate" id="" class="readonly" value="${empInfo.hireDate}" readOnly>
 								
 								</td>
 							</tr>
@@ -101,7 +98,7 @@ $(function() {
 								<th>부서</th>
 								<td><input type="text" class="readonly" value="${empInfo.deptName}" readonly></td>
 								<th>퇴사년월일</th>
-								<td><input type="date" class="readonly" name="retireDate" readOnly></td>
+								<td><input type="date" class="readonly" name="retireDate" value="${empInfo.retireDate}"readOnly></td>
 							</tr>
 							<tr>
 								<th>소속</th>
@@ -111,7 +108,7 @@ $(function() {
 							</tr>
 							<tr>
 								<th>직급</th>
-								<td><input type="text" class="readonly" value="${empInfo.positionCode}" readonly></td>
+								<td><input type="text" class="readonly" value="${empInfo.positionName}" readonly></td>
 								<th>휴대폰번호</th>
 								<td class="tel"><input type="tel" name="tel" id="tel" class="readonly" value="${empInfo.tel}" readOnly></td>
 							</tr>
@@ -133,10 +130,11 @@ $(function() {
 						</table>
 	                </div>
 	            </div>
+	            <div style= "text-align: left; margin-left: 55px;">
+				    <button type="button" class="custom-button" onclick="insertEmp();" >사진 수정 완료</button>
+				    <input type='hidden' name="empIdx" value="${empInfo.empIdx}">
+	            </div>
             </form>
-            <div style= "text-align: left; margin-left: 55px;">
-			    <button type="button" class="custom-button" onclick="location.href='${pageContext.request.contextPath}/mypage/modify'" >사진 수정 완료</button>
-            </div>
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>

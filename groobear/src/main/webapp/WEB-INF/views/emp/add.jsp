@@ -87,8 +87,6 @@ function insertEmp() {
 	let str;
 		
 	let mode = '${mode}';
-	
-	
 		
  	f.action = '${pageContext.request.contextPath}/emp/${mode}';
     f.submit();
