@@ -10,7 +10,7 @@ public class MapController {
 
 	@GetMapping("map")
 	public String map() {
-		return "/map/map";
+		return "map/map";
 	}
 	
 }
