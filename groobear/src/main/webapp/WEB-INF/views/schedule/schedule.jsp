@@ -176,7 +176,7 @@
 								obj.allDay = false;
 							} else {
 								obj.allDay = true;
-							}
+							} 
 							obj.start = item.start;
 							obj.end = item.end;
 							obj.color = item.color;
