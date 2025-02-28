@@ -8,7 +8,7 @@
 	
 	<insert id="insertBoard" parameterType="com.sp.app.model.board.Board">
 		INSERT INTO hrBoard(postIdx, empIdx, title, content, regDate, updateDate)
-		VALUES (#{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE )
+		VALUES (#{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE)
 	</insert> <!-- updateDate null 이어서 insert 안 될 수 있음 -->
 	
 	<sql id="where-list">

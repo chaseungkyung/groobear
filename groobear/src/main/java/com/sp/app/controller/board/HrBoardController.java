@@ -124,7 +124,7 @@ public class HrBoardController {
 		
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+			dto.setEmpIdx(info.getEmpIdx());
 			service.insertBoard(dto, uploadPath);
 			
 		} catch (Exception e) {
