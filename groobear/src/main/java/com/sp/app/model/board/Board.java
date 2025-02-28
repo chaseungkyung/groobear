@@ -21,7 +21,7 @@ public class Board {
 	private String content;
 	private String regDate;
 	private String updateDate;
-	
+
 	//파일
 	private long fileIdx;
 	private String originalFilename;

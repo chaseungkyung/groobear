@@ -46,27 +46,24 @@
                     </div>
                 </div>
             </div>
-            <div class="project">
-                <h2>프로젝트 진행 현황</h2>
-                <div class="selectBox">
-                    <select name="" id="">
-                        <option value="">A 프로젝트</option>
-                        <option value="">B 프로젝트</option>
-                        <option value="">C 프로젝트</option>
-                        <option value="">D 프로젝트</option>
-                        <option value="">E 프로젝트</option>
-                        <option value="">F 프로젝트</option>
-                    </select>
-                </div>
-                <div class="chartArea">
-                	
+            <div class="calendar">
+            	<h2>일정</h2>
+            </div>
+            <div class="notice">
+                <h2>공지사항</h2>
+                <div class="noticeList">
+                    <ul>
+                        <li><a href="javscript:;">[공지 1] 회사 내 규정 사항 공지합니다.</a></li>
+                        <li><a href="javscript:;">[공지 2] 설 연휴 사내 출입 관련 공지</a></li>
+                        <li><a href="javscript:;">[공지 3] 설 연휴 선물 배송 관련 안내ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</a></li>
+                        <li><a href="javscript:;">[공지 4] 공지 개싫음</a></li>
+                        <li><a href="javscript:;">[공지 4] 공지 개싫음</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="alarm">
-                <h2>알림</h2>
-                <div class="alarmList"></div>
+            <div class="dataRoom">
+                <h2>자료실</h2>
             </div>
-            <div class="calendar"></div>
             <div class="sign">
                 <h2>결재 대기 문서</h2>
                 <div class="signStandBy"></div>
@@ -80,18 +77,6 @@
                         <li><a href="javscript:;">메일3</a></li>
                         <li><a href="javscript:;">메일4</a></li>
                         <li><a href="javscript:;">메일5</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="notice">
-                <h2>공지사항</h2>
-                <div class="noticeList">
-                    <ul>
-                        <li><a href="javscript:;">[공지 1] 회사 내 규정 사항 공지합니다.</a></li>
-                        <li><a href="javscript:;">[공지 2] 설 연휴 사내 출입 관련 공지</a></li>
-                        <li><a href="javscript:;">[공지 3] 설 연휴 선물 배송 관련 안내ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</a></li>
-                        <li><a href="javscript:;">[공지 4] 공지 개싫음</a></li>
-                        <li><a href="javscript:;">[공지 4] 공지 개싫음</a></li>
                     </ul>
                 </div>
             </div>
