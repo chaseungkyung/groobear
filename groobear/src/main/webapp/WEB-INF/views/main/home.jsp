@@ -10,6 +10,18 @@
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
 	</style>	
+<script type="text/javascript">
+
+function ClockIn() {
+	const f = document.ClockForm;
+	
+	f.action = '${pageContext.request.contextPath}/main/home}';
+	f.submit();
+}	
+	
+
+</script>
+
 </head>
 <body>
 
@@ -18,9 +30,11 @@
 		<div class="mainInner home">
             <div class="info">
                 <div class="info-inner">
+					<form name="ClockForm">
                     <div class="today"><p>2025년 01월 20일</p></div>
                     <div class="profile">
-                        <div class="userImg"></div>
+
+                        <input type='hidden' name="empIdx" value="${empInfo.empIdx}">
                         <div class="department"><p>${sessionScope.member.deptName}</p></div>
                         <div class="name"><p>${sessionScope.member.empName}</p></div>
                     </div>
@@ -42,8 +56,9 @@
                         </div>
                     </div>
                     <div class="btnWrap">
-                        <button type="button">출근</button>
+                        <button type="button" onclick="ClockIn();">출근</button>
                     </div>
+					</form>
                 </div>
             </div>
             <div class="calendar">

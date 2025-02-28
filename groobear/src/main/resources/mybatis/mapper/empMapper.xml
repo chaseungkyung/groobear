@@ -147,4 +147,7 @@
 		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
+	<select id="findByProfile" parameterType="long" resultType="com.sp.app.model.Member">
+		SELECT saveProfile FROM employee WHERE empIdx = #{empIdx, jdbcType=VARCHAR}
+	</select>
 </mapper>

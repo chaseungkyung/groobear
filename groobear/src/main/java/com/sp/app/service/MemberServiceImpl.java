@@ -308,4 +308,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return list;
 	}
+
+	@Override
+	public Member findByProfile(long empIdx) {
+		Member saveProfile = null;
+		try {
+			saveProfile = mapper.findByProfile(empIdx);
+		} catch (Exception e) {
+			throw e;
+		}
+		return saveProfile;
+	}
 }

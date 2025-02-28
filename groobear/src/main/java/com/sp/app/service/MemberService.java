@@ -30,6 +30,9 @@ public interface MemberService {
 	public Member findByEmpIdx(long empIdx);
 	public Member findByEmpCode(String emdCode);
 	
+	// 홈 메인 프로필사진
+	public Member findByProfile(long empIdx);
+	
 	// empHistory
 	public List<Member> getEmpRecord(long empIdx) throws Exception;
 	

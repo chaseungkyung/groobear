@@ -33,7 +33,10 @@ public interface MemberMapper {
 	public void updateEmployee2(Member dto) throws SQLException;
 	public void updateEmployeeDetail(Member dto) throws SQLException;
 	public void updateEmployeeHistory(Member dto) throws SQLException;
-
+	
+	// 홈 프로필사진
+	public Member findByProfile(long empIdx);
+	
 	// 로그인 실패 횟수
 	public int checkFailureCount(String empCode);
 	public void updateFailureCountReset(String empCode) throws SQLException;
