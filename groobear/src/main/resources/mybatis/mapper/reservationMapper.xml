@@ -15,24 +15,24 @@
 	</insert>
 
 	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Reservation">
-		SELECT reservationIdx, title, reservDate, startTime, endTime, empCode, empName,
-				cabinet, reg_date,
+		SELECT reservIdx, title, reservDate, startTime, endTime, empCode, empName,
+				cabinet, regDate
 		FROM reservation
 		<where>
-			cabinet = {#cabinet}
+			cabinet = #{cabinet}
 		</where>
-		ORDER BY startTime ASC, reservationIdx DESC 
+		ORDER BY startTime ASC, reservIdx DESC 
 	</select>
 
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Reservation">
-		SELECT reservationIdx, title, reservDate, startTime, endTime, cabinet, empCode, empName, reg_date  
+		SELECT reservIdx, title, reservDate, startTime, endTime, cabinet, empCode, empName, regDate  
 		FROM  reservation
-		WHERE reservationidx = #{reservationIdx}
+		WHERE reservIdx = #{reservIdx}
 	</select>
 	
 	<delete id="deleteReservation" parameterType="map">
 		DELETE FROM reservation
-		WHERE reservationIdx = #{reservationIdx} AND empCode = #{empCode}
+		WHERE reservIdx = #{reservIdx} AND empCode = #{empCode}
 	</delete>
 
 </mapper>

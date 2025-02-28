@@ -60,7 +60,7 @@
 			 					<tr>
 									<td class="bg-light col-2 align-middle">등록일</td>
 									<td>
-										<p class="form-control-plaintext view-reg_date"></p>
+										<p class="form-control-plaintext view-regDate"></p>
 									</td>
 								</tr>
 			
@@ -122,9 +122,10 @@
 				},
 				events: function(info, successCallback, failureCallback) {
 					let url = '${pageContext.request.contextPath}/reservation/month';
+					let startDate = info.startStr.substr(0, 10);
+					let endDate = info.endStr.substr(0, 10);
 					let cabinet = $('#calendar').attr('data-cabinet');
-					let reservDate = info.startStr.substr(0,10);
-					let formData = 'reservDate=' + reservDate + '&cabinet=' + cabinet;
+					let formData = 'start=' + startDate + '&end=' + endDate + '&cabinet=' + cabinet;
 		            
 					const fn = function(data){
 						
@@ -135,7 +136,7 @@
 							let obj = {};
 							
 							// fullcalendar 속성
-							obj.id = item.reservationIdx;
+							obj.id = item.reservIdx;
 							obj.title = item.title;
 							obj.start = item.start;
 							obj.end = item.end;
@@ -145,7 +146,7 @@
 							obj.empName = item.empName;
 							obj.stime = item.startTime;
 							obj.etime = item.endTime;
-							obj.reg_date = item.reg_date;
+							obj.regDate = item.regDate;
 							
 							arr.push(obj);
 						}
@@ -162,7 +163,7 @@
 					// console.log(info);
 					
 					// 입력 폼 출력
-					insertSchedule(info.startStr, info.endStr, info.allDay);
+					insertReservation(info.startStr, info.endStr, info.allDay);
 					
 					calendar.unselect(); // 현재 선택된 영역을 지움			
 				},
@@ -170,7 +171,7 @@
 					// 일정 제목을 선택한 경우
 		
 					//  상세 일정 보기
-					viewSchedule(info.event);
+					viewReservation(info.event);
 				},
 				eventDrop: function(info) {
 					// 일정을 드래그 한 경우
@@ -227,14 +228,14 @@
 			let startTime = calEvent.extendedProps.stime;
 			let endTime = calEvent.extendedProps.etime;
 			
-			let reg_date = calEvent.extendedProps.reg_date;
+			let regDate = calEvent.extendedProps.regDate;
 			
 			$('.btnReservationDelete').attr('data-num', num);
 			
 			let s;
 			$('.view-subject').html(title);
 			
-			$('.view-cabinet').html(cabinet[cabinets]);
+			$('.view-cabinet').html(cabinets[cabinet]);
 		
 			s = reservDate;
 			if( startTime ) {
@@ -243,7 +244,7 @@
 			if( endTime ) s += ' ' + endTime;
 			$('.view-period').html(s);
 			
-			$('.view-reg_date').html(reg_date);
+			$('.view-regDate').html(regDate);
 			
 			$('.view-emp').html(empName);
 		}

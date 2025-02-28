@@ -51,7 +51,7 @@ public class ReservationController {
 	
 	@GetMapping("write")
 	public String writeForm(@ModelAttribute(value = "dto") Reservation dto,
-			@RequestParam(name = "cabinet")String cabinet,
+			@RequestParam(name = "cabinet") String cabinet,
 			HttpSession session,
 			Model model) throws Exception {
 		try {
@@ -66,7 +66,7 @@ public class ReservationController {
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
-		
+		System.out.println("회의실 GET"+cabinet);
 		return "reservation/write";
 	}
 	
@@ -94,7 +94,7 @@ public class ReservationController {
 		} catch (Exception e) {
 			log.info("writeSubmit : ", e);
 		}
-		
+
 		return "redirect:/reservation/main?cabinet=" + cabinet;
 	}
 	
@@ -119,7 +119,21 @@ public class ReservationController {
 			map.put("empName", info.getEmpName());
 			
 			List<Reservation> list = service.listMonth(map);
-			
+			for(Reservation dto : list) {
+		    	if(dto.getStartTime() != null && ! dto.getStartTime().isBlank()) {
+		    		// 2021-10-10T10:10
+		    		dto.setStart(dto.getReservDate() + "T" + dto.getStartTime());
+		    	} else {
+		    		dto.setStart(dto.getReservDate());
+		    	}
+	    	
+		    	if(dto.getEndTime() != null && ! dto.getEndTime().isBlank()) {
+		    		dto.setEnd(dto.getReservDate() + "T" + dto.getEndTime());
+		    	} else {
+		    		dto.setEnd(dto.getReservDate());
+		    	}
+		    	
+			}
 			model.put("list", list);
 			
 		} catch (Exception e) {
