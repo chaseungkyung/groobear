@@ -166,5 +166,7 @@ public interface ProjectMapper {
 
 	// projectPost 테이블 게시글 하나 가져오는 메소드
 	public ProjectPost getProjectPostById(long postIdx);
-
+	
+	
+	
 }

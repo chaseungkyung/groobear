@@ -7,6 +7,9 @@ import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
+import com.sp.app.model.project.ProjectPost;
+import com.sp.app.model.project.ProjectStage;
+import com.sp.app.model.project.ProjectTask;
 import com.sp.app.model.project.ProjectTeam;
 
 public interface ProjectService {
@@ -18,9 +21,7 @@ public interface ProjectService {
 
 	public List<Member> getEmployList(Map<String, Object> map);
 
-	// < ProjectTeam >
-	public List<ProjectTeam> getProjectTeamList(long projIdx);
-
+	
 	// < Project >
 	public void insertProject(Project dto) throws Exception;
 
@@ -33,6 +34,17 @@ public interface ProjectService {
 	public int getProjectCount(Map<String, Object> map);
 
 	public Project getProjectById(long projIdx) throws Exception;
+	
+	
+	// < ProjectTeam >
+	public void insertProjectTeam(ProjectTeam dto) throws Exception;
+
+	public void updateProjectTeam(ProjectTeam dto) throws Exception;
+
+	public void deleteProjectTeam(long projTeamIdx) throws Exception;
+	
+	public List<ProjectTeam> getProjectTeamList(long projIdx);
+	
 
 	// < ProjectMember >
 	public void insertProjectMember(ProjectMember dto) throws Exception;
@@ -44,5 +56,53 @@ public interface ProjectService {
 	public List<ProjectMember> getProjectMemberList(Map<String, Object> map);
 
 	public int getProjectMemberCount(Map<String, Object> map);
+	
+	
+	// <ProjectStage>
+	public void insertProjectStage(ProjectStage dto) throws Exception;
+
+	public void updateProjectStage(ProjectStage dto) throws Exception;
+
+	public void deleteProjectStage(long stageIdx) throws Exception;
+
+	public List<ProjectStage> getProjectStageList(Map<String, Object> map);
+
+	public int getProjectStageCount(Map<String, Object> map);
+
+	public ProjectStage getProjectStageById(long stageIdx);
+	
+	
+	// <ProjectTask>
+	public void insertProjectTask(ProjectTask dto) throws Exception;
+
+	public void updateProjectTask(ProjectTask dto) throws Exception;
+
+	public void deleteProjectTask(long taskIdx) throws Exception;
+
+	public List<ProjectTask> getProjectTaskList(Map<String, Object> map);
+
+	public int getProjectTaskCount(Map<String, Object> map);
+	
+	// 프로젝트 진행률 계산
+	public int getProgressRate(long projIdx, long stageIdx);
+
+	public ProjectTask getProjectTaskById(long taskIdx);
+	
+	
+	// <ProjectPost>
+	public void insertProjectPost(ProjectPost dto) throws Exception;
+
+	public void updateProjectPost(ProjectPost dto) throws Exception;
+
+	public void deleteProjectPost(ProjectPost dto) throws Exception;
+
+	public List<ProjectPost> getProjectPostList(Map<String, Object> map);
+
+	public int getProjectPostCount(Map<String, Object> map);
+	
+	public ProjectPost getProjectPostById(long postIdx);
+	
+	
+	
 
 }

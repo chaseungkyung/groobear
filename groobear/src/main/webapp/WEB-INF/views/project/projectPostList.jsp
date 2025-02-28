@@ -72,11 +72,11 @@
 	
 	<div class="row board-list-footer">
 		
-		<div class="col-4 text-center">
-			<form class="row" name="searchForm">
+		<div class="searchArea">
+			<form class="row" name="searchForm" style="justify-content: center;">
 				
 				<div class="col-auto p-1">
-					<select name="schType" class="form-select">
+					<select name="schType" class="form-select" >
 						<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
 						<option value="userName" ${schType=="userName"?"selected":""}>작성자</option>
 						<option value="reg_date" ${schType=="reg_date"?"selected":""}>등록일</option>

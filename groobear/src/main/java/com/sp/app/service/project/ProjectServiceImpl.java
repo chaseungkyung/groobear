@@ -1,5 +1,6 @@
 package com.sp.app.service.project;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,9 @@ import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
+import com.sp.app.model.project.ProjectPost;
+import com.sp.app.model.project.ProjectStage;
+import com.sp.app.model.project.ProjectTask;
 import com.sp.app.model.project.ProjectTeam;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +50,25 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return list;
 	}
+	
+	
+	@Override
+	public List<Member> getEmployList(Map<String, Object> map) {
+		List<Member> list = null;
 
+		try {
+			list = mapper.getEmployList(map);
+
+		} catch (Exception e) {
+			log.info("getEmployList : ", e);
+		}
+
+		return list;
+	}
+	
+	
+	// 프로젝트
+	
 	@Override
 	public void insertProject(Project dto) throws Exception {
 		try {
@@ -92,7 +114,22 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return listProject;
 	}
+	
+	
+	@Override
+	public int getProjectCount(Map<String, Object> map) {
+		int result = 0;
 
+		try {
+			result = mapper.getProjectCount(map);
+		} catch (Exception e) {
+			log.info("dataCount : ", e);
+		}
+
+		return result;
+	}
+	
+	
 	@Override
 	public Project getProjectById(long projIdx) throws Exception {
 		Project dto = null;
@@ -107,18 +144,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return dto;
 	}
 
-	@Override
-	public int getProjectCount(Map<String, Object> map) {
-		int result = 0;
 
-		try {
-			result = mapper.getProjectCount(map);
-		} catch (Exception e) {
-			log.info("dataCount : ", e);
-		}
-
-		return result;
-	}
 
 	// 프로젝트 멤버
 
@@ -185,20 +211,43 @@ public class ProjectServiceImpl implements ProjectService {
 		return result;
 	}
 
+
+
+	// 프로젝트 팀
+
 	@Override
-	public List<Member> getEmployList(Map<String, Object> map) {
-		List<Member> list = null;
-
+	public void insertProjectTeam(ProjectTeam dto) throws Exception {
 		try {
-			list = mapper.getEmployList(map);
-
+			mapper.insertProjectTeam(dto);
+			
 		} catch (Exception e) {
-			log.info("getEmployList : ", e);
+			log.info("insertProjectTeam : ", e);
 		}
-
-		return list;
+		
 	}
 
+	@Override
+	public void updateProjectTeam(ProjectTeam dto) throws Exception {
+		try {
+			mapper.updateProjectTeam(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProjectTeam : ", e);
+		}
+		
+	}
+
+	@Override
+	public void deleteProjectTeam(long projTeamIdx) throws Exception {
+		try {
+			mapper.deleteProjectTeam(projTeamIdx);
+		} catch (Exception e) {
+			log.info("deleteProjectTeam : ", e);
+		}
+		
+	}
+	
+	
 	@Override
 	public List<ProjectTeam> getProjectTeamList(long projIdx) {
 		List<ProjectTeam> list = null;
@@ -211,5 +260,269 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return list;
 	}
+	
+	
+	// 프로젝트 stage
+	
+	@Override
+	public void insertProjectStage(ProjectStage dto) throws Exception {
+		try {
+			mapper.insertProjectStage(dto);
+		} catch (Exception e) {
+			log.info("insertProjectStage : ", e);
+		}
+		
+	}
+
+	@Override
+	public void updateProjectStage(ProjectStage dto) throws Exception {
+		try {
+			mapper.updateProjectStage(dto);
+		} catch (Exception e) {
+			log.info("updateProjectStage : ", e);
+		}
+		
+	}
+	
+	
+	@Override
+	public void deleteProjectStage(long stageIdx) throws Exception {
+		try {
+			mapper.deleteProjectStage(stageIdx);
+		} catch (Exception e) {
+			log.info("deleteProjectStage : ", e);
+		}
+		
+	}
+
+	@Override
+	public List<ProjectStage> getProjectStageList(Map<String, Object> map) {
+		List<ProjectStage> list = null;
+		
+		try {
+			list = mapper.getProjectStageList(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectStageList : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int getProjectStageCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.getProjectStageCount(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectStageCount : ", e);
+		}
+		
+		return result;
+	}
+	
+	
+	@Override
+	public ProjectStage getProjectStageById(long stageIdx) {
+		ProjectStage dto = null;
+		
+		try {
+			
+			dto = mapper.getProjectStageById(stageIdx);
+			
+		} catch (Exception e) {
+			log.info("getProjectStageById : ", e);
+		}
+		
+		return dto;
+	}
+	
+	
+	// 프로젝트 taske
+	
+	@Override
+	public void insertProjectTask(ProjectTask dto) throws Exception {
+		try {
+			mapper.insertProjectTask(dto);
+			
+		} catch (Exception e) {
+			log.info("insertProjectTask : ", e);
+		}
+		
+	}
+
+	@Override
+	public void updateProjectTask(ProjectTask dto) throws Exception {
+		try {
+			mapper.updateProjectTask(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProjectTask : ", e);
+		}
+		
+	}
+
+	@Override
+	public void deleteProjectTask(long taskIdx) throws Exception {
+		try {
+			mapper.deleteProjectTask(taskIdx);
+			
+		} catch (Exception e) {
+			log.info("deleteProjectTask : ", e);
+		}
+		
+	}
+
+	@Override
+	public List<ProjectTask> getProjectTaskList(Map<String, Object> map) {
+		List<ProjectTask> list = null;
+		
+		try {
+			list = mapper.getProjectTaskList(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectTaskList : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int getProjectTaskCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.getProjectTaskCount(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectTaskCount : ", e);
+		}
+		
+		return result;
+	}
+	
+	
+	// 프로젝트 진행률 계산
+	@Override
+	public int getProgressRate(long projIdx, long stageIdx) {
+		int progressRate = 0;
+		
+		try {
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("projIdx", projIdx);
+			map.put("stageIdx", stageIdx);
+			
+			int totalCount = getProjectTaskCount(map);
+			
+			map.put("status", 3);
+			int completedCount = getProjectTaskCount(map);
+			
+			if(totalCount > 0) {
+				progressRate = (int) Math.round(((double) completedCount / totalCount) * 100);
+			}
+			
+			
+		} catch (Exception e) {
+			log.info("getProgressRate : ", e);
+		}
+		
+		return progressRate;
+	}
+	
+
+	@Override
+	public ProjectTask getProjectTaskById(long taskIdx) {
+		ProjectTask dto = null;
+		
+		try {
+			dto = mapper.getProjectTaskById(taskIdx);
+			
+		} catch (Exception e) {
+			log.info("getProjectTaskById : ", e);
+		}
+		
+		return dto;
+	}
+
+	
+	// 프로젝트 Post
+	
+	@Override
+	public void insertProjectPost(ProjectPost dto) throws Exception {
+		try {
+			mapper.insertProjectPost(dto);
+			
+		} catch (Exception e) {
+			log.info("insertProjectPost : ", e);
+		}	
+	}
+
+	@Override
+	public void updateProjectPost(ProjectPost dto) throws Exception {
+		try {
+			mapper.updateProjectPost(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProjectPost : ", e);
+		}	
+	}
+
+	@Override
+	public void deleteProjectPost(ProjectPost dto) throws Exception {
+		try {
+			mapper.deleteProjectPost(dto);
+			
+		} catch (Exception e) {
+			log.info("deleteProjectPost : ", e);
+		}
+		
+	}
+
+	@Override
+	public List<ProjectPost> getProjectPostList(Map<String, Object> map) {
+		List<ProjectPost> list = null;
+		
+		try {
+			list = mapper.getProjectPostList(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectPostList : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int getProjectPostCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.getProjectPostCount(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectPostCount : ", e);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ProjectPost getProjectPostById(long postIdx) {
+		ProjectPost dto = null;
+		
+		try {
+			dto = mapper.getProjectPostById(postIdx);
+			
+		} catch (Exception e) {
+			log.info("getProjectPostById : ", e);
+		}
+		
+		return dto;
+	}
+
+
 
 }

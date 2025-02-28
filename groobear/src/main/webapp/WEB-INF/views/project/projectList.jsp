@@ -21,7 +21,6 @@
 		main .listArea ul li:nth-child(5) {width: 15%;}
 		main .listArea ul li:nth-child(6) {width: 10%;}
 		
-		.page-navigation > ul {background-color: unset !important;}
 	</style>
 </head>
 <body>

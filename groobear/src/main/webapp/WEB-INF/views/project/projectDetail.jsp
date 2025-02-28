@@ -49,32 +49,16 @@
 						<div class="progress-rate-title">
 							<span>프로젝트 진행률</span>
 						</div>
-						
+											
 						<div class="stage-progress-rate">
-							<div class="stage-progress-bar">
-								<div data-width="88" style="">
-									<h3> DB 설계 </h3> 
-									<span>88%</span>
+							<c:forEach var="dto" items="${stageList}" varStatus="status">
+								<div class="stage-progress-bar">
+									<div data-width="${progressRate}" style="">
+										<h3> ${dto.stageName} </h3> 
+										<span>${progressRate}%</span>
+									</div>
 								</div>
-							</div>
-							<div class="stage-progress-bar">
-								<div data-width="88" style="">
-									<h3> 디자인 작업 </h3>
-									<span>88%</span>
-								</div>
-							</div>
-							<div class="stage-progress-bar">
-								<div data-width="88" style="">
-									<h3> 기능 개발 </h3>
-									<span>88%</span>
-								</div>
-							</div>
-							<div class="stage-progress-bar">
-								<div data-width="88" style="">
-									<h3> xptmxm </h3>
-									<span>88%</span>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 						
 						

@@ -198,7 +198,6 @@
 		LEFT JOIN projectTeam pt ON ps.projTeamIdx = pt.projTeamIdx
 		<where>
 			<if test="projIdx != null"> ps.projIdx = #{projIdx} </if>
-			<if test="status != null"> ps.status = #{status} </if>
 		</where>
 		ORDER BY startDate ASC
 	</select>
@@ -207,8 +206,9 @@
 		SELECT NVL(COUNT(stageIdx), 0)
 		FROM projectStage
 		<where>
-			<if test="projIdx != null"> projIdx = #{projIdx} </if>
-			<if test="status != null"> status = #{status} </if>
+			1=1
+			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
+			<if test="status != null"> AND status = #{status} </if>
 		</where>
 	</select>
 	
@@ -262,9 +262,10 @@
 		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
 		LEFT JOIN project p ON ps.projIdx = p.projIdx
 		<where>
-			<if test="projIdx != null"> p.projIdx = #{projIdx}</if>
-			<if test="stageIdx != null">ps.stageIdx = #{stageIdx}</if>
-			<if test="status != null"> pt.status = #{status} </if>
+			1=1
+			<if test="projIdx != null"> AND p.projIdx = #{projIdx}</if>
+			<if test="stageIdx != null"> AND ps.stageIdx = #{stageIdx}</if>
+			<if test="status != null"> AND pt.status = #{status} </if>
 		</where>
 	</select>
 	
@@ -282,7 +283,44 @@
 	<!-- projectPost 테이블 -->
 	
 	<insert id="insertProjectPost" parameterType="com.sp.app.model.project.ProjectPost">
-		
+		INSERT INTO projectPost(postIdx, projIdx, projMemberIdx, title, content, regDate)
+		VALUES (projectPost_seq.NEXTVAL, #{projIdx}, #{projMemberIdx}, 
+			#{title}, #{content}, SYSDATE)
 	</insert>
+	
+	<update id="updateProjectPost" parameterType="com.sp.app.model.project.ProjectPost">
+		UPDATE projectPost SET title=#{title}, content=#{content}, updateDate=SYSDATE
+		WHERE postIdx=#{postIdx}
+	</update>
+	
+	<delete id="deleteProjectPost" parameterType="com.sp.app.model.project.ProjectPost">
+		DELETE FROM projectPost WHERE postIdx = #{postIdx}
+	</delete>
+	
+	<select id="getProjectPostList" parameterType="map" resultType="com.sp.app.model.project.ProjectPost">
+        SELECT pp.postIdx, p.projIdx, pm.projMemberIdx, e.empIdx, e.empName, 
+			title, content, regDate, updateDate
+		FROM projectPost pp
+        LEFT JOIN project p ON pp.projIdx = p.projIdx
+        LEFT JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+        LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        ORDER BY pp.postIdx DESC
+	</select>
+	
+	<select id="getProjectPostCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(postIdx), 0) FROM projectPost
+	</select>
+	
+	<select id="getProjectPostById" parameterType="Long" resultType="com.sp.app.model.project.ProjectPost">
+		SELECT pp.postIdx, p.projIdx, pm.projMemberIdx, e.empIdx, e.empName, 
+			title, content, regDate, updateDate
+		FROM projectPost pp
+        LEFT JOIN project p ON pp.projIdx = p.projIdx
+        LEFT JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+        LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        WHERE postIdx = #{postIdx} 
+	</select>
+	
+	
 
 </mapper>

@@ -20,6 +20,7 @@ import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.SessionInfo;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
+import com.sp.app.model.project.ProjectStage;
 import com.sp.app.service.project.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -225,6 +226,17 @@ public class ProjectController {
 			}
 
 			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+			
+			ProjectStage stageDto = Objects.requireNonNull(service.getProjectStageById(projIdx));
+			model.addAttribute("stageDto", stageDto);
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			List<ProjectStage> stageList = service.getProjectStageList(map);
+			model.addAttribute("stageList", stageList);			
+			
+			int progressRate = service.getProgressRate(projIdx, stageDto.getStageIdx());
+			model.addAttribute("progressRate", progressRate);
 
 			model.addAttribute("dto", dto);
 			model.addAttribute("query", query);
