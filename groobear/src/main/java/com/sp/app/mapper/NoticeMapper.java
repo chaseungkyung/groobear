@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sp.app.board.notice.Notice;
-import com.sp.app.model.board.Reply;
+import com.sp.app.model.notice.Notice;
+import com.sp.app.model.notice.Reply;
 
 @Mapper
 public interface NoticeMapper {
@@ -37,4 +37,5 @@ public interface NoticeMapper {
 	public List<Notice> listFile(long noticeIdx);
 	public Notice findByFileId(long fileIdx);
 	public void deleteFile(Map<String, Object> map) throws SQLException;
+
 }

@@ -1,4 +1,4 @@
-package com.sp.app.board.notice;
+package com.sp.app.model.notice;
 
 import java.util.List;
 
