@@ -74,28 +74,23 @@ public class ReservationController {
 	public String writeSubmit(Reservation dto,
 			HttpSession session) throws Exception {
 		
-		String cabinet = "A";
+		// String cabinet = "A";
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
-			cabinet = dto.getCabinet();
-			
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("empCode", info.getEmpCode());
-			map.put("empName", info.getEmpName());
-			map.put("reservDate", dto.getReservDate());
+			// cabinet = dto.getCabinet();
 			
 			dto.setEmpCode(info.getEmpCode());
 			dto.setEmpName(info.getEmpName());
-			dto.setReservDate(dto.getReservDate());
+
 			
 			service.insertReservation(dto);
 		} catch (Exception e) {
 			log.info("writeSubmit : ", e);
 		}
 
-		return "redirect:/reservation/main?cabinet=" + cabinet;
+		return "redirect:/reservation/main?cabinet=" + dto.getCabinet();
 	}
 	
 	@ResponseBody
@@ -115,8 +110,6 @@ public class ReservationController {
 			map.put("start", start);
 			map.put("end", end);
 			map.put("cabinet", cabinet);
-			map.put("empCode", info.getEmpCode());
-			map.put("empName", info.getEmpName());
 			
 			List<Reservation> list = service.listMonth(map);
 			for(Reservation dto : list) {

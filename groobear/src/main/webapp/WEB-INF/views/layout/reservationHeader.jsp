@@ -9,7 +9,7 @@
 <div class="iconHeader-right">
 	<div class="iconHeader-right-inner">
 		<div class="btnArea">
-			<a href="${pageContext.request.contextPath}/reservation/write">
+			<a href="${pageContext.request.contextPath}/reservation/write?cabinet=${cabinet}">
 				<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">예약 하기
 			</a>
 		</div>

@@ -15,11 +15,13 @@
 	</insert>
 
 	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Reservation">
-		SELECT reservIdx, title, reservDate, startTime, endTime, empCode, empName,
+		SELECT reservIdx, title, reservDate, TO_DATE(reservDate, 'YYYY-MM-DD')+1 endDate, startTime, endTime, empCode, empName,
 				cabinet, regDate
 		FROM reservation
 		<where>
 			cabinet = #{cabinet}
+			AND 
+			  ( TO_DATE(reservDate, 'YYYY-MM-DD') = TO_DATE(#{start}, 'YYYY-MM-DD') AND TO_DATE(reservDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD') )
 		</where>
 		ORDER BY startTime ASC, reservIdx DESC 
 	</select>
