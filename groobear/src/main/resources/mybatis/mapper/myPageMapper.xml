@@ -10,11 +10,24 @@
 	</select>
 	
 	<select id="getEmpInfo" parameterType="long">
-	    SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.hireDate, e.retireDate, 
-	           SUBSTR(d.email, 1, INSTR(d.email, '@') -1) AS email, d.tel, d.zipCode, d.addrMain, d.addrSub, d.rrn, h.deptName, h.teamName, h.startDate
+	    SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, e.retireDate, 
+	           SUBSTR(d.email, 1, INSTR(d.email, '@') -1) AS email, d.tel, d.zipCode, d.addrMain, d.addrSub, d.rrn, 
+	           deptName, teamName, saveProfile, p.positionName
 	    FROM employee e
 	    JOIN employeeDetail d ON e.empIdx = d.empIdx
-	    JOIN (
+	    JOIN position p ON p.positionCode = e.positioncode
+	    JOIN department d ON d.deptIdx = e.deptIdx
+	    JOIN team t ON t.teamIdx = e.teamIdx
+	    WHERE e.empIdx = #{empIdx}
+	</select>
+	
+ 	<select id="getEmpInfo2" parameterType="long">
+	    SELECT e.empIdx, e.empPwd, e.empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, e.retireDate, 
+	           SUBSTR(d.email, 1, INSTR(d.email, '@') -1) AS email, d.tel, d.zipCode, d.addrMain, d.addrSub, d.rrn, h.deptName, h.teamName, h.startDate, saveProfile, p.positionName
+	    FROM employee e
+	    JOIN employeeDetail d ON e.empIdx = d.empIdx
+	    JOIN position p ON p.positionCode = e.positioncode
+	    LEFT OUTER JOIN (
 	        SELECT h.empIdx, h.deptName, h.teamName, h.startDate
 	        FROM (
 	            SELECT h.*, ROW_NUMBER() OVER (PARTITION BY empIdx ORDER BY startDate DESC) AS rn
@@ -24,11 +37,11 @@
 	    ) h ON e.empIdx = h.empIdx
 	    WHERE e.empIdx = #{empIdx}
 	</select>
- 
-	<update id="updateEmpInfo" parameterType="map">
+	
+	<update id="updateEmpInfo" parameterType="com.sp.app.model.Member">
     	UPDATE employee
 	    SET saveProfile = #{saveProfile, jdbcType=VARCHAR}
-	    WHERE e.empIdx = #{empIdx};
+	    WHERE empIdx = #{empIdx}
 	</update>
 	
 	<select id="getEmpRecord" parameterType ="long" resultType="com.sp.app.model.Member">
@@ -60,6 +73,5 @@
 		FROM worklog
 		WHERE TRUNC(loginTime) = TRUNC(SYSDATE) AND empIdx = #{empIdx}
 	</select>
-	
 	
 </mapper>

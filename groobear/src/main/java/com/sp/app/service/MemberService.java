@@ -16,11 +16,8 @@ public interface MemberService {
 	public void insertEmployee(Member dto) throws Exception;
 	public void insertEmployeeDetail(Member dto) throws Exception;
 	public void insertEmployeeHistory(Member dto) throws Exception;
-
-	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
 	
 	public void updateLastLogin(String empCode) throws Exception;
-	public void updateMemberStatus(Map<String, Object> map) throws Exception;
 	
 	public void updateEmployee(Member dto) throws Exception;
 	public void updateEmployeeDetail(Member dto) throws Exception;

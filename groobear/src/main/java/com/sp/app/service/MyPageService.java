@@ -14,11 +14,10 @@ public interface MyPageService {
 	
 	public MyPage getLoginTime(long empIdx) throws Exception;
 	public Member getEmpInfo(Map<String, Object> map) throws Exception;
-	public Member updateEmpInfo(Map<String, Object> map) throws Exception;
+	public void updateEmpInfo(Member dto) throws Exception;
 	public List<Member> getEmpRecord(long empIdx) throws Exception;
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);
-	
 	
 }

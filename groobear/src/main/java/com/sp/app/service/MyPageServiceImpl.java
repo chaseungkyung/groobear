@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.sp.app.common.StorageService;
 import com.sp.app.mapper.MyPageMapper;
 import com.sp.app.model.Member;
 import com.sp.app.model.MyPage;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 public class MyPageServiceImpl implements MyPageService {
 
 	private final MyPageMapper mapper;
+	private final StorageService storageService;
 	
+	private String uploadPath;	
+	
+	@PostConstruct
+	public void init() {
+		uploadPath = this.storageService.getRealPath("/uploads/emp");		
+	}
+		
 	@Override
 	public List<Member> workList(Map<String, Object> map) throws Exception {
 		List<Member> list = null;
@@ -104,15 +114,21 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	
 	@Override
-	public Member updateEmpInfo(Map<String, Object> map) {
-		Member empInfo = null;
+	public void updateEmpInfo(Member dto) throws Exception {
 		try {
-			empInfo = mapper.updateEmpInfo(map);
+			String saveFilename = storageService.uploadFileToServer(dto.getSelectFile(), uploadPath);
+		
+			if(saveFilename != null) {
+				dto.setSaveProfile(saveFilename);
+			}
+			
+			// 사진 업데이트
+			mapper.updateEmpInfo(dto);
 			
 		} catch (Exception e) {
-			log.info("updateEmpInfo : ", e);
+			log.info("updateEmpInfo : " , e);
+			throw e;
 		}
-		return empInfo;
 	}
 	
 	@Override
@@ -129,6 +145,4 @@ public class MyPageServiceImpl implements MyPageService {
 		return list;
 	}
 	
-	
-
 }

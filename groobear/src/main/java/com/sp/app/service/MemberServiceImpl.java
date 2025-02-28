@@ -89,15 +89,12 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
-	@Override
-	public void updateMemberStatus(Map<String, Object> map) throws Exception {
-		
-	}
 
 	@Override
 	public void updateEmployee(Member dto) throws Exception {
 	    try {
 			String saveFilename = storageService.uploadFileToServer(dto.getSelectFile(), uploadPath);
+			
 			if(saveFilename != null) {
 				dto.setSaveProfile(saveFilename);
 			}
@@ -270,10 +267,6 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.getLastEmpCode(empCode);
 	}
 
-	@Override
-	public void updateMemberEnabled(Map<String, Object> map) throws Exception {
-		
-	}
 
 	@Override
 	public Member findByEmpCode(String emdCode) {

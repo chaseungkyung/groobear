@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.PaginateUtil;
@@ -37,9 +38,6 @@ public class MyPageController {
 	private final MyPageService service;
 	private final PaginateUtil paginateUtil;
 	
-    @Autowired
-    private final JdbcTemplate jdbcTemplate;  // JdbcTemplate 사용
-    
     
 	@GetMapping("mypage")
 	public String mypage(Model model, HttpServletRequest req) throws Exception {
@@ -115,41 +113,21 @@ public class MyPageController {
 	}
 	
 	@PostMapping("modify")
-	public String modifySubmit(Member dto, HttpSession session, Model model) throws Exception {
+	public String modifySubmit(
+			@RequestParam(name="empIdx") long empIdx,
+			Member dto) throws Exception {
 				
-		try {
-			// 세션에서 로그인한 사용자 정보를 가져와
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
+		try {	
 			
-			Map<String, Object> map = new HashMap<>();
-			System.out.println(dto.getEmpIdx());
-			// 수정된 정보를 서비스한테 전달 
-	        map.put("empIdx", info.getEmpIdx());  // 세션에서 empIdx를 가져와서 map에 넣기
-	        map.put("empCode", dto.getEmpCode());	// Member 객체에서 수정된 값을 map에 저장
-	        map.put("empPwd", dto.getEmpPwd());
-	        map.put("empName", dto.getEmpName());
-	        map.put("deptIdx", dto.getDeptIdx());
-	        map.put("teamIdx", dto.getTeamIdx());
-	        map.put("positionCode", dto.getPositionCode());
-	        map.put("empTel", dto.getEmpTel());
-	        map.put("hireDate", dto.getHireDate());
-	        map.put("retireDate", dto.getRetireDate());
-			map.put("saveProfile", dto.getSaveProfile());
-	        
-			// 서비스 호출해서 수정하는 거야
-			Member empInfo = service.updateEmpInfo(map);
-			
-			// 위에서 서비스 호출해서 수정이 완료된 거야.. 이제 수정된 거를 model 그릇에 담아서 뷰로 전달해야지
-			model.addAttribute("empInfo", empInfo);
-			
-			
+			// 서비스 호출해서 map 보내서 수정하는 거야
+			service.updateEmpInfo(dto);
 			
 		} catch (Exception e) {
 			log.info("modifySubmit", e);
-			return "redirect:/mypage/workList";
-			// 컨트롤러가 사용자 요청을 받았고. 이제 서비스한테 파라미터 전달해줘야한다. 전달할 파라미터를 맵에 저장해두고.
+			throw e;
+			
 		}
-		return "redirect:/mypage/me"; 
+		return "redirect:/mypage/modify?empIdx=" + empIdx;
 	}
 	
 	

@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
-import com.sp.app.common.StorageService;
 import com.sp.app.model.Member;
 import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -199,7 +197,7 @@ public class EmpController {
 	@PostMapping("update")
 	public String updateSubmit(
 			@RequestParam(name="empIdx") long empIdx,
-			Member dto, HttpSession session ) throws Exception {
+			Member dto) throws Exception {
 		
 		try {
 			service.updateEmployee(dto);
