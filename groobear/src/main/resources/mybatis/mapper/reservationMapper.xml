@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sp.app.mapper.ReservationMapper">
+	<insert id="insertReservation" parameterType="com.sp.app.model.Reservation">
+		INSERT INTO reservation (reservIdx, empCode, empName, title, cabinet, regDate, reservDate, startTime, endTime)
+		VALUES(reservIdx_seq.NEXTVAL, 
+		#{empCode}, #{empName}, #{title}, 
+		#{cabinet}, SYSDATE, 
+		#{reservDate, jdbcType=VARCHAR}, 
+		#{startTime, jdbcType=VARCHAR}, 
+		#{endTime, jdbcType=VARCHAR})
+		)
+	</insert>
+
+	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Reservation">
+		SELECT reservationIdx, title, reservDate, startTime, endTime, empCode, empName,
+				cabinet, reg_date,
+		FROM reservation
+		<where>
+			cabinet = {#cabinet}
+		</where>
+		ORDER BY startTime ASC, reservationIdx DESC 
+	</select>
+
+	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Reservation">
+		SELECT reservationIdx, title, reservDate, startTime, endTime, cabinet, empCode, empName, reg_date  
+		FROM  reservation
+		WHERE reservationidx = #{reservationIdx}
+	</select>
+	
+	<delete id="deleteReservation" parameterType="map">
+		DELETE FROM reservation
+		WHERE reservationIdx = #{reservationIdx} AND empCode = #{empCode}
+	</delete>
+
+</mapper>

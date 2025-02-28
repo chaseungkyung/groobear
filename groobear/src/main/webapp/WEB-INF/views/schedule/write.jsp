@@ -207,17 +207,18 @@ window.onload = function() {
 								<div class="row">
 									<div class="col-5">
 										<select name="color" id="form-color" class="form-select">
-											<option value="blue" style="background:blue;" ${dto.color=="blue"?"selected":""}>파랑</option>
-											<option value="green" style="background:green;" ${dto.color=="green"?"selected":""}>녹색</option>
-											<option value="red" style="background:red;" ${dto.color=="red"?"selected":""}>빨강</option>
-											<option value="orange" style="background:orange;" ${dto.color=="orange"?"selected":""}>주황</option>
-											<option value="tomato" style="background:tomato;" ${dto.color=="tomato"?"selected":""}>토마토</option>
-											<option value="magenta" style="background:magenta;" ${dto.color=="magenta"?"selected":""}>마젠타</option>
-											<option value="purple" style="background:purple;" ${dto.color=="purple"?"selected":""}>보라</option>
-											<option value="brown" style="background:brown;" ${dto.color=="brown"?"selected":""}>갈색</option>
-											<option value="navy" style="background:navy;" ${dto.color=="navy"?"selected":""}>남색</option>
-											<option value="gray" style="background:gray;" ${dto.color=="gray"?"selected":""}>회색</option>
-											<option value="black" style="background:black;" ${dto.color=="black"?"selected":""}>검정</option>
+											<option value="#F781F3" style="background:#F781F3;" ${dto.color=="#F781F3"?"selected":""}></option>
+											<option value="#31B404" style="background:#31B404;" ${dto.color=="#31B404"?"selected":""}></option>
+											<option value="#F78181" style="background:#F78181;" ${dto.color=="#F78181"?"selected":""}></option>
+											<option value="#FAAC58" style="background:#FAAC58;" ${dto.color=="#FAAC58"?"selected":""}></option>
+											<option value="tomato" style="background:tomato;" ${dto.color=="tomato"?"selected":""}></option>
+											<option value="#AEB404" style="background:#AEB404;" ${dto.color=="#AEB404"?"selected":""}></option>
+											<option value="#00BFFF" style="background:#00BFFF;" ${dto.color=="#00BFFF"?"selected":""}></option>
+											<option value="#DA81F5" style="background:#DA81F5;" ${dto.color=="#DA81F5"?"selected":""}></option>
+											<option value="#2E64FE" style="background:#2E64FE;" ${dto.color=="#2E64FE"?"selected":""}></option>
+											<option value="gray" style="background:gray;" ${dto.color=="gray"?"selected":""}></option>
+											<option value="black" style="background:black;" ${dto.color=="black"?"selected":""}></option>
+											
 										</select>
 									</div>
 								</div>

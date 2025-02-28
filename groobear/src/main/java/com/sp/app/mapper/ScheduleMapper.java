@@ -16,8 +16,4 @@ public interface ScheduleMapper {
 	
 	public List<Schedule> listMonth(Map<String, Object> map);
 	public Schedule findById(long num);
-	
-	public void insertCategory(Map<String, Object> map) throws SQLException;
-	public List<Schedule> listCategory(Map<String, Object> map);
-	public void deleteCategory(Map<String, Object> map) throws SQLException;
 }
