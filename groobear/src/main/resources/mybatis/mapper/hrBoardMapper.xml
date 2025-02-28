@@ -8,7 +8,7 @@
 	
 	<insert id="insertBoard" parameterType="com.sp.app.model.board.Board">
 		INSERT INTO hrBoard(postIdx, empIdx, title, content, regDate, updateDate)
-		VALUES (#{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE)
+		VALUES (#{postIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE )
 	</insert> <!-- updateDate null 이어서 insert 안 될 수 있음 -->
 	
 	<sql id="where-list">
@@ -48,7 +48,7 @@
 	</select>
 	
 	<select id="listBoard" parameterType="map" resultType="com.sp.app.model.board.Board">
-		SELECT b.postIdx, b.empIdx, empName, title, regDate, b.updateDate,
+		SELECT b.postIdx, b.empIdx, empName, title, regDate, b.updateDate, 
 			   NVL(replyCount, 0) replyCount, NVL(fileCount, 0) fileCount
 		FROM hrBoard b
 		JOIN employee e ON b.empIdx = e.empIdx

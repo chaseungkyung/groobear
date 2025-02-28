@@ -10,7 +10,6 @@
 			</div>
 		</div>
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/noticeList"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/backlog.png">부서 공지사항</a></li>
 			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">부서 게시판</a></li>
 		</ul>
 	</div>

@@ -15,7 +15,7 @@
 			</c:if>
 			<li><a href="${pageContext.request.contextPath}/reservation/main"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/reservation_w.png">예약</a></li>
 			<li><a href="${pageContext.request.contextPath}/contact/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/addressBook_w.png">주소록</a></li>
-			<li><a href="${pageContext.request.contextPath}/dept/dept"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/papers_w.png">나의부서</a></li>
+			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/papers_w.png">나의부서</a></li>
 			<c:if test="${sessionScope.member.deptIdx == 'D' || sessionScope.member.empCode == 'admin' || sessionScope.member.positionCode == 1 || sessionScope.member.positionCode == 2}">
 				<li><a href="${pageContext.request.contextPath}/emp/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/employee_w.png">사원관리</a></li>
 			</c:if>
