@@ -16,4 +16,5 @@ public interface ScheduleMapper {
 	
 	public List<Schedule> listMonth(Map<String, Object> map);
 	public Schedule findById(long num);
+	public List<Schedule> todaySchedule();
 }

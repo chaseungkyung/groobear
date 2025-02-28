@@ -106,5 +106,18 @@ public class ScheduleServiceImpl implements ScheduleService {
 			throw e;
 		}
 	}
+
+	@Override
+	public List<Schedule> todaySchedule() {
+		List<Schedule> list = null;
+		
+		try {
+			list = mapper.todaySchedule();
+		} catch (Exception e) {
+			log.info("todaySchedule", e);
+			
+		}
+		return list;
+	}
 	
 }

@@ -27,7 +27,7 @@
 					<li><input type="checkbox"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
-					<li><a href="${pageContext.request.contextPath}/">[보낸메일]	 20241001 홍길동 사원 건강보험 피부양자 변경 서류</a></li>
+					<li><a href="${pageContext.request.contextPath}/mail/list">[보낸메일]	 20241001 홍길동 사원 건강보험 피부양자 변경 서류</a></li>
 					<li>2025-02-11 13:27</li>
 				</ul>
 				<ul>

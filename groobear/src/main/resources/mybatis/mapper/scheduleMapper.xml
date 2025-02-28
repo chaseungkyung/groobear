@@ -80,5 +80,12 @@
 		DELETE FROM schedule
 		WHERE scheduleIdx = #{scheduleIdx, jdbcType=INTEGER} AND empCode = #{empCode, jdbcType=VARCHAR}
 	</delete>
+	
+	<select id="todaySchedule" resultType="com.sp.app.model.Schedule">
+		SELECT scheduleIdx, title, startDate, endDate, startTime, endTime, categoryIdx, deptCode, empCode,positionCode,
+			color, repeat, repeat_cycle, memo, reg_date 
+		FROM schedule 
+		WHERE startDate = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
+	</select>	
 
 </mapper>

@@ -47,7 +47,17 @@
                 </div>
             </div>
             <div class="calendar">
-            	<h2>일정</h2>
+            	<h2><a href="${pageContext.request.contextPath}/schedule/schedule?categoryIdx=3">일정</a></h2>
+            		<c:forEach var="schedule" items="${list}">
+            			<c:choose>
+            				<c:when test="${schedule.startTime != null}">            				
+            					<div>${schedule.startTime} / ${schedule.title}</div>            					            			
+            				</c:when>
+            				<c:otherwise>
+            					<div>${schedule.title}</div>
+            				</c:otherwise>
+            			</c:choose>
+            		</c:forEach>
             </div>
             <div class="notice">
                 <h2>공지사항</h2>
@@ -69,14 +79,14 @@
                 <div class="signStandBy"></div>
             </div>
             <div class="mail">
-                <h2>메일</h2>
+                <h2><a href="${pageContext.request.contextPath}/mail/list">메일</a></h2>
                 <div class="acceptMail">
                     <ul>
-                        <li><a href="javscript:;">메일1</a></li>
-                        <li><a href="javscript:;">메일2</a></li>
-                        <li><a href="javscript:;">메일3</a></li>
-                        <li><a href="javscript:;">메일4</a></li>
-                        <li><a href="javscript:;">메일5</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[보낸메일]	 20241001 홍길동 사원 건강보험 피부양자 변경 서류</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [급여명세서] 2025 02월 급여명세서</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [공지] 25년 2월 3주차 회의실 예약 현황</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [공지] 3층 남자 화장실 시설 점검 안내 </a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일] 	 [공지] 설 상여금 지급 관련 공지</a></li>
                     </ul>
                 </div>
             </div>
