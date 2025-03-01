@@ -11,7 +11,6 @@
 		#{reservDate, jdbcType=VARCHAR}, 
 		#{startTime, jdbcType=VARCHAR}, 
 		#{endTime, jdbcType=VARCHAR})
-		)
 	</insert>
 
 	<select id="listMonth" parameterType="map" resultType="com.sp.app.model.Reservation">
@@ -21,7 +20,7 @@
 		<where>
 			cabinet = #{cabinet}
 			AND 
-			  ( TO_DATE(reservDate, 'YYYY-MM-DD') = TO_DATE(#{start}, 'YYYY-MM-DD') AND TO_DATE(reservDate, 'YYYY-MM-DD') &lt;= TO_DATE(#{end}, 'YYYY-MM-DD') )
+			  ( TO_DATE(reservDate, 'YYYY-MM-DD') = TO_DATE(#{start}, 'YYYY-MM-DD') AND TO_DATE(reservDate, 'YYYY-MM-DD') = TO_DATE(#{end}, 'YYYY-MM-DD') )
 		</where>
 		ORDER BY startTime ASC, reservIdx DESC 
 	</select>

@@ -207,7 +207,7 @@ window.onload = function() {
 								<div class="row">
 									<div class="col-5">
 										<select name="color" id="form-color" class="form-select">
-											<option value="#F781F3" style="background:#F781F3;" ${dto.color=="#F781F3"?"selected":""}></option>
+											<option value="blue" style="background:blue;" ${dto.color=="blue"?"selected":""}></option>
 											<option value="#31B404" style="background:#31B404;" ${dto.color=="#31B404"?"selected":""}></option>
 											<option value="#F78181" style="background:#F78181;" ${dto.color=="#F78181"?"selected":""}></option>
 											<option value="#FAAC58" style="background:#FAAC58;" ${dto.color=="#FAAC58"?"selected":""}></option>

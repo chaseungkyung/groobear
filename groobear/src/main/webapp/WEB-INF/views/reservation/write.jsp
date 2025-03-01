@@ -27,11 +27,6 @@ function sendOk() {
 		f.title.focus();
 		return;
 	}
-
-	if(! f.cabinet.value ) {
-		f.cabinet.focus();
-		return;
-	}
 	
 	if( ! f.reservDate.value ) {
 		f.reservDate.focus();
@@ -59,10 +54,12 @@ $(function(){
 	});
 });
 
-window.onload = function() {
-    const activeTab = localStorage.getItem('activeTab') || '3';
+/*
+ window.onload = function() {
+    const activeTab = localStorage.getItem('activeTab') || 'A';
     loadTab(activeTab);
-};
+}; 
+ */
 </script>
 
 </head>
@@ -105,9 +102,9 @@ window.onload = function() {
 								<div class="row">
 									<div class="col-5">
 										<select name="cabinet" id="form-cabinet" class="form-select">
-											<option value="A" style="background:#F781F3;" ${dto.color=="#F781F3"?"selected":""}>A회의실</option>
-											<option value="B" style="background:#31B404;" ${dto.color=="#31B404"?"selected":""}>B회의실</option>
-											<option value="C" style="background:#F78181;" ${dto.color=="#F78181"?"selected":""}>C회의실</option>
+											<option value="A" style="background:#F781F3;" >A회의실</option>
+											<option value="B" style="background:#31B404;" >B회의실</option>
+											<option value="C" style="background:#F78181;" >C회의실</option>
 										</select>
 									</div>
 								</div>
@@ -122,8 +119,8 @@ window.onload = function() {
 										<input type="date" name="reservDate" id="form-startDate" class="form-control" value="${dto.reservDate}">
 									</div>
 									<div class="col-3">
-										<input type="time" name="startTime" id="form-startTime" class="form-control" value="${dto.startTime}"
-											style="display: ${dto.all_day == 1 ? 'none;':'inline-block;'}">
+										<input type="time" name="startTime" id="form-startTime" class="form-control" value="${dto.startTime}">
+											
 									</div>
 								</div>
 								<small class="form-control-plaintext">* 예약날짜는 필수입니다.</small>
@@ -135,8 +132,8 @@ window.onload = function() {
 							<td>
 								<div class="row">
 									<div class="col-3">
-										<input type="time" name="endTime" id="form-endTime" class="form-control" value="${dto.endTime}"
-											style="display: ${dto.all_day==1 ? 'none;':'inline-block;'}">
+										<input type="time" name="endTime" id="form-endTime" class="form-control" value="${dto.endTime}">
+											
 									</div>
 								</div>
 							</td>

@@ -66,7 +66,7 @@ public class ReservationController {
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
 		}
-		System.out.println("회의실 GET"+cabinet);
+		
 		return "reservation/write";
 	}
 	
@@ -83,6 +83,7 @@ public class ReservationController {
 			
 			dto.setEmpCode(info.getEmpCode());
 			dto.setEmpName(info.getEmpName());
+			dto.setReservDate(dto.getReservDate());
 
 			
 			service.insertReservation(dto);
@@ -90,7 +91,7 @@ public class ReservationController {
 			log.info("writeSubmit : ", e);
 		}
 
-		return "redirect:/reservation/main?cabinet=" + dto.getCabinet();
+		return "redirect:/reservation/main";
 	}
 	
 	@ResponseBody
