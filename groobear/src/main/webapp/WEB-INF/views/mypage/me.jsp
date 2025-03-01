@@ -142,9 +142,10 @@ $(function() {
                 <div class="title">
                     <p>나의 이력</p>
                 </div>
+                <br><br><br>
                 <table class="table table-bordered">
               	  <thead class="table-light">
-                    <tr  align="center">
+                    <tr style="text-align:center; margin-top:20px; margin-bottom:10px;">
                         <th width="250">날짜</th>
                         <th width="200">부서</th>
                         <th width="200">팀</th>
@@ -153,8 +154,8 @@ $(function() {
                     </tr>
                    <tbody>
 		                <c:forEach var="empRecord" items="${list}">
-			                <tr  align="center">
-			                	<td style="padding-left: 30px;">${empRecord.startDate} ~ ${empty empRecord.endDate ? '현재' : empRecord.endDate}</td>
+			                <tr style="text-align:center; margin-top:20px; margin-bottom:10px;" >
+			                	<td style="text-align:left; padding-left: 30px;">${empRecord.startDate} ~ ${empty empRecord.endDate ? '현재' : empRecord.endDate}</td>
 								<td>${empRecord.deptName}</td>
 								<td>${empRecord.teamName}</td>
 								<td>${empRecord.empRank}</td>

@@ -148,6 +148,6 @@
 	</select>
 	
 	<select id="findByProfile" parameterType="long" resultType="com.sp.app.model.Member">
-		SELECT saveProfile FROM employee WHERE empIdx = #{empIdx, jdbcType=VARCHAR}
+		SELECT saveProfile FROM employee WHERE empIdx = #{empIdx}
 	</select>
 </mapper>

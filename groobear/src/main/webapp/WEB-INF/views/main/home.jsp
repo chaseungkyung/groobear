@@ -19,7 +19,6 @@ function ClockIn() {
 	f.submit();
 }	
 	
-
 </script>
 
 </head>
@@ -33,8 +32,9 @@ function ClockIn() {
 					<form name="ClockForm">
                     <div class="today"><p>2025년 01월 20일</p></div>
                     <div class="profile">
-
-                        <input type='hidden' name="empIdx" value="${empInfo.empIdx}">
+						<div class="img-viewer"></div>
+						<img src="<c:url value='${dto.saveProfile}'/>" alt="프로필 사진">
+						<input type='hidden' name="empIdx" value="${dto.empIdx}">
                         <div class="department"><p>${sessionScope.member.deptName}</p></div>
                         <div class="name"><p>${sessionScope.member.empName}</p></div>
                     </div>

@@ -1,11 +1,15 @@
 package com.sp.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.model.Member;
 import com.sp.app.model.Schedule;
@@ -26,22 +30,32 @@ public class HomeController {
 	private final MemberService memberService;
 	
 	@GetMapping("main")
-	public String handleHome(Schedule scheduleDto, Member memberdto, Model model, HttpSession session) throws Exception {
+	public String handleHome(Schedule scheduleDto,
+			Member memberdto, Model model, HttpSession session
+			) throws Exception {
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			List<Schedule> list = service.todaySchedule();
+			
+			Long empIdx = info.getEmpIdx();
+			Member dto = Objects.requireNonNull(memberService.findByEmpIdx(empIdx));
+			
+			String saveProfile = memberService.findByProfile(empIdx).getSaveProfile();
 			
 			model.addAttribute("empName", info.getEmpName());
 			model.addAttribute("deptName", info.getDeptName());
 			model.addAttribute("empCode", info.getEmpCode());
 			model.addAttribute("deptIdx", info.getDeptIdx());
 			
-			
-			Member saveProfile = memberService.findByProfile(info.getEmpIdx());
-		
+			if (saveProfile != null && !saveProfile.isEmpty()) {
+                dto.setSaveProfile("/uploads/emp/" + saveProfile); // 경로 추가
+            } else {
+                
+            }
 			// 프로필 사진
-			model.addAttribute("saveProfile", saveProfile);
+
+			model.addAttribute("dto", dto);
 			
 			// 스케쥴Dto에서 메인으로 뽑아오는 리스트입니다.
 			model.addAttribute("list", list);
