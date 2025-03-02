@@ -28,7 +28,7 @@
         return;
     }
 
-    f.action = '${pageContext.request.contextPath}/dept/hrBoard/${mode}';
+    f.action = '${pageContext.request.contextPath}/notice/${mode}';
     f.submit();
 } 
 </script>
@@ -48,7 +48,7 @@
 			
 			<div class="body-main">
 
-				<form name="boardForm" method="post" enctype="multipart/form-data">
+				<form name="noticeForm" method="post" enctype="multipart/form-data">
 					<table class="table mt-5 write-form">
 						<tr>
 							<td class="bg-light col-sm-2" scope="row">제 목</td>
@@ -109,10 +109,10 @@
 							<td class="text-center">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=="update" ? "수정완료" : "등록완료"}&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
-								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
+								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 								
-								<c:if test="${mode == 'update' }">
-									<input type="hidden" name="noticeIdx" value="${dto.postIdx}">
+								<c:if test="${mode == 'update'}">
+									<input type="hidden" name="noticeIdx" value="${dto.noticeIdx}">
 									<input type="hidden" name="saveFilename" value="${dto.saveFilename}">								
 									<input type="hidden" name="originalFilename" value="${dto.originalFilename}">								
 									<input type="hidden" name="page" value="${page}">								

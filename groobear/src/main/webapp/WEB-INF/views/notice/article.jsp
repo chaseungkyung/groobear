@@ -56,13 +56,13 @@
 									<p class="border text-secondary my-1 p-2">
 										<i class="bi bi-folder2-open"></i>
 										<c:forEach var="dto" items="${listFile}" varStatus="status">
-											<a href="${pageContext.request.contextPath}/dept/hrBoard/download?fileIdx=${dto.fileIdx}" class="text-reset">${dto.originalFilename}</a>
+											<a href="${pageContext.request.contextPath}/notice/download?fileIdx=${dto.fileIdx}" class="text-reset">${dto.originalFilename}</a>
 											<c:if test="${not status.last}"> | </c:if>
 										</c:forEach>
 									</p>
 									<p class="border text-secondary mb-1 p-2">
 										<i class="bi bi-folder2-open"></i>
-										<a href="${pageContext.request.contextPath}/dept/hrBoard/zipdownload?postIdx=${dto.postIdx}" class="text-reset" title="압축 다운로드">파일 전체 압축 다운로드(zip)</a>
+										<a href="${pageContext.request.contextPath}/notice/zipdownload?noticeIdx=${dto.noticeIdx}" class="text-reset" title="압축 다운로드">파일 전체 압축 다운로드(zip)</a>
 									</p>	
 								</td>
 							</tr>
@@ -71,7 +71,7 @@
 							<td colspan="2">
 								이전글 :
 								<c:if test="${not empty prevDto}">
-									<a href="${pageContext.request.contextPath}/dept/hrBoard/article?${query}&postIdx=${prevDto.postIdx}">${prevDto.title}</a>
+									<a href="${pageContext.request.contextPath}/notice/article?${query}&noticeIdx=${prevDto.noticeIdx}">${prevDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -79,7 +79,7 @@
 							<td colspan="2">
 								다음글 :
 								<c:if test="${not empty nextDto}">
-									<a href="${pageContext.request.contextPath}/dept/hrBoard/article?${query}&postIdx=${nextDto.postIdx}">${nextDto.title}</a>
+									<a href="${pageContext.request.contextPath}/notice/article?${query}&noticeIdx=${nextDto.noticeIdx}">${nextDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -91,7 +91,7 @@
 						<td width="50%">
 							<c:choose>
 								<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/update?postIdx=${dto.postIdx}&page=${page}';">수정</button>
+									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/update?noticeIdx=${dto.noticeIdx}&page=${page}';">수정</button>
 								</c:when>
 								<c:otherwise>
 									<button type="button" class="btn btn-light" disabled>수정</button>
@@ -107,7 +107,7 @@
 							</c:choose>
 						</td>
 						<td class="text-end">
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/list?${query}';">리스트</button>
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list?${query}';">리스트</button>
 						</td>
 					</tr>
 				</table>

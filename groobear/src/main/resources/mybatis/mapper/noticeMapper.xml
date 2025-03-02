@@ -39,17 +39,23 @@
 	
 	<select id="listNoticeTop" resultType="com.sp.app.model.notice.Notice">
 		SELECT n.noticeIdx, showNotice, n.empIdx, empName, title, 
-				TO_CHAR(regDate, 'YYYY-MM-DD') regDate,
+				TO_CHAR(regDate, 'YYYY-MM-DD') regDate, 
 				TO_CHAR(n.updateDate, 'YYYY-MM-DD') updateDate,
-				NVL(fileCount, 0) fileCount
+				NVL(fileCount, 0) fileCount, NVL(replyCount, 0) replyCount
 		FROM notice n
 		JOIN employee e ON n.empIdx = e.empIdx
 		LEFT OUTER JOIN (
-			SELECT noticeIdx, COUNT(*) fileCount FROM noticeFile
+			SELECT noticeIdx, COUNT(*) replyCount
+			FROM noticeCmt
+			GROUP BY noticeIdx
+		) c ON n.noticeIdx = c.noticeIdx
+		LEFT OUTER JOIN (
+			SELECT noticeIdx, COUNT(*) fileCount
+			FROM noticeFile
 			GROUP BY noticeIdx
 		) f ON n.noticeIdx = f.noticeIdx
-		WHERE showNotice = 1
-		ORDER BY notice DESC
+		WHERE showNotice = 1 
+		ORDER BY noticeIdx DESC
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -77,7 +83,7 @@
 			SELECT noticeIdx, COUNT(*) fileCount 
 			FROM noticeFile
 			GROUP BY noticeIdx
-		) f ON b.noticeIdx = f.noticeIdx
+		) f ON n.noticeIdx = f.noticeIdx
 		<where>
 			<if test="showNotice != null">
 				showNotice = ${showNotice}
@@ -91,7 +97,7 @@
 	</select>
 
 	<select id="findById" parameterType="Long" resultType="com.sp.app.model.notice.Notice">
-		SELECT noticeIdx, n.empIdx, empName, title, content, regDate, updateDate, showNotice
+		SELECT noticeIdx, n.empIdx, empName, title, content, regDate, n.updateDate, showNotice
 		FROM notice n
 		JOIN employee e ON n.empIdx = e.empIdx
 		WHERE noticeIdx = #{noticeIdx}

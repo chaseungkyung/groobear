@@ -52,7 +52,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void updatdeNotice(Notice dto, String uploadPath) throws Exception {
 		try {
-			mapper.updatdeNotice(dto);
+			mapper.updateNotice(dto);
 			
 			if(! dto.getSelectFile().isEmpty()) {
 				insertFile(dto, uploadPath);

@@ -15,7 +15,7 @@ public interface NoticeMapper {
 	//공지사항
 	public long noticeSeq();
 	public void insertNotice(Notice dto) throws SQLException;
-	public void updatdeNotice(Notice dto) throws SQLException;
+	public void updateNotice(Notice dto) throws SQLException;
 	public void deleteNotice(long noticeIdx) throws SQLException;
 	
 	public int dataCount(Map<String, Object> map);

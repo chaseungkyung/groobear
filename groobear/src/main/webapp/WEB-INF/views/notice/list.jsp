@@ -68,7 +68,7 @@
 								<td ${dataCount - (page-1) * size - status.index}></td>
 								<td class="left">
 									<div class="text-wrap">
-									<a href="${articleUrl}&postIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
+									<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
 									</div>
 									<c:if test="${dto.gap < 10}">
 										<span class="badge bg-danger">N</span>
@@ -89,7 +89,7 @@
 				
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/list';" title="새로고침">
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침">
 						<i class="bi bi-arrow-counterclockwise"></i></button>
 					</div>
 					<div class="col-6 text-center">
