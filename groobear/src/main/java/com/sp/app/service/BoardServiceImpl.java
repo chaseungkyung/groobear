@@ -207,7 +207,6 @@ public class BoardServiceImpl implements BoardService {
 			listReply = mapper.listReply(map);
 			
 			for(Reply dto : listReply) {
-				dto.setEmpName(myUtil.nameMasking(dto.getEmpName()));
 				dto.setContent(myUtil.htmlSymbols(dto.getContent()));
 			
 				map.put("cmtIdx", dto.getCmtIdx());

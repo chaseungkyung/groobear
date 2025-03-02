@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.NoticeMapper">
+	
+	<select id="noticeSeq" resultType="Long">
+		SELECT notice_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertNotice" parameterType="com.sp.app.model.notice.Notice">
+		INSERT INTO notice(noticeIdx, empIdx, title, content, regDate, updateDate, showNotice)
+		VALUES (#{noticeIdx}, #{empIdx}, #{title}, #{content}, SYSDATE, SYSDATE, #{showNotice})
+	</insert>
+
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all'">
+				( INSTR(title, #{kwd}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'regDate'">
+				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
+					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'title'">
+				INSTR(title, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'content'">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'empName'">
+				INSTR(empName, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="listNoticeTop" resultType="com.sp.app.model.notice.Notice">
+		SELECT n.noticeIdx, showNotice, n.empIdx, empName, title, 
+				TO_CHAR(regDate, 'YYYY-MM-DD') regDate,
+				TO_CHAR(n.updateDate, 'YYYY-MM-DD') updateDate,
+				NVL(fileCount, 0) fileCount
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		LEFT OUTER JOIN (
+			SELECT noticeIdx, COUNT(*) fileCount FROM noticeFile
+			GROUP BY noticeIdx
+		) f ON n.noticeIdx = f.noticeIdx
+		WHERE showNotice = 1
+		ORDER BY notice DESC
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>		
+		</where>
+	</select>
+	
+	<select id="listNotice" parameterType="map" resultType="com.sp.app.model.notice.Notice">
+		SELECT n.noticeIdx, n.empIdx, empName, title, regDate, n.updateDate, showNotice,
+			   NVL(replyCount, 0) replyCount, NVL(fileCount, 0) fileCount
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		LEFT OUTER JOIN (
+			SELECT noticeIdx, COUNT(*) replyCount
+			FROM noticeCmt
+			GROUP BY noticeIdx
+		) c ON n.noticeIdx = c.noticeIdx
+		LEFT OUTER JOIN (
+			SELECT noticeIdx, COUNT(*) fileCount 
+			FROM noticeFile
+			GROUP BY noticeIdx
+		) f ON b.noticeIdx = f.noticeIdx
+		<where>
+			<if test="showNotice != null">
+				showNotice = ${showNotice}
+			</if>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY noticeIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY			
+	</select>
+
+	<select id="findById" parameterType="Long" resultType="com.sp.app.model.notice.Notice">
+		SELECT noticeIdx, n.empIdx, empName, title, content, regDate, updateDate, showNotice
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		WHERE noticeIdx = #{noticeIdx}
+	</select>
+
+	<!--이전글 다음글 --> 
+	<select id="findByPrev" parameterType="map" resultType="com.sp.app.model.notice.Notice">
+		SELECT noticeIdx, title
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		<where>
+			<if test="showNotice != null">
+				showNotice = ${showNotice}
+			</if>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (noticeIdx &gt; #{noticeIdx})
+		</where>
+		ORDER BY noticeIdx ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+		
+	<select id="findByNext" parameterType="map" resultType="com.sp.app.model.notice.Notice">
+		SELECT noticeIdx, title
+		FROM notice n
+		JOIN employee e ON n.empIdx = e.empIdx
+		<where>
+			<if test="showNotice != null">
+				showNotice = ${showNotice}
+			</if>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (noticeIdx &lt; #{noticeIdx})
+		</where>
+		ORDER BY noticeIdx DESC
+		FETCH FIRST 1 ROWS ONLY	
+	</select>	
+
+	<update id="updateNotice" parameterType="com.sp.app.model.notice.Notice">
+		UPDATE notice SET title=#{title}, content=#{content}, updateDate=SYSDATE, showNotice=#{showNotice}
+		WHERE noticeIdx = #{noticeIdx}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE FROM notice
+		WHERE noticeIdx = #{noticeIdx}
+	</delete>
+	
+	<!-- 파일 -->
+	<insert id="insertFile" parameterType="com.sp.app.model.notice.Notice">
+		INSERT INTO noticeFile(fileIdx, noticeIdx, saveFilename, originalFilename)
+		VALUES (noticeFile_seq.NEXTVAL, #{noticeIdx}, #{saveFilename}, #{originalFilename})
+	</insert>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.model.notice.Notice">
+		SELECT fileIdx, noticeIdx, saveFilename, originalFilename
+		FROM noticeFile
+		WHERE noticeIdx = #{noticeIdx}
+	</select>
+	
+	<select id="findByFileId" parameterType="Long" resultType="com.sp.app.model.notice.Notice">
+		SELECT fileIdx, noticeIdx, saveFilename, originalFilename
+		FROM noticeFile
+		WHERE fileIdx = #{fileIdx}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM noticeFile
+		WHERE ${field} = #{noticeIdx}
+	</delete>
+	
+	<!-- 댓글 --> 
+	<insert id="insertReply" parameterType="com.sp.app.model.notice.Reply">
+		INSERT INTO noticeCmt(cmtIdx, noticeIdx, empIdx, content, regDate)
+		VALUES (noticeCmt_seq.NEXTVAL, #{noticeIdx}, #{empIdx}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM noticeCmt
+		WHERE noticeIdx=#{noticeIdx}
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.model.notice.Reply">
+		SELECT r.cmtIdx, r.empIdx, e.empName, r.noticeIdx, r.content, r.regDate
+		FROM noticeCmt r
+		JOIN employee e ON r.empIdx = e.empIdx
+		WHERE noticeIdx=#{noticeIdx}
+		ORDER BY r.cmtIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM noticeCmt
+		WHERE cmtIdx = #{cmtIdx}
+	</delete>
+	
+</mapper>

@@ -15,7 +15,7 @@ public class Notice {
 	
 	//공지사항
 	private long noticeIdx;
-	private String empIdx;
+	private long empIdx;
 	private String empName;
 	private String title;
 	private String content;
