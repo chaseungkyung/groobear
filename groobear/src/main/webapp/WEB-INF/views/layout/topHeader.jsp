@@ -8,7 +8,7 @@
 			<img src="${pageContext.request.contextPath}/dist/images/logo-w.png" alt="">
 		</div>
 		<ul>
-			<li><a href="${pageContext.request.contextPath}/">공지사항</a></li>
+			<li><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
 			<li><a href="${pageContext.request.contextPath}/">HR</a></li>
 			<li><a href="${pageContext.request.contextPath}/">사내 교육 자료실</a></li>
 			<li><a href="${pageContext.request.contextPath}/map/map">조직도</a></li>
