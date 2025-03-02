@@ -43,7 +43,6 @@ public interface MemberMapper {
 	public void updateFailureCount(String empCode) throws SQLException;
 	
 	public Member findByEmpIdx(long empIdx);
-	
 	public List<Member> getEmpRecord(long empIdx) throws SQLException;
 	public Member lastEmpHistory(long empIdx) throws SQLException;
 	

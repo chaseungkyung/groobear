@@ -57,4 +57,5 @@ public class Member {
 	private String parentCode;
 	
 	private MultipartFile selectFile;
+
 }

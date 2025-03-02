@@ -9,6 +9,8 @@
 	<style type="text/css">
 		main {width: 93vw;}
 		main .mainInner {width: 83vw;}
+		.mainInner .info .profile { width: 10vw; height: 12vw; border-radius: 50px;}
+		
 	</style>	
 <script type="text/javascript">
 
@@ -31,14 +33,11 @@ function ClockIn() {
                 <div class="info-inner">
 					<form name="ClockForm">
                     <div class="today"><p>2025년 01월 20일</p></div>
-                    <div class="profile">
-						<div class="img-viewer"></div>
-						<img src="<c:url value='${dto.saveProfile}'/>" alt="프로필 사진">
-						<input type='hidden' name="empIdx" value="${dto.empIdx}">
-                        <div class="department"><p>${sessionScope.member.deptName}</p></div>
-                        <div class="name"><p>${sessionScope.member.empName}</p></div>
-                    </div>
-                    <div class="time"><p>08:50:11</p></div>
+						<img class = "profile" src="<c:url value='${dto.saveProfile}'/>" alt="프로필 사진">
+						<input type='hidden' name="empIdx" value="${dto.empIdx}" style="margin-top: 10px;">
+                        <div class="department" style="margin-top: 10px;" ><p>${sessionScope.member.deptName}</p></div>
+                        <div class="name" style="margin-top: 10px;"><p>${sessionScope.member.empName}</p></div>
+                    <div class="time" style="margin-top: 10px;"><p>08:50:11</p></div>
                     <div class="work">
                         <div class="status">
                             <ul>
@@ -47,7 +46,7 @@ function ClockIn() {
                             </ul>
                             <ul>
                                 <li>출근 시간</li>
-                                <li>출근 전</li>
+                                <li>${startDate}</li>
                             </ul>
                             <ul>
                                 <li>퇴근 시간</li>
@@ -56,7 +55,7 @@ function ClockIn() {
                         </div>
                     </div>
                     <div class="btnWrap">
-                        <button type="button" onclick="ClockIn();">출근</button>
+                        <button type="button" onclick="ClockIn();" >출근</button>
                     </div>
 					</form>
                 </div>
