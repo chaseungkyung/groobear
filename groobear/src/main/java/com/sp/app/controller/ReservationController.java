@@ -62,6 +62,7 @@ public class ReservationController {
 			map.put("empCode", info.getEmpCode());
 			map.put("empName", info.getEmpName());
 			
+			
 			model.addAttribute("cabinet", cabinet);
 		} catch (Exception e) {
 			log.info("writeForm : ", e);
@@ -74,12 +75,12 @@ public class ReservationController {
 	public String writeSubmit(Reservation dto,
 			HttpSession session) throws Exception {
 		
-		// String cabinet = "A";
+		String cabinet = "A";
 		
 		try {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
-			// cabinet = dto.getCabinet();
+			cabinet = dto.getCabinet();
 			
 			dto.setEmpCode(info.getEmpCode());
 			dto.setEmpName(info.getEmpName());
@@ -91,7 +92,7 @@ public class ReservationController {
 			log.info("writeSubmit : ", e);
 		}
 
-		return "redirect:/reservation/main";
+		return "redirect:/reservation/main?cabinet="+cabinet;
 	}
 	
 	@ResponseBody
@@ -111,6 +112,7 @@ public class ReservationController {
 			map.put("start", start);
 			map.put("end", end);
 			map.put("cabinet", cabinet);
+			map.put("empCode", info.getEmpCode());
 			
 			List<Reservation> list = service.listMonth(map);
 			for(Reservation dto : list) {

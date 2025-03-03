@@ -93,10 +93,6 @@ $(function(){
 						</tr>
 	
 						<tr>
-							<td class="bg-light col-2" scope="row"></td>
-						</tr>
-	
-						<tr>
 							<td class="bg-light col-2" scope="row">예약장소</td>
 							<td>
 								<div class="row">
@@ -143,7 +139,6 @@ $(function(){
 					<table class="table table-borderless">
 	 					<tr>
 							<td class="text-center">
-								<input type = "hidden" name="cabinet" value="${cabinet}">
 								<button type="button" class="btn btn-dark" onclick="sendOk();">예약완료&nbsp;<i class="bi bi-check2"></i></button>
 								<button type="reset" class="btn btn-light">다시입력</button>
 								<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/reservation/main?cabinet=${cabinet}';">입력취소&nbsp;<i class="bi bi-x"></i></button>
