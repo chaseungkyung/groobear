@@ -17,7 +17,7 @@
 function ClockIn() {
 	const f = document.ClockForm;
 	
-	f.action = '${pageContext.request.contextPath}/main/home}';
+	f.action = '${pageContext.request.contextPath}/main';
 	f.submit();
 }	
 	
@@ -47,10 +47,6 @@ function ClockIn() {
                             <ul>
                                 <li>출근 시간</li>
                                 <li>${startDate}</li>
-                            </ul>
-                            <ul>
-                                <li>퇴근 시간</li>
-                                <li>출근 전</li>
                             </ul>
                         </div>
                     </div>

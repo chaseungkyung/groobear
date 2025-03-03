@@ -138,7 +138,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateEmployeeHistory(Member dto) throws Exception {
-		
+		try {
+			
+			mapper.updateEmployeeHistory(dto);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@Override
@@ -318,5 +323,24 @@ public class MemberServiceImpl implements MemberService {
 			throw e;
 		}
 		return saveProfile;
+	}
+
+	@Override
+	public void insertWorklog(long empIdx) {
+		try {
+			mapper.insertWorklog(empIdx);
+		} catch (Exception e) {
+		}
+		
+	}
+
+	@Override
+	public void insertEmployeeHistory2(Member dto) throws Exception {
+			try {
+				mapper.insertEmployeeHistory2(dto);
+			} catch (Exception e) {
+				throw e;
+			}
+		
 	}
 }

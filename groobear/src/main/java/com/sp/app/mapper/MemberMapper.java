@@ -20,11 +20,10 @@ public interface MemberMapper {
 	public Long insertEmployee(Member dto) throws SQLException;
 	public void insertEmployeeDetail(Member dto) throws SQLException;
 	public void insertEmployeeHistory(Member dto) throws SQLException;
+	public void insertEmployeeHistory2(Member dto) throws SQLException;
 	
 	// 마지막 로그인
 	public void updateLastLogin(String empCode) throws SQLException;
-	// ??
-	public void updateEmployeeEnabled(Map<String, Object> map) throws SQLException;
 	
 	// 재직상태 업데이트
 	public void updateMemberStatus(Map<String, Object> map) throws SQLException;
@@ -34,13 +33,15 @@ public interface MemberMapper {
 	public void updateEmployeeDetail(Member dto) throws SQLException;
 	public void updateEmployeeHistory(Member dto) throws SQLException;
 	
-	// 홈 프로필사진
-	public Member findByProfile(long empIdx);
-	
-	// 로그인 실패 횟수
+	// 로그인 
 	public int checkFailureCount(String empCode);
 	public void updateFailureCountReset(String empCode) throws SQLException;
 	public void updateFailureCount(String empCode) throws SQLException;
+	 
+	// 홈 
+	public Member findByProfile(long empIdx);
+	public void insertWorklog(long empIdx);
+	
 	
 	public Member findByEmpIdx(long empIdx);
 	public List<Member> getEmpRecord(long empIdx) throws SQLException;

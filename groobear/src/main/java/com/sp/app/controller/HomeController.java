@@ -38,6 +38,8 @@ public class HomeController {
 			Long empIdx = info.getEmpIdx();
 			Member dto = Objects.requireNonNull(memberService.findByEmpIdx(empIdx));
 			
+			memberService.insertWorklog(empIdx);
+			
 			String saveProfile = memberService.findByProfile(empIdx).getSaveProfile();
 			
 			model.addAttribute("empName", info.getEmpName());
@@ -51,7 +53,6 @@ public class HomeController {
                 
             }
 			// 프로필 사진
-
 			model.addAttribute("dto", dto);
 			
 			// 스케쥴Dto에서 메인으로 뽑아오는 리스트입니다.
@@ -68,4 +69,5 @@ public class HomeController {
 	}
 	
 
+	
 }

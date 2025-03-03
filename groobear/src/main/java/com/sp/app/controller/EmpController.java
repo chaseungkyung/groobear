@@ -22,6 +22,7 @@ import com.sp.app.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -122,7 +123,7 @@ public class EmpController {
 	}
 	
 	@PostMapping("add")
-	public String employeeAddSubmit(Member dto, Model model, HttpServletRequest req) throws Exception {
+	public String employeeAddSubmit(Member dto, Model model,HttpSession session, HttpServletRequest req) throws Exception {
 		try {
 			
 			String[] hireDate = dto.getHireDate().split("-");
@@ -148,9 +149,14 @@ public class EmpController {
 			// dto.setEmpPwd(dto.getBirth()); // 생년월일로 초기비밀번호 할당
 			dto.setEmpPwd("1234"); // test 로그인 편하게 그냥 1234 초기 비밀번호
 			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			dto.setUpdateCode(info.getEmpCode());
+			dto.setUpdateName(info.getEmpName());
+			
 			service.insertEmployee(dto);
 			service.insertEmployeeDetail(dto);
-			
+			service.insertEmployeeHistory(dto);
 			
 		} catch (Exception e) {
 			log.info("employeeAddSubmit : ", e);
@@ -200,9 +206,9 @@ public class EmpController {
 			Member dto) throws Exception {
 		
 		try {
+			System.out.println(dto.getDeptName());
 			service.updateEmployee(dto);
 			service.updateEmployeeDetail(dto);
-			service.updateEmployeeHistory(dto);
 					
 		} catch (Exception e) {
 			throw e;
@@ -221,7 +227,8 @@ public class EmpController {
 			dto.setUpdateCode(info.getEmpCode());
 			dto.setUpdateName(info.getEmpName());
 			
-			service.insertEmployeeHistory(dto);
+			service.updateEmployeeHistory(dto);
+			service.insertEmployeeHistory2(dto);
 		} catch (Exception e) {
 			throw e;
 		}

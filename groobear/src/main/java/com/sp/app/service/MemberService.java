@@ -16,6 +16,7 @@ public interface MemberService {
 	public void insertEmployee(Member dto) throws Exception;
 	public void insertEmployeeDetail(Member dto) throws Exception;
 	public void insertEmployeeHistory(Member dto) throws Exception;
+	public void insertEmployeeHistory2(Member dto) throws Exception;
 	
 	public void updateLastLogin(String empCode) throws Exception;
 	
@@ -30,8 +31,9 @@ public interface MemberService {
 	public Member findByEmpIdx(long empIdx);
 	public Member findByEmpCode(String emdCode);
 	
-	// 홈 메인 프로필사진
+	// 홈 메인
 	public Member findByProfile(long empIdx);
+	public void insertWorklog(long empIdx);
 	
 	// empHistory
 	public List<Member> getEmpRecord(long empIdx) throws Exception;

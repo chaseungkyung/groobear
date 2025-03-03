@@ -87,7 +87,7 @@
 		
 	<select id="findByEmpCode" parameterType="String" resultType="com.sp.app.model.Member" >
 		select empIdx, empCode, empName, empPwd, e.deptIdx, e.teamIdx, e.positionCode, emptel, empStatus, 
-				hiredate, retiredate, lastlogin, loginfails, d.deptName, t.teamName, p.positionName
+				hiredate, retiredate, d.deptName, t.teamName, p.positionName
 		from employee e
 		left outer join department d ON d.deptidx = e.deptidx
 		left outer join team t On t.teamidx = e.teamidx
@@ -119,12 +119,18 @@
 	</select>
 	
 	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
-		INSERT INTO employeeHistory(historyIdx, empIdx, startdate, deptname, teamname, emprank, note, updateCode, updateName) 
-		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, #{startDate}, #{deptName}, #{teamName}, #{empRank}, #{note}, #{updateCode}, #{updateName})
+		INSERT INTO employeeHistory(historyIdx, empIdx, startDate, deptName, teamName, empRank, note, updateCode, updateName) 
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, TO_DATE(#{hireDate, jdbcType=DATE},'YYYY-MM-DD'), #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{positionCode}, '입사', #{updateCode}, #{updateName})
 	</insert>
 	
-	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">
-		UPDATE employeeHistory SET enddate = TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	<insert id="insertEmployeeHistory2" parameterType="com.sp.app.model.Member">
+		INSERT INTO employeeHistory(historyIdx, empIdx, startDate, deptName, teamName, empRank, note, updateCode, updateName) 
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, TO_DATE(#{startDate, jdbcType=DATE},'YYYY-MM-DD'), #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{positionCode}, '입사', #{updateCode}, #{updateName})
+	</insert>
+	
+	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">		
+		UPDATE employeeHistory 
+		SET enddate = #{startDate, jdbcType=VARCHAR}
 		WHERE historyIdx = #{historyIdx}
 	</update>
 
@@ -150,4 +156,9 @@
 	<select id="findByProfile" parameterType="long" resultType="com.sp.app.model.Member">
 		SELECT saveProfile FROM employee WHERE empIdx = #{empIdx}
 	</select>
+	
+	<insert id="insertWorklog" parameterType="long">
+		INSERT INTO worklog (workIdx, empIdx, workDate, LoginTime)
+		VALUES (worklog_seq.NEXTVAL, #{empIdx}, SYSDATE, SYSDATE)
+	</insert>
 </mapper>
