@@ -29,5 +29,23 @@ public interface SignMapper {
 	public void insertIncidentReport(IncidentReport dto) throws SQLException;
 	public void insertApprovalReq(ApprovalReq dto) throws SQLException;
 	
-	public List<Member> listMember(Map<String, Object> map);
+	public List<Member> listMember(Map<String, Object> map); // 결재자 선택 할 당시 사원 list
+	
+	public List<DocApproval> inProgressList(Map<String, Object> map); // 결재 상신 list
+	public List<ApprovalLine> approvalList(Map<String, Object> map); // 결재 라인 list
+	
+	public ApprovalLine findByEmpIdx(long empIdx);
+	
+	public DocApproval docApprovalAprIdx(long aprIdx);
+	public ApprovalLine approvalLineAprIdx(long aprIdx);
+	public ApprovalRef approvalRefAprIdx(long aprIdx);
+	public DocAppFile docAppFileAprIdx(long aprIdx);
+	
+	public LeaveRequest leaveRequestAprIdx(long aprIdx);
+	
+	public int dataCount(Map<String, Object> map);
+	
+	public void updateResult(Map<String, Object> map) throws SQLException; // approvalLine
+	public void updatedocApprovalStatus(Map<String, Object> map) throws SQLException; // approval
+	
 }

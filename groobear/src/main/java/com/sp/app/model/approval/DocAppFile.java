@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DocAppFile {
+public class DocAppFile extends DocApproval {
 
 	private Long fileIdx;
 	private Long aprIdx;
