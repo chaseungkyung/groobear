@@ -341,6 +341,28 @@ public class MemberServiceImpl implements MemberService {
 			} catch (Exception e) {
 				throw e;
 			}
+	}
+
+	@Override
+	public String getDeptName(String deptIdx) throws Exception {
+		String deptName= "";
+		try {
+			deptName = mapper.getDeptName(deptIdx);
+			
+		} catch (Exception e) {
+		}
 		
+		return deptName;
+	}
+
+	@Override
+	public String getTeamName(String teamIdx) throws Exception {
+		String teamName = "";
+		try {
+			teamName = mapper.getTeamName(teamIdx);
+		} catch (Exception e) {
+		}
+		
+		return teamName;
 	}
 }

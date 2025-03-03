@@ -154,9 +154,14 @@ public class EmpController {
 			dto.setUpdateCode(info.getEmpCode());
 			dto.setUpdateName(info.getEmpName());
 			
+			String deptName = service.getDeptName(dto.getDeptIdx());
+			dto.setDeptName(deptName);
+			String teamName = service.getTeamName(dto.getTeamIdx());
+			dto.setTeamName(teamName);
+			
 			service.insertEmployee(dto);
 			service.insertEmployeeDetail(dto);
-			service.insertEmployeeHistory(dto);
+			service.insertEmployeeHistory2(dto);
 			
 		} catch (Exception e) {
 			log.info("employeeAddSubmit : ", e);
@@ -185,8 +190,7 @@ public class EmpController {
 			
 			Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
 			List<Member> list = service.getEmpRecord(empIdx);
-			
-			
+				
 			model.addAttribute("list", list);
 			model.addAttribute("dto", dto);
 			model.addAttribute("mode", "update");
@@ -209,7 +213,8 @@ public class EmpController {
 			System.out.println(dto.getDeptName());
 			service.updateEmployee(dto);
 			service.updateEmployeeDetail(dto);
-					
+			service.updateEmployeeHistory(dto);
+			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -227,8 +232,8 @@ public class EmpController {
 			dto.setUpdateCode(info.getEmpCode());
 			dto.setUpdateName(info.getEmpName());
 			
-			service.updateEmployeeHistory(dto);
-			service.insertEmployeeHistory2(dto);
+	//		service.updateEmployeeHistory(dto);
+			service.insertEmployeeHistory(dto);
 		} catch (Exception e) {
 			throw e;
 		}

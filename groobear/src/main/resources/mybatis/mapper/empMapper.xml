@@ -119,18 +119,17 @@
 	</select>
 	
 	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">
-		INSERT INTO employeeHistory(historyIdx, empIdx, startDate, deptName, teamName, empRank, note, updateCode, updateName) 
-		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, TO_DATE(#{hireDate, jdbcType=DATE},'YYYY-MM-DD'), #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{positionCode}, '입사', #{updateCode}, #{updateName})
+		INSERT INTO employeeHistory(historyIdx, empIdx, startdate, deptname, teamname, emprank, note, updateCode, updateName) 
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, #{startDate}, #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{empRank}, #{note}, #{updateCode}, #{updateName})
 	</insert>
 	
 	<insert id="insertEmployeeHistory2" parameterType="com.sp.app.model.Member">
 		INSERT INTO employeeHistory(historyIdx, empIdx, startDate, deptName, teamName, empRank, note, updateCode, updateName) 
-		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, TO_DATE(#{startDate, jdbcType=DATE},'YYYY-MM-DD'), #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{positionCode}, '입사', #{updateCode}, #{updateName})
+		VALUES(employeehistory_seq.NEXTVAL, #{empIdx}, TO_DATE(#{hireDate, jdbcType=DATE},'YYYY-MM-DD'), #{deptName, jdbcType=VARCHAR}, #{teamName, jdbcType=VARCHAR}, #{positionCode}, '입사', #{updateCode}, #{updateName})
 	</insert>
 	
 	<update id="updateEmployeeHistory" parameterType="com.sp.app.model.Member">		
-		UPDATE employeeHistory 
-		SET enddate = #{startDate, jdbcType=VARCHAR}
+		UPDATE employeeHistory SET enddate = TO_DATE(#{endDate, jdbcType=VARCHAR}, 'YYYY-MM-DD')
 		WHERE historyIdx = #{historyIdx}
 	</update>
 
@@ -161,4 +160,13 @@
 		INSERT INTO worklog (workIdx, empIdx, workDate, LoginTime)
 		VALUES (worklog_seq.NEXTVAL, #{empIdx}, SYSDATE, SYSDATE)
 	</insert>
+	
+	<select id="getDeptName" parameterType="String" resultType="String">
+		SELECT deptName FROM department WHERE deptIdx = #{deptIdx}
+	</select>
+	
+	<select id="getTeamName" parameterType="String" resultType="String">
+		SELECT teamName FROM team WHERE teamIdx = #{teamIdx}
+	</select>
+	
 </mapper>
