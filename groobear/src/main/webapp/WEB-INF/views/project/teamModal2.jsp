@@ -97,8 +97,9 @@
 		<div class="team-modal-body" id="teamContainer"></div>
 		
 		<div class="team-modal-footer">
-			<button class="close-modal" id="team-cancelBtn">닫기</button>
-			<button class="team-create">팀 등록</button>
+			<button class="button close-modal" id="team-cancelBtn">닫기</button>
+			<button class="team-create">팀 등록완료</button>
+			<button class="button team-reset">초기화</button>
 		</div>
 		
 	</div>
@@ -113,6 +114,11 @@ $(function () {
     });
     $('#team-cancelBtn, .team-close').click(function () {
         $('#teamModal').hide();
+    });
+    
+    // 초기화 버튼
+    $('.team-reset').click(function(){
+    	$('#teamContainer').empty();
     });
 
     // 팀 추가 버튼 클릭 시 새로운 팀 박스 생성

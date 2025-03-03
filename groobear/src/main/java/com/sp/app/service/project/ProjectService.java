@@ -46,6 +46,7 @@ public interface ProjectService {
 	public List<ProjectTeam> getProjectTeamList(long projIdx);
 	
 
+
 	// < ProjectMember >
 	public void insertProjectMember(ProjectMember dto) throws Exception;
 
@@ -56,6 +57,13 @@ public interface ProjectService {
 	public List<ProjectMember> getProjectMemberList(Map<String, Object> map);
 
 	public int getProjectMemberCount(Map<String, Object> map);
+	
+	public ProjectMember getProjectMemberById(long projMemberIdx);
+	
+	// 프로젝트 멤버 참여자 목록
+	public List<ProjectMember> getProjectPmList(long projIdx);
+	
+	public List<ProjectMember> getNonPMProjectMemberList(long projIdx);
 	
 	
 	// <ProjectStage>
@@ -90,7 +98,9 @@ public interface ProjectService {
 	
 	
 	// <ProjectPost>
-	public void insertProjectPost(ProjectPost dto) throws Exception;
+	public void insertProjectPost(ProjectPost dto, String uploadPath) throws Exception;
+	
+	public long getProjectMemberIdx(Map<String, Object> map);
 
 	public void updateProjectPost(ProjectPost dto) throws Exception;
 

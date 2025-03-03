@@ -41,7 +41,7 @@
 }
 
 /* 버튼 hover 효과 */
-.stage-add-btn:hover {
+.addStageBtn:hover {
     background: #7163c4;
     border-color: #7163c4;
     color: #fff;
@@ -135,7 +135,7 @@
 
 
 /* 버튼 스타일 */
-.task-add-btn {
+.addTaskBtn {
     padding: 3px 5px;
     font-size: 12px;
     color: #746d96;
@@ -147,7 +147,7 @@
 }
 
 /* 버튼 hover 효과 */
-.task-add-btn:hover {
+.addTaskBtn:hover {
 	color: #6449fc;
     border-color: #6449fc;
     background: #fff;
@@ -172,14 +172,12 @@
     border-radius: 4px;
     color: white;
 }
-.status.request { 
-	background-color: #00b2ff; }
-.status.progress { 
-	background-color: #00b01c; }
-.status.complete { 
-	background-color: #402a9d; }
-.status.hold { 
-	background-color: #777; }
+
+.status[data-status="1"] { background-color: #00b2ff; }
+.status[data-status="2"] { background-color: #00b01c; }
+.status[data-status="3"] { background-color: #402a9d; }
+.status[data-status="4"] { background-color: #777; }
+
 
 .status {
 	display: inline-block;

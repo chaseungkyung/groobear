@@ -8,8 +8,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProjectTask {
+	private long projIdx;
+	private Long stageIdx;
     private long taskIdx;
-    private long stageIdx;
 
     private String taskName;
     private String stageName;

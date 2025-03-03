@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
 import com.sp.app.model.project.ProjectMember;
+import com.sp.app.model.project.ProjectStage;
+import com.sp.app.model.project.ProjectTask;
 import com.sp.app.model.project.ProjectTeam;
 import com.sp.app.service.project.ProjectService;
 
@@ -130,7 +133,7 @@ public class ProjectRestController {
 			condition.put("projIdx", projIdx);
 
 			List<ProjectMember> list = service.getProjectMemberList(condition);
-			result.put("projMemberlist", list);
+			result.put("projMemberList", list);
 		} catch (Exception e) {
 			log.info("getProjectMmeberList : ", e);
 		}
@@ -153,6 +156,152 @@ public class ProjectRestController {
 			result.put("state", "false");
 		}
 
+		return result;
+	}
+
+	@GetMapping("chart")
+	public Map<String, Object> getProjectChartData(@RequestParam(name = "projIdx") long projIdx) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("projIdx", projIdx);
+
+		List<ProjectStage> stageList = service.getProjectStageList(map);
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("stageList", stageList);
+
+		return response;
+	}
+
+	@GetMapping("fetchProjectTask")
+	public Map<String, Object> getProjectTask(
+			@RequestParam(name = "taskIdx") long taskIdx) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			ProjectTask projTask = service.getProjectTaskById(taskIdx);
+			map.put("projTask", projTask);
+		} catch (Exception e) {
+			log.info("getProjectTask : ", e);
+		}
+		return map;
+	}
+
+	@GetMapping("fetchProjectTaskList")
+	public Map<String, Object> getProjectTaskList(
+			@RequestParam(name = "projIdx") long projIdx,
+			@RequestParam(name = "stageIdx") long stageIdx) {
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("projIdx", projIdx);
+		param.put("stageIdx", stageIdx);
+
+		List<ProjectTask> taskList = service.getProjectTaskList(param);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("taskList", taskList);
+
+		int stageRate = service.getProgressRate(projIdx, stageIdx);
+		map.put("stageRate", stageRate);
+
+		System.out.println("stageRate : " + stageRate);
+
+		return map;
+	}
+	
+	@GetMapping("fetchProjectStage")
+	public Map<String, Object> getProjectStage(
+			@RequestParam(name = "stageIdx") long stageIdx) {
+		Map<String, Object> map = new HashMap<>();
+		
+		try {
+			ProjectStage projStage = service.getProjectStageById(stageIdx);
+			map.put("projStage", projStage);
+			
+		} catch (Exception e) {
+			log.info("getProjectStage : ", e);
+		}
+		
+		return map;
+	}
+
+	// Stage insert, update
+	@PostMapping("sendProjectStage")
+	public Map<String, Object> insertProjectStage(			
+			@RequestBody ProjectStage dto,
+			@RequestParam(name = "mode", defaultValue = "insert") String mode) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			if (mode.equals("insert")) {
+				service.insertProjectStage(dto);
+			} else if (mode.equals("update")) {
+				service.updateProjectStage(dto);
+			}
+
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("insertProjectStage : ", e);
+			result.put("state", "false");
+		}
+
+		return result;
+	}
+	
+	@GetMapping("deleteProjectStage/{stageIdx}")
+	public Map<String, Object> deleteProjectStage(
+			@PathVariable("stageIdx") long stageIdx) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		try {
+			service.deleteProjectStage(stageIdx);
+			
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("deleteProjectStage : ", e);
+			result.put("stage", "false");
+		}
+		
+		return result;
+	}
+
+	
+	// Task insert, update
+	@PostMapping("sendProjectTask")
+	public Map<String, Object> insertProjectTask(
+			@RequestBody ProjectTask dto,
+			@RequestParam(name = "mode", defaultValue = "insert") String mode) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			if (mode.equals("insert")) {
+				service.insertProjectTask(dto);
+			} else if (mode.equals("update")) {
+				service.updateProjectTask(dto);
+			}
+
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("insertProjectStage : ", e);
+			result.put("state", "false");
+		}
+
+		return result;
+	}
+
+	
+	@GetMapping("deleteProjectTask/{taskIdx}")
+	public Map<String, Object> deleteProjectTask(
+			@PathVariable("taskIdx") long taskIdx){
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		try {
+			service.deleteProjectTask(taskIdx);
+			
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("deleteProjectTask : ", e);
+			result.put("state", "false");
+		}
+		
 		return result;
 	}
 

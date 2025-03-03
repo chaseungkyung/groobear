@@ -84,7 +84,7 @@ public interface ProjectMapper {
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 삭제하는 메소드
 	public void deleteProjectMember(long projMemberIdx) throws SQLException;
 
-	// PROJECTMEMBER 테이블에서 프로젝트 참여자 목록을 List로 가져오는 메소드
+	// PROJECTMEMBER 테이블에서 참여자 목록을 List로 가져오는 메소드
 	// map.put("projIdx", projIdx); <- 프로젝트에 참여하는 사원들 리스트
 	// map.put("projTeamIdx", projTeamIdx); <- 프로젝트 안에 프로젝트 팀에 소속된 사원들 리스트
 	public List<ProjectMember> getProjectMemberList(Map<String, Object> map);
@@ -93,6 +93,15 @@ public interface ProjectMapper {
 	// map.put("projIdx", projIdx); <- 프로젝트에 참여하는 사원 수
 	// map.put("projTeamIdx", projTeamIdx); <- 프로젝트 안에 프로젝트 팀에 소속된 사원 수
 	public int getProjectMemberCount(Map<String, Object> map);
+
+	// PROJECTMEMBER 테이블에서 프로젝트 참여자 정보를 하나 가져오는 메소드
+	public ProjectMember getProjectMemberById(long projMemberIdx);
+
+	// 해당 프로젝트에 프로젝트 매니저 매니저 조회
+	public List<ProjectMember> getProjectPmList(long projIdx);
+
+	// 해당 프로젝트에 프로젝트 매니저를 뺀 참여자 목록을 List 로 가져오는 메소드
+	public List<ProjectMember> getNonPMProjectMemberList(long projIdx);
 
 	/*
 	 * PROJECTSTAGE 테이블
@@ -107,7 +116,7 @@ public interface ProjectMapper {
 	public void deleteProjectStage(long stageIdx) throws SQLException;
 
 	// PROJECTSTAGE 테이블에서 프로젝트 단계 목록을 List로 가져오는 메소드
-	// mpa.put("projIdx", projIdx); <- 프로젝트에 들어가 있는 모든 단계 리스트
+	// map.put("projIdx", projIdx); <- 프로젝트에 들어가 있는 모든 단계 리스트
 	// map.put("status", status); <- status에 해당하는 단계 리스트
 	public List<ProjectStage> getProjectStageList(Map<String, Object> map);
 
@@ -151,7 +160,9 @@ public interface ProjectMapper {
 	 */
 	// projectPost 테이블 게시글 등록
 	public void insertProjectPost(ProjectPost dto) throws SQLException;
-
+	
+	public long getProjectMemberIdx(Map<String, Object> map);
+	
 	// projectPost 테이블 게시글 수정
 	public void updateProjectPost(ProjectPost dto) throws SQLException;
 
@@ -166,7 +177,7 @@ public interface ProjectMapper {
 
 	// projectPost 테이블 게시글 하나 가져오는 메소드
 	public ProjectPost getProjectPostById(long postIdx);
-	
-	
-	
+
+	public Long getProjectMemberIdx();
+
 }

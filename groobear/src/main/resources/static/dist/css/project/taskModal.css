@@ -171,7 +171,7 @@
     margin-top: 20px;
 }
 
-.task-cancel-button, .task-add-button {
+.task-cancel-button, .task-insert-button {
     padding: 8px 40px;
     border-radius: 5px;
     border: none;
@@ -183,12 +183,12 @@
     background-color: #ddd;
 }
 
-.task-add-button {
+.task-insert-button {
     background-color: #6c5ce7;
     color: white;
 }
 
-.task-add-button:hover {
+.task-insert-button:hover {
 	background-color: #7163c4;
 	color: #fff;
 	

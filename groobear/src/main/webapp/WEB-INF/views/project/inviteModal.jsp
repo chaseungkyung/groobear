@@ -52,7 +52,6 @@
 
 <script>
 let selectedUsers = [];
-const projIdx = ${projIdx};
 
 $(document).ready(function () {
     // 모달 열기
@@ -84,7 +83,7 @@ $(document).ready(function () {
                     userList.empty();
                     console.log(empList);
 
-                    if (empList.length !== 0) {
+                    if (empList.length > 0) {
                         empList.forEach(emp => {
                             let firstChar = emp.empName.charAt(0);
                             let listItem = '';
@@ -117,21 +116,21 @@ $(document).ready(function () {
     });
 
     // AJAX - 프로젝트 팀 목록 조회
-    const fetchProjTeamList = function (selectedUserEL) {
+    const fetchProjTeamList = function (selectProjTeam) {
         const url = '${pageContext.request.contextPath}/project/fetchProjectTeams';
         let params = { projIdx };
 
         const fn = function (data) {
             let projTeamList = data.projTeamList;
-            let selectOptions = '';
+            let selectOptions = '<option value="">팀 미정</option>';
 
-            if (projTeamList) {
+            if (projTeamList.length > 0) {
                 projTeamList.forEach(team => {
                     selectOptions += '<option value="' + team.projTeamIdx + '">' + team.projTeamName + '</option>';
                 });
             }
 
-            selectedUserEL.html(selectOptions);
+            selectProjTeam.html(selectOptions);
         };
         ajaxRequest(url, 'GET', params, 'json', fn);
     };
@@ -172,6 +171,7 @@ $(document).ready(function () {
         selectedUserHtml += '        </select>';
         selectedUserHtml += '        <button class="remove-user">✖</button>';
         selectedUserHtml += '    </div>';
+        selectedUserHtml += '    <span class="selected-user-role">' + user.orgUnitName + '</span>';
         selectedUserHtml += '</div>';
 
         $("#selectedUserList").append(selectedUserHtml);
@@ -191,8 +191,10 @@ $(document).ready(function () {
         const empIdx = $(this).data("empidx");
         const userItem = $(this).closest(".invite-user-item");
         const empName = userItem.find(".user-name").text();
-
-        const user = { empIdx, empName };
+        const orgUnitName = userItem.find(".user-role").text();
+        
+        const user = { empIdx, empName, orgUnitName };
+        
         if ($(this).is(":checked")) {
             addSelectedUser(user);
         } else {

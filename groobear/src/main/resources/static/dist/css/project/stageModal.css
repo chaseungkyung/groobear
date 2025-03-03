@@ -175,7 +175,7 @@
     margin-top: 20px;
 }
 
-.stage-cancel-button, .stage-add-button {
+.stage-cancel-button, .stage-insert-button {
     padding: 8px 40px;
     border-radius: 5px;
     border: none;
@@ -187,12 +187,12 @@
     background-color: #ddd;
 }
 
-.stage-add-button {
+.stage-insert-button {
     background-color: #6c5ce7;
     color: white;
 }
 
-.stage-add-button:hover {
+.stage-insert-button:hover {
 	background-color: #7163c4;
 	color: #fff;
 	

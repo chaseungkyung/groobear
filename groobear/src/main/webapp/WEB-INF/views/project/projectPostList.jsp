@@ -47,24 +47,26 @@
 			<li>댓글</li>			
 		</ul>
 		
-		<ul>
-			<li>게시글 제목1</li>
-			<li class="board-author">홍길동</li>
-			<li>2025-02-15</li>
-			<li>2025-02-20</li>
-			<li><i class="fas fa-paperclip file-icon"></i></li>
-			<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
-		</ul>
-		
-		<ul>
-			<li>게시글 제목2</li>
-			<li class="board-author">박민우</li>
-			<li>2025-02-20</li>
-			<li>-</li>
-			<li><i class="fas fa-paperclip file-icon"></i></li>
-			<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
-		</ul>		
-	</div>
+		<c:forEach var="dto" items="${list}">
+			<ul>
+				<li>${dto.title}</li>
+				<li class="board-author">${dto.empName}</li>
+				<li>${dto.regDate}</li>
+				<li>${dto.updateDate}</li>
+				<li><i class="fas fa-paperclip file-icon"></i></li>
+				<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
+			</ul>
+		</c:forEach>
+			
+			<ul>
+				<li>게시글 제목2</li>
+				<li class="board-author">박민우</li>
+				<li>2025-02-20</li>
+				<li>-</li>
+				<li><i class="fas fa-paperclip file-icon"></i></li>
+				<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
+			</ul>		
+		</div>
 	
 	<div class="page-navigation">
 		${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}

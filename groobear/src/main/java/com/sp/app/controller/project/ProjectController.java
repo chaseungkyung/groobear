@@ -21,6 +21,7 @@ import com.sp.app.model.SessionInfo;
 import com.sp.app.model.project.Project;
 import com.sp.app.model.project.ProjectMember;
 import com.sp.app.model.project.ProjectStage;
+import com.sp.app.model.project.ProjectTask;
 import com.sp.app.service.project.ProjectService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -226,21 +227,31 @@ public class ProjectController {
 			}
 
 			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
-			
-			ProjectStage stageDto = Objects.requireNonNull(service.getProjectStageById(projIdx));
-			model.addAttribute("stageDto", stageDto);
-			
+			model.addAttribute("dto", dto);
+						
 			Map<String, Object> map = new HashMap<>();
+			map.put("projIdx", projIdx);
 			
 			List<ProjectStage> stageList = service.getProjectStageList(map);
-			model.addAttribute("stageList", stageList);			
+			for (ProjectStage stage : stageList) {
+			    stage.setProgressRate(service.getProgressRate(projIdx, stage.getStageIdx()));
+			}
+			model.addAttribute("stageList", stageList);
 			
-			int progressRate = service.getProgressRate(projIdx, stageDto.getStageIdx());
-			model.addAttribute("progressRate", progressRate);
-
-			model.addAttribute("dto", dto);
+			List<ProjectTask> taskList = service.getProjectTaskList(map);
+			model.addAttribute("taskList", taskList);
+			
+			int projectMemberCount = service.getProjectMemberCount(map);
+			model.addAttribute("projectMemberCount", projectMemberCount);
+			
+			
+			List<ProjectMember> projectPmList = service.getProjectPmList(projIdx);
+			List<ProjectMember> nonPmProjectMemberList = service.getNonPMProjectMemberList(projIdx);
+					
+			model.addAttribute("projectPmList", projectPmList);
+			model.addAttribute("nonPmProjectMemberList", nonPmProjectMemberList);
+			
 			model.addAttribute("query", query);
-
 			model.addAttribute("projIdx", projIdx);
 			model.addAttribute("page", page);
 
@@ -251,24 +262,59 @@ public class ProjectController {
 
 		return "redirect:/project/detail?" + query;
 	}
-
 	
-	@GetMapping("insertProjectMember/{projIdx}")
-	public String insertProjectMember(
+
+	@GetMapping("task/{projIdx}")
+	public String projectTask(
 			@PathVariable("projIdx") long projIdx,
 			@RequestParam(name = "page", defaultValue = "1") String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
-			Model model) {
-		
+			@RequestParam(name = "stageIdx", required = false) Long stageIdx,
+			Model model,
+			HttpSession session) {
+
 		String query = "page=" + page;
 
 		try {
+				
 			kwd = URLDecoder.decode(kwd, "utf-8");
 
 			if (!kwd.isBlank()) {
 				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
-
+			
+			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+			model.addAttribute("dto", dto);
+			
+			Map<String, Object> stageMap = new HashMap<>();
+			stageMap.put("projIdx", projIdx);
+			
+			List<ProjectStage> stageList = service.getProjectStageList(stageMap);			
+			
+			model.addAttribute("stageList", stageList);
+			
+			
+			Map<Long, Integer> taskCountMap = new HashMap<>();
+			
+			for(ProjectStage stage : stageList) {
+				Map<String, Object> countMap = new HashMap<>();
+				countMap.put("projIdx", projIdx);
+				countMap.put("stageIdx", stage.getStageIdx());
+				
+				int taskCount = service.getProjectTaskCount(countMap);
+				taskCountMap.put(stage.getStageIdx(), taskCount);
+			}
+			
+			model.addAttribute("taskCountMap", taskCountMap);
+			
+			
+			Map<String, Object> taskMap = new HashMap<>();
+			taskMap.put("projIdx", projIdx);
+			taskMap.put("stageIdx", stageIdx);
+						
+			List<ProjectTask> taskList = service.getProjectTaskList(taskMap);			
+			
+			model.addAttribute("taskList", taskList);
 			
 			model.addAttribute("projIdx", projIdx);
 			model.addAttribute("page", page);
@@ -284,37 +330,7 @@ public class ProjectController {
 	}
 	
 	
-
-	@GetMapping("task/{projIdx}")
-	public String projectTask(
-			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page", defaultValue = "1") String page,
-			@RequestParam(name = "kwd", defaultValue = "") String kwd,
-			Model model) {
-
-		String query = "page=" + page;
-
-		try {
-			kwd = URLDecoder.decode(kwd, "utf-8");
-
-			if (!kwd.isBlank()) {
-				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
-			}
-
-			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
-
-			model.addAttribute("dto", dto);
-			model.addAttribute("projIdx", projIdx);
-			model.addAttribute("page", page);
-			model.addAttribute("query", query);
-
-			return "project/projectTask";
-
-		} catch (Exception e) {
-			log.info("projectTask : ", e);
-		}
-
-		return "redirect:/project/detail?" + query;
-	}
+	
+	
 
 }

@@ -2,17 +2,26 @@ package com.sp.app.controller.project;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
+import com.sp.app.common.StorageService;
+import com.sp.app.model.SessionInfo;
+import com.sp.app.model.project.ProjectPost;
 import com.sp.app.service.project.ProjectService;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,56 +32,128 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/project/post/*")
 public class ProjectPostController {
     private final ProjectService service;
+    private final StorageService storageService;
     private final PaginateUtil paginateUtil;
+    
+    private String uploadPath;
+    
+    @PostConstruct
+    public void init() {
+    	uploadPath = this.storageService.getRealPath("/uploads/project/post");
+    }
 
     @GetMapping("list/{projIdx}")
-    public String projectPostList(
-            @PathVariable("projIdx") long projIdx,
-            @RequestParam(name = "page", defaultValue = "1") String page,
-            @RequestParam(name = "kwd", defaultValue = "") String kwd,
-            Model model) throws Exception {
+    public String postList(
+            @PathVariable("projIdx") long projIdx,          
+            @RequestParam(name = "postPage", defaultValue = "1") int postPage,
+            @RequestParam(name = "schType", defaultValue = "all") String schType,
+            @RequestParam(name = "keyword", defaultValue = "") String keyword,
+            Model model, HttpServletRequest req) throws Exception {
 
-        String query = "page=" + page;
 
         try {
-            kwd = URLDecoder.decode(kwd, "utf-8");
+        	int size = 10;
+			int total_page = 0;
+			int dataCount = 0;
 
-            if (!kwd.isBlank()) {
-                query += "kwd=" + URLEncoder.encode(kwd, "utf-8");
+			keyword = URLDecoder.decode(keyword, "utf-8");
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("schType", schType);
+			map.put("keyword", keyword);
+			
+			dataCount = service.getProjectPostCount(map);
+			if (dataCount != 0) {
+				total_page = paginateUtil.pageCount(dataCount, size);
+			}
+			
+			postPage = Math.min(postPage, total_page);
+			
+			int offset = (postPage - 1) * size;
+			if (offset < 0)
+				offset = 0;
+
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			List<ProjectPost> list = service.getProjectPostList(map);
+			
+			String cp = req.getContextPath();
+			String postQuery = "postPage=" + postPage;
+			String listUrl = cp + "/project/post/list";
+			String articleUrl = cp + "/project/post/article?postPage=" + postPage;
+
+            if (!keyword.isBlank()) {
+                postQuery = "schType=" + schType + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+            
+                listUrl += "?" + postQuery;
+                articleUrl += "&" + postQuery;
             }
-
-            model.addAttribute("projIdx", projIdx);
-            model.addAttribute("page", page);
-            model.addAttribute("query", query);
-
-            return "project/projectPostList";
+            
+            String paging = paginateUtil.paging(postPage, total_page, listUrl);
+            
+            model.addAttribute("projIdx", projIdx); 
+            
+            model.addAttribute("list", list);
+            model.addAttribute("postPage", postPage);
+            model.addAttribute("dataCount", dataCount);
+            model.addAttribute("size", size);
+            model.addAttribute("total_page", total_page);
+            model.addAttribute("paging", paging);
+            model.addAttribute("articleUrl", articleUrl);
+            
+            model.addAttribute("schType", schType);
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("postQuery", postQuery);
 
         } catch (Exception e) {
             log.info("projectPostList : ", e);
         }
 
-        return "redirect:/project/post/list?" + query;
+        return "project/projectPostList";
     }
 
     @GetMapping("write/{projIdx}")
-    public String projectPostWriteForm(
-            @PathVariable("projIdx") long projIdx,
-            @RequestParam(name = "page", defaultValue = "1") String page,
-            Model model) {
-
-        String query = "page=" + page;
+    public String postWriteForm(
+            @PathVariable("projIdx") long projIdx, Model model) {
 
         try {
-
+        	model.addAttribute("mode", "write");      	
             model.addAttribute("projIdx", projIdx);
-            model.addAttribute("page", page);
-
-            return "project/projectPostWrite";
+   
+            
         } catch (Exception e) {
             log.info("projectPostWriteForm : ", e);
         }
 
-        return "redirect:/project/post/list?" + query;
+        return "project/projectPostWrite";
+    }
+    
+    @PostMapping("write/{projIdx}")
+    public String postwriteSubmit(
+    		@PathVariable("projIdx") long projIdx,
+    		ProjectPost dto, HttpSession session) throws Exception {
+    	  	
+    	try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("projIdx", projIdx);
+			paramMap.put("empIdx", info.getEmpIdx());
+			
+			long projMemberIdx = service.getProjectMemberIdx(paramMap);
+			
+			dto.setProjMemberIdx(projMemberIdx);			
+			dto.setEmpIdx(info.getEmpIdx());
+			
+			service.insertProjectPost(dto, uploadPath);
+    		
+		} catch (Exception e) {
+			log.info("postwriteSubmit : ", e);
+		}
+    	
+    	
+    	return "redirect:/project/post/list/{projIdx}";
     }
         
     /*

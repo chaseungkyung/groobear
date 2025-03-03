@@ -11,6 +11,6 @@ public class ProjectTeam {
     private long projIdx;
 
     // 프로젝트 팀 정보
-    private long projTeamIdx;
+    private Long projTeamIdx;
     private String projTeamName;
 }

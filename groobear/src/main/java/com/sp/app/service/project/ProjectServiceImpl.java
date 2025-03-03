@@ -3,10 +3,15 @@ package com.sp.app.service.project;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sp.app.common.StorageService;
+import com.sp.app.exception.StorageException;
 import com.sp.app.mapper.ProjectMapper;
+import com.sp.app.model.board.Board;
 import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
 import com.sp.app.model.project.Project;
@@ -144,7 +149,89 @@ public class ProjectServiceImpl implements ProjectService {
 		return dto;
 	}
 
+	
+	// 프로젝트 팀
 
+	@Override
+	public void insertProjectTeam(ProjectTeam dto) throws Exception {
+		try {
+			mapper.insertProjectTeam(dto);
+			
+		} catch (Exception e) {
+			log.info("insertProjectTeam : ", e);
+		}
+		
+	}
+
+	@Override
+	public void updateProjectTeam(ProjectTeam dto) throws Exception {
+		try {
+			mapper.updateProjectTeam(dto);
+			
+		} catch (Exception e) {
+			log.info("updateProjectTeam : ", e);
+		}
+		
+	}
+
+	@Override
+	public void deleteProjectTeam(long projTeamIdx) throws Exception {
+		try {
+			mapper.deleteProjectTeam(projTeamIdx);
+		} catch (Exception e) {
+			log.info("deleteProjectTeam : ", e);
+		}
+		
+	}
+	
+	
+	@Override
+	public List<ProjectTeam> getProjectTeamList(long projIdx) {
+		List<ProjectTeam> list = null;
+
+		try {
+			list = mapper.getProjectTeamList(projIdx);
+
+		} catch (Exception e) {
+			log.info("getProjectTeamList : ", e);
+		}
+		return list;
+	}	
+	
+	
+	
+	// 프로젝트 멤버 참여자 목록
+	
+	@Override
+	public List<ProjectMember> getProjectPmList(long projIdx) {
+		List<ProjectMember> list = null;
+		
+		try {
+			
+			list = mapper.getProjectPmList(projIdx);
+			
+		} catch (Exception e) {
+			log.info("getProjectPmList : ", e);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<ProjectMember> getNonPMProjectMemberList(long projIdx) {
+		List<ProjectMember> list = null;
+		
+		try {
+			list = mapper.getNonPMProjectMemberList(projIdx);
+			
+		} catch (Exception e) {
+			log.info("getNonPMProjectMemberList : ", e);
+		}
+		
+		return list;
+	}
+	
+	
 
 	// 프로젝트 멤버
 
@@ -210,55 +297,19 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return result;
 	}
-
-
-
-	// 프로젝트 팀
-
-	@Override
-	public void insertProjectTeam(ProjectTeam dto) throws Exception {
-		try {
-			mapper.insertProjectTeam(dto);
-			
-		} catch (Exception e) {
-			log.info("insertProjectTeam : ", e);
-		}
-		
-	}
-
-	@Override
-	public void updateProjectTeam(ProjectTeam dto) throws Exception {
-		try {
-			mapper.updateProjectTeam(dto);
-			
-		} catch (Exception e) {
-			log.info("updateProjectTeam : ", e);
-		}
-		
-	}
-
-	@Override
-	public void deleteProjectTeam(long projTeamIdx) throws Exception {
-		try {
-			mapper.deleteProjectTeam(projTeamIdx);
-		} catch (Exception e) {
-			log.info("deleteProjectTeam : ", e);
-		}
-		
-	}
-	
 	
 	@Override
-	public List<ProjectTeam> getProjectTeamList(long projIdx) {
-		List<ProjectTeam> list = null;
-
+	public ProjectMember getProjectMemberById(long projMemberIdx) {
+		ProjectMember dto = null;
+		
 		try {
-			list = mapper.getProjectTeamList(projIdx);
-
+			dto = mapper.getProjectMemberById(projMemberIdx);
+			
 		} catch (Exception e) {
-			log.info("getProjectTeamList : ", e);
+			log.info("getProjectMemberById : ", e);
 		}
-		return list;
+		
+		return dto;
 	}
 	
 	
@@ -411,14 +462,16 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		try {
 			
-			Map<String, Object> map = new HashMap<>();
-			map.put("projIdx", projIdx);
-			map.put("stageIdx", stageIdx);
-			
-			int totalCount = getProjectTaskCount(map);
-			
-			map.put("status", 3);
-			int completedCount = getProjectTaskCount(map);
+			Map<String, Object> totalMap = new HashMap<>();
+			totalMap.put("projIdx", projIdx);
+			totalMap.put("stageIdx", stageIdx);			
+			int totalCount = getProjectTaskCount(totalMap);
+						
+			Map<String, Object> completedMap = new HashMap<>();
+			completedMap.put("projIdx", projIdx);
+			completedMap.put("stageIdx", stageIdx);
+			completedMap.put("status", 3);
+			int completedCount = getProjectTaskCount(completedMap);
 			
 			if(totalCount > 0) {
 				progressRate = (int) Math.round(((double) completedCount / totalCount) * 100);
@@ -451,14 +504,38 @@ public class ProjectServiceImpl implements ProjectService {
 	// 프로젝트 Post
 	
 	@Override
-	public void insertProjectPost(ProjectPost dto) throws Exception {
+	public void insertProjectPost(ProjectPost dto, String uploadPath) throws Exception {
 		try {
 			mapper.insertProjectPost(dto);
 			
+			/*
+			if(! dto.getSelectFile().isEmpty()) {
+				insertFile(dto, uploadPath);
+			}
+			*/
+			
 		} catch (Exception e) {
 			log.info("insertProjectPost : ", e);
+			
+			throw e;
 		}	
 	}
+	
+	
+	@Override
+	public long getProjectMemberIdx(Map<String, Object> map) {
+		long projMemberIdx = 0;
+		
+		try {
+			projMemberIdx = mapper.getProjectMemberIdx(map);
+			
+		} catch (Exception e) {
+			log.info("getProjectMemberIdx : ", e);
+		}
+		
+		return projMemberIdx;
+	}
+	
 
 	@Override
 	public void updateProjectPost(ProjectPost dto) throws Exception {
@@ -467,6 +544,8 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		} catch (Exception e) {
 			log.info("updateProjectPost : ", e);
+			
+			throw e;
 		}	
 	}
 
@@ -522,6 +601,14 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		return dto;
 	}
+
+
+
+
+
+
+
+
 
 
 

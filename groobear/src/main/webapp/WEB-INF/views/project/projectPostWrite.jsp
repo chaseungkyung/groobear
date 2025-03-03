@@ -14,6 +14,30 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<script type="text/javascript">
+ function sendOk() {
+    const f = document.boardForm;
+    let str;
+	
+    str = f.title.value.trim();
+    if( !str ) {
+        alert('제목을 입력하세요. ');
+        f.title.focus();
+        return;
+    }
+
+    str = f.content.value.trim();
+    if( !str ) {
+        alert('내용을 입력하세요. ');
+        f.content.focus();
+        return;
+    }
+
+    f.action = '${pageContext.request.contextPath}/project/post/${mode}/${projIdx}';
+    f.submit();
+} 
+</script>
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/layout/header.jsp" />
@@ -41,14 +65,14 @@
 							<tr>
 								<td class="project-member">작성자명</td>
 		 						<td>
-									<p class="form-control-plaintext">작성자</p>
+									<p class="form-control-plaintext">${sessionScope.member.empName}</p>
 								</td>
 							</tr>
 		
 							<tr>
 								<td class="board-content">내 용</td>
 								<td>
-									<textarea name="content" id="ir1" class="form-control" style="width: 99%; height: 300px;">내용</textarea>
+									<textarea name="content" id="ir1" class="form-control" style="width: 99%; height: 300px;"></textarea>
 								</td>
 							</tr>
 							
@@ -79,7 +103,7 @@
 						<table class="table table-borderless">
 		 					<tr>
 								<td class="text-center">
-									<button type="button" class="btn btn-dark" onclick="submitContents(this.form);">${mode=="update" ? "수정완료" : "등록완료"}&nbsp;<i class="bi bi-check2"></i></button>
+									<button type="button" class="btn btn-dark" onclick="sendOk();">${mode=="update" ? "수정완료" : "등록완료"}&nbsp;<i class="bi bi-check2"></i></button>
 									<button type="reset" class="btn btn-light">다시입력</button>
 									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/list/${projIdx}';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 									
@@ -100,33 +124,26 @@
 	</div>
 </main>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: 'ir1',
-	sSkinURI: '${pageContext.request.contextPath}/dist/vendor/se2/SmartEditor2Skin.html',
-	fCreator: 'createSEditor2',
-	fOnAppLoad: function(){
-		// 로딩 완료 후
-		oEditors.getById['ir1'].setDefaultFont('돋움', 12);
-	},
-});
-
-function submitContents(elClickedObj) {
-	 oEditors.getById['ir1'].exec('UPDATE_CONTENTS_FIELD', []);
-	 try {
-		if(! check()) {
-			return;
-		}
-		
-		elClickedObj.submit();
-		
-	} catch(e) {
-	}
-}
-</script>
+<c:if test="${mode=='update'}">
+	<script type="text/javascript">
+		$('.delete-file').click(function(){
+			if(! confirm('선택한 파일을 삭제 하시겠습니까 ? ')) {
+				return false;
+			}
+			
+			let $tr = $(this).closest('tr');
+			let fileIdx = $(this).attr('data-fileIdx');
+			let url = '${pageContext.request.contextPath}/project/post/deleteFile';
+			
+			$.ajaxSetup({ beforeSend: function(e) { e.setRequestHeader('AJAX', true); } });
+			$.post(url, {fileIdx:fileIdx}, function(data){
+				$($tr).remove();
+			}, 'json').fail(function(jqXHR){
+				console.log(jqXHR.responseText);
+			});
+		});
+	</script>
+</c:if>
 
 </body>
 </html>

@@ -21,7 +21,7 @@
 	
 	<select id="getEmployList" parameterType="map" 
 		resultType="com.sp.app.model.core.Member">
-	    SELECT empIdx, empName, (teamName || ' ' || positionName) AS orgUnitName
+	    SELECT empIdx, empName, (teamName || ' ' || positionName) AS orgUnitName, teamName
 	    FROM employee e
 	    LEFT OUTER JOIN team t ON e.teamIdx = t.teamIdx
 	    LEFT OUTER JOIN position p ON e.positionCode = p.positionCode
@@ -68,10 +68,10 @@
 		LEFT JOIN employee e ON p.pmEmpIdx = e.empIdx
 		<where>
 			<if test="kwd != null and kwd !=''">
-				(INSTR(p.projName, #{kwd}) &gt; 0)
+				AND (INSTR(p.projName, #{kwd}) &gt; 0)
 			</if>
 			<if test="status != null and status !=''">
-				status = #{status}
+				AND status = #{status}
 			</if>				
 		</where>
 		ORDER BY projIdx ASC
@@ -85,10 +85,10 @@
 		JOIN employee e ON p.pmEmpIdx = e.empIdx
 		<where>
 			<if test="kwd != null and kwd !=''">
-				(INSTR(p.projName, #{kwd}) &gt; 0)
+				AND (INSTR(p.projName, #{kwd}) &gt; 0)
 			</if>
 			<if test="status != null">
-				status = #{status}
+				AND status = #{status}
 			</if>				
 		</where>
 	</select>
@@ -129,11 +129,12 @@
 	</select>
 	
 	
+	
 	<!-- projectMember 테이블 -->
 	
 	<insert id="insertProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
 		INSERT INTO projectMember(projMemberIdx, projIdx, empIdx, projTeamIdx)
-		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx})
+		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx, jdbcType=NUMERIC})
 	</insert>
 	
 	<update id="updateProjectMember" parameterType="com.sp.app.model.project.ProjectMember">
@@ -152,8 +153,8 @@
 		LEFT OUTER JOIN projectTeam pt ON pmb.projTeamIdx = pt.projTeamIdx
 		LEFT OUTER JOIN employee e ON pmb.empIdx = e.empIdx
 		<where>
-			<if test="projIdx != null"> pmb.projIdx = #{projIdx} </if>
-			<if test="projTeamIdx != null"> pmb.projTeamIdx = #{projTeamIdx} </if>
+			<if test="projIdx != null"> AND pmb.projIdx = #{projIdx} </if>
+			<if test="projTeamIdx != null"> AND pmb.projTeamIdx = #{projTeamIdx} </if>
 		</where>
 	</select>
 	
@@ -161,11 +162,56 @@
 		SELECT NVL(count(projMemberIdx),0)
 		FROM projectMember
 		<where>
-			<if test="projIdx != null"> projIdx = #{projIdx} </if>
-			<if test="projTeamIdx != null"> projTeamIdx = #{projTeamIdx} </if>
+			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
+			<if test="projTeamIdx != null"> AND projTeamIdx = #{projTeamIdx} </if>
 		</where>
 	</select>
 	
+	<select id="getProjectMemberById" parameterType="Long" resultType="com.sp.app.model.project.ProjectMember">
+		SELECT pmb.projMemberIdx, e.empIdx, e.empName, t.teamName, 
+		    pst.positionName, p.projIdx
+		FROM projectMember pmb
+		JOIN employee e ON pmb.empIdx = e.empIdx
+		JOIN team t ON e.teamIdx = t.teamIdx
+		JOIN position pst ON e.positionCode = pst.positionCode
+		JOIN project p ON pmb.projIdx = p.projIdx
+		WHERE pmb.projMemberIdx = #{projMemberIdx} AND p.pmEmpIdx != pmb.empIdx		
+	</select>
+	
+	
+	<!-- 프로젝트 매니저 / 프로젝트 매니저 뺀 멤버 가져오는 select -->
+	
+	<select id="getProjectPmList" parameterType="Long" resultType="com.sp.app.model.project.ProjectMember">
+		SELECT pm.projIdx, e.empIdx AS pmEmpIdx, e.empName AS pmEmpName, 
+			t.teamIdx, t.teamName,
+        	NVL(pt.projteamIdx, 0) AS projteamIdx,
+        	NVL(pt.projteamName, '-') AS projteamName
+		FROM projectMember pm
+        LEFT JOIN projectTeam pt ON pm.projTeamIdx = pt.projTeamIdx
+		LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT JOIN project p ON pm.projIdx = p.projIdx
+        LEFT JOIN team t ON e.teamIdx = t.teamIdx
+		WHERE pm.empIdx IN (
+		    SELECT p.pmEmpIdx FROM project p WHERE p.projIdx = pm.projIdx)
+		    AND p.projIdx = #{projIdx}
+        ORDER BY e.empName ASC				 	
+	</select>
+	
+	<select id="getNonPMProjectMemberList" parameterType="Long"
+		resultType="com.sp.app.model.project.ProjectMember">
+        SELECT pm.projIdx, e.empIdx, e.empName, t.teamIdx, t.teamName,
+        	NVL(pt.projteamIdx, 0) AS projteamIdx,
+        	NVL(pt.projteamName, '-') AS projteamName
+		FROM projectMember pm
+        LEFT JOIN projectTeam pt ON pm.projTeamIdx = pt.projTeamIdx
+		LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT JOIN project p ON pm.projIdx = p.projIdx
+        LEFT JOIN team t ON e.teamIdx = t.teamIdx
+		WHERE pm.empIdx NOT IN (
+		    SELECT p.pmEmpIdx FROM project p WHERE p.projIdx = pm.projIdx)
+		    AND p.projIdx = #{projIdx}
+        ORDER BY e.empName ASC			
+	</select>
 
 	
 	
@@ -175,14 +221,17 @@
 		INSERT INTO projectStage(stageIdx, projIdx, stageName, status, 
 			startDate, endDate, createdAt, projTeamIdx, projTeamName, content)
 		VALUES(projectStage_seq.NEXTVAL, #{projIdx}, #{stageName}, #{status},
-			#{startDate}, #{endDate}, SYSDATE, #{projTeamIdx}, 
+			#{startDate}, #{endDate}, SYSDATE, #{projTeamIdx, jdbcType=NUMERIC}, 
 			#{projTeamName, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateProjectStage" parameterType="com.sp.app.model.project.ProjectStage">
 		UPDATE projectStage SET stageName=#{stageName}, status=#{status},
-			startDate=#{startDate}, endDate=#{endDate}, projTeamIdx=#{projTeamIdx},
-			projTeamName=#{projTeamName}, content=#{content}
+			startDate=#{startDate}, endDate=#{endDate}, 
+			projTeamIdx=#{projTeamIdx, jdbcType=NUMERIC},
+			projTeamName=#{projTeamName, jdbcType=VARCHAR}, 
+			content=#{content, jdbcType=VARCHAR}
+		WHERE stageIdx = #{stageIdx}
 	</update>
 	
 	<delete id="deleteProjectStage" parameterType="Long">
@@ -192,28 +241,33 @@
 	
 	<select id="getProjectStageList" parameterType="map" resultType="com.sp.app.model.project.ProjectStage">
 		SELECT ps.stageIdx, ps.projIdx, ps.stageName, ps.status, 
-			ps.startDate, ps.endDate, ps.createdAt, ps.projTeamIdx, 
+			TO_CHAR(ps.startDate,'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(ps.endDate, 'YYYY-MM-DD') AS endDate, 
+			TO_CHAR(ps.createdAt, 'YYYY-MM-DD') AS createdAt, ps.projTeamIdx, 
 			COALESCE(pt.projTeamName, '미배정') AS projTeamName, ps.content
 		FROM projectStage ps
 		LEFT JOIN projectTeam pt ON ps.projTeamIdx = pt.projTeamIdx
 		<where>
-			<if test="projIdx != null"> ps.projIdx = #{projIdx} </if>
+			<if test="projIdx != null"> AND ps.projIdx = #{projIdx} </if>
+			<if test="status != null"> AND ps.status = #{status} </if>
 		</where>
-		ORDER BY startDate ASC
+		ORDER BY ps.startDate ASC
 	</select>
 	
 	<select id="getProjectStageCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(stageIdx), 0)
 		FROM projectStage
 		<where>
-			1=1
 			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
 			<if test="status != null"> AND status = #{status} </if>
 		</where>
 	</select>
 	
 	<select id="getProjectStageById" parameterType="Long" resultType="com.sp.app.model.project.ProjectStage">
-		SELECT stageIdx, projIdx, stageName, status, startDate, endDate, createdAt, 
+		SELECT stageIdx, projIdx, stageName, status, 
+			TO_CHAR(startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(createdAt, 'YYYY-MM-DD') AS createdAt, 
 			projTeamIdx, projTeamName, content
 		FROM projectStage
 		WHERE stageIdx = #{stageIdx}
@@ -226,7 +280,7 @@
 		INSERT INTO projectTask(taskIdx, stageIdx, taskName, status, 
 			startDate, endDate, createdAt, content)
 		VALUES(projectTask_seq.NEXTVAL, #{stageIdx}, #{taskName}, #{status}, 
-			#{startDate}, #{endDate}, SYSDATE, #{content})	
+			#{startDate}, #{endDate}, SYSDATE, #{content, jdbcType=VARCHAR})	
 	</insert>
 	
 	<update id="updateProjectTask" parameterType="com.sp.app.model.project.ProjectTask">
@@ -243,15 +297,17 @@
 	<!-- stage 의 하위 task 리스트 -->
 	<select id="getProjectTaskList" parameterType="map" 
 		resultType="com.sp.app.model.project.ProjectTask">
-		SELECT pt.taskIdx, ps.stageIdx, pt.taskName, pt.status, 
-			pt.startDate, pt.endDate, pt.createdAt, pt.content
+		SELECT p.projIdx, pt.taskIdx, ps.stageIdx, ps.stageName, pt.taskName, pt.status, 
+			TO_CHAR(pt.startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(pt.endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(pt.createdAt, 'YYYY-MM-DD') AS createdAt, pt.content
 		FROM projectTask pt
 		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
 		LEFT JOIN project p ON ps.projIdx = p.projIdx
 		<where>
-			<if test="projIdx != null"> p.projIdx = #{projIdx}</if>
-			<if test="stageIdx != null">ps.stageIdx = #{stageIdx}</if>
-			<if test="status != null"> pt.status = #{status} </if>
+			<if test="projIdx != null"> AND p.projIdx = #{projIdx}</if>
+			<if test="stageIdx != null"> AND ps.stageIdx = #{stageIdx}</if>
+			<if test="status != null"> AND pt.status = #{status} </if>
 		</where>
 		ORDER BY startDate ASC
 	</select>
@@ -262,7 +318,6 @@
 		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
 		LEFT JOIN project p ON ps.projIdx = p.projIdx
 		<where>
-			1=1
 			<if test="projIdx != null"> AND p.projIdx = #{projIdx}</if>
 			<if test="stageIdx != null"> AND ps.stageIdx = #{stageIdx}</if>
 			<if test="status != null"> AND pt.status = #{status} </if>
@@ -271,8 +326,11 @@
 	
 	<select id="getProjectTaskById" parameterType="Long" 
 		resultType="com.sp.app.model.project.ProjectTask">
-		SELECT pt.taskIdx, ps.stageIdx, pt.taskName, pt.status, pt.startDate, 
-			pt.endDate, pt.createdAt, pt.content, ps.stageName
+		SELECT pt.taskIdx, ps.stageIdx, pt.taskName, pt.status,
+			TO_CHAR(pt.startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(pt.endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(pt.createdAt, 'YYYY-MM-DD') AS createdAt,
+			pt.content, ps.stageName
 		FROM projectTask pt
 		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
 		WHERE taskIdx = #{taskIdx}
@@ -288,6 +346,37 @@
 			#{title}, #{content}, SYSDATE)
 	</insert>
 	
+	<select id="getProjectMemberIdx" parameterType="map" resultType="Long">
+		SELECT projMemberIdx
+        FROM projectMember
+        WHERE projIdx = #{projIdx} AND empIdx = #{empIdx}
+	</select>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all'">
+				( INSTR(title, #{kwd}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'regDate'">
+				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
+					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'title'">
+				INSTR(title, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'content'">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'empName'">
+				INSTR(empName, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<update id="updateProjectPost" parameterType="com.sp.app.model.project.ProjectPost">
 		UPDATE projectPost SET title=#{title}, content=#{content}, updateDate=SYSDATE
 		WHERE postIdx=#{postIdx}
@@ -299,16 +388,43 @@
 	
 	<select id="getProjectPostList" parameterType="map" resultType="com.sp.app.model.project.ProjectPost">
         SELECT pp.postIdx, p.projIdx, pm.projMemberIdx, e.empIdx, e.empName, 
-			title, content, regDate, updateDate
+			title, content, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, 
+			TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate,
+			NVL(replyCount, 0) replyCount, NVL(fileCount, 0) fileCount
 		FROM projectPost pp
-        LEFT JOIN project p ON pp.projIdx = p.projIdx
-        LEFT JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
-        LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        JOIN project p ON pp.projIdx = p.projIdx
+        JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+        JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) replyCount
+			FROM projectPostCmt
+			GROUP BY postIdx
+		) c ON pp.postIdx = c.postIdx
+		LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) fileCount 
+			FROM projectPostFile
+			GROUP BY postIdx
+		) f ON pp.postIdx = f.postIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
         ORDER BY pp.postIdx DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<select id="getProjectPostCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(postIdx), 0) FROM projectPost
+		SELECT NVL(COUNT(postIdx), 0) 
+		FROM projectPost pp
+		JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+		JOIN employee e ON pm.empIdx = e.empIdx
+		JOIN project pr ON pm.projIdx = pr.projIdx
+			<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>		
+		</where>
 	</select>
 	
 	<select id="getProjectPostById" parameterType="Long" resultType="com.sp.app.model.project.ProjectPost">
