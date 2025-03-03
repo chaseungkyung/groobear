@@ -106,7 +106,7 @@
 				initialView: 'dayGridMonth', // 처음 화면에 출력할 뷰
 				locale: 'ko',
 				navLinks: true, // 일자 클릭 시 일자내 시간 스케줄 화면으로 이동
-				dayMaxEvents: true,
+				dayMaxEvents: true, 
 				dayCellContent : function(info) { // 숫자 뒤에 일 삭제
 					var number = document.createElement("span");
 					number.classList.add("fc-daygrid-day-number");
