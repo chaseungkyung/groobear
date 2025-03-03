@@ -27,4 +27,19 @@ public interface SignService {
 	
 	public List<Member> listMember(Map<String, Object> map);
 	
+	public List<DocApproval> inProgressList(Map<String, Object> map);
+	public List<ApprovalLine> approvalList(Map<String, Object> map);
+	
+	public DocApproval docApprovalAprIdx(long aprIdx);
+	public ApprovalLine approvalLineAprIdx(long aprIdx);
+	public ApprovalRef approvalRefAprIdx(long aprIdx);
+	public DocAppFile docAppFileAprIdx(long aprIdx);
+	
+	public LeaveRequest leaveRequestAprIdx(long aprIdx);
+	
+	public int dataCount(Map<String, Object> map);
+	
+	public void updateResult(Map<String, Object> map) throws Exception;
+	public void updatedocApprovalStatus(Map<String, Object> map) throws Exception;
+	
 }

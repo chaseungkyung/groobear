@@ -23,4 +23,188 @@
 		</where>
 	</select>
 	
+	<!-- 결재서류 보관함 -->
+	<insert id="insertDocApproval" parameterType="com.sp.app.model.approval.DocApproval">
+		<selectKey keyProperty="aprIdx" resultType="java.lang.Long" order="BEFORE">
+		    SELECT LEAVEREQUEST_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO docApproval (
+			aprIdx, empIdx,
+			deptIdx, teamIdx, positionCode,
+			docType, regDate, paymentStage, status, decisionAt, reason
+		)
+		values (
+			#{aprIdx}, #{empIdx},
+			#{deptIdx}, #{teamIdx}, #{positionCode},
+			#{docType}, SYSDATE, #{paymentStage}, #{status}, SYSDATE, #{reason, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 결재 라인 -->
+	<insert id="insertApprovalLine" parameterType="com.sp.app.model.approval.ApprovalLine">
+		INSERT INTO approvalLine (
+			aprIdx, writerEmp, writerInfo,
+			apr1Emp, apr1Info, apr1Result, apr1At,
+			apr2Emp, apr2Info, apr2Result, apr2At,
+			apr3Emp, apr3Info, apr3Result, apr3At
+		)
+		values (
+			#{aprIdx}, #{writerEmp}, #{writerInfo},
+			#{apr1Emp, jdbcType=VARCHAR}, #{apr1Info, jdbcType=VARCHAR}, #{apr1Result, jdbcType=VARCHAR}, #{apr1At, jdbcType=VARCHAR},
+			#{apr2Emp, jdbcType=VARCHAR}, #{apr2Info, jdbcType=VARCHAR}, #{apr2Result, jdbcType=VARCHAR}, #{apr2At, jdbcType=VARCHAR},
+			#{apr3Emp, jdbcType=VARCHAR}, #{apr3Info, jdbcType=VARCHAR}, #{apr3Result, jdbcType=VARCHAR}, #{apr3At, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- 결재 참조 -->
+	<insert id="insertApprovalRef" parameterType="com.sp.app.model.approval.ApprovalRef">
+		INSERT INTO approvalRef (
+			aprIdx2, empIdx, deptIdx, teamIdx, positionCode
+		)
+		values (
+			#{aprIdx}, #{empIdx}, #{deptIdx}, #{teamIdx}, #{positionCode}
+		)
+	</insert>
+	
+	<insert id="insertDocAppFile" parameterType="com.sp.app.model.approval.DocAppFile">
+		INSERT INTO docAppFile (
+			fileIdx, aprIdx, originalFilename, saveFilename
+		)
+		values (
+			#{fileIdx}, #{aprIdx}, #{originalFilename}, #{saveFilename}
+		)
+	</insert>
+	
+	<!-- 휴가 신청서 -->
+	<insert id="insertLeaveRequest" parameterType="com.sp.app.model.docBox.LeaveRequest">
+		<selectKey keyProperty="lvReqIdx" resultType="java.lang.Long" order="BEFORE">
+		    SELECT LEAVEREQUEST_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO leaveRequest (
+			lvReqIdx, aprIdx, leaveType, startDate, endDate, leaveDays, leaveReason, remarks
+		)
+		values (
+			#{lvReqIdx}, #{aprIdx}, #{leaveType}, #{startDate}, #{endDate}, #{leaveDays}, #{leaveReason}, #{remarks, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<select id="inProgressList" parameterType="map" resultType="com.sp.app.model.approval.DocApproval">
+		select
+		    d.aprIdx, d.empIdx, d.deptIdx, d.teamIdx, d.positionCode, doctype, regdate, paymentstage, status, decisionat, reason,
+		    writeremp, writerinfo, apr1emp, apr1result, apr1at, apr2emp, apr2info, apr2result, apr2at, apr3emp, apr3info, apr3at,
+		    e.empName, e.empCode
+		from docapproval d
+		LEFT OUTER JOIN approvalLine a ON d.aprIdx = a.aprIdx
+		LEFT OUTER JOIN employee e ON d.empIdx = e.empIdx
+		<where>
+			empCode = #{empCode}
+			<if test="status == 'inprogress'">
+				AND status in (0, 1, 2, 3)
+			</if>
+			<if test="status == 'completed'">
+				AND status in (99, 11, 12, 13)
+			</if>
+		</where>
+	</select>
+	
+	<select id="approvalList" parameterType="map" resultType="com.sp.app.model.approval.ApprovalLine">
+		SELECT
+		    a.aprIdx, writeremp, writerinfo,
+		    apr1emp, apr1info, apr1result, apr1at,
+		    apr2emp, apr2info, apr2result, apr2at,
+		    apr3emp, apr1info, apr3result, apr3at,
+		    empidx, deptidx, teamidx positioncode, doctype, regdate, paymentstage, status, decisionat, reason
+		FROM approvalLine a
+		LEFT OUTER JOIN docapproval d ON a.aprIdx = d.aprIdx
+		<where>
+			apr1emp = #{empIdx} OR (apr2emp = #{empIdx} and apr1result != 0) OR (apr3emp = #{empIdx} and apr2result != 0)
+			<if test="status == 'history'">
+				AND status in (99, 11, 12, 13)
+			</if>
+		</where>
+	</select>
+	
+	<select id="findByEmpIdx" parameterType="Long" resultType="com.sp.app.model.approval.ApprovalLine">
+		select
+		    e.empIdx, e.empCode, e.empName,
+		    d.deptName, t.teamName, p.positionName
+		from employee e
+		left outer join department d ON d.deptidx = e.deptidx
+		left outer join team t On t.teamidx = e.teamidx
+		left outer join position p ON p.positionCode = e.positioncode
+		WHERE e.empIdx = #{empIdx}
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) as dataCount
+		FROM docapproval d
+		LEFT OUTER JOIN employee e ON d.empIdx = e.empIdx
+		<where>
+			empCode = #{empCode}
+			<if test="status == 'inprogress'">
+				AND status in (0, 1, 2, 3)
+			</if>
+			<if test="status == 'completed'">
+				AND status in (99, 11, 12, 13)
+			</if>
+			<if test="status == 'history'">
+				AND status in (99, 11, 12, 13)
+			</if>
+		</where>
+	</select>
+	
+	<!-- findByAprIdx START -->
+	<select id="docApprovalAprIdx" parameterType="Long" resultType="com.sp.app.model.approval.DocApproval">
+		SELECT
+		    a.aprIdx, a.empIdx, a.deptIdx, a.teamIdx, a.positionCode, docType, regDate, paymentStage, status, decisionAt, reason,
+		    empName, deptName, teamName, positionName
+		FROM docApproval a
+		LEFT OUTER JOIN employee e ON e.empIdx = a.empIdx
+		LEFT OUTER JOIN department d ON d.deptIdx = a.deptIdx
+		LEFT OUTER JOIN team t ON t.teamIdx = a.teamIdx
+		LEFT OUTER JOIN position p ON p.positionCode = e.positioncode
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	
+	<select id="approvalLineAprIdx" parameterType="Long" resultType="com.sp.app.model.approval.ApprovalLine">
+		select
+		    APRIDX, WRITEREMP, WRITERINFO,
+		    APR1EMP, APR1INFO, APR1RESULT, APR1AT,
+		    APR2EMP, APR2INFO, APR2RESULT, APR2AT,
+		    APR3EMP, APR3INFO, APR3RESULT, APR3AT
+		FROM approvalLine
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	
+	<select id="approvalRefAprIdx" parameterType="Long" resultType="com.sp.app.model.approval.ApprovalRef">
+		SELECT
+			aprIdx, empIdx, deptIdx, teamIdx, positionCode
+		FROM approvalRef
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	
+	<select id="docAppFileAprIdx" parameterType="Long" resultType="com.sp.app.model.approval.DocAppFile">
+		SELECT
+			fileIdx, aprIdx, originalFilename, saveFilename
+		FROM docAppFile
+		WHERE fileIdx = #{aprIdx}
+	</select>
+	
+	<select id="leaveRequestAprIdx" parameterType="Long" resultType="com.sp.app.model.docBox.LeaveRequest">
+		SELECT
+			lvReqIdx, aprIdx, leaveType, TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate, leaveDays, leaveReason, remarks
+		FROM leaveRequest
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	<!-- findByAprIdx END -->
+	
+	<update id="updateResult" parameterType="map">
+		UPDATE approvalLine SET ${aprPerson} = #{result}, ${aprAt} = SYSDATE
+		WHERE aprIdx = #{aprIdx} AND ${aprEmp} = #{empIdx}
+	</update>
+	
+	<update id="updatedocApprovalStatus" parameterType="map">
+		UPDATE docApproval SET status = #{status}
+		WHERE aprIdx = #{aprIdx}
+	</update>
 </mapper>

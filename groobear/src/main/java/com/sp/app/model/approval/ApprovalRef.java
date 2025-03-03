@@ -7,12 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ApprovalRef {
+public class ApprovalRef extends DocApproval {
 	
-	private Long aprIdx;
-	private Long empIdx;
-	private String deptName;
-	private String teamName;
-	private String positionCode;
-
 }
