@@ -1,6 +1,5 @@
 package com.sp.app.service;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +39,7 @@ public interface MemberService {
 	public List<Member> getEmpRecord(long empIdx) throws Exception;
 	public String getDeptName(String deptIdx) throws Exception;
 	public String getTeamName(String teamIdx) throws Exception;
+	public String getPositionName(long positionCode) throws Exception;
 	
 	// emp list 
 	public List<Member> listFindMember(Map<String, Object> map);

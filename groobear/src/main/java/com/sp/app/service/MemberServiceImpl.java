@@ -107,9 +107,9 @@ public class MemberServiceImpl implements MemberService {
 	        // 직원 정보 업데이트
 	        mapper.updateEmployee(dto);
 
-	        // Long 타입으로 수정하여 null 값을 처리
-	        Long positionCode = emp.getPositionCode();  // Long 타입으로 수정
-	        Long dtoPositionCode = dto.getPositionCode();  // Long 타입으로 수정
+	       
+	        Long positionCode = emp.getPositionCode();  
+	        Long dtoPositionCode = dto.getPositionCode(); 
 
 	        // 조건을 수정하여 null 값을 안전하게 처리
 	        if ((emp.getTeamIdx() == null && positionCode == null) || 
@@ -364,5 +364,17 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return teamName;
+	}
+
+	@Override
+	public String getPositionName(long positionCode) throws Exception {
+		String positionName = null;
+		try {
+			positionName = mapper.getPositionName(positionCode);
+		} catch (Exception e) {
+			
+		}
+		
+		return positionName;
 	}
 }

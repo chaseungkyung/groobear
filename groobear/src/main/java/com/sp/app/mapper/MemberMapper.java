@@ -47,6 +47,7 @@ public interface MemberMapper {
 	public List<Member> getEmpRecord(long empIdx) throws SQLException;
 	public String getDeptName(String deptIdx) throws SQLException;
 	public String getTeamName(String teamIdx) throws SQLException;
+	public String getPositionName(long positionCode) throws SQLException;
 	public Member lastEmpHistory(long empIdx) throws SQLException;
 	
 	// 사번 찾기

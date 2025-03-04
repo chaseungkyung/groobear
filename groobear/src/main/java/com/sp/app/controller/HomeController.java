@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sp.app.model.Member;
+import com.sp.app.model.MyPage;
 import com.sp.app.model.Schedule;
 import com.sp.app.model.SessionInfo;
 import com.sp.app.service.MemberService;
+import com.sp.app.service.MyPageService;
 import com.sp.app.service.ScheduleService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	private final ScheduleService service;
 	private final MemberService memberService;
+	private final MyPageService mypageService;
 	
 	@GetMapping("main")
 	public String handleHome(Schedule scheduleDto,
@@ -37,8 +40,6 @@ public class HomeController {
 			
 			Long empIdx = info.getEmpIdx();
 			Member dto = Objects.requireNonNull(memberService.findByEmpIdx(empIdx));
-			
-			memberService.insertWorklog(empIdx);
 			
 			String saveProfile = memberService.findByProfile(empIdx).getSaveProfile();
 			
@@ -69,5 +70,23 @@ public class HomeController {
 	}
 	
 
-	
+	@GetMapping("main/clockIn")
+	public String clockInHome(HttpSession session, Model model) {
+		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			Long empIdx = info.getEmpIdx();
+			
+			memberService.insertWorklog(empIdx);
+			
+			MyPage loginTime = mypageService.getLoginTime(info.getEmpIdx());
+			
+			model.addAttribute("loginTime", loginTime);
+			
+			
+		} catch (Exception e) {
+		}
+
+		return "redirect:/main";
+	}
 }
