@@ -180,11 +180,11 @@ function memberOk() {
 				<div class="row mb-3">
 					<div class="text-center">
 				    	<button type="button" name="sendButton" class="btn btn-primary" 
-				    			onclick="memberOk();"> ${mode=='update'?'':'readonly'}
+				    			onclick="memberOk();"> ${mode=='update'?'': readonly}
 				    			<i class="bi bi-check2"></i></button>
 						<button type="button" class="btn btn-danger" 
 								onclick="location.href='${pageContext.request.contextPath}/mypage/setting';"> 
-								 ${mode=='update'?'':'readonly'} <i class="bi bi-x"></i></button>
+								 ${mode=='update'?'':readonly} <i class="bi bi-x"></i></button>
 					</div>
 				</div>
 							
