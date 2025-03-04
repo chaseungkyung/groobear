@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ProjectPostCmt {
+	private long cmtIdx;
 	private long postIdx;
 	private long projMemberIdx;
 	private long empIdx;

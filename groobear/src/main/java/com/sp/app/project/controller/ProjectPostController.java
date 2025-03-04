@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,8 +73,7 @@ public class ProjectPostController {
 			postPage = Math.min(postPage, total_page);
 			
 			int offset = (postPage - 1) * size;
-			if (offset < 0)
-				offset = 0;
+			if (offset < 0) offset = 0;
 
 			map.put("offset", offset);
 			map.put("size", size);
@@ -81,9 +81,9 @@ public class ProjectPostController {
 			List<ProjectPost> list = projectPostService.getProjectPostList(map);
 			
 			String cp = req.getContextPath();
-			String postQuery = "postPage=" + postPage;
+			String postQuery = "";
 			String listUrl = cp + "/project/post/list";
-			String articleUrl = cp + "/project/post/article?postPage=" + postPage;
+			String articleUrl = cp + "/project/post/article/" + projIdx  + "?postPage=" + postPage;
 
             if (!keyword.isBlank()) {
                 postQuery = "schType=" + schType + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
@@ -160,25 +160,52 @@ public class ProjectPostController {
     	return "redirect:/project/post/list/{projIdx}";
     }
         
-    /*
-    @GetMapping("article")
+    
+    @GetMapping("article/{projIdx}")
     public String article(
     		@PathVariable("projIdx") long projIdx,
-    		@PathVariable("postIdx") long postIdx,
+    		@RequestParam("postIdx") long postIdx,
     		@RequestParam(name = "page", defaultValue = "1") String page,
     		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
-    		@RequestParam(name = "sType", defaultValue = "all") String sType,
-    		@RequestParam(name = "postKwd", defaultValue = "") String postKwd,
-    		HttpSession session) throws Exception {
+    		@RequestParam(name = "schType", defaultValue = "all") String schType,
+    		@RequestParam(name = "keyword", defaultValue = "") String keyword,
+    		Model model) throws Exception {
+	
+    	String query = "page=" + page;
+    	model.addAttribute("query", query);
     	
-    	return "project/projectPostArticle";
+    	try {
+    		keyword = URLDecoder.decode(keyword, "utf-8");
+    		
+    		if(! keyword.isBlank()) {
+    			query += "&schType=" + schType + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+    		}
+    		
+    		ProjectPost dto = Objects.requireNonNull(projectPostService.getProjectPostById(postIdx));
+    		
+    		Map<String, Object> map = new HashMap<>();
+    		map.put("schType", schType);
+    		map.put("keyword", keyword);
+    		map.put("postIdx", postIdx);
+    		
+    		List<ProjectPost> listFile = projectPostService.getPostFileList(postIdx);
+    		
+    		model.addAttribute("dto", dto);
+    		model.addAttribute("listFile", listFile);
+    		model.addAttribute("projIdx", projIdx);
+        	model.addAttribute("postPage", postPage);
+        	
+        	return "project/projectPostArticle";
+    		
+    	} catch (NullPointerException e) {
+		} catch (Exception e) {
+			log.info("article : ", e);
+		}
+
+    	return "redirect:/project/projectPostList?postPage=" + postPage;
     }
-    */
     
-    @GetMapping("article")
-    public String article() {
-    	
-    	return "project/projectPostArticle";
-    }
+    
+
     
 }

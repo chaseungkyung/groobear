@@ -49,7 +49,9 @@
 		
 		<c:forEach var="dto" items="${list}">
 			<ul>
-				<li>${dto.title}</li>
+				<li>
+					<a href="${articleUrl}&postIdx=${dto.postIdx}" class="text-reset">${dto.title}</a>
+				</li>
 				<li class="board-author">${dto.empName}</li>
 				<li>${dto.regDate}</li>
 				<li>${dto.updateDate}</li>

@@ -34,7 +34,7 @@
 					<thead>
 						<tr>
 							<td colspan="2" align="center">
-								제목
+								${dto.title}
 							</td>
 						</tr>
 					</thead>
@@ -42,13 +42,13 @@
 					<tbody>
 						<tr>
 							<td width="50%">
-								이름 : 김민수
+								이름 : ${dto.empName}
 							</td>
 						</tr>
 						
 						<tr>
 							<td colspan="2" valign="top" height="200" style="border-bottom: none;">
-								1234513535
+								${dto.content}
 							</td>
 						</tr>
 
@@ -57,7 +57,7 @@
 								<c:if test="${not empty dto.saveFilename}">
 									<p class="border text-secondary my-1 p-2">
 										<i class="bi bi-folder2-open"></i>
-										<a href="${pageContext.request.contextPath}/bbs/download?num=${dto.num}">${dto.originalFilename}</a>
+										<a href="#">${dto.originalFilename}</a>
 									</p>
 								</c:if>
 							</td>
@@ -67,7 +67,7 @@
 							<td colspan="2">
 								이전글 : 
 								<c:if test="${not empty prevDto}">
-									<a href="${pageContext.request.contextPath}/bbs/article/${prevDto.num}?${query}">${prevDto.subject}</a>
+									<a href="#">${prevDto.subject}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -75,7 +75,7 @@
 							<td colspan="2">
 								다음글 : 
 								<c:if test="${not empty nextDto}">
-									<a href="${pageContext.request.contextPath}/bbs/article/${nextDto.num}?${query}">${nextDto.subject}</a>
+									<a href="#">${nextDto.subject}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -85,26 +85,19 @@
 				<table class="table table-borderless mb-2">
 					<tr>
 						<td width="50%">
-							<c:choose>
-								<c:when test="${sessionScope.member.userId == dto.userId}">
-									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/bbs/update?num=${dto.num}&page=${page}';">수정</button>
-								</c:when>
-								<c:otherwise>
+									<button type="button" class="btn btn-light" >수정</button>
+								
 									<button type="button" class="btn btn-light" disabled>수정</button>
-								</c:otherwise>
-							</c:choose>
 							
-							<c:choose>
-								<c:when test="${sessionScope.member.userId == dto.userId || sessionScope.member.userLevel > 50}">
+							
+							
 				    				<button type="button" class="btn btn-light" onclick="deleteOk();">삭제</button>
-								</c:when>
-								<c:otherwise>
+								
 				    				<button type="button" class="btn btn-light" disabled>삭제</button>
-								</c:otherwise>
-							</c:choose>
+							
 						</td>
 						<td class="text-end">
-							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/bbs/list?${query}';">리스트</button>
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/list/${projIdx}?postPage=${postPage}';">리스트</button>
 						</td>
 					</tr>
 				</table>

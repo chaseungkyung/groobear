@@ -47,7 +47,7 @@
 		WHERE postIdx=#{postIdx}
 	</update>
 	
-	<delete id="deleteProjectPost" parameterType="com.sp.app.project.model.ProjectPost">
+	<delete id="deleteProjectPost" parameterType="Long">
 		DELETE FROM projectPost WHERE postIdx = #{postIdx}
 	</delete>
 	
@@ -101,5 +101,57 @@
         LEFT JOIN employee e ON pm.empIdx = e.empIdx
         WHERE postIdx = #{postIdx} 
 	</select>
+	
+	<!-- 파일 -->
+	<insert id="insertFile" parameterType="com.sp.app.project.model.ProjectPost">
+		INSERT INTO projectPostFile(fileIdx, postIdx, originalFilename, saveFilename)
+		VALUES (ProjectPostFile_seq.NEXTVAL, #{postIdx}, #{originalFilename}, #{saveFilename})
+	</insert>
+	
+	<select id="getPostFileList" parameterType="Long" resultType="com.sp.app.project.model.ProjectPost">
+		SELECT fileIdx, postIdx, originalFilename, saveFilename
+		FROM projectPostFile
+		WHERE postIdx = #{postIdx}
+	</select>
+	
+	<select id="findByFileId" parameterType="Long" resultType="com.sp.app.project.model.ProjectPost">
+		SELECT fileIdx, postIdx, originalFilename, saveFilename
+		FROM projectPostFile
+		WHERE fileIdx = #{fileIdx}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM projectPostFile
+		WHERE ${field} = #{postIdx}
+	</delete>
+	
+	
+	<!-- 댓글 -->
+	<insert id="insertReply" parameterType="com.sp.app.project.model.ProjectPostCmt">
+		INSERT INTO projectPostCmt(cmtIdx, postIdx, projMemberIdx, regDate, content)
+		VALUES(projectPostCmt_seq.NEXTVAL, #{postIdx}, #{projMemberIdx}, SYSDATE, #{content})
+	</insert>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM projectPostCmt
+		WHERE cmtIdx = #{cmtIdx}
+	</delete>
+	
+	<select id="getPostReplyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM projectPostCmt
+		WHERE postIdx=#{postIdx} 	
+	</select>
+	
+	<select id="getPostReplyList" parameterType="map" resultType="com.sp.app.project.model.ProjectPostCmt">
+		SELECT r.cmtIdx, r.projMemberIdx, e.empIdx,e.empName, r.PostIdx, r.content, r.regDate
+		FROM projectPostCmt r
+        JOIN projectMember m ON r.projMemberIdx = m.projMemberIdx
+		JOIN employee e ON m.empIdx = e.empIdx
+		WHERE postIdx=#{postIdx}
+		ORDER BY r.cmtIdx DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY 
+	</select>
+	
 
 </mapper>

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sp.app.project.model.ProjectPost;
+import com.sp.app.project.model.ProjectPostCmt;
 
 @Mapper
 public interface ProjectPostMapper {
@@ -23,7 +24,7 @@ public interface ProjectPostMapper {
 	public void updateProjectPost(ProjectPost dto) throws SQLException;
 
 	// projectPost 테이블 게시글 삭제
-	public void deleteProjectPost(ProjectPost dto) throws SQLException;
+	public void deleteProjectPost(long postIdx) throws SQLException;
 
 	// projectPost 테이블 게시글 List 가져오는 메소드
 	public List<ProjectPost> getProjectPostList(Map<String, Object> map);
@@ -34,6 +35,28 @@ public interface ProjectPostMapper {
 	// projectPost 테이블 게시글 하나 가져오는 메소드
 	public ProjectPost getProjectPostById(long postIdx);
 
-	public Long getProjectMemberIdx();
+	/*
+	 * ProjectPostFile 테이블
+	 */
+	public void insertFile(ProjectPost dto) throws SQLException;
+	
+	public List<ProjectPost> getPostFileList(long postIdx);
+	
+	public ProjectPost findByFileId(long fileIdx);
+	
+	public void deleteFile(Map<String, Object> map) throws SQLException;
+	
+
+	/*
+	 * projectPostCmt 테이블
+	 */
+	public void insertReply(ProjectPostCmt dto) throws SQLException;
+	
+	public void deleteReply(Map<String, Object> map) throws SQLException;
+	
+	public int getPostReplyCount(Map<String, Object> map);
+	
+	public List<ProjectPostCmt> getPostReplyList(Map<String, Object> map);
+	
 	
 }
