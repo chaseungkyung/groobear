@@ -22,7 +22,6 @@ import com.sp.app.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -158,6 +157,8 @@ public class EmpController {
 			dto.setDeptName(deptName);
 			String teamName = service.getTeamName(dto.getTeamIdx());
 			dto.setTeamName(teamName);
+			String positionName = service.getPositionName(dto.getPositionCode());
+			dto.setPositionName(positionName);
 			
 			service.insertEmployee(dto);
 			service.insertEmployeeDetail(dto);
@@ -190,11 +191,12 @@ public class EmpController {
 			
 			Member dto = Objects.requireNonNull(service.findByEmpIdx(empIdx));
 			List<Member> list = service.getEmpRecord(empIdx);
-				
+			
 			model.addAttribute("list", list);
 			model.addAttribute("dto", dto);
 			model.addAttribute("mode", "update");
-					
+			
+		
 			return "emp/add";
 		} catch (NullPointerException e) {
 		} catch (Exception e) {

@@ -17,7 +17,7 @@
 function ClockIn() {
 	const f = document.ClockForm;
 	
-	f.action = '${pageContext.request.contextPath}/main';
+	f.action = '${pageContext.request.contextPath}/main/clockIn';
 	f.submit();
 }	
 	
@@ -37,7 +37,7 @@ function ClockIn() {
 						<input type='hidden' name="empIdx" value="${dto.empIdx}" style="margin-top: 10px;">
                         <div class="department" style="margin-top: 10px;" ><p>${sessionScope.member.deptName}</p></div>
                         <div class="name" style="margin-top: 10px;"><p>${sessionScope.member.empName}</p></div>
-                    <div class="time" style="margin-top: 10px;"><p>08:50:11</p></div>
+                    <div class="time" style="margin-top: 10px;"><p>${loginTime.loginTime}</p></div>
                     <div class="work">
                         <div class="status">
                             <ul>
@@ -46,7 +46,7 @@ function ClockIn() {
                             </ul>
                             <ul>
                                 <li>출근 시간</li>
-                                <li>${startDate}</li>
+                                <li>${loginTime}</li>
                             </ul>
                         </div>
                     </div>
