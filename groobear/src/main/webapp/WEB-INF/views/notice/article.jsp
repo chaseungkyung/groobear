@@ -9,6 +9,22 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
+
+<style type="text/css">
+.container {
+  max-width: 1200px; /* 원하는 가로 길이 */
+  margin-left: 0;   /* 왼쪽 정렬 */
+}
+
+.body-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  margin-right: 150px; /* 사이드바가 있던 공간 */
+  transition: margin-left 0.3s ease-in-out;
+}
+</style>
+
 </head>
 
 <body>
@@ -18,7 +34,7 @@
 </header>
 	
 <main>
-	<div class="container">
+	<div class="container-fluid container">
 		<div class="body-container">	
 			<div class="body-title">
 			</div>
@@ -54,14 +70,14 @@
 							<tr>
 								<td colspan="2">
 									<p class="border text-secondary my-1 p-2">
-										<i class="bi bi-folder2-open"></i>
+										<i class="bi bi-arrow-down-square">&nbsp;</i>
 										<c:forEach var="dto" items="${listFile}" varStatus="status">
 											<a href="${pageContext.request.contextPath}/notice/download?fileIdx=${dto.fileIdx}" class="text-reset">${dto.originalFilename}</a>
 											<c:if test="${not status.last}"> | </c:if>
 										</c:forEach>
 									</p>
 									<p class="border text-secondary mb-1 p-2">
-										<i class="bi bi-folder2-open"></i>
+										<i class="bi bi-arrow-down-square">&nbsp;</i>
 										<a href="${pageContext.request.contextPath}/notice/zipdownload?noticeIdx=${dto.noticeIdx}" class="text-reset" title="압축 다운로드">파일 전체 압축 다운로드(zip)</a>
 									</p>	
 								</td>
