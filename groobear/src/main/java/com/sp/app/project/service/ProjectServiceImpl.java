@@ -66,6 +66,8 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void insertProject(Project dto) throws Exception {
 		try {
+			long seq = projectMapper.projectSeq();
+			dto.setProjIdx(seq);
 
 			projectMapper.insertProject(dto);
 

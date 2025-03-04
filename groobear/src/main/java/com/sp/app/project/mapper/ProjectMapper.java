@@ -16,6 +16,7 @@ import com.sp.app.project.model.Project;
  */
 @Mapper
 public interface ProjectMapper {
+		
 	// 개발부의 팀 리스트를 가져오는 메소드. 임시 메소드임. RestAPI로 분리할 예정
 	public List<OrgUnit> getDevTeamList(Map<String, Object> map) throws SQLException;
 
@@ -30,6 +31,10 @@ public interface ProjectMapper {
 	/*
 	 * PROJECT 테이블
 	 */
+	
+	
+	public long projectSeq();
+	
 	// PROJECT 테이블에 프로젝트를 등록하는 메소드
 	public void insertProject(Project dto) throws SQLException;
 

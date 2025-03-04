@@ -132,11 +132,11 @@ public class ProjectController {
 
 			projectService.insertProject(projectDto);
 			
-			// long empIdx = service.getPmEmpIdx(projIdx);
-			
 			ProjectMember memberDto = new ProjectMember();
 			memberDto.setProjIdx(projectDto.getProjIdx());
 			memberDto.setEmpIdx(projectDto.getPmEmpIdx());
+			
+			projectMemberService.insertProjectMember(memberDto);
 
 		} catch (Exception e) {
 			log.info("projectCreateSubmit : ", e);

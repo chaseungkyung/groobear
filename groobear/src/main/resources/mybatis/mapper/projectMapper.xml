@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sp.app.project.mapper.ProjectMapper">
-
+	
 	<select id="getDevTeamList" parameterType="map" resultType="com.sp.app.model.core.OrgUnit">
 		SELECT teamIdx, t.deptIdx, teamName
 		FROM team t
@@ -40,10 +40,14 @@
 	
 	
 	<!-- PROJECT 테이블 -->
+	
+	<select id="projectSeq" resultType="Long">
+		SELECT project_seq.NEXTVAL FROM dual
+	</select>
 
 	<insert id="insertProject" parameterType="com.sp.app.project.model.Project">
 		INSERT INTO project(projIdx, pmEmpIdx, projName, createdAt, startDate, endDate, status)
-		VALUES(project_seq.NEXTVAL, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
+		VALUES(#{projIdx}, #{pmEmpIdx}, #{projName}, SYSDATE, #{startDate}, #{endDate}, 0)
 	</insert>
 	
 	<update id="updateProject" parameterType="com.sp.app.project.model.Project">
