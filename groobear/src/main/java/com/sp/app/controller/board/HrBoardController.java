@@ -362,7 +362,7 @@ public class HrBoardController {
 		try {
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			
-			int size = ５;
+			int size = 5;
 			int total_page = 0;
 			int dataCount = 0;
 			
