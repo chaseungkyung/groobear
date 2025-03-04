@@ -44,12 +44,14 @@ public class ProjectPostController {
 
     @GetMapping("list/{projIdx}")
     public String postList(
-            @PathVariable("projIdx") long projIdx,          
+            @PathVariable("projIdx") long projIdx,
+            @RequestParam(name = "page", defaultValue = "1") String page,
             @RequestParam(name = "postPage", defaultValue = "1") int postPage,
             @RequestParam(name = "schType", defaultValue = "all") String schType,
             @RequestParam(name = "keyword", defaultValue = "") String keyword,
             Model model, HttpServletRequest req) throws Exception {
-
+    	
+    	String query = "page=" + page;
 
         try {
         	int size = 10;
@@ -93,6 +95,8 @@ public class ProjectPostController {
             String paging = paginateUtil.paging(postPage, total_page, listUrl);
             
             model.addAttribute("projIdx", projIdx); 
+            model.addAttribute("page", page);
+            model.addAttribute("query", query);
             
             model.addAttribute("list", list);
             model.addAttribute("postPage", postPage);
