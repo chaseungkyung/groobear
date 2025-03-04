@@ -1,4 +1,4 @@
-package com.sp.app.controller.project;
+package com.sp.app.project.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sp.app.model.core.Member;
 import com.sp.app.model.core.OrgUnit;
-import com.sp.app.model.project.ProjectMember;
-import com.sp.app.model.project.ProjectStage;
-import com.sp.app.model.project.ProjectTask;
-import com.sp.app.model.project.ProjectTeam;
-import com.sp.app.service.project.ProjectService;
+import com.sp.app.project.model.ProjectMember;
+import com.sp.app.project.model.ProjectStage;
+import com.sp.app.project.model.ProjectTask;
+import com.sp.app.project.model.ProjectTeam;
+import com.sp.app.project.service.ProjectMemberService;
+import com.sp.app.project.service.ProjectService;
+import com.sp.app.project.service.ProjectStageService;
+import com.sp.app.project.service.ProjectTaskService;
+import com.sp.app.project.service.ProjectTeamService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +32,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/project/*")
 public class ProjectRestController {
-	private final ProjectService service;
+	private final ProjectService projectService;
+	private final ProjectTeamService projectTeamService;
+	private final ProjectMemberService projectMemberService;
+	private final ProjectStageService projectStageService;
+	private final ProjectTaskService projectTaskService;
 
 	// AJAX-JSON
 	@GetMapping("getTeam")
@@ -39,7 +47,7 @@ public class ProjectRestController {
 		try {
 			param.put("deptIdx", deptIdx);
 
-			List<OrgUnit> teamList = service.getDevTeamList(param);
+			List<OrgUnit> teamList = projectService.getDevTeamList(param);
 
 			map.put("deptIdx", "F");
 			map.put("teamList", teamList);
@@ -66,7 +74,7 @@ public class ProjectRestController {
 			param.put("teamIdx", teamIdx);
 			param.put("deptIdx", deptIdx);
 
-			List<Member> empNameList = service.getEmpNameListFromDevTeam(param);
+			List<Member> empNameList = projectService.getEmpNameListFromDevTeam(param);
 
 			map.put("teamIdx", teamIdx);
 			map.put("deptIdx", deptIdx);
@@ -101,7 +109,7 @@ public class ProjectRestController {
 			condition.put("searchKwd", searchKwd);
 			condition.put("projIdx", projIdx);
 
-			List<Member> empList = service.getEmployList(condition);
+			List<Member> empList = projectService.getEmployList(condition);
 			map.put("empList", empList);
 
 		} catch (Exception e) {
@@ -115,7 +123,7 @@ public class ProjectRestController {
 			@RequestParam(name = "projIdx") long projIdx) {
 		Map<String, Object> result = new HashMap<>();
 		try {
-			List<ProjectTeam> projTeamList = service.getProjectTeamList(projIdx);
+			List<ProjectTeam> projTeamList = projectTeamService.getProjectTeamList(projIdx);
 			result.put("projTeamList", projTeamList);
 		} catch (Exception e) {
 			log.info("getProjectTeams : ", e);
@@ -132,7 +140,7 @@ public class ProjectRestController {
 		try {
 			condition.put("projIdx", projIdx);
 
-			List<ProjectMember> list = service.getProjectMemberList(condition);
+			List<ProjectMember> list = projectMemberService.getProjectMemberList(condition);
 			result.put("projMemberList", list);
 		} catch (Exception e) {
 			log.info("getProjectMmeberList : ", e);
@@ -148,7 +156,7 @@ public class ProjectRestController {
 		try {
 			for (ProjectMember dto : selectedUser) {
 				dto.setProjIdx(projIdx);
-				service.insertProjectMember(dto);
+				projectMemberService.insertProjectMember(dto);
 			}
 			result.put("state", "true");
 		} catch (Exception e) {
@@ -164,7 +172,7 @@ public class ProjectRestController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("projIdx", projIdx);
 
-		List<ProjectStage> stageList = service.getProjectStageList(map);
+		List<ProjectStage> stageList = projectStageService.getProjectStageList(map);
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("stageList", stageList);
@@ -177,7 +185,7 @@ public class ProjectRestController {
 			@RequestParam(name = "taskIdx") long taskIdx) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			ProjectTask projTask = service.getProjectTaskById(taskIdx);
+			ProjectTask projTask = projectTaskService.getProjectTaskById(taskIdx);
 			map.put("projTask", projTask);
 		} catch (Exception e) {
 			log.info("getProjectTask : ", e);
@@ -194,12 +202,12 @@ public class ProjectRestController {
 		param.put("projIdx", projIdx);
 		param.put("stageIdx", stageIdx);
 
-		List<ProjectTask> taskList = service.getProjectTaskList(param);
+		List<ProjectTask> taskList = projectTaskService.getProjectTaskList(param);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("taskList", taskList);
 
-		int stageRate = service.getProgressRate(projIdx, stageIdx);
+		int stageRate = projectTaskService.getProgressRate(projIdx, stageIdx);
 		map.put("stageRate", stageRate);
 
 		System.out.println("stageRate : " + stageRate);
@@ -213,7 +221,7 @@ public class ProjectRestController {
 		Map<String, Object> map = new HashMap<>();
 		
 		try {
-			ProjectStage projStage = service.getProjectStageById(stageIdx);
+			ProjectStage projStage = projectStageService.getProjectStageById(stageIdx);
 			map.put("projStage", projStage);
 			
 		} catch (Exception e) {
@@ -231,9 +239,9 @@ public class ProjectRestController {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			if (mode.equals("insert")) {
-				service.insertProjectStage(dto);
+				projectStageService.insertProjectStage(dto);
 			} else if (mode.equals("update")) {
-				service.updateProjectStage(dto);
+				projectStageService.updateProjectStage(dto);
 			}
 
 			result.put("state", "true");
@@ -252,7 +260,7 @@ public class ProjectRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		try {
-			service.deleteProjectStage(stageIdx);
+			projectStageService.deleteProjectStage(stageIdx);
 			
 			result.put("state", "true");
 		} catch (Exception e) {
@@ -272,9 +280,9 @@ public class ProjectRestController {
 		Map<String, Object> result = new HashMap<>();
 		try {
 			if (mode.equals("insert")) {
-				service.insertProjectTask(dto);
+				projectTaskService.insertProjectTask(dto);
 			} else if (mode.equals("update")) {
-				service.updateProjectTask(dto);
+				projectTaskService.updateProjectTask(dto);
 			}
 
 			result.put("state", "true");
@@ -294,7 +302,7 @@ public class ProjectRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		try {
-			service.deleteProjectTask(taskIdx);
+			projectTaskService.deleteProjectTask(taskIdx);
 			
 			result.put("state", "true");
 		} catch (Exception e) {

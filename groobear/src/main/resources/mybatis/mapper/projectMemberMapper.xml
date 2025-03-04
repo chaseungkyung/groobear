@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.project.mapper.ProjectMemberMapper">
+
+	<!-- projectMember 테이블 -->
+	
+	<insert id="insertProjectMember" parameterType="com.sp.app.project.model.ProjectMember">
+		INSERT INTO projectMember(projMemberIdx, projIdx, empIdx, projTeamIdx)
+		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx, jdbcType=NUMERIC})
+	</insert>
+	
+	<update id="updateProjectMember" parameterType="com.sp.app.project.model.ProjectMember">
+		UPDATE projectMember SET projTeamIdx=#{projTeamIdx}
+		WHERE projMemberIdx = #{projMemberIdx}
+	</update>
+	
+	<delete id="deleteProjectMember" parameterType="Long">
+		DELETE FROM projectMember
+		WHERE projMemberIdx=#{projMemberIdx}
+	</delete>
+	
+	<select id="getProjectMemberList" parameterType="map" resultType="com.sp.app.project.model.ProjectMember">
+		SELECT pmb.projMemberIdx, pmb.projIdx, e.empIdx, e.empName, pt.projTeamIdx, pt.projTeamName
+		FROM projectMember pmb
+		LEFT OUTER JOIN projectTeam pt ON pmb.projTeamIdx = pt.projTeamIdx
+		LEFT OUTER JOIN employee e ON pmb.empIdx = e.empIdx
+		<where>
+			<if test="projIdx != null"> AND pmb.projIdx = #{projIdx} </if>
+			<if test="projTeamIdx != null"> AND pmb.projTeamIdx = #{projTeamIdx} </if>
+		</where>
+	</select>
+	
+	<select id="getProjectMemberCount" parameterType="map" resultType="Integer">
+		SELECT NVL(count(projMemberIdx),0)
+		FROM projectMember
+		<where>
+			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
+			<if test="projTeamIdx != null"> AND projTeamIdx = #{projTeamIdx} </if>
+		</where>
+	</select>
+	
+	<select id="getProjectMemberById" parameterType="Long" resultType="com.sp.app.project.model.ProjectMember">
+		SELECT pmb.projMemberIdx, e.empIdx, e.empName, t.teamName, 
+		    pst.positionName, p.projIdx
+		FROM projectMember pmb
+		JOIN employee e ON pmb.empIdx = e.empIdx
+		JOIN team t ON e.teamIdx = t.teamIdx
+		JOIN position pst ON e.positionCode = pst.positionCode
+		JOIN project p ON pmb.projIdx = p.projIdx
+		WHERE pmb.projMemberIdx = #{projMemberIdx} AND p.pmEmpIdx != pmb.empIdx		
+	</select>
+	
+
+	<!-- 프로젝트 매니저 / 프로젝트 매니저 뺀 멤버 가져오는 select -->
+	
+	<select id="getProjectPmList" parameterType="Long" resultType="com.sp.app.project.model.ProjectMember">
+		SELECT pm.projIdx, e.empIdx AS pmEmpIdx, e.empName AS pmEmpName, 
+			t.teamIdx, t.teamName,
+        	NVL(pt.projteamIdx, 0) AS projteamIdx,
+        	NVL(pt.projteamName, '-') AS projteamName
+		FROM projectMember pm
+        LEFT JOIN projectTeam pt ON pm.projTeamIdx = pt.projTeamIdx
+		LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT JOIN project p ON pm.projIdx = p.projIdx
+        LEFT JOIN team t ON e.teamIdx = t.teamIdx
+		WHERE pm.empIdx IN (
+		    SELECT p.pmEmpIdx FROM project p WHERE p.projIdx = pm.projIdx)
+		    AND p.projIdx = #{projIdx}
+        ORDER BY e.empName ASC				 	
+	</select>
+	
+	<select id="getNonPMProjectMemberList" parameterType="Long"
+		resultType="com.sp.app.project.model.ProjectMember">
+        SELECT pm.projIdx, e.empIdx, e.empName, t.teamIdx, t.teamName,
+        	NVL(pt.projteamIdx, 0) AS projteamIdx,
+        	NVL(pt.projteamName, '-') AS projteamName
+		FROM projectMember pm
+        LEFT JOIN projectTeam pt ON pm.projTeamIdx = pt.projTeamIdx
+		LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT JOIN project p ON pm.projIdx = p.projIdx
+        LEFT JOIN team t ON e.teamIdx = t.teamIdx
+		WHERE pm.empIdx NOT IN (
+		    SELECT p.pmEmpIdx FROM project p WHERE p.projIdx = pm.projIdx)
+		    AND p.projIdx = #{projIdx}
+        ORDER BY e.empName ASC			
+	</select>
+
+</mapper>

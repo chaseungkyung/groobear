@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.project.mapper.ProjectTaskMapper">
+
+	<!-- projectTask 테이블 -->
+	
+	<insert id="insertProjectTask" parameterType="com.sp.app.project.model.ProjectTask">
+		INSERT INTO projectTask(taskIdx, stageIdx, taskName, status, 
+			startDate, endDate, createdAt, content)
+		VALUES(projectTask_seq.NEXTVAL, #{stageIdx}, #{taskName}, #{status}, 
+			#{startDate}, #{endDate}, SYSDATE, #{content, jdbcType=VARCHAR})	
+	</insert>
+	
+	<update id="updateProjectTask" parameterType="com.sp.app.project.model.ProjectTask">
+		UPDATE projectTask SET taskName=#{taskName}, status=#{status},
+			startDate=#{startDate}, endDate=#{endDate}, content=#{content}
+		WHERE taskIdx=#{taskIdx}
+	</update>
+	
+	<delete id="deleteProjectTask" parameterType="Long">
+		DELETE FROM projectTask
+		WHERE taskIdx=#{taskIdx}
+	</delete>
+	
+	<!-- stage 의 하위 task 리스트 -->
+	<select id="getProjectTaskList" parameterType="map" 
+		resultType="com.sp.app.project.model.ProjectTask">
+		SELECT p.projIdx, pt.taskIdx, ps.stageIdx, ps.stageName, pt.taskName, pt.status, 
+			TO_CHAR(pt.startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(pt.endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(pt.createdAt, 'YYYY-MM-DD') AS createdAt, pt.content
+		FROM projectTask pt
+		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
+		LEFT JOIN project p ON ps.projIdx = p.projIdx
+		<where>
+			<if test="projIdx != null"> AND p.projIdx = #{projIdx}</if>
+			<if test="stageIdx != null"> AND ps.stageIdx = #{stageIdx}</if>
+			<if test="status != null"> AND pt.status = #{status} </if>
+		</where>
+		ORDER BY startDate ASC
+	</select>
+	
+	<select id="getProjectTaskCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(taskIdx), 0)
+		FROM projectTask pt
+		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
+		LEFT JOIN project p ON ps.projIdx = p.projIdx
+		<where>
+			<if test="projIdx != null"> AND p.projIdx = #{projIdx}</if>
+			<if test="stageIdx != null"> AND ps.stageIdx = #{stageIdx}</if>
+			<if test="status != null"> AND pt.status = #{status} </if>
+		</where>
+	</select>
+	
+	<select id="getProjectTaskById" parameterType="Long" 
+		resultType="com.sp.app.project.model.ProjectTask">
+		SELECT pt.taskIdx, ps.stageIdx, pt.taskName, pt.status,
+			TO_CHAR(pt.startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(pt.endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(pt.createdAt, 'YYYY-MM-DD') AS createdAt,
+			pt.content, ps.stageName
+		FROM projectTask pt
+		LEFT JOIN projectStage ps ON pt.stageIdx = ps.stageIdx
+		WHERE taskIdx = #{taskIdx}
+	</select>
+
+</mapper>

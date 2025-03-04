@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.project.mapper.ProjectPostMapper">
+
+	<!-- projectPost 테이블 -->
+	
+	<insert id="insertProjectPost" parameterType="com.sp.app.project.model.ProjectPost">
+		INSERT INTO projectPost(postIdx, projIdx, projMemberIdx, title, content, regDate)
+		VALUES (projectPost_seq.NEXTVAL, #{projIdx}, #{projMemberIdx}, 
+			#{title}, #{content}, SYSDATE)
+	</insert>
+	
+	<select id="getProjectMemberIdx" parameterType="map" resultType="Long">
+		SELECT projMemberIdx
+        FROM projectMember
+        WHERE projIdx = #{projIdx} AND empIdx = #{empIdx}
+	</select>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all'">
+				( INSTR(title, #{kwd}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'regDate'">
+				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
+					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<when test="schType == 'title'">
+				INSTR(title, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'content'">
+				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+			</when>
+			<when test="schType == 'empName'">
+				INSTR(empName, #{kwd}) &gt; 0
+			</when>
+			<otherwise>
+				INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<update id="updateProjectPost" parameterType="com.sp.app.project.model.ProjectPost">
+		UPDATE projectPost SET title=#{title}, content=#{content}, updateDate=SYSDATE
+		WHERE postIdx=#{postIdx}
+	</update>
+	
+	<delete id="deleteProjectPost" parameterType="com.sp.app.project.model.ProjectPost">
+		DELETE FROM projectPost WHERE postIdx = #{postIdx}
+	</delete>
+	
+	<select id="getProjectPostList" parameterType="map" resultType="com.sp.app.project.model.ProjectPost">
+        SELECT pp.postIdx, p.projIdx, pm.projMemberIdx, e.empIdx, e.empName, 
+			title, content, TO_CHAR(regDate, 'YYYY-MM-DD') AS regDate, 
+			TO_CHAR(updateDate, 'YYYY-MM-DD') AS updateDate,
+			NVL(replyCount, 0) replyCount, NVL(fileCount, 0) fileCount
+		FROM projectPost pp
+        JOIN project p ON pp.projIdx = p.projIdx
+        JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+        JOIN employee e ON pm.empIdx = e.empIdx
+        LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) replyCount
+			FROM projectPostCmt
+			GROUP BY postIdx
+		) c ON pp.postIdx = c.postIdx
+		LEFT OUTER JOIN (
+			SELECT postIdx, COUNT(*) fileCount 
+			FROM projectPostFile
+			GROUP BY postIdx
+		) f ON pp.postIdx = f.postIdx
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+        ORDER BY pp.postIdx DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="getProjectPostCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(postIdx), 0) 
+		FROM projectPost pp
+		JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+		JOIN employee e ON pm.empIdx = e.empIdx
+		JOIN project pr ON pm.projIdx = pr.projIdx
+			<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>		
+		</where>
+	</select>
+	
+	<select id="getProjectPostById" parameterType="Long" resultType="com.sp.app.project.model.ProjectPost">
+		SELECT pp.postIdx, p.projIdx, pm.projMemberIdx, e.empIdx, e.empName, 
+			title, content, regDate, updateDate
+		FROM projectPost pp
+        LEFT JOIN project p ON pp.projIdx = p.projIdx
+        LEFT JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
+        LEFT JOIN employee e ON pm.empIdx = e.empIdx
+        WHERE postIdx = #{postIdx} 
+	</select>
+
+</mapper>

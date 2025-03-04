@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.project.mapper.ProjectTeamMapper">
+
+	<!-- projectTeam 테이블 -->
+	
+	<insert id="insertProjectTeam" parameterType="com.sp.app.project.model.ProjectTeam">
+		INSERT INTO projectTeam (projTeamIdx, projIdx, projTeamName)
+		VALUES (projectTeam_seq.NEXTVAL, projIdx=#{projIdx}, projTeamName=#{projTeamName})
+	</insert>
+	
+	<update id="updateProjectTeam" parameterType="com.sp.app.project.model.ProjectTeam">
+		UPDATE projectTeam SET projTeamName=#{projTeamName}
+	</update>
+	
+	<delete id="deleteProjectTeam" parameterType="Long">
+		DELETE FROM projectTeam
+		WHERE projTeamIdx=#{projTeamIdx}
+	</delete>
+	
+	<select id="getProjectTeamList" parameterType="Long" resultType="com.sp.app.project.model.ProjectTeam">
+		SELECT projTeamIdx, projTeamName
+		FROM projectTeam
+		WHERE projIdx=#{projIdx}
+		ORDER BY projTeamName ASC
+	</select>
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.project.mapper.ProjectStageMapper">
+
+	<!-- projectStage 테이블 -->
+	
+	<insert id="insertProjectStage" parameterType="com.sp.app.project.model.ProjectStage">
+		INSERT INTO projectStage(stageIdx, projIdx, stageName, status, 
+			startDate, endDate, createdAt, projTeamIdx, projTeamName, content)
+		VALUES(projectStage_seq.NEXTVAL, #{projIdx}, #{stageName}, #{status},
+			#{startDate}, #{endDate}, SYSDATE, #{projTeamIdx, jdbcType=NUMERIC}, 
+			#{projTeamName, jdbcType=VARCHAR}, #{content, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateProjectStage" parameterType="com.sp.app.project.model.ProjectStage">
+		UPDATE projectStage SET stageName=#{stageName}, status=#{status},
+			startDate=#{startDate}, endDate=#{endDate}, 
+			projTeamIdx=#{projTeamIdx, jdbcType=NUMERIC},
+			projTeamName=#{projTeamName, jdbcType=VARCHAR}, 
+			content=#{content, jdbcType=VARCHAR}
+		WHERE stageIdx = #{stageIdx}
+	</update>
+	
+	<delete id="deleteProjectStage" parameterType="Long">
+		DELETE FROM projectStage
+		WHERE stageIdx = #{stageIdx}
+	</delete>
+	
+	<select id="getProjectStageList" parameterType="map" resultType="com.sp.app.project.model.ProjectStage">
+		SELECT ps.stageIdx, ps.projIdx, ps.stageName, ps.status, 
+			TO_CHAR(ps.startDate,'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(ps.endDate, 'YYYY-MM-DD') AS endDate, 
+			TO_CHAR(ps.createdAt, 'YYYY-MM-DD') AS createdAt, ps.projTeamIdx, 
+			COALESCE(pt.projTeamName, '미배정') AS projTeamName, ps.content
+		FROM projectStage ps
+		LEFT JOIN projectTeam pt ON ps.projTeamIdx = pt.projTeamIdx
+		<where>
+			<if test="projIdx != null"> AND ps.projIdx = #{projIdx} </if>
+			<if test="status != null"> AND ps.status = #{status} </if>
+		</where>
+		ORDER BY ps.startDate ASC
+	</select>
+	
+	<select id="getProjectStageCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(stageIdx), 0)
+		FROM projectStage
+		<where>
+			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
+			<if test="status != null"> AND status = #{status} </if>
+		</where>
+	</select>
+	
+	<select id="getProjectStageById" parameterType="Long" resultType="com.sp.app.project.model.ProjectStage">
+		SELECT stageIdx, projIdx, stageName, status, 
+			TO_CHAR(startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(endDate, 'YYYY-MM-DD') AS endDate,
+			TO_CHAR(createdAt, 'YYYY-MM-DD') AS createdAt, 
+			projTeamIdx, projTeamName, content
+		FROM projectStage
+		WHERE stageIdx = #{stageIdx}
+	</select>
+
+</mapper>

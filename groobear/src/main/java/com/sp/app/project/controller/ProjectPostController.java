@@ -1,4 +1,4 @@
-package com.sp.app.controller.project;
+package com.sp.app.project.controller;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.common.StorageService;
 import com.sp.app.model.SessionInfo;
-import com.sp.app.model.project.ProjectPost;
-import com.sp.app.service.project.ProjectService;
+import com.sp.app.project.model.ProjectPost;
+import com.sp.app.project.service.ProjectPostService;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/project/post/*")
 public class ProjectPostController {
-    private final ProjectService service;
+    private final ProjectPostService projectPostService;
     private final StorageService storageService;
     private final PaginateUtil paginateUtil;
     
@@ -62,7 +62,7 @@ public class ProjectPostController {
 			map.put("schType", schType);
 			map.put("keyword", keyword);
 			
-			dataCount = service.getProjectPostCount(map);
+			dataCount = projectPostService.getProjectPostCount(map);
 			if (dataCount != 0) {
 				total_page = paginateUtil.pageCount(dataCount, size);
 			}
@@ -76,7 +76,7 @@ public class ProjectPostController {
 			map.put("offset", offset);
 			map.put("size", size);
 			
-			List<ProjectPost> list = service.getProjectPostList(map);
+			List<ProjectPost> list = projectPostService.getProjectPostList(map);
 			
 			String cp = req.getContextPath();
 			String postQuery = "postPage=" + postPage;
@@ -141,12 +141,12 @@ public class ProjectPostController {
 			paramMap.put("projIdx", projIdx);
 			paramMap.put("empIdx", info.getEmpIdx());
 			
-			long projMemberIdx = service.getProjectMemberIdx(paramMap);
+			long projMemberIdx = projectPostService.getProjectMemberIdx(paramMap);
 			
 			dto.setProjMemberIdx(projMemberIdx);			
 			dto.setEmpIdx(info.getEmpIdx());
 			
-			service.insertProjectPost(dto, uploadPath);
+			projectPostService.insertProjectPost(dto, uploadPath);
     		
 		} catch (Exception e) {
 			log.info("postwriteSubmit : ", e);

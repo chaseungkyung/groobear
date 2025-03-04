@@ -1,4 +1,4 @@
-package com.sp.app.controller.project;
+package com.sp.app.project.controller;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.app.common.PaginateUtil;
 import com.sp.app.model.SessionInfo;
-import com.sp.app.model.project.Project;
-import com.sp.app.model.project.ProjectMember;
-import com.sp.app.model.project.ProjectStage;
-import com.sp.app.model.project.ProjectTask;
-import com.sp.app.service.project.ProjectService;
+import com.sp.app.project.model.Project;
+import com.sp.app.project.model.ProjectMember;
+import com.sp.app.project.model.ProjectStage;
+import com.sp.app.project.model.ProjectTask;
+import com.sp.app.project.service.ProjectMemberService;
+import com.sp.app.project.service.ProjectService;
+import com.sp.app.project.service.ProjectStageService;
+import com.sp.app.project.service.ProjectTaskService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -34,7 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/project/*")
 public class ProjectController {
-	private final ProjectService service;
+	private final ProjectService projectService;
+	private final ProjectMemberService projectMemberService;
+	private final ProjectStageService projectStageService;
+	private final ProjectTaskService projectTaskService;
 	private final PaginateUtil paginateUtil;
 
 	@GetMapping("")
@@ -61,7 +67,7 @@ public class ProjectController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("kwd", kwd);
 
-			dataCount = service.getProjectCount(map);
+			dataCount = projectService.getProjectCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
 			current_page = Math.min(current_page, total_page);
 
@@ -73,7 +79,7 @@ public class ProjectController {
 			map.put("offset", offset);
 			map.put("size", size);
 
-			List<Project> listProject = service.getProjectList(map);
+			List<Project> listProject = projectService.getProjectList(map);
 
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
@@ -124,7 +130,9 @@ public class ProjectController {
 
 		try {
 
-			service.insertProject(projectDto);
+			projectService.insertProject(projectDto);
+			
+			// long empIdx = service.getPmEmpIdx(projIdx);
 			
 			ProjectMember memberDto = new ProjectMember();
 			memberDto.setProjIdx(projectDto.getProjIdx());
@@ -146,7 +154,7 @@ public class ProjectController {
 
 		try {
 
-			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+			Project dto = Objects.requireNonNull(projectService.getProjectById(projIdx));
 			
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
@@ -174,7 +182,7 @@ public class ProjectController {
 
 		try {
 
-			service.updateProject(dto);
+			projectService.updateProject(dto);
 
 		} catch (Exception e) {
 			log.info("projectUpdateSubmit : ", e);
@@ -198,7 +206,7 @@ public class ProjectController {
 	            return "redirect:/project/list?page=" + page;
 	        }
 
-	        service.deleteProject(projIdx);
+	        projectService.deleteProject(projIdx);
 
 	    } catch (Exception e) {
 	        log.info("projectDelete : ", e);
@@ -226,27 +234,27 @@ public class ProjectController {
 				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
 
-			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+			Project dto = Objects.requireNonNull(projectService.getProjectById(projIdx));
 			model.addAttribute("dto", dto);
 						
 			Map<String, Object> map = new HashMap<>();
 			map.put("projIdx", projIdx);
 			
-			List<ProjectStage> stageList = service.getProjectStageList(map);
+			List<ProjectStage> stageList = projectStageService.getProjectStageList(map);
 			for (ProjectStage stage : stageList) {
-			    stage.setProgressRate(service.getProgressRate(projIdx, stage.getStageIdx()));
+			    stage.setProgressRate(projectTaskService.getProgressRate(projIdx, stage.getStageIdx()));
 			}
 			model.addAttribute("stageList", stageList);
 			
-			List<ProjectTask> taskList = service.getProjectTaskList(map);
+			List<ProjectTask> taskList = projectTaskService.getProjectTaskList(map);
 			model.addAttribute("taskList", taskList);
 			
-			int projectMemberCount = service.getProjectMemberCount(map);
+			int projectMemberCount = projectMemberService.getProjectMemberCount(map);
 			model.addAttribute("projectMemberCount", projectMemberCount);
 			
 			
-			List<ProjectMember> projectPmList = service.getProjectPmList(projIdx);
-			List<ProjectMember> nonPmProjectMemberList = service.getNonPMProjectMemberList(projIdx);
+			List<ProjectMember> projectPmList = projectMemberService.getProjectPmList(projIdx);
+			List<ProjectMember> nonPmProjectMemberList = projectMemberService.getNonPMProjectMemberList(projIdx);
 					
 			model.addAttribute("projectPmList", projectPmList);
 			model.addAttribute("nonPmProjectMemberList", nonPmProjectMemberList);
@@ -283,13 +291,13 @@ public class ProjectController {
 				query += "&kwd=" + URLEncoder.encode(kwd, "utf-8");
 			}
 			
-			Project dto = Objects.requireNonNull(service.getProjectById(projIdx));
+			Project dto = Objects.requireNonNull(projectService.getProjectById(projIdx));
 			model.addAttribute("dto", dto);
 			
 			Map<String, Object> stageMap = new HashMap<>();
 			stageMap.put("projIdx", projIdx);
 			
-			List<ProjectStage> stageList = service.getProjectStageList(stageMap);			
+			List<ProjectStage> stageList = projectStageService.getProjectStageList(stageMap);			
 			
 			model.addAttribute("stageList", stageList);
 			
@@ -301,7 +309,7 @@ public class ProjectController {
 				countMap.put("projIdx", projIdx);
 				countMap.put("stageIdx", stage.getStageIdx());
 				
-				int taskCount = service.getProjectTaskCount(countMap);
+				int taskCount = projectTaskService.getProjectTaskCount(countMap);
 				taskCountMap.put(stage.getStageIdx(), taskCount);
 			}
 			
@@ -312,7 +320,7 @@ public class ProjectController {
 			taskMap.put("projIdx", projIdx);
 			taskMap.put("stageIdx", stageIdx);
 						
-			List<ProjectTask> taskList = service.getProjectTaskList(taskMap);			
+			List<ProjectTask> taskList = projectTaskService.getProjectTaskList(taskMap);			
 			
 			model.addAttribute("taskList", taskList);
 			
