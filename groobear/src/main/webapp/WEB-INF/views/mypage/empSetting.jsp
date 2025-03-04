@@ -80,20 +80,6 @@ function memberOk() {
 		<div class="body-main">
 			
 			<form name="memberForm" method="post">
-				 <div class="photoArea">
-	                    <div class="photo">
-	                        <img src="https://placehold.co/225x300" alt="샘플이미지">
-	                    </div>
-	                    <div class="buttonArea">
-	                    	<c:choose>
-		          	        	<c:when test="${mode='modify'}">
-		          	        	</c:when>
-		          	        	<c:otherwise>
-		          	            	<button type="button" class="custom-button">사진 추가하기</button>
-		          	        	</c:otherwise>
-	                    	</c:choose>
-	                    </div>
-	                </div>
 				<div class="row mb-3" >
 					<label class="col-sm-2 col-form-lable" for="empCode">사번</label>
 					<div class="col-sm-10 wrap-empCode">
