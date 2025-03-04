@@ -358,8 +358,8 @@
 			let num = calEvent.id;
 			let title = calEvent.title;
 			let color = calEvent.backgroundColor;
-			let start = calEvent.startStr;
-			let end = calEvent.endStr;
+			// let start = calEvent.startStr;
+			// let end = calEvent.endStr;
 			let allDay = calEvent.allDay;
 			
 			let categoryIdx = calEvent.extendedProps.categoryIdx;

@@ -32,42 +32,43 @@
 						<div class="modal-body pt-1">
 							<table class="table">
 								<tr>
-									<td colspan="2" class="text-center align-middle">
+									<td class="text-center align-middle">제 목</td>
+									<td>
 										<p class="form-control-plaintext view-subject"></p>
 									</td>
 								</tr>
 								<tr>
 									<td class="bg-light col-2 align-middle">장 소</td>
 									<td>
-										<p class="form-control-plaintext view-cabinet"></p>
+										<p class="form-control-plaintext view-cabinet">${cabinet} 회의실</p>
 									</td>
 								</tr>
 			
 								<tr>
-									<td class="bg-light col-2 align-middle">날 짜</td>
+									<td class="bg-light col-2 align-middle">예약날짜</td>
 									<td>
-										<p class="form-control-plaintext view-period"></p>
+										<p class="form-control-plaintext view-period">${dto.reservDate}</p>
 									</td>
 								</tr>
 			
 								<tr>
-									<td class="bg-light col-2 align-middle">등록자</td>
+									<td class="bg-light col-2 align-middle">예약자명</td>
 									<td>
-										<p class="form-control-plaintext view-emp"></p>
+										<p class="form-control-plaintext view-emp">${dto.empName}</p>
 									</td>
 								</tr>
 			
 			 					<tr>
 									<td class="bg-light col-2 align-middle">등록일</td>
 									<td>
-										<p class="form-control-plaintext view-regDate"></p>
+										<p class="form-control-plaintext view-regDate">${dto.regDate}</p>
 									</td>
 								</tr>
 			
 			 					<tr>
 									<td class="bg-light col-2 align-middle">사용시간</td>
 									<td>
-										<p class="form-control-plaintext view-time"></p>
+										<p class="form-control-plaintext view-time">${dto.startTime} ~ ${dto.endTime}</p>
 									</td>
 								</tr>
 							</table>							

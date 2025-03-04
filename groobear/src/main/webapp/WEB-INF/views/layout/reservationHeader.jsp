@@ -14,9 +14,9 @@
 			</a>
 		</div>
 		<ul class = "tab-menu">
-			<li id = "cabinetA" class = "active" onclick="cabinetName('A')"><a href = "${pageContext.request.contextPath}/reservation/main">A 회의실</a></li>
-			<li id = "cabinetB" onclick="cabinetName('B')"><a href = "${pageContext.request.contextPath}/reservation/main">B 회의실</a></li>
-			<li id = "cabinetC"onclick="cabinetName('C')"><a href = "${pageContext.request.contextPath}/reservation/main">C 회의실</a></li>
+			<li id = "cabinetA" class = "active" onclick="cabinetName('A')"><a href = "${pageContext.request.contextPath}/reservation/main?cabinet=A">A 회의실</a></li>
+			<li id = "cabinetB" onclick="cabinetName('B')"><a href = "${pageContext.request.contextPath}/reservation/main?cabinet=B">B 회의실</a></li>
+			<li id = "cabinetC"onclick="cabinetName('C')"><a href = "${pageContext.request.contextPath}/reservation/main?cabinet=C">C 회의실</a></li>
 		</ul>
 	</div>
 </div>

@@ -38,6 +38,7 @@ function sendOk() {
 		let s2 = f.endTime.value.replace(/:/g, "");
 		if(s1 > s2) {
 			f.startTime.focus();
+			alert("시작시간 이전으로 종료시간을 설정 할 수 없습니다.")
 			return;
 		}
 	}
@@ -85,10 +86,10 @@ $(function(){
 							<td>
 								<div class="row">
 									<div class="col">
-										<input type="text" name="title" maxlength="100" id="form-subject" class="form-control" value="${dto.title}">
+										<input type="text" name="title" maxlength="100" id="form-subject" class="form-control" value="[${sessionScope.member.deptName}]">
 									</div>
 								</div>
-								<small class="form-control-plaintext">* [부서]사용목적 간단디(필수 입력 항목).</small>
+								<small class="form-control-plaintext">* 사용목적 간단히 (사내 단체 예약시에는 부서명 대신 단체명 기입).</small>
 							</td>
 						</tr>
 	
@@ -106,6 +107,17 @@ $(function(){
 								</div>
 							</td>
 						</tr>
+
+						<tr>
+							<td class="bg-light col-2" scope="row">예약자명</td>
+							<td>
+								<div class="row">
+									<div class="col-5">
+										<input type="text" name="reservEmp" maxlength="100" id="form-emp" class="form-control" value="${sessionScope.member.empName}" readonly>
+									</div>
+								</div>
+							</td>
+						</tr>
 	
 	 					<tr>
 							<td class="bg-light col-2" scope="row">예약일자</td>
@@ -115,8 +127,7 @@ $(function(){
 										<input type="date" name="reservDate" id="form-startDate" class="form-control" value="${dto.reservDate}">
 									</div>
 									<div class="col-3">
-										<input type="time" name="startTime" id="form-startTime" class="form-control" value="${dto.startTime}">
-											
+										<input type="time" name="startTime" id="form-startTime" class="form-control" value="${dto.startTime}">	
 									</div>
 								</div>
 								<small class="form-control-plaintext">* 예약날짜는 필수입니다.</small>
@@ -129,7 +140,6 @@ $(function(){
 								<div class="row">
 									<div class="col-3">
 										<input type="time" name="endTime" id="form-endTime" class="form-control" value="${dto.endTime}">
-											
 									</div>
 								</div>
 							</td>

@@ -85,6 +85,8 @@ public class ReservationController {
 			dto.setEmpCode(info.getEmpCode());
 			dto.setEmpName(info.getEmpName());
 			dto.setReservDate(dto.getReservDate());
+			dto.setStartTime(dto.getStartTime());
+			dto.setEndTime(dto.getEndTime());
 
 			
 			service.insertReservation(dto);
@@ -113,6 +115,7 @@ public class ReservationController {
 			map.put("end", end);
 			map.put("cabinet", cabinet);
 			map.put("empCode", info.getEmpCode());
+			map.put("empName", info.getEmpName());
 			
 			List<Reservation> list = service.listMonth(map);
 			for(Reservation dto : list) {
@@ -162,6 +165,13 @@ public class ReservationController {
 		return model;
 	}
 	
+	@GetMapping("view")
+	public String view(@RequestParam (name = "reservIdx") Long resrvIdx, Model model) {
+		Reservation dto = service.findById(resrvIdx);
+		model.addAttribute("dto", dto);
+		
+		return "reservation/view";
+	}
 	
 	
 }
