@@ -53,6 +53,7 @@
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/noticeHeader.jsp"/>
 </header>
 	
 <main>

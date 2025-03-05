@@ -56,6 +56,7 @@
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/noticeHeader.jsp"/>
 </header>
 
 
@@ -146,7 +147,6 @@
 					</div>	
 					
 					<div  class="col text-end">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/write';">글올리기</button>
 					</div>
 				</div>
 				
