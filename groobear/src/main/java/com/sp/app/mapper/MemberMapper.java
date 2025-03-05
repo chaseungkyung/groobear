@@ -17,6 +17,9 @@ public interface MemberMapper {
 	// 마지막 사번 가져오기
 	public String getLastEmpCode(String empCode);
 	
+	// 조건 검색
+	public List<Member> getStatusList(Map<String, Object> map);
+	
 	public Long insertEmployee(Member dto) throws SQLException;
 	public void insertEmployeeDetail(Member dto) throws SQLException;
 	public void insertEmployeeHistory(Member dto) throws SQLException;

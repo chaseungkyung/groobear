@@ -45,6 +45,8 @@ public interface MemberService {
 	public List<Member> listFindMember(Map<String, Object> map);
 	public List<Member> listMember(Map<String, Object> map);
 	public List<Member> listMemberAll();
+	// 조건 검색
+	public List<Member> getStatusList(Map<String, Object> map);
 	
 	// emp list 카운트
 	public int dataCount(Map<String, Object> map);

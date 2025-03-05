@@ -35,7 +35,7 @@ public class EmpController {
 	
 	@GetMapping("list")
 	public String employeeList(@RequestParam(name="page", defaultValue="1") int current_page,
-			@RequestParam(name = "schType", defaultValue = "all") String schType,
+			@RequestParam(name = "empStatus", defaultValue = "") String empStatus,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model, HttpServletRequest req) throws Exception{
 		
@@ -47,7 +47,9 @@ public class EmpController {
 			kwd = URLDecoder.decode(kwd, "UTF-8");
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("schType", schType);
+			
+			map.put("empStatus", empStatus);
+			
 			map.put("kwd", kwd);
 			
 			dataCount = service.dataCount(map);
@@ -69,7 +71,7 @@ public class EmpController {
 			String updateUrl = cp + "/emp/add";
 
 			if (!kwd.isBlank()) {
-				String qs = "schType" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+				String qs = "kwd=" + URLEncoder.encode(kwd, "utf-8");
 
 				listUrl += "?" + qs;
 				query += "&" + qs;
@@ -78,7 +80,6 @@ public class EmpController {
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
 
 			model.addAttribute("list", list);
-		
 
 			model.addAttribute("dataCount", dataCount);
 			model.addAttribute("size", size);
@@ -86,8 +87,8 @@ public class EmpController {
 			model.addAttribute("total_page", total_page);
 			model.addAttribute("updateUrl", updateUrl);
 			model.addAttribute("paging", paging);
+			
 
-			model.addAttribute("schType", schType);
 			model.addAttribute("kwd", kwd);
 			model.addAttribute("query", query);
 	

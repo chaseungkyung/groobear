@@ -97,25 +97,54 @@
 	</select>
 			
 	<select id="listMemberAll" resultType="com.sp.app.model.Member">
-		SELECT empIdx, empCode, empName, deptIdx, teamIdx, positionCode, empTel 
-		FROM employee
+		SELECT e.empIdx, empCode, empName, d.deptName, t.teamName, p.positionName, empTel 
+		FROM employee e
+		JOIN department d ON d.deptIdx = e.deptIdx
+		JOIN team t ON t.teamIdx = e.teamIdx
+		JOIN position p ON p.positionCode = e.positionCode
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		select e.empIdx, empCode, empName, e.deptIdx, e.teamIdx, e.positionCode, e.teamIdx, e.emptel, e.empstatus, ed.tel, ed.email,
+		select e.empIdx, empCode, empName, e.deptIdx, e.teamIdx, e.positionCode, e.teamIdx, e.empTel, e.empStatus, ed.tel, ed.email,
 				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, e.retireDate, d.deptName, t.teamName, p.positionName
 		from employee e
-		left outer JOIN employeedetail ed ON e.empIdx = ed.empIdx
-		left outer join department d ON d.deptidx = e.deptidx
-		left outer join team t On t.teamidx = e.teamidx
-		left outer join position p ON p.positionCode = e.positioncode
-		ORDER BY deptName ASC, teamName ASC, positionCode DESC
+		LEFT OUTER JOIN employeeDetail ed ON e.empIdx = ed.empIdx
+		LEFT OUTER JOIN department d ON d.deptIdx = e.deptIdx
+		LEFT OUTER JOIN team t On t.teamIdx = e.teamIdx
+		LEFT OUTER JOIN position p ON p.positionCode = e.positionCode
+		WHERE (empName LIKE '%' || #{kwd} || '%'
+			OR deptName LIKE '%' || #{kwd} || '%'
+			OR teamName LIKE '%' || #{kwd} || '%'
+			OR positionName LIKE '%' || #{kwd} || '%'
+			OR empTel LIKE '%' || #{kwd} || '%'
+			OR tel LIKE '%' || #{kwd} || '%')
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
+	<select id="getStatusList" parameterType="String" resultType="com.sp.app.model.Member">
+		SELECT e.empIdx, e.deptIdx, e.teamIdx, e.positionCode, empCode, empName, d.deptName, t.teamName, p.positionName, hireDate, empTel, ed.tel, empStatus
+		FROM employee e
+        LEFT OUTER JOIN employeeDetail ed ON ed.empIdx = e.empIdx
+		LEFT OUTER JOIN department d ON d.deptIdx = e.deptIdx
+		LEFT OUTER JOIN team t On t.teamIdx = e.teamIdx
+		LEFT OUTER JOIN position p ON p.positionCode = e.positionCode
+		WHERE empStatus = #{empStatus}
+	</select>
+	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) AS dataCount
 		FROM employee e
-		JOIN employeedetail d ON e.empIdx = d.empIdx
+		JOIN employeedetail ed ON e.empIdx = ed.empIdx
+		LEFT OUTER JOIN department d ON d.deptIdx = e.deptIdx
+		LEFT OUTER JOIN team t On t.teamIdx = e.teamIdx
+		LEFT OUTER JOIN position p ON p.positionCode = e.positionCode
+		WHERE (empCode LIKE '%' || #{kwd} || '%'
+			OR empName LIKE '%' || #{kwd} || '%'
+			OR deptName LIKE '%' || #{kwd} || '%'
+			OR teamName LIKE '%' || #{kwd} || '%'
+			OR positionName LIKE '%' || #{kwd} || '%'
+			OR empTel LIKE '%' || #{kwd} || '%'
+			OR tel LIKE '%' || #{kwd} || '%')
 	</select>
 	
 	<insert id="insertEmployeeHistory" parameterType="com.sp.app.model.Member">

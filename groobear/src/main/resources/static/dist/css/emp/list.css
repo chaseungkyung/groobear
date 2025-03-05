@@ -16,14 +16,28 @@
 
 .selectAdd {display: flex; align-items: center; justify-content: space-between; width: 20%;}
 
-.selectAdd select, .selectAdd .addEmp {width: 49%;}
+.selectAdd select, .selectAdd .addEmp {width: 30%;}
 
 .selectAdd select {padding: 0 10px; border-radius: 5px; box-sizing: border-box; height: 25px;}
 
 .selectAdd .addEmp {margin: 0 10px;}
-.selectAdd .addEmp a {display: block; width: 100%; height: 100%; border: 1px solid #999; padding: 5px 10px; box-sizing: border-box; border-radius: 5px;}
-.selectAdd .addEmp a img {width: 10%; margin-right: 5%;}
-.selectAdd .addEmp a:hover {background-color: #eee;}
+.selectAdd .addEmp a , .print .btn  {
+	color : #2f518b;
+    padding: 10px 10px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.print .btn { color: #2f518b; }
+.selectAdd .addEmp a {display: block; width: 100%; height: 100%; padding: 5px 10px; box-sizing: border-box; border-radius: 5px;}
+.selectAdd .addEmp a img {width: 15%; margin-right: 5%;}
+.selectAdd .addEmp a:hover , .print .btn:hover {background-color: #2f518b; color: #eee;}
 
 .listArea {margin-bottom: 20px;}
 .listArea ul li {border-bottom: 1px solid #eee;}

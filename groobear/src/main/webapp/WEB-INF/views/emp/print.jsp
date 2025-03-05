@@ -89,8 +89,8 @@ function onPrint() {
 		<tr height="35" bgcolor="#fff" align="center">
 			<td>${dto.empCode}</td>
 			<td>${dto.empName}</td>
-			<td>${dto.deptIdx}</td>
-			<td>${dto.teamIdx}</td>
+			<td>${dto.deptName}</td>
+			<td>${dto.teamName}</td>
 			<td>${dto.positionName}</td>
 			<td>${dto.empTel}</td>
 		</tr>

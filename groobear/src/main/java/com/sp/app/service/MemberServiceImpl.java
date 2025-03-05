@@ -178,8 +178,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<Member> listFindMember(Map<String, Object> map) {
-
-		return null;
+		List<Member> list = null;
+		
+		try {
+			list = mapper.listFindMember(map);
+		} catch (Exception e) {
+			log.info("listFindMember : ", e);
+		}
+		return list;
 	}
 
 	@Override
@@ -376,5 +382,17 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return positionName;
+	}
+
+	@Override
+	public List<Member> getStatusList(Map<String, Object> map) {
+		List<Member> list = null;
+		try {
+			list = mapper.getStatusList(map);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
 	}
 }
