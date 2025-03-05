@@ -80,7 +80,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void updateProject(Project dto) throws Exception {
 		try {
-			projectMapper.updateProject(dto);
+			projectMapper.updateProject(dto);			
 
 		} catch (Exception e) {
 			log.info("updateProject : ", e);

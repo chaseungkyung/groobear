@@ -85,7 +85,7 @@
 		JOIN projectMember pm ON pp.projMemberIdx = pm.projMemberIdx
 		JOIN employee e ON pm.empIdx = e.empIdx
 		JOIN project pr ON pm.projIdx = pr.projIdx
-			<where>
+		<where>
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
 			</if>		
@@ -101,6 +101,35 @@
         LEFT JOIN employee e ON pm.empIdx = e.empIdx
         WHERE postIdx = #{postIdx} 
 	</select>
+	
+	<!-- 이전글, 다음글 -->
+	<select id="getProjectPostByPrev" parameterType="map" resultType="com.sp.app.project.model.ProjectPost">
+		SELECT postIdx, title
+		FROM projectPost
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (postIdx &gt; #{postIdx})		
+		</where>
+		ORDER BY postIdx ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="getProjectPostByNext" parameterType="map" resultType="com.sp.app.project.model.ProjectPost">
+		SELECT postIdx, title
+		FROM projectPost
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (postIdx &lt; #{postIdx})		
+		</where>
+		ORDER BY postIdx DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	
 	
 	<!-- 파일 -->
 	<insert id="insertFile" parameterType="com.sp.app.project.model.ProjectPost">

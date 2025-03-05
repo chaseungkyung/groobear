@@ -1,5 +1,6 @@
 package com.sp.app.project.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +18,22 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectMemberServiceImpl implements ProjectMemberService {
 	private final ProjectMemberMapper projectMemberMapper;
 	
+	@Override
+	public boolean isProjectMemberExists(long projIdx, long empIdx) {
+		Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("projIdx", projIdx);
+        paramMap.put("empIdx", empIdx);
+			
+		return projectMemberMapper.countByProjIdxAndEmpIdx(paramMap) > 0;
+	}
+	
 	
 	@Override
 	public void insertProjectMember(ProjectMember dto) throws Exception {
 		try {
-			projectMemberMapper.insertProjectMember(dto);
+			if (! isProjectMemberExists(dto.getProjIdx(), dto.getEmpIdx())) {
+				projectMemberMapper.insertProjectMember(dto);			
+			}
 
 		} catch (Exception e) {
 			log.info("insertProjectMember : ", e);
@@ -39,9 +51,9 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 			log.info("updateProjectMember : ", e);
 			throw e;
 		}
-
 	}
-
+	
+	
 	@Override
 	public void deleteProjectMember(long projMemberIdx) throws Exception {
 		try {
@@ -127,8 +139,6 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 		
 		return list;
 	}
-	
-	
-	
+
 
 }

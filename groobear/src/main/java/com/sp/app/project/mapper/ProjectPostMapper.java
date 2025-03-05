@@ -34,6 +34,11 @@ public interface ProjectPostMapper {
 
 	// projectPost 테이블 게시글 하나 가져오는 메소드
 	public ProjectPost getProjectPostById(long postIdx);
+	
+	// 이전글 다음글
+	public ProjectPost getProjectPostByPrev(Map<String, Object> map);
+	public ProjectPost getProjectPostByNext(Map<String, Object> map);
+	
 
 	/*
 	 * ProjectPostFile 테이블

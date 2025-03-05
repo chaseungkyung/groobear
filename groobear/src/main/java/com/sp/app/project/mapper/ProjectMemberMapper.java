@@ -14,12 +14,16 @@ public interface ProjectMemberMapper {
 	/*
 	 * PROJECTMEMBER 테이블
 	 */
+	
+	// PROJECTMEMBER 테이블에 특정 직원이 이미 등록되어 있는지 확인
+	public int  countByProjIdxAndEmpIdx(Map<String, Object> map);
+	
 	// PROJECTMEMBER 테이블에 프로젝트 참여자를 등록하는 메소드
 	public void insertProjectMember(ProjectMember dto) throws SQLException;
 
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 수정하는 메소드
 	public void updateProjectMember(ProjectMember dto) throws SQLException;
-
+	
 	// PROJECTMEMBER 테이블에서 프로젝트 참여자를 삭제하는 메소드
 	public void deleteProjectMember(long projMemberIdx) throws SQLException;
 

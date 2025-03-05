@@ -8,6 +8,8 @@ import com.sp.app.project.model.ProjectMember;
 public interface ProjectMemberService {
 
 	// < ProjectMember >
+	public boolean isProjectMemberExists(long projIdx, long empIdx);
+	
 	public void insertProjectMember(ProjectMember dto) throws Exception;
 
 	public void updateProjectMember(ProjectMember dto) throws Exception;

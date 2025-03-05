@@ -138,6 +138,19 @@ public class ProjectPostServiceImpl implements ProjectPostService{
 		
 		return dto;
 	}
+	
+	
+	@Override
+	public ProjectPost getProjectPostByPrev(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProjectPost getProjectPostByNext(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 
@@ -260,5 +273,7 @@ public class ProjectPostServiceImpl implements ProjectPostService{
 		
 		return listReply;
 	}
+
+
 
 }

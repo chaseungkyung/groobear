@@ -76,9 +76,13 @@
 			</if>
 			<if test="status != null and status !=''">
 				AND status = #{status}
-			</if>				
+			</if>
+			<if test="empIdx != null">
+			   AND p.projIdx IN
+			   ( select pm.projIdx from projectMember pm WHERE pm.empIdx = #{empIdx} AND pm.projIdx = p.projIdx  )
+			</if>			
 		</where>
-		ORDER BY projIdx ASC
+		ORDER BY projIdx DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
@@ -93,7 +97,11 @@
 			</if>
 			<if test="status != null">
 				AND status = #{status}
-			</if>				
+			</if>
+			<if test="empIdx != null">
+			   AND p.projIdx IN
+			   ( select pm.projIdx from projectMember pm WHERE pm.empIdx = #{empIdx} AND pm.projIdx = p.projIdx  )
+			</if>					
 		</where>
 	</select>
 	

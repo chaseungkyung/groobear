@@ -27,14 +27,16 @@
 		<div class="mainInner">
 			<div class="inner-top">
 				<span class="projectName">${dto.projName}</span>
-				<div class="btn-area">
-				    <button id="teamModalBtn" class="team-button">
-				        팀 편성
-				    </button>
-				    <button id="inviteModalBtn" class="invite-button">
-				        <i class="bi bi-person-plus"></i> 초대하기
-				    </button>
-			    </div>
+				<c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">
+					<div class="btn-area">
+					    <button id="teamModalBtn" class="team-button">
+					        팀 편성
+					    </button>
+					    <button id="inviteModalBtn" class="invite-button">
+					        <i class="bi bi-person-plus"></i> 초대하기
+					    </button>
+				    </div>
+				</c:if>
 			</div>
 
 			<div class="inner-middle">

@@ -5,13 +5,19 @@
 
 	<!-- projectMember 테이블 -->
 	
+	<select id="countByProjIdxAndEmpIdx" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM projectMember
+		WHERE projIdx = #{projIdx} AND empIdx = #{empIdx}
+	</select>
+	
 	<insert id="insertProjectMember" parameterType="com.sp.app.project.model.ProjectMember">
 		INSERT INTO projectMember(projMemberIdx, projIdx, empIdx, projTeamIdx)
 		VALUES(projectMember_seq.NEXTVAL, #{projIdx}, #{empIdx}, #{projTeamIdx, jdbcType=NUMERIC})
 	</insert>
 	
 	<update id="updateProjectMember" parameterType="com.sp.app.project.model.ProjectMember">
-		UPDATE projectMember SET projTeamIdx=#{projTeamIdx}
+		UPDATE projectMember SET empIdx=#{empIdx}, projTeamIdx=#{projTeamIdx, jdbcType=NUMERIC}
 		WHERE projMemberIdx = #{projMemberIdx}
 	</update>
 	

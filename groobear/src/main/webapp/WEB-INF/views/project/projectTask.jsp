@@ -29,9 +29,11 @@
 	    <div class="container"> 
 			<div class="stage-header" data-projidx="${dto.projIdx}">
 			    <span class="projectName">${dto.projName}</span>
-			    <div class="stage-btn-area">
-			        <button id="addStageBtn" class="addStageBtn">단계 추가</button>
-			    </div>
+			    <c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">
+				    <div class="stage-btn-area">
+				        <button id="addStageBtn" class="addStageBtn">단계 추가</button>
+				    </div>
+			    </c:if>
 			</div>
 	        <table class="task-table">
 	            <thead>

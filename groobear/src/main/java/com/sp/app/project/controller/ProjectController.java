@@ -62,10 +62,14 @@ public class ProjectController {
 
 			kwd = URLDecoder.decode(kwd, "utf-8");
 
-			// SessionInfo info = (SessionInfo)session.getAttribute("member");
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
 
 			Map<String, Object> map = new HashMap<>();
 			map.put("kwd", kwd);
+			
+			if(info.getPositionCode() > 5) {
+				map.put("empIdx", info.getEmpIdx());
+			}
 
 			dataCount = projectService.getProjectCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
@@ -175,7 +179,8 @@ public class ProjectController {
 
 		return "redirect:/project/list?page=" + page;
 	}
-
+	
+	@Transactional
 	@PostMapping("update")
 	public String projectUpdateSubmit(Project dto,
 			@RequestParam(name = "page", defaultValue = "1") String page) {
@@ -183,6 +188,13 @@ public class ProjectController {
 		try {
 
 			projectService.updateProject(dto);
+			
+			ProjectMember memDto = new ProjectMember();
+			memDto.setProjIdx(dto.getProjIdx());
+			memDto.setEmpIdx(dto.getPmEmpIdx());
+			
+			projectMemberService.insertProjectMember(memDto);
+			
 
 		} catch (Exception e) {
 			log.info("projectUpdateSubmit : ", e);

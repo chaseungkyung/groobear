@@ -24,6 +24,9 @@ public interface ProjectPostService {
 	
 	public ProjectPost getProjectPostById(long postIdx);
 	
+	public ProjectPost getProjectPostByPrev(Map<String, Object> map);
+	public ProjectPost getProjectPostByNext(Map<String, Object> map);
+	
 	// 파일
 	public List<ProjectPost> getPostFileList(long postIdx);
 	
