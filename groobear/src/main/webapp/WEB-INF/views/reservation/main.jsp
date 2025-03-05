@@ -47,28 +47,30 @@
 								<tr>
 									<td class="bg-light col-2 align-middle">예약날짜</td>
 									<td>
-										<p class="form-control-plaintext view-period">${dto.reservDate}</p>
+										<p class="form-control-plaintext view-period"></p>
 									</td>
 								</tr>
 			
 								<tr>
 									<td class="bg-light col-2 align-middle">예약자명</td>
+									
 									<td>
-										<p class="form-control-plaintext view-emp">${dto.empName}</p>
+										<p class="form-control-plaintext view-empName"></p>
 									</td>
 								</tr>
 			
 			 					<tr>
 									<td class="bg-light col-2 align-middle">등록일</td>
 									<td>
-										<p class="form-control-plaintext view-regDate">${dto.regDate}</p>
+										<p class="form-control-plaintext view-regDate"></p>
 									</td>
 								</tr>
 			
 			 					<tr>
 									<td class="bg-light col-2 align-middle">사용시간</td>
 									<td>
-										<p class="form-control-plaintext view-time">${dto.startTime} ~ ${dto.endTime}</p>
+										<p class="form-control-plaintext view-time"></p>
+										<p class="form-control-plaintext view-empCode"></p>
 									</td>
 								</tr>
 							</table>							
@@ -122,7 +124,8 @@
 					};
 				},
 				events: function(info, successCallback, failureCallback) {
-					let url = '${pageContext.request.contextPath}/reservation/month';
+					let url = '${pageContext.request.contextPath}/reservation/month';					
+					let reservDate = info.startStr.substr(0, 10);
 					let startDate = info.startStr.substr(0, 10);
 					let endDate = info.endStr.substr(0, 10);
 					let cabinet = $('#calendar').attr('data-cabinet');
@@ -212,20 +215,18 @@
 		function viewReservation(calEvent) {
 			$('#myDialogModal').modal('show');
 			
-			// console.log(calEvent);
+			console.log(calEvent);
 			
 			let num = calEvent.id;
 			let title = calEvent.title;
-			// let start = calEvent.start;
-			// let end = calEvent.end;
 			let start = calEvent.startStr;
 			let end = calEvent.endStr;
-			let empName = calEvent.empName
-		
+			let empName = calEvent.extendedProps.empName;
+			
 			let cabinet = calEvent.extendedProps.cabinet;
 			if(! cabinet) cabinet = 0;
 			let cabinets = ['A회의실', 'B회의실', 'C회의실'];
-						
+			let reservDate = calEvent.startStr;						
 			let startTime = calEvent.extendedProps.stime;
 			let endTime = calEvent.extendedProps.etime;
 			
@@ -238,24 +239,30 @@
 			
 			$('.view-cabinet').html(cabinets[cabinet]);
 		
+			let idx = reservDate.indexOf('T');
 			s = reservDate;
+			if(idx>=10) {
+				s = reservDate.substring(0, idx);
+			}
+			$('.view-period').html(s);
+			
 			if( startTime ) {
 				s += ' ' + startTime;
 			}
-			if( endTime ) s += ' ' + endTime;
-			$('.view-period').html(s);
+			if( endTime ) s += ' ~ ' + endTime;
+			$('.view-time').html('.view-period').html(s);
 			
 			$('.view-regDate').html(regDate);
 			
-			$('.view-emp').html(empName);
+			$('.view-empName').html(empName);
 		}
-		
+
 		$(function(){		
 			// 예약취소
 			$('.btnReservationDelete').click(function(){
 				if(! confirm('예약을 취소 하시겠습니까 ? ')) {
 					return false;
-				}
+				} 
 				
 				const fn = function(data){
 					var event = calendar.getEventById(num);

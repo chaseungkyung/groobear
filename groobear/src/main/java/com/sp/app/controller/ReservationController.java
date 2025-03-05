@@ -87,7 +87,6 @@ public class ReservationController {
 			dto.setReservDate(dto.getReservDate());
 			dto.setStartTime(dto.getStartTime());
 			dto.setEndTime(dto.getEndTime());
-
 			
 			service.insertReservation(dto);
 		} catch (Exception e) {
@@ -110,7 +109,6 @@ public class ReservationController {
 			SessionInfo info = (SessionInfo)session.getAttribute("member");
 			
 			Map<String, Object> map = new HashMap<String,Object>();
-			
 			map.put("start", start);
 			map.put("end", end);
 			map.put("cabinet", cabinet);
@@ -131,10 +129,8 @@ public class ReservationController {
 		    	} else {
 		    		dto.setEnd(dto.getReservDate());
 		    	}
-		    	
 			}
 			model.put("list", list);
-			
 		} catch (Exception e) {
 			log.info("month : ", e);
 		}

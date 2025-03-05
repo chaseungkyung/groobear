@@ -9,9 +9,9 @@
 	<style type="text/css">
 		
 		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
-		.btnArea button {width: 100%;}
+		.btnArea button {width: 90%;}
 		
-		.textArea {width: 100%;}
+		.textArea {width: 90%;}
 		.textArea tr {height: 2.3vw; display: flex; align-items: center;}
 		.textArea tr th {width: 10%; vertical-align: middle;}
 		.textArea tr td {width: 90%;}
@@ -21,7 +21,7 @@
 		.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
 		
 		.textArea tr .addressArea {display: flex; justify-content: space-between;}
-		.textArea tr .addressArea input {width: 89%;}
+		.textArea tr .addressArea input {width: 45%; border: 1px solid black; margin-right: 1px;}
 		.textArea tr .addressArea button {width: 10%;}
 		
 		.textArea .contentArea {align-items: flex-start;}
@@ -87,7 +87,7 @@
 							<th>파일 첨부</th>
 							<td><input type="file" name="selectFile" multiple="multiple"></td>
 						</tr>
-						<tr class="contentArea">
+						<tr class="contentArea" id = "contentBox">
 							<th>내용</th>
 							<td><textarea name = "content"></textarea></td>
 						</tr>
