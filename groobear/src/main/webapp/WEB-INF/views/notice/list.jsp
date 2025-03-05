@@ -7,25 +7,8 @@
 
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
-
-<style type="text/css">
-.container {
-  max-width: 1200px; /* 원하는 가로 길이 */
-  margin-left: 0;   /* 왼쪽 정렬 */
-}
-
-.body-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px;
-  margin-right: 150px; /* 사이드바가 있던 공간 */
-  transition: margin-left 0.3s ease-in-out;
-}
-
-
-</style>
 
 </head>
 
@@ -37,14 +20,14 @@
 
 
 <main>
-	<div class="container-fluid container">
+	<div class="innerMain">
 		<div class="body-container">
 			<div class="body-title">
 			</div>
 			
 			<div class="body-main">
 				
-				<div class="grid gap-0 row-gap-3">
+				<div class="row-board-list-header">
 					<div class="col-auto me-auto dataCount">
 						${dataCount}개(${page}/${total_page} 페이지)
 					</div>
@@ -101,24 +84,9 @@
 				</table>
 				
 				<div class="page-navigation">
-				    ${dataCount == 0 ? 
-				        "<p class='text-center'>등록된 게시물이 없습니다.</p>" : 
-				        `<nav aria-label="Page navigation example">
-				            <ul class="pagination justify-content-center">
-				                <li class="page-item disabled">
-				                    <a class="page-link">이전</a>
-				                </li>
-				                <li class="page-item"><a class="page-link" href="#">1</a></li>
-				                <li class="page-item"><a class="page-link" href="#">2</a></li>
-				                <li class="page-item"><a class="page-link" href="#">3</a></li>
-				                <li class="page-item">
-				                    <a class="page-link" href="#">다음</a>
-				                </li>
-				            </ul>
-				        </nav>`
-				    }
+					${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 				</div>
-
+				
 				<div class="row board-list-footer">
 					<div class="col">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침">

@@ -8,6 +8,7 @@
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 </head>
 
@@ -22,6 +23,7 @@
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
+				<h3><i class="bi bi-app"></i> 인사부 </h3>
 			</div>
 			
 			<div class="body-main">
