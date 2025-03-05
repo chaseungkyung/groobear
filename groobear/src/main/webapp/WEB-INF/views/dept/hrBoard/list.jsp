@@ -68,7 +68,8 @@
 			<div class="body-main">
 				
 				<div class="row board-list-header">
-					<div class="col-auto me-auto dataCount"></div>
+					<div class="col-auto me-auto dataCount">
+					</div>
 					<div class="col-auto">&nbsp;</div>
 				</div>
 				

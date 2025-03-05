@@ -4,25 +4,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/baord/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
 <style type="text/css">
-.container {
-  max-width: 1200px; /* 원하는 가로 길이 */
-  margin-left: 0;   /* 왼쪽 정렬 */
+    .board-article th, .board-article td {
+        border-top: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+        border-bottom: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+    }
+    .board-list-header {
+         border-bottom: 2px solid rgba(33, 37, 41, 0.1); 
+    }
+    
+   	.title {
+        font-weight: 600; /* 굵기 조정 */
+        color: rgba(33, 37, 41, 0.8); /* 글자 색을 약간 진하게 */
+        font-size: 16px;
+    }
+</style>
+
+<style type="text/css">
+.body-container {
+	max-width: 900px;
+	margin-left: 100px;
 }
 
-.body-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 10px;
-  margin-right: 150px; /* 사이드바가 있던 공간 */
-  transition: margin-left 0.3s ease-in-out;
+.text-wrap {
+	display: inline-flex;
+	max-width: 500px;
+	> a {
+		flex: 1;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 }
+
 </style>
 
 </head>
@@ -37,6 +59,7 @@
 	<div class="container-fluid container">
 		<div class="body-container">	
 			<div class="body-title">
+				<h3><i class="bi bi-app"></i> 공지사항 </h3>
 			</div>
 			
 			<div class="body-main">

@@ -4,14 +4,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board/board.css" type="text/css">
+	
+<style type="text/css">
+    .board-list th, .board-list td {
+        border-top: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+        border-bottom: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+    }
+    .board-list-header {
+       /*  border-bottom: 2px solid rgba(33, 37, 41, 0.1); 연한 검정색 */
+    }
+    
+     /* <th>의 글자를 진하게 */
+    .board-list th {
+        font-weight: 600; /* 굵기 조정 */
+        color: rgba(33, 37, 41, 0.8); /* 글자 색을 약간 진하게 */
+    }
+    
+    
+	.badge {
+		margin-left: 50px;
+	}
+</style>
 
+<style type="text/css">
+.body-container {
+	max-width: 900px;
+	margin-left: 100px;
+}
+
+.text-wrap {
+	display: inline-flex;
+	max-width: 1000px;
+	> a {
+		flex: 1;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+
+</style>
 </head>
-
 <body>
 
 <header>
@@ -20,28 +60,27 @@
 
 
 <main>
-	<div class="innerMain">
+	<div class="container">
 		<div class="body-container">
 			<div class="body-title">
+				<h3><i class="bi bi-app"></i> 공지사항 </h3>
 			</div>
 			
 			<div class="body-main">
 				
-				<div class="row-board-list-header">
+				<div class="row board-list-header">
 					<div class="col-auto me-auto dataCount">
-						${dataCount}개(${page}/${total_page} 페이지)
 					</div>
 					<div class="col-auto">&nbsp;</div>
 				</div>
 				
 				<table class="table table-hover board-list">
-					<thead class="table-list">
+					<thead class="table-light" align="center">
 						<tr>
-							<th width="60">번호</th>
+							<th width="150">공지</th>
 							<th>제목</th>
-							<th width="100">작성자</th>
-							<th width="100">작성일</th>
-							<th width="50">표시</th>
+							<th width="150">작성자</th>
+							<th width="170">작성일</th>
 						</tr>
 					</thead>
 					
@@ -50,16 +89,12 @@
 							<tr>
 								<td><span class="badge bg-primary">공지</span></td>
 								<td class="left">
-									<div class="text-wrap"><a href="${articleUrl}&noticeIdx=$${dto.noticeIdx}">${dto.title}</a></div>
+									<div class="text-wrap">
+										<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}">${dto.title}</a></div>
 								</td>
-								<td>${dto.empName}</td>
-								<td>${dto.regDate}</td>
-								<td>
-									<c:if test="${dto.fileCount != 0}"> 
-										<a href="${pageContext.request.contextPath}/notice/zipdownload?noticeIdx=" ${dto.noticeIdx} class="text-reset"><i class="bi bi-file-arrow-down"></i></a>									
-									</c:if>
-								</td>
-								<td>&nbsp;</td>
+								<td align="center">${dto.empName}</td>
+								<td align="center">${dto.regDate}</td>
+							
 							</tr>
 						</c:forEach>
 					
@@ -68,16 +103,15 @@
 								<td ${dataCount - (page-1) * size - status.index}></td>
 								<td class="left">
 									<div class="text-wrap">
-									<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
+										<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
 									</div>
 									<c:if test="${dto.gap < 10}">
 										<span class="badge bg-danger">N</span>
 									</c:if>
 									<c:if test="${dto.replyCount != 0}">(${dto.replyCount})</c:if>
 								</td>
-								<td>${dto.empName}</td>
-								<td>${dto.regDate}</td>
-								<td></td>
+								<td align="center">${dto.empName}</td>
+								<td align="center">${dto.regDate}</td>
 							</tr>						
 						</c:forEach>
 					</tbody>
@@ -89,10 +123,9 @@
 				
 				<div class="row board-list-footer">
 					<div class="col">
-						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침">
-						<i class="bi bi-arrow-counterclockwise"></i></button>
+						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-5 text-center">
 						<form class="row" name="searchForm">
 							<div class="col-auto p-1">
 								<select name="schType" class="form-select">
@@ -112,7 +145,7 @@
 						</form>
 					</div>	
 					
-					<div>
+					<div  class="col text-end">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/write';">글올리기</button>
 					</div>
 				</div>
