@@ -44,7 +44,7 @@
 </header>
 
 <main>
-	<div class="container-fluid">
+	<div class="mainInner">
 		<div class="body-container">	
 			<div class="body-title">
 				<h3><i class="bi bi-app"></i> 공지사항 </h3>

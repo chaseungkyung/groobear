@@ -57,7 +57,7 @@
 </header>
 	
 <main>
-	<div class="container-fluid container">
+	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
 				<h3><i class="bi bi-app"></i> 공지사항 </h3>
@@ -68,7 +68,7 @@
 				<table class="table board-article">
 					<thead>
 						<tr>
-							<td colspan="2" align="center">
+							<td colspan="2" align="center" class="title">
 								${dto.title}
 							</td>
 						</tr>
