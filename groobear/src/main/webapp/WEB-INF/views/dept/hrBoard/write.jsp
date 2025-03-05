@@ -46,6 +46,7 @@
 	<div class="mainInner">
 		<div class="body-container">	
 			<div class="body-title">
+				<h3><i class="bi bi-app"></i> 인사부 </h3>
 			</div>
 			
 			<div class="body-main">

@@ -4,13 +4,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/baord/board.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
+
+<style type="text/css">
+    .board-article th, .board-article td {
+        border-top: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+        border-bottom: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+    }
+    .board-list-header {
+         border-bottom: 2px solid rgba(33, 37, 41, 0.1); 
+    }
+    
+   	.title {
+        font-weight: 600; /* 굵기 조정 */
+        color: rgba(33, 37, 41, 0.8); /* 글자 색을 약간 진하게 */
+        font-size: 16px;
+    }
+</style>
+
+<style type="text/css">
+.body-container {
+	max-width: 900px;
+	margin-left: 100px;
+}
+
+.text-wrap {
+	display: inline-flex;
+	max-width: 500px;
+	> a {
+		flex: 1;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+</style>
+
 </head>
+
+
 
 <body>
 
@@ -31,7 +70,7 @@
 				<table class="table board-article">
 					<thead>
 						<tr>
-							<td colspan="2" align="center">
+							<td colspan="10" align="center" class="title">
 								${dto.title}
 							</td>
 						</tr>
@@ -48,14 +87,14 @@
 						</tr>
 						
 						<tr>
-							<td colspan="2" valign="top" height="200" style="border-bottom: none;">
+							<td colspan="5" valign="top" height="200" style="border-bottom: none;">
 								${dto.content}
 							</td>
 						</tr>
 						
 						<c:if test="${listFile.size() != 0}">
 							<tr>
-								<td colspan="2">
+								<td colspan="5" style="border-top: none;">
 									<p class="border text-secondary my-1 p-2">
 										<i class="bi bi-folder2-open"></i>
 										<c:forEach var="dto" items="${listFile}" varStatus="status">

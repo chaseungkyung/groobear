@@ -11,10 +11,27 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board/board.css" type="text/css">
 	
+<style type="text/css">
+    .board-list th, .board-list td {
+        border-top: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+        border-bottom: 1px solid rgba(33, 37, 41, 0.1); /* 연한 검정색 */
+    }
+    .board-list-header {
+       /*  border-bottom: 2px solid rgba(33, 37, 41, 0.1); 연한 검정색 */
+    }
+    
+     /* <th>의 글자를 진하게 */
+    .board-list th {
+        font-weight: 600; /* 굵기 조정 */
+        color: rgba(33, 37, 41, 0.8); /* 글자 색을 약간 진하게 */
+    }
+</style>
+
+
 
 <style type="text/css">
 .body-container {
-	max-width: 800px;
+	max-width: 900px;
 	margin-left: 100px;
 }
 
@@ -23,8 +40,6 @@
 	max-width: 500px;
 	> a {
 		flex: 1;
-		margin-left: 100px;
-		padding-left: 10px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -61,10 +76,9 @@
 					<thead class="table-light">
 						<tr>
 							<th></th>
-							<th>제목</th>
-							<th width="150">작성자</th>
-							<th width="150">작성일</th>
-							<th></th>
+							<th class="title">제목</th>
+							<th width="120">작성자</th>
+							<th width="120">작성일</th>
 						</tr>
 					</thead>
 					
@@ -80,11 +94,7 @@
 								</td>
 								<td>${dto.empName}</td>
 								<td>${dto.regDate}</td>
-								<td>
-									<c:if test="${not empty dto.saveFilename}">
-										<a href="${pageContext.request.contextPath}/dept/hrBoard/download?postIdx=${dto.postIdx}" class="text-reset"><i class="bi bi-file-arrow-down"></i></a>
-									</c:if>
-								</td>
+						
 							</tr>						
 						</c:forEach>
 					</tbody>
