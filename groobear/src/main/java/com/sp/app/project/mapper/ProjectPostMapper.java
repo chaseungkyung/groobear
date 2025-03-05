@@ -55,6 +55,9 @@ public interface ProjectPostMapper {
 	/*
 	 * projectPostCmt 테이블
 	 */
+	
+	public long getProjMemberIdx(Map<String, Object> map);
+	
 	public void insertReply(ProjectPostCmt dto) throws SQLException;
 	
 	public void deleteReply(Map<String, Object> map) throws SQLException;

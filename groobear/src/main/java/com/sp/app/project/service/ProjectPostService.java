@@ -37,6 +37,9 @@ public interface ProjectPostService {
 	public boolean deleteUploadFile(String uploadPath, String filename);
 	
 	// 댓글
+	
+	public long getProjMemberIdx(long projIdx, long empIdx);
+	
 	public void insertReply(ProjectPostCmt dto) throws Exception;
 	
 	public void deleteReply(Map<String, Object> map) throws Exception;

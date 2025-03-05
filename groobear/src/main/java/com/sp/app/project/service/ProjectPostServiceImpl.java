@@ -142,14 +142,28 @@ public class ProjectPostServiceImpl implements ProjectPostService{
 	
 	@Override
 	public ProjectPost getProjectPostByPrev(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		ProjectPost dto = null;
+		
+		try {
+			dto = projectPostMapper.getProjectPostByPrev(map);
+		} catch (Exception e) {
+			log.info("getProjectPostByPrev : ", e);
+		}
+		
+		return dto;
 	}
 
 	@Override
 	public ProjectPost getProjectPostByNext(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		ProjectPost dto = null;
+		
+		try {
+			dto = projectPostMapper.getProjectPostByNext(map);
+		} catch (Exception e) {
+			log.info("getProjectPostByNext : ", e);
+		}
+		
+		return dto;
 	}
 
 
@@ -216,10 +230,31 @@ public class ProjectPostServiceImpl implements ProjectPostService{
 		}
 	}	
 	
+	
+	@Override
+	public long getProjMemberIdx(long projIdx, long empIdx) {
+		long projMemberIdx = 0;
+		
+		try {
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("projIdx", projIdx);
+			map.put("empIdx", empIdx);
+			
+			projMemberIdx = projectPostMapper.getProjMemberIdx(map);
+			
+		} catch (Exception e) {
+			log.info("getProjMemberIdx : ", e);
+		}
+		
+		return projMemberIdx;
+	}
+	
 
 	@Override
 	public void insertReply(ProjectPostCmt dto) throws Exception {
 		try {
+
 			projectPostMapper.insertReply(dto);
 		} catch (Exception e) {
 			log.info("insertReply : ", e);
@@ -273,6 +308,8 @@ public class ProjectPostServiceImpl implements ProjectPostService{
 		
 		return listReply;
 	}
+
+
 
 
 

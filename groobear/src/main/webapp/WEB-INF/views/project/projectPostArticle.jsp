@@ -44,6 +44,9 @@
 							<td width="50%">
 								이름 : ${dto.empName}
 							</td>
+							<td align="right">
+								${dto.regDate}
+							</td>
 						</tr>
 						
 						<tr>
@@ -67,7 +70,7 @@
 							<td colspan="2">
 								이전글 : 
 								<c:if test="${not empty prevDto}">
-									<a href="#">${prevDto.subject}</a>
+									<a href="${pageContext.request.contextPath}/project/post/article/${projIdx}?postPage=${postPage}&postIdx=${prevDto.postIdx}">${prevDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -75,7 +78,7 @@
 							<td colspan="2">
 								다음글 : 
 								<c:if test="${not empty nextDto}">
-									<a href="#">${nextDto.subject}</a>
+									<a href="${pageContext.request.contextPath}/project/post/article/${projIdx}?postPage=${postPage}&postIdx=${nextDto.postIdx}">${nextDto.title}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -85,6 +88,8 @@
 				<table class="table table-borderless mb-2">
 					<tr>
 						<td width="50%">
+							
+								
 									<button type="button" class="btn btn-light" >수정</button>
 								
 									<button type="button" class="btn btn-light" disabled>수정</button>
@@ -94,6 +99,7 @@
 				    				<button type="button" class="btn btn-light" onclick="deleteOk();">삭제</button>
 								
 				    				<button type="button" class="btn btn-light" disabled>삭제</button>
+								
 							
 						</td>
 						<td class="text-end">
@@ -131,6 +137,62 @@
 </div>
 
 </main>
+
+<script type="text/javascript">
+
+// 댓글
+$(function(){
+	listPage(1);
+});
+
+// 댓글 리스트
+function listPage(page) {
+	let url = '${pageContext.request.contextPath}/project/projectPostListReply';
+	let postIdx = '${dto.postIdx}';
+	let params = {postIdx:postIdx, postPage:page};
+	
+	const fn = function(data) {
+		$('#listReply').html(data);
+	};
+	
+	ajaxRequest(url, 'get', params, 'text', fn);
+}
+
+
+// 댓글 insert
+$(function(){
+	$('.btnSendReply').click(function(){
+		let projIdx = '${dto.projIdx}';
+		let postIdx = '${dto.postIdx}';
+		const $tb = $(this).closest('table');
+		
+		let content = $tb.find('textarea').val().trim();
+		if(! content) {
+			$tb.find('textarea').focus();
+			return false;
+		}
+		
+		let url = '${pageContext.request.contextPath}/project/post/insertReply';
+		let params = { projIdx: projIdx, postIdx:postIdx, content:content };
+		
+		const fn = function(data) {
+			$tb.find('textarea').val(' ');
+			
+			let state = data.state;
+			if(state === 'true') {
+				listPage(1);
+			} else {
+				alert('댓글 등록 실패');
+			}
+		};
+		
+		ajaxRequest(url, 'post', params, 'json', fn);
+		
+	});
+});
+
+
+</script>
 
 </body>
 </html>
