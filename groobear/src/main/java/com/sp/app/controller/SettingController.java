@@ -83,7 +83,7 @@ public class SettingController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/main";
+		return "redirect:/mypage/setting";
 	}
 	
 	@PostMapping("mypage/empSetting")
@@ -97,16 +97,15 @@ public class SettingController {
 			
 			service.updateEmployee(dto);
 			
-			sb.append(dto.getEmpName() + "님의 환경설정이 재설정되었습니다.");
+			sb.append(dto.getEmpName() + "님의 환경설정이 변경 되었습니다.<br>");
 			sb.append("메인 화면으로 이동하시기 바랍니다.<br>");
 		} catch (Exception e) {
-			log.info("settingSubmit : ", e);
-			sb.append(dto.getEmpName() + "님의 환경설정 재설정이 실패했습니다.");
-			sb.append("잠시후 다시 이용해주시길 바랍니다.");
+			sb.append(dto.getEmpName() + "님의 환경설정 변경이 실패했습니다.<br>");
+			sb.append("잠시후 다시 이용해주시길 바랍니다.<br>");
 		}
 		
-		reAttr.addAttribute("title", "환경 설정 변경");
-		reAttr.addAttribute("message", sb.toString());
+		reAttr.addFlashAttribute("title", "환경설정 변경 완료");
+		reAttr.addFlashAttribute("message", sb.toString());
 		
 		return "redirect:/mypage/complete";
 	}

@@ -11,7 +11,31 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <style type="text/css">
-.body-container { max-width: 800px; }
+.body-container { max-width: 800px;}
+
+.btn-color {
+	background-color: #365F8A;
+	color: #fff;
+	align-content: center;
+}
+
+.btn-color:hover, .btn-color:active, .btn-color:focus {
+	background-color: #7A9ACD;
+	border: 1px solid #7A9ACD;
+	color: #fff;
+}
+
+.btn-colors {
+	background-color: #B03A2E;
+	color: #fff;
+	align-content: center;
+}
+
+.btn-colors:hover, .btn-colors:active, .btn-colors:focus {
+	background-color: #E26A6A;
+	border: 1px solid #E26A6A;
+	color: #fff;
+}
 </style>
 </head>
 
@@ -23,12 +47,12 @@
 </header>	
 
 <main>
-	<div class="container">
+	<div class="mainInner" style="margin-left: 100px; margin-top: 20px; ">
 		<div class="body-container">
 			
 			<div class="row justify-content-md-center">
-				<div class="col-md-7 pt-5"> 
-					<div class="border mt-5 p-4">
+				<div class="col-md-6 pt-5"> 
+					<div class="border mt-5 p-3">
 						<form name="pwdForm" method="post" class="row g-3">
 							<h3 class="text-center fw-bold">비밀번호 변경</h3>
 							
@@ -40,12 +64,12 @@
 								<input type="password" name="empPwd2" class="form-control form-control-lg" 
 										placeholder="변경 비밀번호 확인">
 							</div>
-							<div>
-								<button type="button" class="btn btn-primary" onclick="sendOk();">
-									변경 완료 <i class="bi bi-check2"></i></button>
-								<button type="button" class="btn btn-danger" 
-									onclick="location.href='${pageContext.request.contextPath}/main';">
-									다음에 변경 <i class="bi bi-x"></i></button>
+							<div align="center">
+								<button type="button" class="btn btn-color" onclick="sendOk();">
+									변경완료 <i class="bi bi-check2"></i></button>
+								<button type="button" class="btn btn-colors" 
+									onclick="location.href='${pageContext.request.contextPath}/mypage/setting';">
+									변경취소 <i class="bi bi-x"></i></button>
 							</div>													
 						</form>
 					</div>

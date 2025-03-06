@@ -8,6 +8,31 @@
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
+<style type="text/css">
+.btn-padding {
+	 margin-right: 10px;
+}
+
+.nav-tabs .nav-link {
+    color: #495057; /* 기본 글자 색상 */
+    background-color: #f8f9fa; /* 기본 배경색 */
+    border: 1px solid #dee2e6; /* 테두리 색 */
+}
+
+.nav-tabs .nav-link.active {
+    color: #222; /* 활성화된 탭 글자 색 */
+    background-color: lightgray; /* 활성화된 탭 배경색 (파란색) */
+    border-color: lightgray; /* 활성화된 테두리 */
+}
+
+.mine {
+	width: 1000px;
+	align: center;
+	margin: 0 auto; 
+	padding: 20px;"
+}
+</style>
+
 </head>
 
 <body>
@@ -19,16 +44,31 @@
 	
 <main>
 
-	<div class="mainInner">
-		<div>
-			<a href="${pageContext.request.contextPath}/mypage/pwd?mode=update">개인정보수정</a>
-			<a href="${pageContext.request.contextPath}/mypage/alarmSetting">알람설정변경</a>
-			<a href="${pageContext.request.contextPath}/mypage/pwd?mode=pwd">비밀번호변경</a>
-		</div>
+	<div class="body-container mine">	
+		<ul class="nav nav-tabs">
+	    	<li class="nav-item">
+	        	<a class="nav-link active" href="${pageContext.request.contextPath}/mypage/pwd?mode=update"> 개인정보수정 </a>
+	    	</li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="{pageContext.request.contextPath}/mypage/alarmSetting"> 알람설정변경 </a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="${pageContext.request.contextPath}/mypage/pwd?mode=pwd"> 비밀번호변경 </a>
+		    </li>
+		</ul>
 	</div>
 
 </main>	
-
+<!-- 
+<script type="text/javascript">
+function sendEmp() {
+	const f = document.memberForm;
+	
+	f.action = '${pageContext.request.contextPath}/mypage/empSetting';
+	f.submit();
+}
+</script>
+ -->
 <footer>
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>

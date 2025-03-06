@@ -11,7 +11,34 @@
 </head>
 
 <style type="text/css">
-.body-container {max-width: 800px;}
+.body-container {
+	max-width: 800px;
+}
+
+.btn-color {
+	background-color: #365F8A;
+	color: #fff;
+	align-content: center;
+}
+
+.btn-color:hover, .btn-color:active, .btn-color:focus {
+	background-color: #7A9ACD;
+	border: 1px solid #7A9ACD;
+	color: #fff;
+}
+
+.btn-colors {
+	background-color: #B03A2E;
+	color: #fff;
+	align-content: center;
+}
+
+.btn-colors:hover, .btn-colors:active, .btn-colors:focus {
+	background-color: #E26A6A;
+	border: 1px solid #E26A6A;
+	color: #fff;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -68,14 +95,11 @@ function memberOk() {
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/mypageHeader.jsp"/>
+	
 </header>	
 	
 <main>
-	<div class="container mainInner">
-	
-		<div class="alert alert-info" role="alert">
-			<i class="bi bi-person-check-fill">개인정보 변경</i>
-		</div>
+	<div class="mainInner" align="center" style="margin-left: 100px; padding: 50px;">
 		
 		<div class="body-main">
 			
@@ -113,7 +137,8 @@ function memberOk() {
 										value="${dto.birth}" ${mode=='update'} placeholder="생년월일">
 							</div>
 						</div>
-						<small class="form-control-plaintext" style="margin: 0 auto">생년월일은 YYYY-MM-DD 형식으로 입력해주세요.</small>
+						<small class="form-control-plaintext" style="text-align: left; margin-left: 50px; line-height: 2;">
+							생년월일은 YYYY-MM-DD 형식으로 입력해주세요.</small>
 					</div>
 				</div>
 								
@@ -151,7 +176,7 @@ function memberOk() {
 
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" for="addrMain">주소</label>
-					<div class="col-sm-10 wrap-addrMain">
+					<div class="col-sm-5 wrap-addrMain">
 						<div>
 							<input type="text" name="addrMain" id="addrMain" class="form-control" 
 									placeholder="기본 주소" value="${dto.addrMain}" readonly>
@@ -163,14 +188,14 @@ function memberOk() {
 					</div>
 				</div>								
 								
-				<div class="row mb-3">
-					<div class="text-center">
-				    	<button type="button" name="sendButton" class="btn btn-primary" 
-				    			onclick="memberOk();"> ${mode=='update'?'': readonly}
-				    			<i class="bi bi-check2"></i></button>
-						<button type="button" class="btn btn-danger" 
+				<div class="row mb-3" style="text-align: center; margin-right: 250px; padding-top: 25px;">
+					<div class="text-left">
+				    	<button type="button" name="sendButton" class="btn btn-color" 
+				    			onclick="memberOk();"> ${mode=='update'?'': readonly} 
+				    			수정완료 <i class="bi bi-check2"></i></button>
+						<button type="button" class="btn btn-colors" 
 								onclick="location.href='${pageContext.request.contextPath}/mypage/setting';"> 
-								 ${mode=='update'?'':readonly} <i class="bi bi-x"></i></button>
+								 ${mode=='update'?'':readonly} 수정취소<i class="bi bi-x"></i></button>
 					</div>
 				</div>
 							

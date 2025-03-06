@@ -12,7 +12,19 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <style type="text/css">
-.body-container { max-width: 800px; }
+.body-container { max-width: 1000px; }
+
+.btn-color {
+	background-color: #365F8A;
+	color: #fff;
+}
+
+.btn-color:hover, .btn-color:active, .btn-color:focus {
+	background-color: #7A9ACD;
+	border: 1px solid #7A9ACD;
+	color: #fff;
+}
+
 </style>
 </head>
 
@@ -24,21 +36,21 @@
 </header>	
 
 <main>
-	<div class="container">
+	<div  class="mainInner" style="margin-left: 250px; margin-top: 20px;">
 		<div class="body-container">
 			
 			<div class="row justify-container-md-center mt-5">
-				<div class="col-md-8">
-					<div class="border border mt-5 p-4">
+				<div class="col-md-6 pt-5">
+					<div class="border mt-5 p-3">
 						<h4 class="text-center fw-bold">${title}</h4>
 						<hr class="mt-4">
 					
-						<div class="d-grid p-3">
+						<div class="d-grid p-4">
 							<p class="text-center">${message}</p>
 						</div>
 						
 						<div class="d-grid">
-							<button type="button" class="btn btn-lg btn-primary" 
+							<button type="button" class="btn btn-color" 
 							onclick="location.href='${pageContext.request.contextPath}/main';">
 								메인화면 <i class="bi bi-check2"></i>
 							</button>

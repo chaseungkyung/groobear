@@ -12,6 +12,18 @@
 
 <style type="text/css">
 .body-container { max-width: 800px;}
+
+.btn-color {
+	background-color: #365F8A;
+	color: #fff;
+}
+
+.btn-color:hover, .btn-color:active, .btn-color:focus {
+	background-color: #7A9ACD;
+	border: 1px solid #7A9ACD;
+	color: #fff;
+}
+
 </style>
 </head>
 
@@ -22,12 +34,12 @@
 </header>	
 
 <main>
-	<div class="container mainInner">
+	<div class="mainInner" style="margin-left: 100px; margin-top: 20px; ">
 		<div class="body-container">
 			
 			<div class="row justify-content-md-center">
-				<div class="col-md-7 pt-5">
-					<div class="border mt-5 p-4">
+				<div class="col-md-6 pt-5">
+					<div class="border mt-5 p-3">
 						<form name="pwdForm" method="post" class="row g-3">
 							<h3 class="text-center fw-bold">비밀번호 재확인</h3>
 							
@@ -44,7 +56,7 @@
 										autocomplete="off" placeholder="비밀번호">
 							</div>
 						    <div class="d-grid">
-						    	<button type="button" class="btn btn-lg btn-primary" onclick="sendOk();">
+						    	<button type="button" class="btn btn-lg btn-color" onclick="sendOk();">
 						    		확인 <i class="bi bi-check2"></i></button>
 								<input type="hidden" name="mode" value="${mode}">
 							</div>
