@@ -221,8 +221,9 @@ public class ProjectPostController {
     @GetMapping("update/{projIdx}")
     public String updateForm(
     		@PathVariable("projIdx") long projIdx,
-    		@RequestParam(name = "postPage") String postPage,
     		@RequestParam(name = "page", defaultValue = "1") String page,
+    		@RequestParam(name = "postIdx") long postIdx,
+    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
     		Model model, HttpSession session) throws Exception {
     	
     	String query = "page=" + page;
@@ -231,8 +232,8 @@ public class ProjectPostController {
     	try {
     		SessionInfo info = (SessionInfo)session.getAttribute("member");
     		
-    		ProjectPost dto = Objects.requireNonNull(projectPostService.getProjectPostById(projIdx));
-			
+    		ProjectPost dto = Objects.requireNonNull(projectPostService.getProjectPostById(postIdx));
+    		
     		if(info.getEmpIdx() != dto.getEmpIdx()) {
 				return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
 			}
@@ -257,8 +258,8 @@ public class ProjectPostController {
     @PostMapping("update/{projIdx}")
     public String updateSubmit(
     		@PathVariable("projIdx") long projIdx, Model model,
-    		@RequestParam(name = "page") String page,
-    		@RequestParam(name = "postPage") String postPage,		
+    		@RequestParam(name = "page", defaultValue = "1") String page,
+    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,		
     		ProjectPost dto, HttpSession session) throws Exception {
     		
     	try {
@@ -280,8 +281,8 @@ public class ProjectPostController {
     
     @GetMapping("delete/{projIdx}")
     public String deleteProjectPost(@PathVariable("projIdx") long projIdx,
-    		@RequestParam(name = "page") String page,
-    		@RequestParam(name = "postPage") String postPage,
+    		@RequestParam(name = "page", defaultValue = "1") String page,
+    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
     		@RequestParam(name = "schType", defaultValue = "all") String schType,
 			@RequestParam(name = "keyword", defaultValue = "") String keyword,
 			HttpSession session, Model model) throws Exception {

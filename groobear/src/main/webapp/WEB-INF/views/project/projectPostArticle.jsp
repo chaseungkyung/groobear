@@ -55,16 +55,23 @@
 							</td>
 						</tr>
 
-						<tr>
-							<td colspan="2">
-								<c:if test="${not empty dto.saveFilename}">
+						<c:if test="${listFile.size() != 0}">
+							<tr>
+								<td colspan="5" style="border-top: none;">
 									<p class="border text-secondary my-1 p-2">
 										<i class="bi bi-folder2-open"></i>
-										<a href="#">${dto.originalFilename}</a>
+										<c:forEach var="dto" items="${listFile}" varStatus="status">
+											<a href="${pageContext.request.contextPath}/project/post/download?fileIdx=${dto.fileIdx}" class="text-reset">${dto.originalFilename}</a>
+											<c:if test="${not status.last}"> | </c:if>
+										</c:forEach>
 									</p>
-								</c:if>
-							</td>
-						</tr>
+									<p class="border text-secondary mb-1 p-2">
+										<i class="bi bi-folder2-open"></i>
+										<a href="${pageContext.request.contextPath}/project/post/zipdownload?postIdx=${dto.postIdx}" class="text-reset" title="압축 다운로드">파일 전체 압축 다운로드(zip)</a>
+									</p>	
+								</td>
+							</tr>
+						</c:if>						
 
 						<tr>
 							<td colspan="2">
@@ -88,19 +95,22 @@
 				<table class="table table-borderless mb-2">
 					<tr>
 						<td width="50%">
-							
-								
-									<button type="button" class="btn btn-light" >수정</button>
-								
+							<c:choose>
+								<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
+									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/update/${projIdx}?postPage=${postPage}&postIdx=${dto.postIdx}'">수정</button>
+								</c:when>
+								<c:otherwise>
 									<button type="button" class="btn btn-light" disabled>수정</button>
-							
-							
-							
-				    				<button type="button" class="btn btn-light" onclick="deleteOk();">삭제</button>
-								
-				    				<button type="button" class="btn btn-light" disabled>삭제</button>
-								
-							
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${sessionScope.member.empIdx == dto.empIdx}">
+									<button type="button" class="btn btn-light" onclick="deleteOk();">삭제</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="btn btn-light" disabled>삭제</button>
+								</c:otherwise>
+							</c:choose>							
 						</td>
 						<td class="text-end">
 							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/list/${projIdx}?postPage=${postPage}';">리스트</button>
@@ -137,6 +147,18 @@
 </div>
 
 </main>
+
+<c:if test="${sessionScope.member.empIdx == dto.empIdx }">
+	<script type="text/javascript">
+		function deleteOk() {
+			if(confirm('게시글을 삭제 하시겠습니까?')) {
+				let query = '${projIdx}?postPage=${postPage}&postIdx=${dto.postIdx}';
+				let url = '${pageContext.request.contextPath}/project/post/delete/' + query;
+				location.href = url;
+			}
+		}
+	</script>
+</c:if>
 
 <script type="text/javascript">
 
