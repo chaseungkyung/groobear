@@ -42,6 +42,15 @@ public class HomeController {
 			Member dto = Objects.requireNonNull(memberService.findByEmpIdx(empIdx));
 			
 			String saveProfile = memberService.findByProfile(empIdx).getSaveProfile();
+			String sysDate = mypageService.getSysdate();
+			String localTime = mypageService.getLocalTime();
+			
+			MyPage loginTime = mypageService.getLoginTime(info.getEmpIdx());
+			
+			model.addAttribute("loginTime", loginTime);			
+			
+			model.addAttribute("sysDate", sysDate);
+			model.addAttribute("localTime", localTime);
 			
 			model.addAttribute("empName", info.getEmpName());
 			model.addAttribute("deptName", info.getDeptName());

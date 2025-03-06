@@ -22,5 +22,7 @@ public interface MyPageMapper {
 	
 	// 부장급 검색
 	public Member findByEmpCode(String empCode);
-	
+
+	public String getSysdate();
+	public String getLocalTime();
 }

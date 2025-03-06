@@ -144,5 +144,26 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		return list;
 	}
-	
+
+	@Override
+	public String getSysdate() {
+		String sysDate = null;
+		try {
+			sysDate = mapper.getSysdate();
+		} catch (Exception e) {
+		}
+		
+		return sysDate;
+	}
+
+	@Override
+	public String getLocalTime() {
+		String localTime = null;
+		try {
+			localTime = mapper.getLocalTime();
+			
+		} catch (Exception e) {
+		}
+		return localTime;
+	}
 }

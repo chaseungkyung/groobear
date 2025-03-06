@@ -32,26 +32,32 @@ function ClockIn() {
             <div class="info">
                 <div class="info-inner">
 					<form name="ClockForm">
-                    <div class="today"><p>2025년 01월 20일</p></div>
-						<img class = "profile" src="<c:url value='${dto.saveProfile}'/>" alt="프로필 사진">
-						<input type='hidden' name="empIdx" value="${dto.empIdx}" style="margin-top: 10px;">
-                        <div class="department" style="margin-top: 10px;" ><p>${sessionScope.member.deptName}</p></div>
-                        <div class="name" style="margin-top: 10px;"><p>${sessionScope.member.empName}</p></div>
-                    <div class="time" style="margin-top: 10px;"><p>${loginTime.loginTime}</p></div>
+                    	<div class="today">
+	                    	<p style = "font-size: 20px; font-weight: 800;">${sysDate}</p>
+							<img class = "profile" src="<c:url value='${dto.saveProfile}'/>" alt="프로필 사진">
+							<input type='hidden' name="empIdx" value="${dto.empIdx}" style="margin-top: 10px;">
+	                        <div class="department" style="margin-top: 10px; font-size: 20px" ><p>${sessionScope.member.deptName}</p></div>
+	                        <div class="name" style="margin-top: 10px; font-size: 20px"><p>${sessionScope.member.empName}</p></div>
+                   		</div>
+                    <div class="time" style="margin-top: 10px;"><p>${localTime}</p></div>
                     <div class="work">
                         <div class="status">
                             <ul>
                                 <li>업무 상태</li>
-                                <li>출근 전</li>
+                                <li>${loginTime == null ? "출근 전" : "출근 완료"}</li>
                             </ul>
                             <ul>
                                 <li>출근 시간</li>
-                                <li>${loginTime}</li>
+                                <li>${loginTime.loginTime}</li>
+                            </ul>
+                            <ul>
+                                <li></li>
+                                <li></li>
                             </ul>
                         </div>
                     </div>
                     <div class="btnWrap">
-                        <button type="button" onclick="ClockIn();" >출근</button>
+                        <button type="button" onclick="ClockIn();" >${loginTime == null ? "출근" : "퇴근"}</button>
                     </div>
 					</form>
                 </div>
