@@ -74,6 +74,7 @@
 			<if test="kwd != null and kwd != '' ">
 				<include refid="where-list"/>
 			</if>
+			AND p.projIdx = #{projIdx}
 		</where>
         ORDER BY pp.postIdx DESC
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY

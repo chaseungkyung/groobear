@@ -4,7 +4,7 @@
 
 <div class="reply-info">
 	<span class="reply-count">댓글 ${replyCount} 개</span>
-	<span>[목록, ${pageNo}/${total_page} 페이지] </span>
+	<span>[목록, ${postPage}/${total_page} 페이지] </span>
 </div>
 
 <table class="table table-borderless">
@@ -24,7 +24,7 @@
 				<div class="reply-menu">
 					<c:choose>
 						<c:when test="${sessionScope.member.empIdx==dto.empIdx}">
-							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-pageNo="${pageNo}">삭제</div>
+							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-postPage="${postPage}">삭제</div>
 							<div class="hideReply reply-menu-item">숨김</div>
 						</c:when>
 					</c:choose>

@@ -57,7 +57,11 @@
 				<li>${dto.regDate}</li>
 				<li>${dto.updateDate}</li>
 				<li><i class="fas fa-paperclip file-icon"></i></li>
-				<li><i class="fas fa-comments"></i> <span class="comment-count">0</span></li>			
+				<li><i class="fas fa-comments"></i> 
+					<span class="comment-count">
+						 ${dto.replyCount} 		
+					</span>	
+				</li>			
 			</ul>
 		</c:forEach>
 				

@@ -152,8 +152,10 @@
 	<script type="text/javascript">
 		function deleteOk() {
 			if(confirm('게시글을 삭제 하시겠습니까?')) {
-				let query = '${projIdx}?postPage=${postPage}&postIdx=${dto.postIdx}';
-				let url = '${pageContext.request.contextPath}/project/post/delete/' + query;
+				let projIdx = '${projIdx}';
+				let postPage = '${postPage}';
+				let postIdx = '${dto.postIdx}';
+				let url = '${pageContext.request.contextPath}/project/post/delete/' + projIdx + '?postPage=' + postPage + '&postIdx=' + postIdx;
 				location.href = url;
 			}
 		}
@@ -169,7 +171,7 @@ $(function(){
 
 // 댓글 리스트
 function listPage(page) {
-	let url = '${pageContext.request.contextPath}/project/projectPostListReply';
+	let url = '${pageContext.request.contextPath}/project/post/listReply';
 	let postIdx = '${dto.postIdx}';
 	let params = {postIdx:postIdx, postPage:page};
 	
@@ -210,6 +212,52 @@ $(function(){
 		
 		ajaxRequest(url, 'post', params, 'json', fn);
 		
+	});
+});
+
+//삭제 메뉴
+$(function(){
+	$('.reply').on('click', '.reply-dropdown', function(){
+		const $menu = $(this).next('.reply-menu');
+		
+		if($menu.is(':visible')) {
+			$menu.fadeOut(100);
+		} else {
+			$('.reply-menu').hide();
+			$menu.fadeIn(100);
+		
+			let pos = $(this).offset();
+			$menu.offset({left:pos.left-70, top:pos.top+20});
+		}
+	});
+	
+	$('.reply').on('click', function(evt) {
+		if($(evt.target.parentNode).hasClass('reply-dropdown')) {
+			return false;
+		}
+		
+		$('.reply-menu').hide();
+	});
+});
+
+//댓글 삭제
+$(function(){
+	$('.reply').on('click', '.deleteReply', function(){
+		if(! confirm('댓글을 삭제하겠습니까 ? ')) {
+			return false;
+		}
+		
+		let cmtIdx = $(this).attr('data-cmtIdx');
+		let page = $(this).attr('data-postPage');
+		
+		let url = '${pageContext.request.contextPath}/project/post/deleteReply';
+		let params = {cmtIdx:cmtIdx, mode:'reply'};
+		
+		const fn = function(data) {
+			listPage(page);
+		};
+		
+		ajaxRequest(url, 'post', params, 'json', fn);
 	});
 });
 

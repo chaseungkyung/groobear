@@ -58,7 +58,7 @@
 							<tr class="board-title-tr">
 								<td class="board-title">제 목</td>
 								<td>
-									<input type="text" name="title" class="form-control" value="">
+									<input type="text" name="title" class="form-control" value="${dto.title}">
 								</td>
 							</tr>
 		        
@@ -72,7 +72,7 @@
 							<tr>
 								<td class="board-content">내 용</td>
 								<td>
-									<textarea name="content" id="ir1" class="form-control" style="width: 99%; height: 300px;"></textarea>
+									<textarea name="content" id="ir1" class="form-control" style="width: 99%; height: 300px;">${dto.content}</textarea>
 								</td>
 							</tr>
 							
@@ -84,18 +84,17 @@
 							</tr>
 							
 							<c:if test="${mode == 'update'}">
-								<tr>
-									<td class="attached-file">첨부된파일</td>
+								<c:forEach var="dto" items="${listFile}">
+								<tr> 
+									<td class="bg-light col-sm-2">첨부된 파일</td>
 									<td>
 										<p class="form-control-plaintext">
-											<c:if test="${not empty dto.saveFilename}">
-												<a href="javascript:deleteFile('${dto.num}')"><i class="bi bi-trash"></i></a>
-												${dto.originalFilename}
-											</c:if>
-											&nbsp;
+											<span class="delete-file" data-fileIdx="${dto.fileIdx}"><i class="bi bi-trash"></i></span> 
+											${dto.originalFilename}
 										</p>
 									</td>
-								</tr>
+								  </tr>
+							</c:forEach>
 							</c:if>
 							
 						</table>
@@ -108,10 +107,10 @@
 									<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/project/post/list/${projIdx}';">${mode=="update" ? "수정취소" : "등록취소"}&nbsp;<i class="bi bi-x"></i></button>
 									
 									<c:if test="${mode == 'update' }">
-										<input type="hidden" name="num" value="${dto.num}">
+										<input type="hidden" name="postIdx" value="${dto.postIdx}">
 										<input type="hidden" name="saveFilename" value="${dto.saveFilename}">								
 										<input type="hidden" name="originalFilename" value="${dto.originalFilename}">								
-										<input type="hidden" name="page" value="${page}">								
+										<input type="hidden" name="postPage" value="${postPage}">								
 									</c:if>
 								</td>
 							</tr>

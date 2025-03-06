@@ -35,6 +35,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -72,6 +73,7 @@ public class ProjectPostController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("schType", schType);
 			map.put("keyword", keyword);
+			map.put("projIdx", projIdx);
 			
 			dataCount = projectPostService.getProjectPostCount(map);
 			if (dataCount != 0) {
@@ -174,7 +176,7 @@ public class ProjectPostController {
     		@PathVariable("projIdx") long projIdx,
     		@RequestParam("postIdx") long postIdx,
     		@RequestParam(name = "page", defaultValue = "1") String page,
-    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
+    		@RequestParam(name = "postPage") String postPage,
     		@RequestParam(name = "schType", defaultValue = "all") String schType,
     		@RequestParam(name = "keyword", defaultValue = "") String keyword,
     		Model model) throws Exception {
@@ -215,7 +217,7 @@ public class ProjectPostController {
 			log.info("article : ", e);
 		}
 
-    	return "redirect:/project/projectPostList?postPage=" + postPage;
+    	return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
     }
     
     @GetMapping("update/{projIdx}")
@@ -223,7 +225,7 @@ public class ProjectPostController {
     		@PathVariable("projIdx") long projIdx,
     		@RequestParam(name = "page", defaultValue = "1") String page,
     		@RequestParam(name = "postIdx") long postIdx,
-    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
+    		@RequestParam(name = "postPage") String postPage,
     		Model model, HttpSession session) throws Exception {
     	
     	String query = "page=" + page;
@@ -245,21 +247,21 @@ public class ProjectPostController {
 			model.addAttribute("dto", dto);
 			model.addAttribute("listFile", listFile);
     		
-			return "project/post/write";
+			return "project/projectPostWrite";
 			
     	} catch (NullPointerException e) {
 		} catch (Exception e) {
 			log.info("updateForm : ", e);
 		}
     	
-    	return "redirect:/project/projectPostList?postPage=" + postPage;
+    	return "rredirect:/project/post/list/{projIdx}?postPage=" + postPage;
     }
     
     @PostMapping("update/{projIdx}")
     public String updateSubmit(
     		@PathVariable("projIdx") long projIdx, Model model,
     		@RequestParam(name = "page", defaultValue = "1") String page,
-    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,		
+    		@RequestParam(name = "postPage") String postPage,		
     		ProjectPost dto, HttpSession session) throws Exception {
     		
     	try {
@@ -276,13 +278,14 @@ public class ProjectPostController {
 		}
     	
     	
-    	return "redirect:/project/projectPostList?postPage=" + postPage;
+    	return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
     }
     
     @GetMapping("delete/{projIdx}")
     public String deleteProjectPost(@PathVariable("projIdx") long projIdx,
     		@RequestParam(name = "page", defaultValue = "1") String page,
-    		@RequestParam(name = "postPage", defaultValue = "1") String postPage,
+    		@RequestParam(name = "postIdx") long postIdx,
+    		@RequestParam(name = "postPage") String postPage,
     		@RequestParam(name = "schType", defaultValue = "all") String schType,
 			@RequestParam(name = "keyword", defaultValue = "") String keyword,
 			HttpSession session, Model model) throws Exception {
@@ -296,14 +299,14 @@ public class ProjectPostController {
 				query += "&schType=" + schType + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
 			}
         	
-        	projectPostService.deleteProjectPost(projIdx, uploadPath);
+        	projectPostService.deleteProjectPost(postIdx, uploadPath);
         	
         	
 		} catch (Exception e) {
 			log.info("deleteProjectPost : e", e);
 		}
     	
-    	return "redirect:/project/projectPostList?postPage=" + postPage;
+    	return "redirect:/project/post/list/" + projIdx + "?postPage=" + postPage;
     }
     
 	@GetMapping("download")
@@ -461,6 +464,23 @@ public class ProjectPostController {
 		}
 		
 		return "project/projectPostListReply";
+	}
+	
+	@ResponseBody
+	@PostMapping("deleteReply")
+	public Map<String, ?> deleteReply(@RequestParam Map<String, Object> paramMap) {
+		Map<String, Object> model = new HashMap<>();
+		
+		String state = "true";
+		
+		try {
+			projectPostService.deleteReply(paramMap);
+		} catch (Exception e) {
+			state = "false";
+		}
+		model.put("state", state);
+		
+		return model;
 	}
 	
 	

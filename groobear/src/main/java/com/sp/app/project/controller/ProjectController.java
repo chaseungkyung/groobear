@@ -42,11 +42,13 @@ public class ProjectController {
 	private final ProjectStageService projectStageService;
 	private final ProjectTaskService projectTaskService;
 	private final PaginateUtil paginateUtil;
-
+	
+	/*
 	@GetMapping("")
 	public String projectHome() {
 		return "redirect:/project/projectList";
 	}
+	*/
 
 	@GetMapping("list")
 	public String projectAllList(

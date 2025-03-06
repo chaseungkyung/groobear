@@ -41,10 +41,7 @@
     border-bottom: none;
 }
 
-a:hover {
-	text-decoration: underline;
-    color: #2F5EA2;
-}
+
 
 /* 버튼 스타일 */
 .btn {
@@ -153,7 +150,7 @@ a:hover {
 
 body { font-size: 14px; font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif; }
 
-a:hover, a:active{ text-decoration: underline; cursor: pointer; color: #F28011; }
+
 
 textarea:focus, input:focus { outline: none; }
 
