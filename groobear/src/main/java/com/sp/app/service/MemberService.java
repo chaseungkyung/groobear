@@ -18,7 +18,7 @@ public interface MemberService {
 	public void insertEmployeeHistory(Member dto) throws Exception;
 	public void insertEmployeeHistory2(Member dto) throws Exception;
 	
-	public void updateLastLogin(String empCode) throws Exception;
+	public void updateLastLogin(String empCode) throws Exception; 
 	
 	public void updateEmployee(Member dto) throws Exception;
 	public void updateEmployeeDetail(Member dto) throws Exception;
