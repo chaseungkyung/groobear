@@ -75,7 +75,7 @@ public class NoticeServiceImpl implements NoticeService {
 			}
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("filed", "noticeIdx");
+			map.put("field", "noticeIdx");
 			map.put("noticeIdx", noticeIdx);
 			deleteFile(map);
 			
