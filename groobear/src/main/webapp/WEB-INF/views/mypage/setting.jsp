@@ -32,7 +32,6 @@
 	padding: 20px;"
 }
 </style>
-
 </head>
 
 <body>
@@ -50,7 +49,7 @@
 	        	<a class="nav-link active" href="${pageContext.request.contextPath}/mypage/pwd?mode=update"> 개인정보수정 </a>
 	    	</li>
 		    <li class="nav-item">
-		        <a class="nav-link" href="{pageContext.request.contextPath}/mypage/alarmSetting"> 알람설정변경 </a>
+		        <a class="nav-link" href="${pageContext.request.contextPath}/mypage/alarmSetting"> 알람설정변경 </a>
 		    </li>
 		    <li class="nav-item">
 		        <a class="nav-link" href="${pageContext.request.contextPath}/mypage/pwd?mode=pwd"> 비밀번호변경 </a>
@@ -59,20 +58,11 @@
 	</div>
 
 </main>	
-<!-- 
-<script type="text/javascript">
-function sendEmp() {
-	const f = document.memberForm;
-	
-	f.action = '${pageContext.request.contextPath}/mypage/empSetting';
-	f.submit();
-}
-</script>
- -->
+
 <footer>
 	<jsp:include page="/WEB-INF/views/layout/footer.jsp"/>
 </footer>
-
+	
 	<jsp:include page="/WEB-INF/views/layout/footerResources.jsp"/>
 	
 </body>
