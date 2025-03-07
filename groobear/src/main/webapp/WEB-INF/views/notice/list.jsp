@@ -49,6 +49,12 @@
 	}
 }
 
+.badge {
+	background-color: #365F8A;
+	color: #fff;
+	align-content: center;
+}
+
 
 </style>
 </head>
@@ -88,7 +94,7 @@
 					<tbody>
 						<c:forEach var="dto" items="${noticeList}">
 							<tr>
-								<td><span class="badge bg-primary">공지</span></td>
+								<td><span class="badge badge">공지</span></td>
 								<td class="left">
 									<div class="text-wrap">
 										<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}">${dto.title}</a></div>
@@ -106,10 +112,8 @@
 									<div class="text-wrap">
 										<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
 									</div>
-									<c:if test="${dto.gap < 10}">
-										<span class="badge bg-danger">N</span>
-									</c:if>
-									<c:if test="${dto.replyCount != 0}">(${dto.replyCount})</c:if>
+								
+									<c:if test="${dto.replyCount != 0}">&nbsp;${dto.replyCount})</c:if>
 								</td>
 								<td align="center">${dto.empName}</td>
 								<td align="center">${dto.regDate}</td>
@@ -123,10 +127,10 @@
 				</div>
 				
 				<div class="row board-list-footer">
-					<div class="col">
+					<div class="col-1" style="margin-left: 0;">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
 					</div>
-					<div class="col-5 text-center">
+					<div class="col-6 text-center" style="margin-left: 500px; margin-bottom:20px;">
 						<form class="row" name="searchForm">
 							<div class="col-auto p-1">
 								<select name="schType" class="form-select">
@@ -141,7 +145,7 @@
 								<input type="text" name="kwd" value="${kwd}" class="form-control">
 							</div>
 							<div class="col-auto p-1">
-								<button type="button" class="btn btn-light" onclick="searchList()"><i class="bi bi-search"></i></button>
+								<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 							</div>
 						</form>
 					</div>	

@@ -150,21 +150,6 @@ textarea:focus, input:focus { outline: none; }
   100% { transform: rotate(360deg); }
 }
 
-* { padding: 0; margin: 0; }
-*, *::after, *::before { box-sizing: border-box; }
-
-body {
-	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-	font-size: 14px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: NanumGothic, 나눔고딕, "Malgun Gothic", "맑은 고딕", 돋움, sans-serif;
-}
-
-a { color: #222; text-decoration: none; cursor: pointer; }
-a:active, a:hover { color: #0d58ba; }
-
 /* table */
 .table { width: 100%; border-spacing: 0; border-collapse: collapse; }
 .table th, .table td { padding-top: 10px; padding-bottom: 10px; }

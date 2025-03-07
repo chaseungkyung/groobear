@@ -56,7 +56,7 @@ public class HrBoardController {
 			Model model, HttpServletRequest req) throws Exception {
 		
 		try {
-			int size = 10;
+			int size = 12;
 			int total_page = 0;
 			int dataCount = 0;
 			

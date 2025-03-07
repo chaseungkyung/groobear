@@ -106,10 +106,10 @@
 				</div>
 				
 				<div class="row board-list-footer">
-					<div class="col">
+					<div class="col" style="margin-left: 0;">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/dept/hrBoard/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
 					</div>
-					<div class="col-5 text-center">
+					<div class="col-6 text-center" style="margin-left: 500px; margin-bottom:20px;">
 						<form class="row" name="searchForm">
 							<div class="col-auto p-1">
 								<select name="schType" class="form-select">
