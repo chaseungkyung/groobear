@@ -16,6 +16,9 @@
 
 	<main>
 		<div class="mainInner">
+		    <div class="body-title">
+				<h3><i class="bi bi-app"> 마이 페이지 </i></h3>
+			</div>
 			<div class="button-group">
 		        <a href="${pageContext.request.contextPath}/mypage/workList" class="custom-button">근무 현황</a>
 		        <a href="${pageContext.request.contextPath}/mypage/timeKeeping" class="custom-button">근태 내역</a>

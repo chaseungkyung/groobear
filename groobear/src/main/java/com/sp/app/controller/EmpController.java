@@ -35,7 +35,6 @@ public class EmpController {
 	
 	@GetMapping("list")
 	public String employeeList(@RequestParam(name="page", defaultValue="1") int current_page,
-			@RequestParam(name = "empStatus", defaultValue = "") String empStatus,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model, HttpServletRequest req) throws Exception{
 		
@@ -47,9 +46,7 @@ public class EmpController {
 			kwd = URLDecoder.decode(kwd, "UTF-8");
 			
 			Map<String, Object> map = new HashMap<>();
-			
-			map.put("empStatus", empStatus);
-			
+
 			map.put("kwd", kwd);
 			
 			dataCount = service.dataCount(map);

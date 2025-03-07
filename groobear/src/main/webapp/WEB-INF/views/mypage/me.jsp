@@ -70,9 +70,9 @@ $(function() {
 	<main>
 		<div class="mainInner">
 			<form name="empForm" method="post" enctype="multipart/form-data">
-				<div class="title">
-                    <p>나의 정보</p>
-                </div>
+	    		<div class="body-title">
+					<h3><i class="bi bi-app"> 나의 정보 </i></h3>
+				</div>
 				<div class="empInfo">
 	                <div class="photoArea">
                         <div class="img-viewer"></div>
@@ -138,10 +138,10 @@ $(function() {
             <div class="back">
 			    <a href="javascript:history.back();" class="custom-button btn-right">뒤로가기</a>
 			</div>
-            <div style="width:1000px; padding: 15px;">
-                <div class="title">
-                    <p>나의 이력</p>
-                </div>
+            <div style="width:1000px;">
+	    		<div class="body-title">
+					<h3><i class="bi bi-app"> 나의 이력 </i></h3>
+				</div>
                 <br><br><br>
                 <table class="table table-bordered">
               	  <thead class="table-light">

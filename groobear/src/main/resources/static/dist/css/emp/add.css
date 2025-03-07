@@ -21,7 +21,6 @@
 
 .insertBtn {text-align: right; margin-top: 50px;}
 
-.title {font-size: 20px; font-weight: bold; margin-bottom: 20px}
 
 .readonly {background-color: #eee; border: 1px solid #999;}
 
@@ -72,4 +71,23 @@
 	z-index: 9999;
 	background-repeat : no-repeat;
 	background-size : cover;
+}
+
+.body-title {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 25px 0;
+}
+
+.body-title h3 {
+    font-size: 23px;
+    min-width: 300px;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+    font-weight: bold;
+    margin: 0 0 -5px 0;
+    padding-bottom: 5px;
+    display: inline-block;
+    border-bottom: 3px solid #424951;
+    margin-bottom: 20px;
 }

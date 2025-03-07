@@ -99,9 +99,11 @@
 	<select id="listMemberAll" resultType="com.sp.app.model.Member">
 		SELECT e.empIdx, empCode, empName, d.deptName, t.teamName, p.positionName, empTel 
 		FROM employee e
-		JOIN department d ON d.deptIdx = e.deptIdx
-		JOIN team t ON t.teamIdx = e.teamIdx
-		JOIN position p ON p.positionCode = e.positionCode
+		LEFT OUTER JOIN department d ON d.deptIdx = e.deptIdx
+		LEFT OUTER JOIN team t ON t.teamIdx = e.teamIdx
+		LEFT OUTER JOIN position p ON p.positionCode = e.positionCode
+		WHERE e.empCode != 'admin'
+		ORDER BY e.deptIdx DESC, e.teamIdx DESC, e.positionCode DESC
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">

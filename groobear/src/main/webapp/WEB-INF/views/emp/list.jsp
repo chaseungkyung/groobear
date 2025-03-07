@@ -17,6 +17,9 @@
 		<div class="mainInner">
 			<div class="searchArea">
 				<form name="searchForm">
+					<div class="body-title">
+						<h3><i class="bi bi-app"> 사원 정보 </i></h3>
+					</div>
 	                <div class="search">
 	                    <input type="text" name="kwd" id="${kwd}">
 	                    <button onclick="searchList()"><img src="${pageContext.request.contextPath}/dist/images/common/search.png"></button>
@@ -99,12 +102,6 @@ function searchList(){
 	location.href = url + '?' + requestParams;
 };
 
-document.getElementById("empStatusSelect").addEventListener("change", function() {
-    var selectedStatus = this.value;
-    var url = new URL(window.location.href);
-    url.searchParams.set("empStatus", selectedStatus);
-    window.location.href = url.toString();
-});
 
 function printEmp() {
 	let url = '${pageContext.request.contextPath}/emp/print';

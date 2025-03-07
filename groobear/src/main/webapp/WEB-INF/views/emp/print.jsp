@@ -90,8 +90,8 @@ function onPrint() {
 			<td>${dto.empCode}</td>
 			<td>${dto.empName}</td>
 			<td>${dto.deptName}</td>
-			<td>${dto.teamName}</td>
-			<td>${dto.positionName}</td>
+		    <td>${dto.teamName == null ? '-' : dto.teamName}</td>
+		    <td>${dto.positionName == null ? '-' : dto.positionName}</td>
 			<td>${dto.empTel}</td>
 		</tr>
 		</c:forEach>
