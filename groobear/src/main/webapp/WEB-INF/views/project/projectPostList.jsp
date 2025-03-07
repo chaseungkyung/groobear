@@ -59,7 +59,7 @@
 				
 				<li>
 					<c:if test="${dto.fileCount != 0 }">
-							<a href="${pageContext.request.contextPath}/project/post/zipdownload?postIdx=${postIdx}">
+							<a href="${pageContext.request.contextPath}/project/post/zipdownload?postIdx=${dto.postIdx}">
 								<i class="fas fa-paperclip file-icon"></i>
 							</a>
 					</c:if>
