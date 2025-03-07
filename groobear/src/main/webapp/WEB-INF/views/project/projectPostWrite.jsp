@@ -13,6 +13,8 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 
 <script type="text/javascript">
  function sendOk() {
@@ -79,22 +81,22 @@
 							<tr>
 								<td class="board-file">첨 부</td>
 								<td>
-									<input type="file" name="selectFile" class="form-control">
+									<input type="file" name="selectFile" class="form-control" multiple>
 								</td>
 							</tr>
 							
 							<c:if test="${mode == 'update'}">
 								<c:forEach var="dto" items="${listFile}">
-								<tr> 
-									<td class="bg-light col-sm-2">첨부된 파일</td>
-									<td>
-										<p class="form-control-plaintext">
+									<tr> 
+										<td class="bg-light col-sm-2">첨부된 파일</td>
+										<td>
+											<p class="form-control-plaintext">
 											<span class="delete-file" data-fileIdx="${dto.fileIdx}"><i class="bi bi-trash"></i></span> 
 											${dto.originalFilename}
-										</p>
-									</td>
-								  </tr>
-							</c:forEach>
+											</p>
+										</td>
+								  	</tr>
+								</c:forEach>
 							</c:if>
 							
 						</table>

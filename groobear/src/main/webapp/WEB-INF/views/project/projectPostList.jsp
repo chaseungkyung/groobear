@@ -56,7 +56,15 @@
 				<li class="board-author">${dto.empName}</li>
 				<li>${dto.regDate}</li>
 				<li>${dto.updateDate}</li>
-				<li><i class="fas fa-paperclip file-icon"></i></li>
+				
+				<li>
+					<c:if test="${dto.fileCount != 0 }">
+							<a href="${pageContext.request.contextPath}/project/post/zipdownload?postIdx=${postIdx}">
+								<i class="fas fa-paperclip file-icon"></i>
+							</a>
+					</c:if>
+				</li>
+				
 				<li><i class="fas fa-comments"></i> 
 					<span class="comment-count">
 						 ${dto.replyCount} 		

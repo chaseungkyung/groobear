@@ -118,7 +118,7 @@ public class ProjectPostController {
             
             model.addAttribute("schType", schType);
             model.addAttribute("keyword", keyword);
-            model.addAttribute("postQuery", postQuery);
+            model.addAttribute("postQuery", postQuery);         
 
         } catch (Exception e) {
             log.info("projectPostList : ", e);
@@ -240,7 +240,7 @@ public class ProjectPostController {
 				return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
 			}
 			
-			List<ProjectPost> listFile = projectPostService.getPostFileList(projIdx);
+			List<ProjectPost> listFile = projectPostService.getPostFileList(postIdx);
 			
 			model.addAttribute("mode", "update");
 			model.addAttribute("postPage", postPage);
@@ -254,7 +254,7 @@ public class ProjectPostController {
 			log.info("updateForm : ", e);
 		}
     	
-    	return "rredirect:/project/post/list/{projIdx}?postPage=" + postPage;
+    	return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
     }
     
     @PostMapping("update/{projIdx}")
