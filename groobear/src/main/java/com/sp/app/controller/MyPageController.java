@@ -1,6 +1,7 @@
 package com.sp.app.controller;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -147,10 +148,10 @@ public class MyPageController {
                 model.put("state", "false");    
         	} else {
     			long gap;
-    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    			LocalDateTime today = LocalDateTime.now();
+    			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    			LocalTime today = LocalTime.now();
 
-    			LocalDateTime dateTime = LocalDateTime.parse(loginTime.getLoginTime(), formatter);
+    			LocalTime dateTime = LocalTime.parse(loginTime.getLoginTime(), formatter);
     			
     			gap = dateTime.until(today, ChronoUnit.HOURS);
     			

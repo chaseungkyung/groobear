@@ -55,8 +55,8 @@
 		                    <li><a href="javascript:;"></a>${vo.empCode}</li>
 			                <li>${vo.empName}</li>
 		                    <li>${vo.deptName}</li>
-		                    <li>${vo.teamName}</li>
-		                    <li>${vo.positionName}</li>
+		                    <li>${vo.teamName == null ? '-' : vo.teamName}</li>
+		                    <li>${vo.positionName == null ? '-' : vo.positionName}</li>
 		                    <li>${vo.hireDate}</li>
 		                    <li>${vo.tel}</li>
 		                    <li>${vo.empTel}</li>

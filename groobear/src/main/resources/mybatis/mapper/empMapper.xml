@@ -105,9 +105,9 @@
 	</select>
 	
 	<select id="listMember" parameterType="map" resultType="com.sp.app.model.Member">
-		select e.empIdx, empCode, empName, e.deptIdx, e.teamIdx, e.positionCode, e.teamIdx, e.empTel, e.empStatus, ed.tel, ed.email,
-				TO_CHAR(e.hireDate, 'YYYY-MM-DD') hireDate, e.retireDate, d.deptName, t.teamName, p.positionName
-		from employee e
+		SELECT e.empIdx, empCode, empName, e.deptIdx, e.teamIdx, e.positionCode, e.empTel, e.empStatus, ed.tel, ed.email,
+				TO_CHAR(e.hireDate, 'YYYY-MM-DD') AS hireDate, e.retireDate, d.deptName, t.teamName, p.positionName
+		FROM employee e
 		LEFT OUTER JOIN employeeDetail ed ON e.empIdx = ed.empIdx
 		LEFT OUTER JOIN department d ON d.deptIdx = e.deptIdx
 		LEFT OUTER JOIN team t On t.teamIdx = e.teamIdx
@@ -117,7 +117,8 @@
 			OR teamName LIKE '%' || #{kwd} || '%'
 			OR positionName LIKE '%' || #{kwd} || '%'
 			OR empTel LIKE '%' || #{kwd} || '%'
-			OR tel LIKE '%' || #{kwd} || '%')
+			OR tel LIKE '%' || #{kwd} || '%') AND e.empCode != 'admin'
+		ORDER BY e.deptIdx DESC, e.teamIdx DESC, e.positionCode DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
