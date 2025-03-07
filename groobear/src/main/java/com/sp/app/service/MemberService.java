@@ -12,7 +12,7 @@ public interface MemberService {
 	
 	// 마지막 사번 가져오기
 	public String getLastEmpCode(String empCode);
-	
+	 
 	public void insertEmployee(Member dto) throws Exception;
 	public void insertEmployeeDetail(Member dto) throws Exception;
 	public void insertEmployeeHistory(Member dto) throws Exception;
