@@ -83,7 +83,7 @@ public class SettingController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/mypage/setting";
+		return "redirect:/mypage/main";
 	}
 	
 	@PostMapping("mypage/empSetting")

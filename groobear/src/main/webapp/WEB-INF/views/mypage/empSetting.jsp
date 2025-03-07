@@ -194,7 +194,7 @@ function memberOk() {
 				    			onclick="memberOk();"> ${mode=='update'?'': readonly} 
 				    			수정완료 <i class="bi bi-check2"></i></button>
 						<button type="button" class="btn btn-colors" 
-								onclick="location.href='${pageContext.request.contextPath}/mypage/setting';"> 
+								onclick="location.href='${pageContext.request.contextPath}/mypage/workList';"> 
 								 ${mode=='update'?'':readonly} 수정취소<i class="bi bi-x"></i></button>
 					</div>
 				</div>

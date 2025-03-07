@@ -32,7 +32,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" valign="top" class="text-primary text-opacity-30">${dto.content}</td>
+			<td colspan="2" valign="top" class="text text-opacity-30">${dto.content}</td>
 		</tr>
 	</c:forEach>
 </table>

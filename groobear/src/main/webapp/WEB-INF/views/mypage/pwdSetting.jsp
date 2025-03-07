@@ -68,7 +68,7 @@
 								<button type="button" class="btn btn-color" onclick="sendOk();">
 									변경완료 <i class="bi bi-check2"></i></button>
 								<button type="button" class="btn btn-colors" 
-									onclick="location.href='${pageContext.request.contextPath}/mypage/setting';">
+									onclick="location.href='${pageContext.request.contextPath}/mypage/workList';">
 									변경취소 <i class="bi bi-x"></i></button>
 							</div>													
 						</form>
