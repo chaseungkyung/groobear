@@ -36,6 +36,8 @@ public interface SignService {
 	public DocAppFile docAppFileAprIdx(long aprIdx);
 	
 	public LeaveRequest leaveRequestAprIdx(long aprIdx);
+	public ApprovalReq approvalReqAprIdx(long aprIdx);
+	public IncidentReport incidentReportAprIdx(long aprIdx);
 	
 	public int dataCount(Map<String, Object> map);
 	

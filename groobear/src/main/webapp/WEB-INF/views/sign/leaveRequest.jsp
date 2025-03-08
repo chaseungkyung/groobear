@@ -7,6 +7,7 @@
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/signMenu.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/sign/leaveRequest.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/sign/approvalline/approvalLineTable.css" type="text/css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/dist/js/sign/approvalLine.js"></script>
 	<script type="text/javascript">
@@ -22,7 +23,7 @@
 				return false;
 			}
 			
-			form.action="${pageContext.request.contextPath}/sign/write}"
+			form.action="${pageContext.request.contextPath}/sign/leaveRequest"
 			
 			return true;
 		}
@@ -35,43 +36,7 @@
 	<main>
 		<div class="mainInner">
 			<form name="leaveForm" method="post">
-				<div class="btnArea">
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/sign/list'" class="cancel">작성 취소</button>
-					<button type="button" onclick="submit();">상신하기</button>
-				</div>
-				<div class="approvalLine">
-					<div class="getApprovalLine">
-						<p>결재라인 불러오기</p>
-					</div>
-					<table>
-						<tr>
-							<th>${sessionScope.member.deptName} ${sessionScope.member.empName} ${sessionScope.member.positionName}</th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-						<tr class="approvalCell">
-							<td>${sessionScope.member.empName}</td>
-							<td>
-								<button type="button" class="approvalAdd">등록하기</button>
-							</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr class="signDate">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-					<table>
-						<tr>
-							<th>참조자</th>
-							<td></td>
-						</tr>
-					</table>
-				</div>
+				<jsp:include page="/WEB-INF/views/sign/approvalLine/approvalLineTable.jsp"/>
 				<div class="writeForm">
 					<h2>휴가 신청서</h2>
 					<input type="hidden" value="휴가 신청서" name="docType">
@@ -135,38 +100,6 @@
 			<p class="company">GROOBEAR 대표이사 귀중</p>
 		</div>
 	</main>
-	
-	<!-- 결재 등록하기 버튼 눌렀을 때 나오는 팝업 -->
-	<div class="backGround"></div>
-	<div class="lineSelectPopUp">
-		<div class="popUpInner">
-			<div class="close">X</div>
-			<div class="select">
-				<select name="deptIdx" id="deptIdx">
-					<option value="" readOnly>부서</option>
-				</select>
-				<select name="teamIdx" id="teamIdx">
-					<option value="" readOnly>소속</option>
-				</select>
-				<select name="positionCode" id="positionCode">
-					<option value="" readOnly>직급</option>
-				</select>
-				<button type="button" class="reset"><i class="bi bi-arrow-clockwise"></i></button>
-			</div>
-			<div class="listTable">
-				<table>
-					<thead>
-					<tr>
-						<th>부서</th>
-						<th>팀</th>
-						<th>이름</th>
-						<th>직급</th>
-						<th></th>
-					</tr>
-					</thead>
-				</table>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/sign/approvalLine/approvalPopup.jsp"/>
 </body>
 </html>

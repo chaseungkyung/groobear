@@ -24,10 +24,10 @@ public interface SignMapper {
 	public void insertApprovalRef(ApprovalRef dto) throws SQLException;
 	public void insertDocAppFile(DocAppFile dto) throws SQLException;
 	
-	public void insertLeaveRequest(LeaveRequest dto) throws SQLException;
-	public void insertOvertimeRequest(OvertimeRequest dto) throws SQLException;
-	public void insertIncidentReport(IncidentReport dto) throws SQLException;
-	public void insertApprovalReq(ApprovalReq dto) throws SQLException;
+	public void insertLeaveRequest(LeaveRequest dto) throws SQLException; // 휴가 신청서
+	public void insertOvertimeRequest(OvertimeRequest dto) throws SQLException; // 추가 근무 신청서
+	public void insertIncidentReport(IncidentReport dto) throws SQLException; // 시말서
+	public void insertApprovalReq(ApprovalReq dto) throws SQLException; // 결재요청서
 	
 	public List<Member> listMember(Map<String, Object> map); // 결재자 선택 할 당시 사원 list
 	
@@ -42,6 +42,8 @@ public interface SignMapper {
 	public DocAppFile docAppFileAprIdx(long aprIdx);
 	
 	public LeaveRequest leaveRequestAprIdx(long aprIdx);
+	public ApprovalReq approvalReqAprIdx(long aprIdx);
+	public IncidentReport incidentReportAprIdx(long aprIdx);
 	
 	public int dataCount(Map<String, Object> map);
 	

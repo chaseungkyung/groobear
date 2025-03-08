@@ -19,8 +19,9 @@
 				<div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
 					<div class="accordion-body">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/sign/write">휴가신청서</a></li>
-							<li><a href="${pageContext.request.contextPath}/">문서 양식2</a></li>
+							<li><a href="${pageContext.request.contextPath}/sign/approvalRequest">결재요청서</a></li>
+							<li><a href="${pageContext.request.contextPath}/sign/leaveRequest">휴가신청서</a></li>
+							<li><a href="${pageContext.request.contextPath}/sign/incidentReport">시말서</a></li>
 						</ul>
 					</div>
 				</div>

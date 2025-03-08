@@ -25,15 +25,7 @@ form {width: 80%; margin: auto;}
 
 .title {background-color: #f0f0f0; padding: 8px 0; box-sizing: border-box; font-size: 20px;}
 
-input[type="text"], input[type="date"] {height: 30px;}
-
-.leaveRequest input[type="radio"] {margin-right: 5px;}
-.leaveRequest label:not(:last-child) {margin-right: 20px;}
-
-/* 휴사 사유 */
-.leaveReason td {height: 15vw;}
-/* 비고 */
-.remarks td {height: 10vw;}
+.incidentReport .incDetail td {height: 15vw;}
 
 textarea {height: 100%; border: unset; line-height: 1.6; padding: 10px;}
 

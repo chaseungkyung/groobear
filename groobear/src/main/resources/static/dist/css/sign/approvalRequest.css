@@ -23,19 +23,14 @@ form {width: 80%; margin: auto;}
 /* 신청하는 사람 info */
 .my th, .my td {width: 25%;}
 
-.title {background-color: #f0f0f0; padding: 8px 0; box-sizing: border-box; font-size: 20px;}
-
-input[type="text"], input[type="date"] {height: 30px;}
-
-.leaveRequest input[type="radio"] {margin-right: 5px;}
-.leaveRequest label:not(:last-child) {margin-right: 20px;}
-
-/* 휴사 사유 */
-.leaveReason td {height: 15vw;}
-/* 비고 */
-.remarks td {height: 10vw;}
-
 textarea {height: 100%; border: unset; line-height: 1.6; padding: 10px;}
+
+input[type="text"] {width: 100%; border: unset; padding: 10px;}
+
+.approvalRequest th {background-color: #eee;}
+
+.content td {height: 15vw;}
+.remarks td {height: 10vw;}
 
 .msg {margin: 20px 0; text-align: center;}
 

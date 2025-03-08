@@ -21,6 +21,8 @@ import com.sp.app.model.approval.ApprovalLine;
 import com.sp.app.model.approval.ApprovalRef;
 import com.sp.app.model.approval.DocAppFile;
 import com.sp.app.model.approval.DocApproval;
+import com.sp.app.model.docBox.ApprovalReq;
+import com.sp.app.model.docBox.IncidentReport;
 import com.sp.app.model.docBox.LeaveRequest;
 import com.sp.app.service.SignService;
 
@@ -107,7 +109,26 @@ public class SignController {
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
 			String listUrl = cp + "/sign/list";
-			String articleUrl = cp + "/sign/article";
+			String articleUrl = cp + "/sign/";
+			
+//			DocApproval doc = null;
+//			
+//			String docType = doc.getDocType();
+//			
+//			if("결재 요청서".equals(docType)) {
+//				
+//				articleUrl += "approvalRequestArticle";
+//				
+//			} else if ("휴가 신청서".equals(docType)) {
+//				
+//				articleUrl += "leaveRequestArticle";
+//				
+//			} else if ("시말서".equals(docType)) {
+//				
+//				articleUrl += "incidentReportArticle";
+//				
+//			}
+				
 			
 			if(! kwd.isBlank()) {
 				String qs = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
@@ -125,7 +146,7 @@ public class SignController {
 			model.addAttribute("size", size);
 			model.addAttribute("page", current_page);
 			model.addAttribute("total_page", total_page);
-			model.addAttribute("articleUrl", articleUrl);
+ 			model.addAttribute("articleUrl", articleUrl);
 			model.addAttribute("paging", paging);
 			
 			model.addAttribute("schType", schType);
@@ -139,16 +160,16 @@ public class SignController {
 		return "sign/list";
 	}
 	
-	@GetMapping("write")
-	public String singWriteForm(Model model) {
-		return "sign/write";
+	@GetMapping("leaveRequest")
+	public String leaveRequestForm(Model model) {
+		return "sign/leaveRequest";
 	}
 	
-	@PostMapping("write")
+	@PostMapping("leaveRequest")
 	public String leaveRequestSubmit(
 			DocApproval docApproval, // 결재서류 보관함
 			DocAppFile docAppFile, // 결재 서류 첨부파일
-			ApprovalLine approvalLine, // 결재 라인
+			ApprovalLine approvalLine, // 결재 라인 d
 			ApprovalRef approvalRef, // 결재 참조
 			LeaveRequest leaveRequest, // 휴가 신청서
 			Model model, HttpSession session) throws Exception {
@@ -195,13 +216,13 @@ public class SignController {
 		return "redirect:/sign/list";
 	}
 	
-	@GetMapping("article/{aprIdx}")
+	@GetMapping({"approvalRequestArticle/{aprIdx}", "incidentReportArticle/{aprIdx}", "leaveRequestArticle/{aprIdx}"})
 	public String article(
 			@PathVariable("aprIdx") long aprIdx,
 			@RequestParam(name = "page") String page,
 			@RequestParam(name = "schType", defaultValue = "all") String schType,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
-			Model model, HttpSession session
+			Model model, HttpSession session, HttpServletRequest request
 			) {
 		
 		String query = "page=" + page;
@@ -220,17 +241,36 @@ public class SignController {
 			DocAppFile docAppFile = service.docAppFileAprIdx(aprIdx);
 			
 			LeaveRequest leaveRequest = service.leaveRequestAprIdx(aprIdx);
+			ApprovalReq approvalReq = service.approvalReqAprIdx(aprIdx);
+			IncidentReport incidentReport = service.incidentReportAprIdx(aprIdx);
 			
 			model.addAttribute("docApproval", docApproval);
 			model.addAttribute("approvalLine", approvalLine);
 			model.addAttribute("approvalRef", approvalRef);
 			model.addAttribute("docAppFile", docAppFile);
+			
 			model.addAttribute("leaveRequest", leaveRequest);
+			model.addAttribute("approvalReq", approvalReq);
+			model.addAttribute("incidentReport", incidentReport);
 			
 			model.addAttribute("query", query);
 			model.addAttribute("page", page);
 			
-			return "sign/article";
+			String uri = request.getRequestURI();
+			
+			if(uri.contains("/approvalRequestArticle/")) {
+				
+				return "sign/approvalRequestArticle";
+				
+			} else if (uri.contains("/incidentReportArticle/")) {
+				
+				return "sign/incidentReportArticle";
+				
+			} else if (uri.contains("/leaveRequestArticle/")) {
+				
+				return "sign/leaveRequestArticle";
+				
+			}
 			
 		} catch (Exception e) {
 			log.info("article : ", e);
@@ -290,6 +330,104 @@ public class SignController {
 		}
 		
 		return model;
+	}
+	
+	@GetMapping("approvalRequest")
+	public String approvalRequestForm(Model model) {
+		return "sign/approvalRequest";
+	}
+	
+	@PostMapping("approvalRequest")
+	public String approvalRequestSubmit(
+			DocApproval docApproval, // 결재서류 보관함
+			DocAppFile docAppFile, // 결재 서류 첨부파일
+			ApprovalLine approvalLine, // 결재 라인
+			ApprovalRef approvalRef, // 결재 참조
+			ApprovalReq approvalReq, // 결재 요청서
+			Model model, HttpSession session) throws Exception {
+		
+		try {
+			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			model.addAttribute("empName", info.getEmpName());
+			model.addAttribute("deptName", info.getDeptName());
+			model.addAttribute("teamName", info.getTeamName());
+			model.addAttribute("positionName", info.getPositionName());
+			
+			docApproval.setEmpIdx(info.getEmpIdx()); // 작성 사원
+			docApproval.setDeptIdx(info.getDeptIdx()); // 작성 사원 부서
+			docApproval.setTeamIdx(info.getTeamIdx()); // 작성 사원 팀
+			docApproval.setPositionCode(info.getPositionCode()); // 작성 사원 직급
+			
+			approvalLine.setWriterEmp(info.getEmpIdx());
+			approvalLine.setWriterInfo(info.getEmpCode());
+			
+			service.insertDocApproval(docApproval);
+			
+			approvalLine.setAprIdx(docApproval.getAprIdx());
+			
+			service.insertApprovalLine(approvalLine);
+			
+			approvalReq.setAprIdx(docApproval.getAprIdx());
+			
+			service.insertApprovalReq(approvalReq);
+			
+		} catch (Exception e) {
+			log.info("approvalRequest", e);
+			throw e;
+		}
+		
+		return "redirect:/sign/list";
+	}
+	
+	@GetMapping("incidentReport")
+	public String incidentReportForm(Model model) {
+		return "sign/incidentReport";
+	}
+	
+	@PostMapping("incidentReport")
+	public String incidentReportSubmit(
+			DocApproval docApproval, // 결재서류 보관함
+			DocAppFile docAppFile, // 결재 서류 첨부파일
+			ApprovalLine approvalLine, // 결재 라인
+			ApprovalRef approvalRef, // 결재 참조
+			IncidentReport incidentReport, // 시말서
+			Model model, HttpSession session) throws Exception {
+		
+		try {
+			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			
+			model.addAttribute("empName", info.getEmpName());
+			model.addAttribute("deptName", info.getDeptName());
+			model.addAttribute("teamName", info.getTeamName());
+			model.addAttribute("positionName", info.getPositionName());
+			
+			docApproval.setEmpIdx(info.getEmpIdx()); // 작성 사원
+			docApproval.setDeptIdx(info.getDeptIdx()); // 작성 사원 부서
+			docApproval.setTeamIdx(info.getTeamIdx()); // 작성 사원 팀
+			docApproval.setPositionCode(info.getPositionCode()); // 작성 사원 직급
+			
+			approvalLine.setWriterEmp(info.getEmpIdx());
+			approvalLine.setWriterInfo(info.getEmpCode());
+			
+			service.insertDocApproval(docApproval);
+			
+			approvalLine.setAprIdx(docApproval.getAprIdx());
+			
+			service.insertApprovalLine(approvalLine);
+			
+			incidentReport.setAprIdx(docApproval.getAprIdx());
+			
+			service.insertIncidentReport(incidentReport);
+			
+		} catch (Exception e) {
+			log.info("incidentReportSubmit : ", e);
+			throw e;
+		}
+		
+		return "redirect:/sign/list";
 	}
 	
 }

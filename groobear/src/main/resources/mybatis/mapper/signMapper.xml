@@ -88,6 +88,32 @@
 		)
 	</insert>
 	
+	<!-- 시말서 -->
+	<insert id="insertIncidentReport" parameterType="com.sp.app.model.docBox.IncidentReport">
+		<selectKey keyProperty="incRepIdx" resultType="java.lang.Long" order="BEFORE">
+		    SELECT incidentReport_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO incidentReport (
+			INCREPIDX, APRIDX, INCDETAIL, INCDATE
+		)
+		values (
+			#{incRepIdx}, #{aprIdx}, #{incDetail}, SYSDATE
+		)
+	</insert>
+	
+	<!-- 결재요청서 -->
+	<insert id="insertApprovalReq" parameterType="com.sp.app.model.docBox.ApprovalReq">
+		<selectKey keyProperty="aprReqIdx" resultType="java.lang.Long" order="BEFORE">
+		    SELECT approvalReq_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO approvalReq (
+			APRREQIDX, APRIDX, TITLE, CONTENT, REMARKS
+		)
+		values (
+			#{aprReqIdx}, #{aprIdx}, #{title}, #{content}, #{remarks, jdbcType=VARCHAR}
+		)
+	</insert>
+	
 	<select id="inProgressList" parameterType="map" resultType="com.sp.app.model.approval.DocApproval">
 		select
 		    d.aprIdx, d.empIdx, d.deptIdx, d.teamIdx, d.positionCode, doctype, regdate, paymentstage, status, decisionat, reason,
@@ -194,6 +220,20 @@
 		SELECT
 			lvReqIdx, aprIdx, leaveType, TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate, leaveDays, leaveReason, remarks
 		FROM leaveRequest
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	
+	<select id="approvalReqAprIdx" parameterType="Long" resultType="com.sp.app.model.docBox.ApprovalReq">
+		SELECT
+			APRREQIDX, APRIDX, TITLE, CONTENT, REMARKS
+		FROM approvalReq
+		WHERE aprIdx = #{aprIdx}
+	</select>
+	
+	<select id="incidentReportAprIdx" parameterType="Long" resultType="com.sp.app.model.docBox.IncidentReport">
+		SELECT
+			INCREPIDX, APRIDX, INCDETAIL, INCDATE
+		FROM incidentReport
 		WHERE aprIdx = #{aprIdx}
 	</select>
 	<!-- findByAprIdx END -->

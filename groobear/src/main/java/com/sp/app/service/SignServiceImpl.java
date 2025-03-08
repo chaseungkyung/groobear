@@ -291,6 +291,38 @@ public class SignServiceImpl implements SignService {
 		
 		return leaveRequest;
 	}
+	
+	@Override
+	public ApprovalReq approvalReqAprIdx(long aprIdx) {
+		
+		ApprovalReq approvalReq = null;
+		
+		try {
+			
+			approvalReq = mapper.approvalReqAprIdx(aprIdx);
+			
+		} catch (Exception e) {
+			log.info("approvalReqAprIdx : ", e);
+		}
+		
+		return approvalReq;
+	}
+
+	@Override
+	public IncidentReport incidentReportAprIdx(long aprIdx) {
+		
+		IncidentReport incidentReport = null;
+		
+		try {
+			
+			incidentReport = mapper.incidentReportAprIdx(aprIdx);
+			
+		} catch (Exception e) {
+			log.info("incidentReportAprIdx : ", e);
+		}
+		
+		return incidentReport;
+	}
 
 	@Override
 	public List<ApprovalLine> approvalList(Map<String, Object> map) {
