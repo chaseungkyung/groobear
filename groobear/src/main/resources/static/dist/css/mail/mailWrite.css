@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
+.btnArea button {width: 90%;}
+
+.write .writeForm {width: 100%; margin-bottom: 20px;}
+.write .writeForm tr {height: 2.3vw; display: flex; align-items: center;}
+.write .writeForm tr th {width: 10%; vertical-align: middle;}
+.write .writeForm tr td {width: 90%;}
+
+.write .writeForm tr:last-child th {vertical-align: top;}
+
+.write .writeForm tr input {width: 100%; padding-left: 1%; height: 25px;}
+
+.write .writeForm tr .addressArea {display: flex; justify-content: space-between;}
+.write .writeForm tr .addressArea input {width: 45%; border: 1px solid black; margin-right: 1px;}
+.write .writeForm tr .addressArea button {width: 10%;}
+
+.write .writeForm .contentArea {align-items: flex-start; height: auto;}
+.write .writeForm .contentArea textarea {line-height: 1.6; height: 20vw;}

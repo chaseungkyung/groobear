@@ -6,28 +6,7 @@
 <head>
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
-	<style type="text/css">
-		
-		.btnArea {margin-bottom: 20px; margin-left: auto; width: 10%;}
-		.btnArea button {width: 90%;}
-		
-		.textArea {width: 90%;}
-		.textArea tr {height: 2.3vw; display: flex; align-items: center;}
-		.textArea tr th {width: 10%; vertical-align: middle;}
-		.textArea tr td {width: 90%;}
-		
-		.textArea tr:last-child th {vertical-align: top;}
-		
-		.textArea tr input {width: 100%; padding-left: 1%; height: 25px;}
-		
-		.textArea tr .addressArea {display: flex; justify-content: space-between;}
-		.textArea tr .addressArea input {width: 45%; border: 1px solid black; margin-right: 1px;}
-		.textArea tr .addressArea button {width: 10%;}
-		
-		.textArea .contentArea {align-items: flex-start;}
-		.textArea tr td .contentArea {height: 60%; padding: 10px; box-sizing: border-box; line-height: 1.6;}
-		
-	</style>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/mail/mailWrite.css" type="text/css">
 	<script type="text/javascript">
 		function sendOk() {
 		    const f = document.mailForm;
@@ -65,14 +44,14 @@
 		<div class="mainInner">
 			<div class="write">
 				<form name = "mailForm" method = "post" enctype = "multipart/form-data">
-					<table class="textArea">
+					<table class="writeForm">
 						<tr>
 							<th>받는 사람</th>
 							<td class="addressArea">
 								<input type="hidden" name="senderName" value="그룹웨어">
 								<input type="hidden" name="senderEmail" value="anwkdrla0925@gmail.com">
-								<input type="text" name = "receiverEmail" class="btn btn-light btnReceiverDialog"><br>
-								<input type="text" name = "receiverEmail" class="btn btn-light btnReceiverDialog">
+								<input type="text" name="receiverEmail" class="btn btn-light btnReceiverDialog" style="width: 100%; border-radius: unset;">
+								<!-- <input type="text" name = "receiverEmail" class="btn btn-light btnReceiverDialog"> -->
 							</td>
 						</tr>
 						<tr>
@@ -105,9 +84,7 @@
 			</div>
 		</div>
 	</main>
-	<div class="modal fade" id="myDialogModal" tabindex="-1" 
-			data-bs-backdrop="static" data-bs-keyboard="false"
-			aria-labelledby="myDialogModalLabel" aria-hidden="true">
+	<div class="modal fade" id="myDialogModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="myDialogModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">

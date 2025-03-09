@@ -19,11 +19,18 @@
 	
 	<main>
 		<div class="mainInner">
-			<img alt=""src="${pageContext.request.contextPath}/dist/images/mail/mailcomplete.png">
-		</div>
-		<div class = "btnArea">
-			<button type="button"  class = "btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mail/list';">확인</button>
-			<button type="button"  class = "btn" onclick="location.href='${pageContext.request.contextPath}/mail/mailSend';">보낸 메일함</button>
+			<div>
+				<div class="imgArea" style="width: 10%; margin: 0 auto 10px auto;">
+					<img alt=""src="${pageContext.request.contextPath}/dist/images/mail/send.png">
+				</div>
+				<div class="textArea" style="width: 100%; text-align: center;">
+					<p>메일을 성공적으로 보냈습니다.</p>
+				</div>
+			</div>
+			<div class = "btnArea">
+				<button type="button"  class = "btn btn-primary" onclick="location.href='${pageContext.request.contextPath}/mail/list';">확인</button>
+				<button type="button"  class = "btn" onclick="location.href='${pageContext.request.contextPath}/mail/mailSend';">보낸 메일함</button>
+			</div>
 		</div>
 	</main>
 </body>
