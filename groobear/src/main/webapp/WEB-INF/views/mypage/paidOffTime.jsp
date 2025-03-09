@@ -43,9 +43,9 @@
 						<li>${vo.startDate} ~ ${vo.endDate}</li>
 						<li>${vo.leaveDays}</li>
 						<li>${vo.empName}</li>
-						<li>${vo.deptIdx}</li>
-						<li>${vo.teamIdx}</li>
-						<li>${vo.positionCode}</li>
+						<li>${vo.deptName}</li>
+						<li>${vo.teamName}</li>
+						<li>${vo.positionName}</li>
 						<li>${vo.leaveReason}</li>
 						<li>${vo.remarks}</li>
 						<li hidden>${vo.status}</li>						

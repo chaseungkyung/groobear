@@ -42,7 +42,7 @@
 						<li>${vo.empName}</li>
 						<li>${vo.deptName}</li>
 						<li>${vo.teamName}</li>
-						<li>${vo.positionCode}</li>
+						<li>${vo.positionName}</li>
 						<li>${vo.overDate}</li>
 						<li>${vo.overTime}</li>
 						<li>${vo.workDetail}</li>

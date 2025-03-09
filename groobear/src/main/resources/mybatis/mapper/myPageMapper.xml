@@ -52,8 +52,12 @@
 	</select>
 	
 	<select id="timeKeeping" parameterType="map" resultType="com.sp.app.model.MyPage">
-        SELECT w.workIdx, d.aprIdx, e.empName, d.deptIdx, d.teamIdx, e.positionCode, d.status, o.otReqIdx, TO_CHAR(o.overDate,'YYYY-MM-DD')overDate, o.overTime, o.workDetail
+        SELECT w.workIdx, d.aprIdx, e.empName, d.deptIdx, d.teamIdx, e.positionCode, d.status, o.otReqIdx, TO_CHAR(o.overDate,'YYYY-MM-DD')overDate, o.overTime, o.workDetail, 
+        		p.positionName, d.deptName, t.teamName
 		FROM employee e
+		JOIN position p ON p.positionCode = e.positionCode
+		JOIN department d ON d.deptIdx = e.deptIdx
+		JOIN team t ON t.teamIdx = e.teamIdx
 		LEFT OUTER JOIN workLog w ON e.empIdx = w.empIdx
 		LEFT OUTER JOIN docApproval d ON d.empIdx = e.empIdx
 		LEFT OUTER JOIN overtimeRequest o ON o.aprIdx = d.aprIdx
@@ -61,8 +65,13 @@
 	</select>
 
 	<select id="paidOffTime" parameterType="map" resultType="com.sp.app.model.MyPage">
-		SELECT e.empIdx, e.deptIdx, e.empName, e.teamIdx, e.positionCode, d.status, d.aprIdx, l.leaveType, TO_CHAR(l.startDate,'YYYY-MM-DD')startDate, TO_CHAR(l.endDate, 'YYYY-MM-DD') endDate, l.leaveDays, l.leaveReason, l.remarks
+		SELECT e.empIdx, e.deptIdx, e.empName, e.teamIdx, e.positionCode, d.status, d.aprIdx, l.leaveType, 
+			TO_CHAR(l.startDate,'YYYY-MM-DD')startDate, TO_CHAR(l.endDate, 'YYYY-MM-DD') endDate, l.leaveDays, l.leaveReason, l.remarks, 
+			p.positionName, d.deptName, t.teamName
 		FROM employee e
+		JOIN position p ON p.positionCode = e.positionCode
+		JOIN department d ON d.deptIdx = e.deptIdx
+		JOIN team t ON t.teamIdx = e.teamIdx
 		LEFT OUTER JOIN docApproval d ON d.empIdx = e.empIdx
 		LEFT OUTER JOIN leaveRequest l ON l.aprIdx = d.aprIdx
 		WHERE d.status = 0
