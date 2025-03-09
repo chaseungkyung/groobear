@@ -13,14 +13,9 @@
 		
 		f.action = '${pageContext.request.contextPath}/main/clockIn';
 		f.submit();
-	}	
-		
+	}
+	
 </script>
-<style type="text/css">
-	main {width: 93vw;}
-	main .mainInner {width: 83vw;}
-	.mainInner .info .profile { width: 10vw; height: 7vw; border-radius: 50px;}
-</style>
 </head>
 <body>
 
@@ -31,8 +26,6 @@
                 <div class="info-inner">
 					<form name="ClockForm">
                     	<div class="today">
-	                    	<p style = "font-size: 20px; font-weight: 800;">${sysDate}</p>
-	                    	<div class="time" style="margin-top: 10px;"><p>${localTime}</p></div>
 	                    	<div class="profile">
 		                    	<c:choose>
 		                    		<c:when test="${dto.saveProfile == null}">
@@ -43,22 +36,22 @@
 									</c:otherwise>
 								</c:choose>
 							</div>
-							<input type='hidden' name="empIdx" value="${dto.empIdx}" style="margin-top: 10px;">
-	                        <div class="department" style=" margin-top: 10px; font-size: 20px" ><p>${sessionScope.member.deptName}</p></div>
-	                        <div class="department" style="font-size: 20px" ><p>${sessionScope.member.teamName}</p></div>
+							<input type='hidden' name="empIdx" value="${dto.empIdx}">
+	                        <div class="department">
+	                        	<span>${sessionScope.member.deptName}</span> ${sessionScope.member.teamName}
+                        	</div>
 	                        <div class="name" style="font-size: 20px"><p>${sessionScope.member.empName}</p></div>
                    		</div>
-                   		<div class="work">
-	                        <div class="status">
-	                            <ul>
-	                                <li>업무 상태</li>
-	                                <li>${loginTime == null ? "출근 전" : "출근 완료"}</li>
-	                            </ul>
-	                            <ul>
-	                                <li>출근 시간</li>
-	                                <li>${loginTime.loginTime}</li>
-	                            </ul>
-	                        </div>
+                    	<div id="clock"></div>
+                        <div class="status">
+                            <ul>
+                                <li>업무 상태</li>
+                                <li>${loginTime == null ? "출근 전" : "출근 완료"}</li>
+                            </ul>
+                            <ul>
+                                <li>출근 시간</li>
+                                <li>${loginTime.loginTime}</li>
+                            </ul>
                         </div>
 	                    <div class="btnWrap">
 	                        <button type="button" onclick="ClockIn();" >${loginTime == null ? "출근" : "퇴근"}</button>
@@ -78,7 +71,12 @@
 			            <tbody id="calendar-body"></tbody>
 			        </table>
             	</div>
-            	<h2><a href="${pageContext.request.contextPath}/schedule/schedule?categoryIdx=3"> 오늘의 일정</a></h2>
+            	<h2>오늘의 일정</h2>
+            	<div class="moveUrl">
+                	<a href="${pageContext.request.contextPath}/schedule/schedule?categoryIdx=3">
+                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+                	</a>
+                </div>
             	<div class="calendarList">
             		<ul>
 		           		<c:forEach var="schedule" items="${list}">
@@ -96,37 +94,83 @@
             </div>
             <div class="notice">
                 <h2>공지사항</h2>
+                <div class="moveUrl">
+                	<a href="${pageContext.request.contextPath}/notice/list">
+                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+                	</a>
+                </div>
                 <div class="noticeList">
                     <ul>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 2024년 연말 결산 및 부서별 실적 보고서 제출 안내 </a></li>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; &lt;인사부 필독&gt; 2025년 신입 사원 채용 일정 및 절차 안내 </a></li>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 설 연휴 기간 사내 출입 및 출입증 사용 안내와 특별 보안 조치 안내 </a></li>
-                    	<li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 2025년 설 연휴 중 근무자 및 휴가 신청 관련 공지사항 </a></li>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; &lt;개발부 필독&gt; 개발부 사무실 이전에 따른 업무 공백 및 협조 사항 </a></li>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 2025년 상반기 인사 발령 공고 및 관련 절차 안내 </a></li>
-                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 업무 효율성 향상을 위한 새로운 프로젝트 관리 툴 도입 안내 </a></li>
-                    	
+                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; 2024년 연말 결산 및 부서별 실적 보고서 제출 안내 </a></li>
+                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &lt;인사부 필독&gt; 2025년 신입 사원 채용 일정 및 절차 안내 </a></li>
+                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; 설 연휴 기간 사내 출입 및 출입증 사용 안내와 특별 보안 조치 안내 </a></li>
+                    	<li><a href="javscript:;">&#91;공지&#93; &nbsp; 2025년 설 연휴 중 근무자 및 휴가 신청 관련 공지사항 </a></li>
+                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; &lt;개발부 필독&gt; 개발부 사무실 이전에 따른 업무 공백 및 협조 사항 </a></li>
+                        <li><a href="javscript:;">&#91;공지&#93; &nbsp; 2025년 상반기 인사 발령 공고 및 관련 절차 안내 </a></li>
+                        <!-- <li><a href="javscript:;">&#91;공지&#93; &nbsp; &nbsp; 업무 효율성 향상을 위한 새로운 프로젝트 관리 툴 도입 안내 </a></li> -->
                     </ul>
                 </div>
             </div>
             <div class="dataRoom">
                 <h2>자료실</h2>
-            </div>
-            <div class="sign">
-                <h2>결재 대기 문서</h2>
-                <div class="signStandBy"></div>
-            </div>
-            <div class="mail">
-                <h2><a href="${pageContext.request.contextPath}/mail/list">메일</a></h2>
-                <div class="acceptMail">
+                <div class="moveUrl">
+                	<a href="${pageContext.request.contextPath}/main">
+                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+                	</a>
+                </div>
+                <div class="dataRoomList">
                     <ul>
-                        <li><a href="${pageContext.request.contextPath}/mail/list">[보낸메일]	 20241001 홍길동 사원 건강보험 피부양자 변경 서류</a></li>
-                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [급여명세서] 2025 02월 급여명세서</a></li>
-                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [공지] 25년 2월 3주차 회의실 예약 현황</a></li>
-                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일]	 [공지] 3층 남자 화장실 시설 점검 안내 </a></li>
-                        <li><a href="${pageContext.request.contextPath}/mail/list">[받은메일] 	 [공지] 설 상여금 지급 관련 공지</a></li>
+                        <li><a href="javscript:;">회의록 템플릿 (업데이트 버전)</a></li>
+                        <li><a href="javscript:;">프로젝트 기획서 양식 (Excel & PPT)</a></li>
+                        <li><a href="javscript:;">출장비 정산 양식 및 사용법</a></li>
+                        <li><a href="javscript:;">VPN 및 원격 접속 방법 안내</a></li>
+                        <li><a href="javscript:;">사내 시스템 로그인 오류 해결 방법</a></li>
+                        <li><a href="javscript:;">디자인 트렌드 보고서 (2025)</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="mail">
+                <h2>메일</h2>
+                <div class="moveUrl">
+                	<a href="${pageContext.request.contextPath}/mail/list">
+                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+                	</a>
+                </div>
+                <div class="acceptMail">
+                    <ul>
+                    	<!-- 받은 메일만 -->
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[급여명세서] 2025 02월 급여명세서</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[공지] 25년 2월 3주차 회의실 예약 현황</a></li>
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[공지] 3층 남자 화장실 시설 점검 안내 </a></li> 
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[공지] 설 상여금 지급 관련 공지</a></li> 
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[공지] 설 연휴간 추가 근무 안내</a></li> 
+                        <li><a href="${pageContext.request.contextPath}/mail/list">[예약] 2025-01-20 10:00 A회의실 예약 완료되었습니다.</a></li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="quickLink">
+            	<ul>
+            		<li>
+            			<span><i class="bi bi-calendar-check"></i></span>
+            			<a href="${pageContext.request.contextPath}/sign/leaveRequest">연차 신청</a>
+            		</li>
+            		<li>
+            			<span><i class="bi bi-easel"></i></span>
+            			<a href="${pageContext.request.contextPath}/reservation/main">회의실 예약</a>
+            		</li>
+            		<li>
+            			<span><i class="bi bi-folder2-open"></i></span>
+            			<a href="${pageContext.request.contextPath}/main">공유 문서함</a>
+            		</li>
+            		<li>
+            			<span><i class="bi bi-credit-card"></i></span>
+            			<a href="${pageContext.request.contextPath}/main">경비정산</a>
+            		</li>
+            		<li>
+            			<span><i class="bi bi-search"></i></span>
+            			<a href="${pageContext.request.contextPath}/main">직원 검색</a>
+            		</li>
+            	</ul>
             </div>
         </div>
     </main>
@@ -176,6 +220,18 @@
 	    const activeDay = today.getDate();
 	    generateCalendar(currentYear, currentMonth, activeDay);
 	});
+	
+	function updateClock() {
+        var now = new Date();
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var seconds = now.getSeconds().toString().padStart(2, '0');
+        
+        document.getElementById('clock').textContent = hours + ":" + minutes + ":" + seconds;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // 페이지 로드 시 즉시 실행
 	
 </script>
 </html>

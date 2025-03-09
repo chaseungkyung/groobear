@@ -1,15 +1,21 @@
 @charset "utf-8";
 
-.mainInner ul {display: unset; border-radius: unset; height: auto;}
-.mainInner ul li {padding: unset; text-align: unset; display: unset;}
+main {width: 93vw;}
+main .mainInner {width: 83vw;}
+
+.mainInner ul {display: unset; border-radius: unset; height: auto; width: 100%;}
+.mainInner ul li {padding: unset; text-align: unset; display: unset; width: 100%; height: 2.08vw; line-height: 2.08vw;}
 .mainInner ul:first-child {background-color: unset;}
 .mainInner ul:not(:first-child) li {border-bottom: unset;}
+
+.mainInner ul li a {display: block; width: 100%; height: 100%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
+.mainInner ul li a:hover {text-decoration: underline;}
 
 /* 홈 화면 */
 main .home {
     display: grid;
     grid-template-columns: repeat(12, 1fr); /* 12컬럼 */
-    grid-template-rows: repeat(3, 1fr); /* 3행 */
+    grid-template-rows: repeat(4, 8.8vw); /* 2행 */
     gap: 1.39vw; /* 컬럼과 행 사이 간격 */
 }
 
@@ -18,60 +24,70 @@ main .home > div {
     padding: 1.39vw;
     box-sizing: border-box;
     border-radius: 0.35vw;
-    box-shadow: 0 0 0.69vw #aaa;
+    box-shadow: 0 0 0.7vw rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 main .home h2 {margin-bottom: 1.39vw; font-size: 1.39vw;}
 
+main .home .moveUrl {
+    width: 1vw;
+    position: absolute;
+    top: 1.39vw;
+    right: 1.39vw;
+}
+main .home .moveUrl a {display: block; width: 100%; height: 100%;}
+main .home .moveUrl img {width: 100%;}
+
+main .home .schedule .moveUrl {top: 15.3vw;}
+
 /* 각 요소 스타일 */
-.info {grid-column: span 3; grid-row: span 2;}
-.schedule {grid-column: span 3; grid-row: span 2;}
-.notice {grid-column: span 6;}
-.dataRoom {grid-column: span 6;}
-.sign {grid-column: span 6;}
-.mail {grid-column: span 6;}
+.info {grid-column: span 3; grid-row: span 3;}
+.schedule {grid-column: span 3; grid-row: span 3;}
+.notice {grid-column: span 6; grid-row: span 2;}
+.dataRoom {grid-column: span 3; grid-row: span 2;}
+.mail {grid-column: span 3; grid-row: span 2;}
+.quickLink {grid-column: span 6;}
 
 /* 근태관리 */
-.info .info-inner {width: 100%; height: 100%; text-align: center; padding-top: 2.08vw; box-sizing: border-box; position: relative;}
-.info .info-inner .profile { margin: auto; height: 7vw;}
-.info .info-inner .profile .profileImg  {width: 9.03vw; height: 7vw; border-radius: 6.94vw; margin: auto;}
+.info .info-inner {width: 100%; height: 100%; text-align: center; box-sizing: border-box; position: relative;}
+.info .info-inner .profile {margin: 0 auto 1vw auto; height: 10vw;}
+.info .info-inner .profile .profileImg  {height: 100%;}
 .info .info-inner .profile .userImg {width: 9.03vw; height: 7vw; border-radius: 6.94vw; background-color: #eee; margin: auto; margin-bottom: 1.39vw;}
 
 .info .info-inner .today {margin-bottom: 0.69vw; height: auto;}
-.info .info-inner .today p {margin-bottom: 0.69vw;}
+.info .info-inner .today p {margin-bottom: 1.5vw;}
 
 .info .info-inner .department {margin-bottom: 0.69vw; }
-.info .info-inner .name {margin-bottom: 1.39vw;}
 
-.info .info-inner .time {margin-bottom: 2.08vw; font-size: 1.39vw;}
+.info .info-inner #clock {margin-bottom: 1.5vw; font-size: 1.7vw; font-weight: 900;}
 
-.info .info-inner .work .status ul {width: 90%; display: flex; justify-content: space-between; font-size: 1.11vw;}
-.info .info-inner .work .status ul li {height: 2.78vw; display: flex; align-items: center;}
-.info .info-inner .work .status ul li:first-child {text-align: left; margin-left: 3.47vw;}
-.info .info-inner .work .status ul li:last-child {text-align: right; margin-right: 0.69vw;}
+.info .info-inner .status ul {width: 100%; display: flex; justify-content: space-between; font-size: 1.11vw;}
+.info .info-inner .status ul li {height: 2.5vw; display: flex; align-items: center;}
 
-.info .info-inner .btnWrap {position: absolute; width: 100%; bottom: 0;}
+.info .info-inner .btnWrap {position: absolute; bottom: 0; left: 0; right: 0;}
 .info .info-inner .btnWrap button {width: 100%; padding: 0.35vw 0;}
-
-/* 메일, 공지사항 */
-.mail ul, .notice ul {width: 100%;}
-.mail ul li, .notice ul li {width: 100%; height: 2.08vw; line-height: 2.08vw; }
-
-.mail ul li a, .notice ul li a {display: block; width: 100%; height: 100%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
-.mail ul li a:hover, .notice ul li a:hover {text-decoration: underline;}
 
 /* 일정 */
 .schedule {width: 100%;}
 
 .schedule .calendar {margin-bottom: 1.39vw; text-align: center;}
-.schedule .calendar #month-year {margin-bottom: 1.39vw; font-weight: bold; font-size: 1.04vw;}
+.schedule .calendar #month-year {margin-bottom: 1vw; font-weight: bold; font-size: 1vw;}
 .schedule .calendar table {width: 100%;}
-.schedule .calendar table tr {height: 2vw; line-height: 2vw;}
+.schedule .calendar table tr {height: 1.5vw; line-height: 1.5vw;}
 
 .schedule .calendar table th:nth-child(1), .schedule .calendar table td:nth-child(1) {color: red;}
 .schedule .calendar table th:nth-child(7), .schedule .calendar table td:nth-child(7) {color: blue;}
 
-.schedule .calendarList ul {list-style: none;}
+.schedule .calendarList {overflow-y: auto; height: 10vw;}
+.schedule .calendarList ul {height: 100%; width: 100%;}
 .schedule .calendarList ul li {width: 100%; display: block;	height: 2.08vw; line-height: 2.08vw;}
 
-.active {background-color: #3B96EE; color: #ffffff !important; font-weight: bold;}
+/* 일정관리 달력 오늘 날짜 hover */
+.schedule .calendar table .active {background-color: #3B96EE; color: #ffffff !important; font-weight: bold;}
+
+/* 바로가기 */
+.quickLink ul {display: flex; justify-content: space-between; align-items: center; height: 100%; width: 100%;}
+.quickLink ul li {width: 18.4%; text-align: center; height: auto;}
+.quickLink ul li span {font-size: 2.5vw; margin-bottom: 0.5vw;}
+.quickLink ul li a {width: auto;}
