@@ -50,7 +50,7 @@
 	                    <li>입사년월일</li>
 	                    <li>전화번호</li>
 	                    <li>내선번호</li>
-	                    <li>재직상태</li>
+	                    <li hidden>재직상태</li>
 	                    <li></li>
 	                </ul>
 	                <c:forEach var="vo" items="${list}" varStatus="status">
@@ -63,7 +63,7 @@
 		                    <li>${vo.hireDate}</li>
 		                    <li>${vo.tel}</li>
 		                    <li>${vo.empTel}</li>
-		                    <li>${vo.empStatus}</li>
+		                    <li hidden>${vo.empStatus}</li>
 		                    <li><button type="button" name="update" class="updatebtn" onclick="location.href='${pageContext.request.contextPath}/emp/update?empIdx=${vo.empIdx}';">수정</button>
 		                </ul>
 	                </c:forEach>
