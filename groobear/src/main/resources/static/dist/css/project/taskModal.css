@@ -15,11 +15,11 @@
 /* 모달 컨텐츠 */
 .task-modal-content {
     background-color: white;
-    width: 400px;
+    width: 27.78vw;
     margin: 10% auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 2.08vw;
+    border-radius: 0.69vw;
+    box-shadow: 0 0.28vw 0.56vw rgba(0, 0, 0, 0.2);
 }
 
 /* 모달 헤더 */
@@ -31,28 +31,28 @@
 
 .task-modal-header h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 1.25vw;
     font-weight: bold;
 }
 
 .task-modal-close {
-    font-size: 24px;
+    font-size: 1.67vw;
     cursor: pointer;
 }
 
 /* 모달 바디 */
 .task-modal-body {
-    margin-top: 10px;
+    margin-top: 0.69vw;
 }
 
 
 .task-modal-title {
-	width: calc(100% - 20px);
-	padding: 10px;
-    margin-top: 5px;
+	width: calc(100% - 1.39vw);
+	padding: 0.69vw;
+    margin-top: 0.35vw;
     border: none;
-    border-bottom: 1px solid #ccc;
-	font-size: 15px;
+    border-bottom: 0.07vw solid #ccc;
+	font-size: 1.04vw;
 	font-weight: 600;
 }
 
@@ -61,7 +61,7 @@
 
 /* 업무 입력 폼 */
 .task-form {
-    margin-top: 20px;
+    margin-top: 1.39vw;
     display: flex;
     flex-direction: column;
     align-items: stretch; /* 전체 너비를 차지하도록 설정 */
@@ -72,16 +72,16 @@
 /* 상태 입력 버튼 */
 .task-status-btns {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 0.69vw;
+    margin-top: 1.04vw;
 }
 
 .task-status-btns button {
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-radius: 0.35vw;
+    border: 0.07vw solid #ccc;
     background-color: #f5f5f5;
     cursor: pointer;
-    margin-right: 11px;
+    margin-right: 0.76vw;
 }
 
 .task-status-btns .active {
@@ -93,12 +93,12 @@
 	display: block;
     float: left;
     width: auto;
-    min-width: 84px;
-    height: 32px;
-    padding: 0 10px;
-    border-radius: 50px;
+    min-width: 5.83vw;
+    height: 2.22vw;
+    padding: 0 0.69vw;
+    border-radius: 3.47vw;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 0.90vw;
     background: #eee;
     color: #777;
 }
@@ -114,23 +114,23 @@
 
 .task-form input, 
 .task-form textarea {
-    width: calc(100% - 20px); /* 부모 너비를 넘지 않도록 조정 */
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: calc(100% - 1.39vw); /* 부모 너비를 넘지 않도록 조정 */
+    padding: 0.69vw;
+    margin-top: 0.35vw;
+    border: 0.07vw solid #ccc;
+    border-radius: 0.35vw;
 }
 
 .task-form textarea {
-	height: 60px;
-	margin-top: 18px;
+	height: 4.17vw;
+	margin-top: 1.25vw;
 }
 
 .task-form select {
-	padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+	padding: 0.69vw;
+    margin-top: 0.35vw;
+    border: 0.07vw solid #ccc;
+    border-radius: 0.35vw;
 }
 
 
@@ -138,7 +138,7 @@
 .task-date-container {
     display: flex;
     justify-content: space-between; /* 시작일, 종료일을 좌우 배치 */
-    gap: 10px; /* 두 입력 필드 사이 여백 */
+    gap: 0.69vw; /* 두 입력 필드 사이 여백 */
     width: 100%;
 }
 
@@ -150,14 +150,14 @@
 
 .task-label {
     font-weight: 550;
-    margin: 5px 0px 5px 5px
+    margin: 0.35vw 0.00vw 0.35vw 0.35vw
 }
 
 .task-date-input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.56vw;
+    border: 0.07vw solid #ccc;
+    border-radius: 0.35vw;
 }
 
 
@@ -168,15 +168,15 @@
 .task-modal-footer {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1.39vw;
 }
 
 .task-cancel-button, .task-insert-button {
-    padding: 8px 40px;
-    border-radius: 5px;
+    padding: 0.56vw 2.78vw;
+    border-radius: 0.35vw;
     border: none;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 0 0.69vw;
 }
 
 .task-cancel-button {

@@ -15,15 +15,15 @@
 /* 모달 컨텐츠 */
 .team-modal-content {
     background-color: white;
-    width: 700px;
+    width: 48.61vw;
     max-height: 95vh; 
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* 화면 정중앙으로 이동 */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1.39vw;
+    border-radius: 0.69vw;
+    box-shadow: 0 0.28vw 0.56vw rgba(0, 0, 0, 0.2);
     text-align: center;
     overflow-y: auto;
 }
@@ -32,14 +32,14 @@
 	display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom:15px;
-    font-size: 16px;
+    border-bottom: 0.07vw solid #ddd;
+    padding-bottom:1.04vw;
+    font-size: 1.11vw;
     font-weight: bold;
 }
 
 .team-close {
-    font-size: 20px;
+    font-size: 1.39vw;
     cursor: pointer;
 }
 
@@ -49,11 +49,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-height: 300px;
+    max-height: 20.83vw;
     overflow-y: auto;
-    min-height: 80px;
-    margin: 10px; 
-    gap: 13px;
+    min-height: 5.56vw;
+    margin: 0.69vw; 
+    gap: 0.90vw;
 }
 
 .project-member-info {
@@ -61,13 +61,13 @@
     flex-direction: column; /* 세로 정렬 */
     align-items: center;
     text-align: center;
-    width: calc(50% / 5px);
+    width: calc(50% / 0.35vw);
     cursor: pointer;
 }
 
 .project-member-img {
-    width: 50px;
-    height: 50px;
+    width: 3.47vw;
+    height: 3.47vw;
     border-radius: 50%;
     background: url('https://cdn-icons-png.flaticon.com/128/847/847969.png') no-repeat center;
     background-size: contain;
@@ -93,28 +93,28 @@
 }
 
 .project-member-name {
-    margin-top: 5px;
-    font-size: 13px;
+    margin-top: 0.35vw;
+    font-size: 0.90vw;
     white-space: nowrap;
 }
 
 
 
 .add-team-btn-area{
-	border-top: 1px solid #eee;
+	border-top: 0.07vw solid #eee;
 }
 
 
 /* 팀 추가 버튼 */
 .add-team-btn {
     width: 30%;
-    padding: 10px;
+    padding: 0.69vw;
     background-color: #4834d4;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.35vw;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 0.69vw;
 }
 
 .add-team-btn:hover {
@@ -125,10 +125,10 @@
 #teamContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px; 
+    gap: 0.69vw; 
     justify-items: center; 
-    padding: 10px;
-    max-height: 460px;
+    padding: 0.69vw;
+    max-height: 31.94vw;
     overflow-y: auto; 
 }
 
@@ -136,10 +136,10 @@
 /* 팀 박스를 감싸는 영역 */
 .team-add-area {
     position: relative;
-    padding: 10px;
-    width: 160px;
+    padding: 0.69vw;
+    width: 11.11vw;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 0.35vw;
     text-align: center;
 }
 
@@ -149,17 +149,17 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 0.35vw;
 }
 
 /* 팀 입력 필드 스타일 */
 .projTeam-input {
     width: 80%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.35vw;
+    border: 0.07vw solid #ccc;
+    border-radius: 0.35vw;
     text-align: left;
-    font-size: 14px;
+    font-size: 0.97vw;
 }
 
 .projTeam-input::placeholder {
@@ -174,11 +174,11 @@
 .delete-team-btn {
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 1.11vw;
     font-weight: bold;
     cursor: pointer;
     color: black;
-    padding: 4px;
+    padding: 0.28vw;
 }
 
 .delete-team-btn:hover {
@@ -191,14 +191,14 @@
 .team-box {
     display: flex;
     flex-wrap: wrap; /* 여러 줄 허용 */
-    gap: 10px; /* 요소 간격 */
+    gap: 0.69vw; /* 요소 간격 */
     justify-content: center; /* 중앙 정렬 */
     align-items: center;
-    border: 2px solid #999;
-    border-radius: 5px;
-    padding: 10px; 
-    min-height: 145px;
-    max-height: 145px;
+    border: 0.14vw solid #999;
+    border-radius: 0.35vw;
+    padding: 0.69vw; 
+    min-height: 10.07vw;
+    max-height: 10.07vw;
     overflow-y: auto; 
 }
 
@@ -208,14 +208,14 @@
     flex-direction: column; /* 세로 정렬 */
     align-items: center;
     justify-content: center;
-    width: calc(50% - 5px); /* 한 줄에 2개씩 들어가도록 설정 */
+    width: calc(50% - 0.35vw); /* 한 줄에 2개씩 들어가도록 설정 */
     text-align: center;
 }
 
 /* 멤버 이미지 스타일 */
 .member-img {
-    width: 50px;
-    height: 50px;
+    width: 3.47vw;
+    height: 3.47vw;
     background: url('https://cdn-icons-png.flaticon.com/128/847/847969.png') no-repeat center;
     background-size: contain;
     border-radius: 50%;
@@ -226,17 +226,17 @@
 /* 삭제 아이콘 스타일 */
 .remove-member {
     position: absolute;
-    top: -3px;
-    right: -4px;
-    width: 18px;
-    height: 18px;
+    top: -0.21vw;
+    right: -0.28vw;
+    width: 1.25vw;
+    height: 1.25vw;
     cursor: pointer;
 }
 
 /* 멤버 이름 스타일 */
 .member-name {
-    margin-top: 5px; 
-    font-size: 12px;
+    margin-top: 0.35vw; 
+    font-size: 0.83vw;
     color: black;
     text-align: center;
 }
@@ -244,8 +244,8 @@
 .team-modal-footer{
 	display: flex;
 	justify-content: center;
-	gap: 10px;
-	padding: 15px;
+	gap: 0.69vw;
+	padding: 1.04vw;
 }
 
 /* 닫기 버튼 */
@@ -255,15 +255,15 @@
     align-items: center;
     background: #fff;
     width: 40%;
-    height: 36px;
-    line-height: 34px;
+    height: 2.50vw;
+    line-height: 2.36vw;
     text-align: center;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    border: 0.07vw solid #ddd;
+    -webkit-border-radius: 0.28vw;
+    border-radius: 0.28vw;
     color: #555;
-    font-size: 13px;
-    max-width: 182px;
+    font-size: 0.90vw;
+    max-width: 12.64vw;
     background: #f5f5f5;
 }
 
@@ -274,13 +274,13 @@
     align-items: center;
     background: #6c5ce7;
     width: 40%;
-    height: 36px;
+    height: 2.50vw;
     text-align: center;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.42vw;
     color: #fff;
-    font-size: 14px;
-    max-width: 182px;
+    font-size: 0.97vw;
+    max-width: 12.64vw;
     cursor: pointer;
     font-weight: 500;
 }
@@ -295,13 +295,13 @@
     align-items: center;
     background: #78c850;
     width: 40%;
-    height: 36px;
+    height: 2.50vw;
     text-align: center;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.42vw;
     color: #fff;
-    font-size: 14px;
-    max-width: 182px;
+    font-size: 0.97vw;
+    max-width: 12.64vw;
     cursor: pointer;
     font-weight: 500;	
 }

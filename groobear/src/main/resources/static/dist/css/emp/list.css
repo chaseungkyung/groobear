@@ -4,13 +4,13 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 0.69vw;
 }
 
 .search {position: relative;}
-.search input {padding: 5px 39px 5px 10px; border-radius: 5px; box-sizing: border-box; border: 1px solid #999;}
+.search input {padding: 0.35vw 2.71vw 0.35vw 0.69vw; border-radius: 0.35vw; box-sizing: border-box; border: 0.07vw solid #999;}
 .search button {position: absolute; top: 50%; transform: translateY(-50%); right: 5%; border: unset; padding: unset;}
-.search button img {width: 15px;}
+.search button img {width: 1.04vw;}
 
 .search button:hover {background-color: unset;}
 
@@ -18,31 +18,31 @@
 
 .selectAdd select, .selectAdd .addEmp {width: 30%;}
 
-.selectAdd select {padding: 0 10px; border-radius: 5px; box-sizing: border-box; height: 25px;}
+.selectAdd select {padding: 0 0.69vw; border-radius: 0.35vw; box-sizing: border-box; height: 1.74vw;}
 
-.selectAdd .addEmp {margin: 0 10px;}
+.selectAdd .addEmp {margin: 0 0.69vw;}
 .selectAdd .addEmp a , .print .btn  {
 	color : #2f518b;
-    padding: 10px 10px;
-    font-size: 15px;
+    padding: 0.69vw 0.69vw;
+    font-size: 1.04vw;
     font-weight: 700;
     border: none;
-    border-radius: 8px; 
+    border-radius: 0.56vw; 
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.14vw 0.28vw rgba(0, 0, 0, 0.1);
 }
 
 
 .print .btn { color: #2f518b; }
-.selectAdd .addEmp a {display: block; width: 100%; height: 100%; padding: 5px 10px; box-sizing: border-box; border-radius: 5px;}
+.selectAdd .addEmp a {display: block; width: 100%; height: 100%; padding: 0.35vw 0.69vw; box-sizing: border-box; border-radius: 0.35vw;}
 .selectAdd .addEmp a img {width: 15%; margin-right: 5%;}
 .selectAdd .addEmp a:hover , .print .btn:hover {background-color: #2f518b; color: #eee;}
 
-.listArea {margin-bottom: 20px;}
-.listArea ul li {border-bottom: 1px solid #eee;}
+.listArea {margin-bottom: 1.39vw;}
+.listArea ul li {border-bottom: 0.07vw solid #eee;}
 
-.listArea ul li:nth-child(1) {width: 15%; margin-left: 20px;} /* 사원번호 */
+.listArea ul li:nth-child(1) {width: 15%; margin-left: 1.39vw;} /* 사원번호 */
 .listArea ul li:nth-child(2) {width: 10%;} /* 이름 */
 .listArea ul li:nth-child(3) {width: 10%;} /* 부서 */
 .listArea ul li:nth-child(4) {width: 10%;} /* 팀 */
@@ -55,27 +55,27 @@
 .updatebtn {
 	color: #2f518b;
 	background-color : white;
-    padding: 5px 5px;
-    font-size: 14px;
+    padding: 0.35vw 0.35vw;
+    font-size: 0.97vw;
     border: none; 
     cursor: pointer;
 }
 
 .body-title {
     color: #424951;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    margin: 0 0 25px 0;
+    padding-top: 0.69vw;
+    padding-bottom: 0.35vw;
+    margin: 0 0 1.74vw 0;
 }
 
 .body-title h3 {
-    font-size: 23px;
-    min-width: 300px;
+    font-size: 1.60vw;
+    min-width: 20.83vw;
     font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
     font-weight: bold;
-    margin: 0 0 -5px 0;
-    padding-bottom: 5px;
+    margin: 0 0 -0.35vw 0;
+    padding-bottom: 0.35vw;
     display: inline-block;
-    border-bottom: 3px solid #424951;
-    margin-bottom: 20px;
+    border-bottom: 0.21vw solid #424951;
+    margin-bottom: 1.39vw;
 }

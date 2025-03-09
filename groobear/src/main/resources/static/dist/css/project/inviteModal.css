@@ -16,16 +16,16 @@
 .invite-modal-content {
     background-color: white;
     margin: 10% auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 700px;
+    padding: 1.39vw;
+    border-radius: 0.56vw;
+    width: 48.61vw;
     position: relative;
 }
 
 /* 컨텐츠 영역 */
 .invite-modal-body {
     display: flex;
-    height: 350px;
+    height: 24.31vw;
 }
 
 
@@ -34,14 +34,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 20px;
-    font-size: 16px;
+    border-bottom: 0.07vw solid #ddd;
+    padding: 1.04vw 1.39vw;
+    font-size: 1.11vw;
     font-weight: bold;
 }
 
 .invite-close {
-    font-size: 20px;
+    font-size: 1.39vw;
     cursor: pointer;
 }
 
@@ -52,17 +52,17 @@
     width: 60%;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #ddd;
+    border-right: 0.07vw solid #ddd;
 }
 
 /* 검색 영역 */
 .invite-search-box {
     display: flex;
-    padding: 5px;
-    border: 1px solid #ddd;
+    padding: 0.35vw;
+    border: 0.07vw solid #ddd;
     align-items: center;
-    border-radius: 4px;
-    margin: 10px;
+    border-radius: 0.28vw;
+    margin: 0.69vw;
     width: 90%;
 }
 
@@ -70,7 +70,7 @@
     flex-grow: 1;
     border: none;
     outline: none;
-    padding: 6px;
+    padding: 0.42vw;
 }
 
 .invite-search-box button {
@@ -90,8 +90,8 @@
 .invite-user-item {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 0.69vw;
+    border-radius: 0.42vw;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
 }
@@ -105,14 +105,14 @@
 /* 체크박스 기본 상태 */
 .invite-select-user {
     appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #bbb;
+    width: 1.11vw;
+    height: 1.11vw;
+    border: 0.14vw solid #bbb;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin-right: 0.69vw;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -132,7 +132,7 @@
 /* 체크박스 선택 시 체크 아이콘 표시 */
 .invite-select-user:checked::after {
     content: "✔";
-    font-size: 12px;
+    font-size: 0.83vw;
     color: white;
     font-weight: bold;
     position: absolute;
@@ -153,19 +153,19 @@
     background-color: #ff8c00;
     color: white;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 2.08vw;
+    height: 2.08vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin-right: 0.69vw;
 }
 
 
 /* 오른쪽 섹션 (선택된 사용자 목록) */
 .right-section {
     width: 45%;
-    padding: 20px;
+    padding: 1.39vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -176,7 +176,7 @@
 
 /* 기본 상태 - "대상을 선택해주세요." */
 .default-text {
-    font-size: 14px;
+    font-size: 0.97vw;
     color: #999;
     text-align: center;
     width: 100%;
@@ -189,8 +189,8 @@
     width: 100%;
     display: none;
     flex-direction: column;
-    padding: 10px 0;
-    max-height: 320px; /* 높이 제한 */
+    padding: 0.69vw 0;
+    max-height: 22.22vw; /* 높이 제한 */
     overflow-y: auto; /* 스크롤 적용 */
 }
 
@@ -201,10 +201,10 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: 14px;
+    font-size: 0.97vw;
     font-weight: bold;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.69vw;
+    border-bottom: 0.07vw solid #ddd;
 }
 
 /* "전체 삭제" 버튼 */
@@ -212,7 +212,7 @@
     background: none;
     border: none;
     color: #6c5ce7;
-    font-size: 12px;
+    font-size: 0.83vw;
     cursor: pointer;
 }
 
@@ -235,12 +235,12 @@
     display: flex;
     flex-direction: column; /* ✅ 이름과 부서명을 세로 정렬 */
     background: #f5f5f5;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 0.42vw;
+    font-size: 0.97vw;
     width: 90%;
     box-sizing: border-box;
-    padding: 8px;
-    margin: 10px;
+    padding: 0.56vw;
+    margin: 0.69vw;
 }
 
 
@@ -255,29 +255,29 @@
 
 /* 선택 박스 스타일 */
 .selected-user select {
-    padding: 4px;
-    font-size: 14px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 0.28vw;
+    font-size: 0.97vw;
+    border-radius: 0.28vw;
+    border: 0.07vw solid #ccc;
     background: white;
     cursor: pointer;
-    margin-left: 5px;
+    margin-left: 0.35vw;
 }
 
 
 
 /* 선택된 사용자 이름 */
 .selected-user-name {
-    font-size: 14px;
+    font-size: 0.97vw;
     font-weight: 500;
 }
 
 /* 부서명(소속) - 자동으로 다음 줄로 이동 */
 .selected-user-role {
     display: block;
-    font-size: 12px;
+    font-size: 0.83vw;
     color: gray;
-    margin-top: 2px;
+    margin-top: 0.14vw;
     width: 100%; /* ✅ 한 줄 전체 차지하도록 설정 */
 }
 
@@ -292,11 +292,11 @@
 .selected-user .remove-user {
     background: none;
     border: none;
-    font-size: 14px;
-    margin-left: 10px;
+    font-size: 0.97vw;
+    margin-left: 0.69vw;
     color: #666;
     cursor: pointer;
-    padding: 4px;
+    padding: 0.28vw;
 }
 
 .selected-user .remove-user:hover {
@@ -310,16 +310,16 @@
 .invite-modal-footer {
     display: flex;
     justify-content: center; /* 가운데 정렬 */
-    gap: 10px; /* 버튼 간격 조정 */
-    padding: 15px;
-    border-top: 1px solid #ddd;
+    gap: 0.69vw; /* 버튼 간격 조정 */
+    padding: 1.04vw;
+    border-top: 0.07vw solid #ddd;
 }
 
 .invite-cancel-button, .modal-invite-button {
-    padding: 10px 20px;
+    padding: 0.69vw 1.39vw;
     border: none;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 0.42vw;
 }
 
 .invite-cancel-button {
@@ -328,15 +328,15 @@
     align-items: center; /* 세로 중앙 정렬 */
     background: #fff;
     width: 47%;
-    height: 36px;
-    line-height: 34px;
+    height: 2.50vw;
+    line-height: 2.36vw;
     text-align: center;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    border: 0.07vw solid #ddd;
+    -webkit-border-radius: 0.28vw;
+    border-radius: 0.28vw;
     color: #555;
-    font-size: 13px;
-    max-width: 182px;
+    font-size: 0.90vw;
+    max-width: 12.64vw;
 }
 
 .invite-cancel-button:hover {
@@ -350,13 +350,13 @@
     align-items: center;
     background: #6c5ce7; /* 보라색 */
     width: 47%;
-    height: 36px;
+    height: 2.50vw;
     text-align: center;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.42vw;
     color: #fff;
-    font-size: 14px;
-    max-width: 182px;
+    font-size: 0.97vw;
+    max-width: 12.64vw;
     cursor: pointer;
     font-weight: 500;
 }

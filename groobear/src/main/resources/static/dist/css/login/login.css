@@ -46,15 +46,15 @@ body {
 	text-align: center;
 }
 
-.img img {width: 500px;}
+.img img {width: 34.72vw;}
 
-form {width: 360px;}
+form {width: 25.00vw;}
 
-.login-content img {height: 100px;}
+.login-content img {height: 6.94vw;}
 
 .login-content h2 {
 	font-family: Mungyeong;
-	margin: 15px 0;
+	margin: 1.04vw 0;
 	color: #3A3A55;
 	text-transform: uppercase;
 	font-size: 2.9rem;
@@ -64,9 +64,9 @@ form {width: 360px;}
 	position: relative;
 	display: grid;
 	grid-template-columns: 7% 93%;
-	margin: 25px 0;
-	padding: 5px 0;
-	border-bottom: 2px solid #d9d9d9;
+	margin: 1.74vw 0;
+	padding: 0.35vw 0;
+	border-bottom: 0.14vw solid #d9d9d9;
 }
 
 .login-content .input-div.one {margin-top: 0;}
@@ -80,24 +80,24 @@ form {width: 360px;}
 
 .i i {transition: .3s;}
 
-.input-div > div {position: relative; height: 45px;}
+.input-div > div {position: relative; height: 3.13vw;}
 
 .input-div > div > h5 {
 	position: absolute;
-	left: 10px;
+	left: 0.69vw;
 	top: 50%;
 	transform: translateY(-50%);
 	color: #999;
-	font-size: 18px;
+	font-size: 1.25vw;
 	transition: .3s;
 }
 
 .input-div:before, .input-div:after{
 	content: '';
 	position: absolute;
-	bottom: -2px;
+	bottom: -0.14vw;
 	width: 0%;
-	height: 2px;
+	height: 0.14vw;
 	background-color: #3B96EE;
 	transition: .4s;
 }
@@ -109,8 +109,8 @@ form {width: 360px;}
 .input-div.focus:before, .input-div.focus:after {width: 50%;}
 
 .input-div.focus > div > h5 {
-	top: -5px;
-	font-size: 15px;
+	top: -0.35vw;
+	font-size: 1.04vw;
 }
 
 .input-div.focus > .i > i {color: #3B96EE;}
@@ -130,7 +130,7 @@ form {width: 360px;}
 	font-family: 'poppins', sans-serif;
 }
 
-.input-div.pass {margin-bottom: 4px;}
+.input-div.pass {margin-bottom: 0.28vw;}
 
 a {
 	display: block;
@@ -146,8 +146,8 @@ a:hover {color: #3B96EE;}
 .btn{
 	display: block;
 	width: 100%;
-	height: 50px;
-	border-radius: 25px;
+	height: 3.47vw;
+	border-radius: 1.74vw;
 	outline: none;
 	border: none;
 	background-image: linear-gradient(to right, #3B96EE, #7A66D8, #D935E8);
@@ -162,4 +162,4 @@ a:hover {color: #3B96EE;}
 }
 .btn:hover {background-position: right; color: #fff;}
 
-.message {position: absolute; width: 350px; bottom: 25%;}
+.message {position: absolute; width: 24.31vw; bottom: 20%;}

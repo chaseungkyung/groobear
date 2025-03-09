@@ -2,16 +2,16 @@
 
 
 .container {
-    max-width: 900px;
+    max-width: 62.50vw;
     margin: auto;
     background: #ffffff;
 }
 
 .body-title h3 {
-    font-size: 24px;
+    font-size: 1.67vw;
     font-weight: bold;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 1.39vw;
 }
 
 .table {
@@ -20,16 +20,16 @@
 }
 
 .write-form td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 0.69vw;
+    border-bottom: 0.07vw solid #ddd;
 }
 
 .board-title-tr {
-	border-top: 2px solid;
+	border-top: 0.14vw solid;
 }
 
 .form-control-plaintext {
-    min-height: 30px;
+    min-height: 2.08vw;
     display: flex;
     align-items: center;
 }
@@ -46,35 +46,35 @@
 
 .form-control {
     width: 96%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 0.56vw 0.83vw;
+    border: 0.07vw solid #ccc;
+    border-radius: 0.35vw;
+    font-size: 1.11vw;
     transition: all 0.3s;
 }
 
 .form-control:focus {
     border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 0.35vw rgba(0, 123, 255, 0.3);
 }
 
 textarea.form-control {
     resize: vertical;
-    min-height: 150px;
+    min-height: 10.42vw;
 }
 
 
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.69vw 1.39vw;
+    font-size: 1.11vw;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.35vw;
     cursor: pointer;
     transition: all 0.3s;
-    margin: 5px;
+    margin: 0.35vw;
 }
 
 .btn-dark {
@@ -89,7 +89,7 @@ textarea.form-control {
 .btn-light {
     background-color: #f8f9fa;
     color: #333;
-    border: 1px solid #ccc;
+    border: 0.07vw solid #ccc;
 }
 
 .btn-light:hover {
@@ -98,7 +98,7 @@ textarea.form-control {
 
 .text-center {
     text-align: center;
-    padding: 10px;
+    padding: 0.69vw;
 }
 
 .delete-file {

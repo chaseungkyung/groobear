@@ -10,18 +10,18 @@ main .home {
     display: grid;
     grid-template-columns: repeat(12, 1fr); /* 12컬럼 */
     grid-template-rows: repeat(3, 1fr); /* 3행 */
-    gap: 20px; /* 컬럼과 행 사이 간격 */
+    gap: 1.39vw; /* 컬럼과 행 사이 간격 */
 }
 
 main .home > div {
     background-color: #fff;
-    padding: 20px;
+    padding: 1.39vw;
     box-sizing: border-box;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #aaa;
+    border-radius: 0.35vw;
+    box-shadow: 0 0 0.69vw #aaa;
 }
 
-main .home h2 {margin-bottom: 20px; font-size: 20px;}
+main .home h2 {margin-bottom: 1.39vw; font-size: 1.39vw;}
 
 /* 각 요소 스타일 */
 .info {grid-column: span 3; grid-row: span 2;}
@@ -32,30 +32,30 @@ main .home h2 {margin-bottom: 20px; font-size: 20px;}
 .mail {grid-column: span 6;}
 
 /* 근태관리 */
-.info .info-inner {width: 100%; height: 100%; text-align: center; padding-top: 30px; box-sizing: border-box; position: relative;}
+.info .info-inner {width: 100%; height: 100%; text-align: center; padding-top: 2.08vw; box-sizing: border-box; position: relative;}
 .info .info-inner .profile { margin: auto; height: 7vw;}
-.info .info-inner .profile .profileImg  {width: 130px; height: 7vw; border-radius: 100px; margin: auto;}
-.info .info-inner .profile .userImg {width: 130px; height: 7vw; border-radius: 100px; background-color: #eee; margin: auto; margin-bottom: 20px;}
+.info .info-inner .profile .profileImg  {width: 9.03vw; height: 7vw; border-radius: 6.94vw; margin: auto;}
+.info .info-inner .profile .userImg {width: 9.03vw; height: 7vw; border-radius: 6.94vw; background-color: #eee; margin: auto; margin-bottom: 1.39vw;}
 
-.info .info-inner .today {margin-bottom: 10px; height: auto;}
-.info .info-inner .today p {margin-bottom: 10px;}
+.info .info-inner .today {margin-bottom: 0.69vw; height: auto;}
+.info .info-inner .today p {margin-bottom: 0.69vw;}
 
-.info .info-inner .department {margin-bottom: 10px; }
-.info .info-inner .name {margin-bottom: 20px;}
+.info .info-inner .department {margin-bottom: 0.69vw; }
+.info .info-inner .name {margin-bottom: 1.39vw;}
 
-.info .info-inner .time {margin-bottom: 30px; font-size: 20px;}
+.info .info-inner .time {margin-bottom: 2.08vw; font-size: 1.39vw;}
 
-.info .info-inner .work .status ul {width: 90%; display: flex; justify-content: space-between; font-size: 16px;}
-.info .info-inner .work .status ul li {height: 40px; display: flex; align-items: center;}
-.info .info-inner .work .status ul li:first-child {text-align: left; margin-left: 50px;}
-.info .info-inner .work .status ul li:last-child {text-align: right; margin-right: 10px;}
+.info .info-inner .work .status ul {width: 90%; display: flex; justify-content: space-between; font-size: 1.11vw;}
+.info .info-inner .work .status ul li {height: 2.78vw; display: flex; align-items: center;}
+.info .info-inner .work .status ul li:first-child {text-align: left; margin-left: 3.47vw;}
+.info .info-inner .work .status ul li:last-child {text-align: right; margin-right: 0.69vw;}
 
 .info .info-inner .btnWrap {position: absolute; width: 100%; bottom: 0;}
-.info .info-inner .btnWrap button {width: 100%; padding: 5px 0;}
+.info .info-inner .btnWrap button {width: 100%; padding: 0.35vw 0;}
 
 /* 메일, 공지사항 */
 .mail ul, .notice ul {width: 100%;}
-.mail ul li, .notice ul li {width: 100%; height: 30px; line-height: 30px; }
+.mail ul li, .notice ul li {width: 100%; height: 2.08vw; line-height: 2.08vw; }
 
 .mail ul li a, .notice ul li a {display: block; width: 100%; height: 100%; white-space: nowrap; overflow: hidden; text-overflow : ellipsis;}
 .mail ul li a:hover, .notice ul li a:hover {text-decoration: underline;}
@@ -63,8 +63,8 @@ main .home h2 {margin-bottom: 20px; font-size: 20px;}
 /* 일정 */
 .schedule {width: 100%;}
 
-.schedule .calendar {margin-bottom: 20px; text-align: center;}
-.schedule .calendar #month-year {margin-bottom: 20px; font-weight: bold; font-size: 15px;}
+.schedule .calendar {margin-bottom: 1.39vw; text-align: center;}
+.schedule .calendar #month-year {margin-bottom: 1.39vw; font-weight: bold; font-size: 1.04vw;}
 .schedule .calendar table {width: 100%;}
 .schedule .calendar table tr {height: 2vw; line-height: 2vw;}
 
@@ -72,6 +72,6 @@ main .home h2 {margin-bottom: 20px; font-size: 20px;}
 .schedule .calendar table th:nth-child(7), .schedule .calendar table td:nth-child(7) {color: blue;}
 
 .schedule .calendarList ul {list-style: none;}
-.schedule .calendarList ul li {width: 100%; display: block;	height: 30px; line-height: 30px;}
+.schedule .calendarList ul li {width: 100%; display: block;	height: 2.08vw; line-height: 2.08vw;}
 
 .active {background-color: #3B96EE; color: #ffffff !important; font-weight: bold;}

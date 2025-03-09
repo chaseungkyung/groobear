@@ -5,9 +5,9 @@
 #accordionFlushExample {overflow-y: auto; height: 94%;}
 
 .iconHeader-right .iconHeader-right-inner ul {width: 100%;}
-.iconHeader-right .iconHeader-right-inner ul li {padding-top: 10px;}
+.iconHeader-right .iconHeader-right-inner ul li {padding-top: 0.69vw;}
 
 .iconHeader-right .iconHeader-right-inner ul > li:last-child {padding: unset;}
 
-.iconHeader-right .iconHeader-right-inner ul .dept .team {padding-bottom: 10px;}
-.iconHeader-right .iconHeader-right-inner ul .dept .team > li {padding: 10px 0 0 20px;}
+.iconHeader-right .iconHeader-right-inner ul .dept .team {padding-bottom: 0.69vw;}
+.iconHeader-right .iconHeader-right-inner ul .dept .team > li {padding: 0.69vw 0 0 1.39vw;}

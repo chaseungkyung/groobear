@@ -1,8 +1,8 @@
 ﻿@charset "UTF-8";
 
 .iconHeader-right .iconHeader-right-inner ul {width: 100%;}
-.iconHeader-right .iconHeader-right-inner ul li {width: 100%; height: 5vh; line-height: 5vh; border-bottom: 1px solid #efefef;}
-.iconHeader-right .iconHeader-right-inner ul li:first-child {border-top: 1px solid #efefef;}
+.iconHeader-right .iconHeader-right-inner ul li {width: 100%; height: 5vh; line-height: 5vh; border-bottom: 0.07vw solid #efefef;}
+.iconHeader-right .iconHeader-right-inner ul li:first-child {border-top: 0.07vw solid #efefef;}
 .iconHeader-right .iconHeader-right-inner ul li a {width: 100%; box-sizing: border-box; padding-left: 10%; display: flex; align-items: center;}
 .iconHeader-right .iconHeader-right-inner ul li a:hover {background-color: #efefef;}
 .iconHeader-right .iconHeader-right-inner ul li a img {width: 10%; margin-right: 10%;}
@@ -10,30 +10,30 @@
 /* 근무 현황 */
 .workTime {
 	color : #2f5ea2; 
-	font-size: 50px; 
+	font-size: 3.47vw; 
 	font-weight: 900;
-	margin-top: 30px;
-	margin-bottom: 30px;
+	margin-top: 2.08vw;
+	margin-bottom: 2.08vw;
 }
 
 #timeTable {
-	margin-top: 100px;
-	margin-bottom: 30px;
+	margin-top: 6.94vw;
+	margin-bottom: 2.08vw;
 }
 
 /* 근투현황, 추가근무내역, 휴가내역 공통 css */
 a.custom-button {
     background-color: #4C73B8; 
     color: white;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.69vw 1.39vw;
+    font-size: 1.11vw;
     font-weight: bold;
     border: none;
-    border-radius: 8px; 
+    border-radius: 0.56vw; 
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-right: 10px;
+    box-shadow: 0 0.14vw 0.28vw rgba(0, 0, 0, 0.1);
+    margin-right: 0.69vw;
 }
 
 a.select-button {
@@ -41,20 +41,20 @@ a.select-button {
 }
 a.custom-button:hover {
     background-color: #365491; 
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-0.14vw);
+    box-shadow: 0 0.28vw 0.56vw rgba(0, 0, 0, 0.15);
 }
 
 .button-group {
-    padding-left: 50px; 
-    margin-bottom: 20px;
+    padding-left: 3.47vw; 
+    margin-bottom: 1.39vw;
     display: flex;
     align-items: center;
 }
 
 
 /* 근태 내역 */
-.tkListArea ul li:nth-child(1) {width: 10%; padding-left: 20px;} /* 이름*/
+.tkListArea ul li:nth-child(1) {width: 10%; padding-left: 1.39vw;} /* 이름*/
 .tkListArea ul li:nth-child(2) {width: 10%;} /* 부서 */
 .tkListArea ul li:nth-child(3) {width: 10%;} /* 팀 */
 .tkListArea ul li:nth-child(4) {width: 10%;} /* 직급 */
@@ -63,8 +63,8 @@ a.custom-button:hover {
 .tkListArea ul li:nth-child(7) {width: 30%;} /* 사유 */
 
 /* 휴가내역 */
-.ptoListArea ul li:nth-child(1) {width: 20%; padding-left: 20px;} /* 기간 */
-.ptoListArea ul li:nth-child(2) {width: 10%; padding-left: 20px;} /* 일수 */
+.ptoListArea ul li:nth-child(1) {width: 20%; padding-left: 1.39vw;} /* 기간 */
+.ptoListArea ul li:nth-child(2) {width: 10%; padding-left: 1.39vw;} /* 일수 */
 .ptoListArea ul li:nth-child(3) {width: 10%;} /* 이름 */
 .ptoListArea ul li:nth-child(4) {width: 10%;} /* 부서 */
 .ptoListArea ul li:nth-child(5) {width: 10%;} /* 팀 */
@@ -75,43 +75,43 @@ a.custom-button:hover {
 
 .chart-box {
     width: 80%;
-    height: 500px;
-    padding: 20px;              
+    height: 34.72vw;
+    padding: 1.39vw;              
     background-color: #eee;    
-    border-radius: 20px;        
-    border: 2px solid #ddd;    
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 1.39vw;        
+    border: 0.14vw solid #ddd;    
+    box-shadow: 0 0.28vw 0.56vw rgba(0, 0, 0, 0.1);
     overflow: hidden;          
-    margin: 10px;
+    margin: 0.69vw;
 }
 
 /* 컨테이너 정렬 */
 .container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    gap: 1.39vw;
+    padding: 1.39vw;
     background-color: #f8f8f8;
-    border-radius: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 1.39vw;
+    box-shadow: 0 0.42vw 0.83vw rgba(0, 0, 0, 0.1);
 }
 
 
 .body-title {
     color: #424951;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    margin: 0 0 25px 0;
+    padding-top: 0.69vw;
+    padding-bottom: 0.35vw;
+    margin: 0 0 1.74vw 0;
 }
 
 .body-title h3 {
-    font-size: 23px;
-    min-width: 300px;
+    font-size: 1.60vw;
+    min-width: 20.83vw;
     font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
     font-weight: bold;
-    margin: 0 0 -5px 0;
-    padding-bottom: 5px;
+    margin: 0 0 -0.35vw 0;
+    padding-bottom: 0.35vw;
     display: inline-block;
-    border-bottom: 3px solid #424951;
-    margin-bottom: 20px;
+    border-bottom: 0.21vw solid #424951;
+    margin-bottom: 1.39vw;
 }

@@ -8,12 +8,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    padding: 20px;
+    gap: 0.69vw;
+    padding: 1.39vw;
 }
 
 .search-container input {
-    width: 330px; /* 원하는 크기로 조정 */
+    width: 22.92vw; /* 원하는 크기로 조정 */
 }
 
 .project-name {
@@ -25,7 +25,7 @@
 
 .project-actions {
     display: flex;
-    gap: 5px;
+    gap: 0.35vw;
 }
 
 /* 수정 버튼 스타일 (네이비 계열) */
@@ -53,8 +53,3 @@
     background-color: #343A40; /* 더 어두운 다크 그레이 */
     color: white;
 }
-
-
-
-
-

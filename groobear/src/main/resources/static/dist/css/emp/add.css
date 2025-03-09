@@ -1,52 +1,52 @@
 ﻿@charset "UTF-8";
 
-.empInfo {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;}
+.empInfo {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-bottom: 2.08vw;}
 
 .photoArea {width: fit-content;}
-.photoArea .photo {margin-bottom: 10px;}
+.photoArea .photo {margin-bottom: 0.69vw;}
 .photoArea .buttonArea {text-align: center;}
 
 .info {width: 80%;}
-.info table {width: 100%; margin-bottom: 10px;}
-.info table tr {height: 40px; display: flex; align-items: center; justify-content: space-between;}
-.info table th {width: 10%; text-align: left; padding-left: 10px; box-sizing: border-box;}
+.info table {width: 100%; margin-bottom: 0.69vw;}
+.info table tr {height: 2.78vw; display: flex; align-items: center; justify-content: space-between;}
+.info table th {width: 10%; text-align: left; padding-left: 0.69vw; box-sizing: border-box;}
 .info table td {width: 35%;}
-.info table td input, .info table td select {width: 100%; padding: 5px 0 5px 10px;}
+.info table td input, .info table td select {width: 100%; padding: 0.35vw 0 0.35vw 0.69vw;}
 .info table .eMail input {width: 47%;}
-.info table .address1 {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-top: 5px;}
+.info table .address1 {display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding-top: 0.35vw;}
 .info table .address1 input[type="button"] {padding-left: unset;}
 .info table .address1 input:nth-child(1) {width: 20%;}
 .info table .address1 input:nth-child(2) {width: 58%;}
 .info table .address1 input:nth-child(3) {width: 20%;}
 
-.insertBtn {text-align: right; margin-top: 50px;}
+.insertBtn {text-align: right; margin-top: 3.47vw;}
 
 
-.readonly {background-color: #eee; border: 1px solid #999;}
+.readonly {background-color: #eee; border: 0.07vw solid #999;}
 
 .custom-button, a.custom-button {
     color: #2f518b;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.69vw 1.39vw;
+    font-size: 1.11vw;
     font-weight: bold;
     border: none;
-    border-radius: 8px; 
+    border-radius: 0.56vw; 
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-right: 10px;
+    box-shadow: 0 0.14vw 0.28vw rgba(0, 0, 0, 0.1);
+    margin-right: 0.69vw;
 }
 
 .custom-button:hover, a.custom-button:hover {
     background-color: #365491; 
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    transform: translateY(-0.14vw);
+    box-shadow: 0 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .button-group {
-    padding-right: 50px;
-    margin-bottom: 20px;
+    padding-right: 3.47vw;
+    margin-bottom: 1.39vw;
     display: flex;
     justify-content: flex-end; 
     align-items: center;
@@ -62,10 +62,10 @@
 
 .empInfo .img-viewer {
 	cursor: pointer;
-	border: 1px solid #ccc;
-	width: 225px;
-	height: 300px;
-	border-radius: 15px;
+	border: 0.07vw solid #ccc;
+	width: 15.63vw;
+	height: 20.83vw;
+	border-radius: 1.04vw;
 	background-image: url("https://placehold.co/225x300");
 	position: relative;
 	z-index: 9999;
@@ -75,19 +75,19 @@
 
 .body-title {
     color: #424951;
-    padding-top: 10px;
-    padding-bottom: 5px;
-    margin: 0 0 25px 0;
+    padding-top: 0.69vw;
+    padding-bottom: 0.35vw;
+    margin: 0 0 1.74vw 0;
 }
 
 .body-title h3 {
-    font-size: 23px;
-    min-width: 300px;
+    font-size: 1.60vw;
+    min-width: 20.83vw;
     font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
     font-weight: bold;
-    margin: 0 0 -5px 0;
-    padding-bottom: 5px;
+    margin: 0 0 -0.35vw 0;
+    padding-bottom: 0.35vw;
     display: inline-block;
-    border-bottom: 3px solid #424951;
-    margin-bottom: 20px;
+    border-bottom: 0.21vw solid #424951;
+    margin-bottom: 1.39vw;
 }

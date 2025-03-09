@@ -5,11 +5,11 @@
     src: url(/dist/css/fonts/Pretendard-Regular.ttf) format('truetype');
 }
 
-*::-webkit-scrollbar {width: 5px;} /* 스크롤바 전체 */
-*::-webkit-scrollbar-thumb {background-color: #999; border-radius: 5px;} /* 드래그 가능한 스크롤 핸들 막대 */
+*::-webkit-scrollbar {width: 0.35vw;} /* 스크롤바 전체 */
+*::-webkit-scrollbar-thumb {background-color: #999; border-radius: 0.35vw;} /* 드래그 가능한 스크롤 핸들 막대 */
 *::-webkit-scrollbar-track {background-color: #eee;} /* 스크롤이 움직이는 영역 */
 
-body {font-size: 14px; font-family: PretendardRegular;}
+body {font-size: 0.97vw; font-family: PretendardRegular;}
 
 main {
     position: absolute;
@@ -25,25 +25,25 @@ main .mainInner {
     width: 78vw;
     margin: auto;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 1.39vw;
     box-sizing: border-box;
 }
 
 .mainInner ul {display: flex; border-radius: 0.2vw; height: 2.6vw;}
-.mainInner ul li {padding: 10px 0; text-align: center; display: flex; justify-content: center; align-items: center;}
-.mainInner ul:not(:first-child) li {border-bottom: 1px solid #eee;}
+.mainInner ul li {padding: 0.69vw 0; text-align: center; display: flex; justify-content: center; align-items: center;}
+.mainInner ul:not(:first-child) li {border-bottom: 0.07vw solid #eee;}
 .mainInner ul:first-child {background-color: #efefef;}
 
 .page-navigation ul {background-color: unset !important;}
 .page-navigation ul li {border-bottom: unset !important;}
 
 button, .back a {
-	border: 1px solid #333;
-	border-radius: 5px;
-	padding: 5px 10px;
+	border: 0.07vw solid #333;
+	border-radius: 0.35vw;
+	padding: 0.35vw 0.69vw;
 	box-sizing: border-box;
 	background-color: #fff;
 }
 button:hover, .back a:hover {background-color: #eee;}
 
-.back {text-align: center; margin-top: 50px;}
+.back {text-align: center; margin-top: 3.47vw;}

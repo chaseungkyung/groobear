@@ -1,10 +1,9 @@
 @charset "UTF-8";
 
-
 .container {
-    max-width: 1300px;
+    max-width: 90.28vw;
     background: white;
-    padding: 20px;
+    padding: 1.39vw;
     margin: auto;
     overflow-x: hidden; /* 오른쪽 넘치는 부분 숨김 */
     white-space: nowrap; /* 요소가 줄바꿈되지 않도록 설정 */
@@ -16,12 +15,12 @@
     justify-content: space-between; /* 왼쪽 끝과 오른쪽 끝 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
     width: 100%; /* 부모 요소의 전체 너비 차지 */
-    margin-bottom: 20px; /* 아래 여백 */
+    margin-bottom: 1.39vw; /* 아래 여백 */
 }
 
 /* 프로젝트 이름 스타일 */
 .projectName {
-    font-size: 30px;
+    font-size: 2.08vw;
     font-weight: bold;
 }
 
@@ -32,11 +31,11 @@
 
 /* 버튼 스타일 */
 .stage-btn-area button {
-    padding: 8px 12px;
+    padding: 0.56vw 0.83vw;
     background-color: #6c5ce7;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.28vw;
     cursor: pointer;
 }
 
@@ -53,18 +52,18 @@
 .task-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
+    margin-top: 1.11vw;
 }
 .task-table th {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: 0.07vw solid #ddd;
+    padding: 0.69vw;
     text-align: center;
     vertical-align: middle; 
     white-space: nowrap; 
 }
 
 .task-table td {
-	border: 1px solid #ddd;
+	border: 0.07vw solid #ddd;
     text-align: center;
     vertical-align: middle; 
     white-space: nowrap; 
@@ -83,14 +82,14 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 10px; /* 요소 간격 추가 */
-    padding: 8px 0px;
+    gap: 0.69vw; /* 요소 간격 추가 */
+    padding: 0.56vw 0.00vw;
 }
 
 .stage-title span {
-    margin-left: 20px; 
-	font-size: 14px;
-	padding: 5px 0px;
+    margin-left: 1.39vw; 
+	font-size: 0.97vw;
+	padding: 0.35vw 0.00vw;
 	font-weight: bold;
 }
 
@@ -102,25 +101,25 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    gap: 10px; /* 요소 간격 추가 */
-    padding: 8px 0px;
+    gap: 0.69vw; /* 요소 간격 추가 */
+    padding: 0.56vw 0.00vw;
 }
 
 .task-title span {
-	font-size: 14px;
-	padding: 5px 0px;
+	font-size: 0.97vw;
+	padding: 0.35vw 0.00vw;
 }
 
 .task-title span {
     display: inline-block;
     position: relative;
-    margin-left: 10px;
+    margin-left: 0.69vw;
 }
 
 .arrow-img {
-	width: 25px;
-	height: 17px;
-	margin-left: 30px;
+	width: 1.74vw;
+	height: 1.18vw;
+	margin-left: 2.08vw;
 }
 
 
@@ -129,18 +128,18 @@
 .right-group {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding-right: 15px;
+    gap: 0.49vw;
+    padding-right: 1.04vw;
 }
 
 
 /* 버튼 스타일 */
 .addTaskBtn {
-    padding: 3px 5px;
-    font-size: 12px;
+    padding: 0.21vw 0.35vw;
+    font-size: 0.83vw;
     color: #746d96;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 0.07vw solid #ddd;
+    border-radius: 0.28vw;
     background: #fff;
     cursor: pointer;
     white-space: nowrap; /* 버튼 텍스트가 줄 바뀌지 않도록 설정 */
@@ -154,8 +153,8 @@
 }
 
 .right-group img {
-	width: 17px;
-	height: 17px;
+	width: 1.18vw;
+	height: 1.18vw;
 	cursor: pointer;
 }
 
@@ -163,13 +162,10 @@
 	color: white;
 }
 
-
-
-
 /* 상태 */
 .status {
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 0.28vw 0.56vw;
+    border-radius: 0.28vw;
     color: white;
 }
 
@@ -182,13 +178,13 @@
 .status {
 	display: inline-block;
     width: auto;
-    min-width: 55px;
-    height: 26px;
-    padding: 0 10px;
-    line-height: 26px;
+    min-width: 3.82vw;
+    height: 1.81vw;
+    padding: 0 0.69vw;
+    line-height: 1.81vw;
     text-align: center;
-    font-size: 13px;
-    -webkit-border-radius: 200px;
-    border-radius: 200px;
+    font-size: 0.90vw;
+    -webkit-border-radius: 13.89vw;
+    border-radius: 13.89vw;
     color: #fff;
 }
