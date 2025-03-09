@@ -26,9 +26,9 @@
 				<ul>
 					<li><input type="checkbox"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[광고] 화끈한 놀이터 대기중 &#60;삼식이네 놀이터&#62; </a></li>
-					<li>2025-01-23 08:00</li>
+					<li>2025-01-30 08:00</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
