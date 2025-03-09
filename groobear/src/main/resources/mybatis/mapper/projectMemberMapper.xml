@@ -17,7 +17,7 @@
 	</insert>
 	
 	<update id="updateProjectMember" parameterType="com.sp.app.project.model.ProjectMember">
-		UPDATE projectMember SET empIdx=#{empIdx}, projTeamIdx=#{projTeamIdx, jdbcType=NUMERIC}
+		UPDATE projectMember SET projTeamIdx=#{projTeamIdx, jdbcType=NUMERIC}
 		WHERE projMemberIdx = #{projMemberIdx}
 	</update>
 	
@@ -91,5 +91,33 @@
 		    AND p.projIdx = #{projIdx}
         ORDER BY e.empName ASC			
 	</select>
+	
+	
+	<!-- projectTeam 테이블 -->
+	
+	<insert id="insertProjectTeam" parameterType="com.sp.app.project.model.ProjectTeam">
+		<selectKey keyProperty="projTeamIdx" resultType="long" order="BEFORE">
+    	    SELECT projectTeam_seq.NEXTVAL FROM DUAL
+    	</selectKey>
+		INSERT INTO projectTeam (projTeamIdx, projIdx, projTeamName)
+		VALUES (#{projTeamIdx}, #{projIdx}, NVL(#{projTeamName}, ''))
+	</insert>
+	
+	<update id="updateProjectTeam" parameterType="com.sp.app.project.model.ProjectTeam">
+		UPDATE projectTeam SET projTeamName = NVL(#{projTeamName}, '') WHERE projTeamIdx=#{projTeamIdx}
+	</update>
+	
+	<delete id="deleteProjectTeam" parameterType="Long">
+		DELETE FROM projectTeam
+		WHERE projTeamIdx=#{projTeamIdx}
+	</delete>
+	
+	<select id="getProjectTeamList" parameterType="Long" resultType="com.sp.app.project.model.ProjectTeam">
+		SELECT projTeamIdx, projTeamName
+		FROM projectTeam
+		WHERE projIdx=#{projIdx}
+		ORDER BY projTeamName ASC
+	</select>
+	
 
 </mapper>

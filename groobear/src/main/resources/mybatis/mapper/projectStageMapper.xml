@@ -28,18 +28,17 @@
 	</delete>
 	
 	<select id="getProjectStageList" parameterType="map" resultType="com.sp.app.project.model.ProjectStage">
-		SELECT ps.stageIdx, ps.projIdx, ps.stageName, ps.status, 
-			TO_CHAR(ps.startDate,'YYYY-MM-DD') AS startDate, 
-			TO_CHAR(ps.endDate, 'YYYY-MM-DD') AS endDate, 
-			TO_CHAR(ps.createdAt, 'YYYY-MM-DD') AS createdAt, ps.projTeamIdx, 
-			COALESCE(pt.projTeamName, '미배정') AS projTeamName, ps.content
-		FROM projectStage ps
-		LEFT JOIN projectTeam pt ON ps.projTeamIdx = pt.projTeamIdx
+		SELECT stageIdx, projIdx, stageName, status, 
+			TO_CHAR(startDate, 'YYYY-MM-DD') AS startDate, 
+			TO_CHAR(endDate, 'YYYY-MM-DD') AS endDate, 
+			TO_CHAR(createdAt, 'YYYY-MM-DD') AS createdAt, projTeamIdx, 
+			COALESCE(projTeamName, '미배정') AS projTeamName, content
+		FROM projectStage
 		<where>
-			<if test="projIdx != null"> AND ps.projIdx = #{projIdx} </if>
-			<if test="status != null"> AND ps.status = #{status} </if>
+			<if test="projIdx != null"> AND projIdx = #{projIdx} </if>
+			<if test="status != null"> AND status = #{status} </if>
 		</where>
-		ORDER BY ps.startDate ASC
+		ORDER BY startDate ASC
 	</select>
 	
 	<select id="getProjectStageCount" parameterType="map" resultType="Integer">

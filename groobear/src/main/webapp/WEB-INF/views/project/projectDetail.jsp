@@ -13,7 +13,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 </head>
 
@@ -64,7 +63,7 @@
 						
 						
 						<div class="task-progress-rate">
-							<div class="dropdown" id="customDropdown">
+							<div class="dropdown" id="customDropdown" data-stageIdx="">
 								<!-- 드롭다운 토글 버튼 -->
 								<div class="dropdown-toggle">
 									<span class="dropdown-label">프로젝트 단계 선택</span> <span
@@ -82,12 +81,11 @@
 							<input type="hidden" id="status" value="${status}">
 
 							<div class="task-container">
-								<div class="task-progress-bar">
+							<div class="task-progress-bar">
 									<div data-width="0" style="">
 										<span>0%</span>
 									</div>
 								</div>
-
 							</div>
 						</div>
 				
@@ -405,26 +403,6 @@ $(function() {
     
     
 });
-</script>
-
-
-
-
-
-<script>
-	// 팀 추가 버튼 클릭 시 getProjectMemberList 라는 주소로 AJAX 요청 갔다와서 projMemberlist 받아오기
-	$('#teamModalBtn').click(function () {
-		$.ajax({
-			url: "${pageContext.request.contextPath}/project/fetchProjectMemberList",
-			type: "GET",
-			data : {projIdx : ${dto.projIdx}},
-			dataType: "json",
-			success: function (data) {
-				console.log(data);
-			}
-		});
-	});
-
 </script>
 
 </body>

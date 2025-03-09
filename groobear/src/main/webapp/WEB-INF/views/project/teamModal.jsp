@@ -33,6 +33,15 @@
 </div>
 
 <script>
+let originalProjMembers = [];
+let originalProjTeams = [];
+
+let updatedProjMembers = [];
+let updatedProjTeams = [];
+let deletedProjTeams = [];
+
+let newTeamCount = -1;
+
 $(function() {
     // 모달 창 열기
     $('#teamModalBtn').click(function() {
@@ -52,7 +61,11 @@ $(function() {
 
         const fn = function (data) {
             let projTeamList = data.projTeamList;
-            projTeamList.forEach(team => { createNewTeam(team); });
+
+            projTeamList.forEach(team => {
+                createNewTeam(team);
+                originalProjTeams.push(team);
+            });
             // 팀이 추가된 후, 드롭 가능한 영역 초기화
             initDroppable();
         };
@@ -68,18 +81,18 @@ $(function() {
 
             projMemberList.forEach(member => {
                 let memberHtml = '';
-                memberHtml += '<div class="project-member-info" data-empIdx="' + member.empIdx + '">';
+                memberHtml += '<div class="project-member-info" data-projmemberidx="' + member.projMemberIdx + '">';
                 memberHtml += '  <div class="project-member-img">';
                 memberHtml += '    <img alt="" src="https://cdn-icons-png.flaticon.com/128/847/847969.png">';
                 memberHtml += '  </div>';
                 memberHtml += '  <div class="project-member-name">' + member.empName + '</div>';
                 memberHtml += '</div>';
 
+                originalProjMembers.push(member);
+
                 if(member.projTeamIdx) {
                     $('#teamContainer .projTeam-input').each(function() {
                         if ($(this).data('projteamidx') == member.projTeamIdx) {
-                            // 기존 코드에서는 memberHtml을 여러 번 추가하는 부분이 있으나,
-                            // 보통 한 번만 추가하면 되므로 필요에 따라 수정하실 수 있습니다.
                             $(this).closest('.team-add-area').find('.team-box').append(memberHtml);
                         }
                     });
@@ -94,12 +107,36 @@ $(function() {
         ajaxRequest(url, 'GET', params, 'json', fn);
     };
 
+	// AJAX - 팀과 참여자 변경사항 전송
+	const sendProjTeamUpdates = function() {
+		const url = '${pageContext.request.contextPath}/project/sendProjectTeamUpdates/' + projIdx;
+
+        const fn = function(data) {
+            if(data.state === 'true') {
+                alert('팀 편성이 완료되었습니다.');
+                // alert(updatedProjMembers.length + updatedProjTeams.length + deletedProjTeams.length + '개의 데이터가 변경되었습니다.');
+                location.reload();
+            } else {
+                alert('팀 편성에 실패했습니다.');
+            }
+        };
+
+        const settings = {
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({updatedProjMembers, updatedProjTeams, deletedProjTeams}),
+            success: fn
+        };
+
+        $.ajax(url, settings);
+	};
+	
     // 팀 생성 함수
     const createNewTeam = function(team) {
         let teamHtml = '';
         teamHtml += '<div class="team-add-area">';
         teamHtml += '  <div class="team-header">';
-        teamHtml += '    <input type="text" class="projTeam-input" placeholder="팀 이름 입력">';
+        teamHtml += '    <input type="text" class="projTeam-input" placeholder="팀 이름 입력" data-projteamidx="' + newTeamCount-- + '">';
         teamHtml += '    <button class="delete-team-btn">X</button>';
         teamHtml += '  </div>';
         teamHtml += '  <div class="team-box">';
@@ -108,12 +145,14 @@ $(function() {
 
         $('#teamContainer').append(teamHtml);
 
+        // team이 있으면 팀 이름 입력란에 팀 이름 채워넣기
         if(team && team.projTeamName) {
             $('#teamContainer .team-add-area:last .projTeam-input').val(team.projTeamName);
             $('#teamContainer .team-add-area:last .projTeam-input')
                 .attr('data-projteamidx', team.projTeamIdx)
                 .data('projteamidx', team.projTeamIdx);
         }
+
         // 새로 생성된 팀 박스도 드롭 가능한 영역으로 초기화
         initDroppable();
     };
@@ -153,11 +192,16 @@ $(function() {
     };
 
     // 모달 초기화 함수
-    const resetModal = function(){
+    const resetModal = async function(){
         $('.project-member-list').empty();
         $('#teamContainer').empty();
-        fetchProjTeamList();
-        fetchProjMemberList();
+
+        originalProjMembers = [];
+        originalProjTeams = [];
+
+        await fetchProjTeamList();
+        await fetchProjMemberList();
+
     };
 
     // 팀 추가 버튼 클릭 이벤트
@@ -167,7 +211,11 @@ $(function() {
 
     // 동적으로 생성된 삭제 버튼 이벤트 핸들러
     $(document).on("click", ".delete-team-btn", function() {
-        $(this).closest(".team-add-area").remove();
+        $(this).closest('.team-add-area').find('.project-member-info').each(function() {
+            $('.project-member-list').append($(this));
+        });
+        deletedProjTeams.push($(this).closest('.team-add-area').find('.projTeam-input').data('projteamidx'));
+        $(this).closest('.team-add-area').remove();
     });
     
     $(document).on("click", ".remove-member", function() {
@@ -178,5 +226,81 @@ $(function() {
     $('.team-reset').click(function() {
         resetModal();
     });
+
+    // 기존과 비교하여 변경된 팀원 정보를 반영하는 함수
+    const checkProjMemberUpdates = function() {        
+        $('.project-member-list .project-member-info').each(function() {
+            const projMemberIdx = $(this).data('projmemberidx');
+            const projTeamIdx = null;
+
+            const originalMember = originalProjMembers.find(member => member.projMemberIdx == projMemberIdx);
+            if (originalMember.projTeamIdx != projTeamIdx) {
+                updatedProjMembers.push({ projMemberIdx, projTeamIdx });
+            }
+        });
+
+        $('#teamContainer .team-add-area').each(function(index) {
+            const projTeamIdx = $(this).find('.projTeam-input').data('projteamidx');
+
+            $(this).find('.project-member-info').each(function() {
+                const projMemberIdx = $(this).data('projmemberidx');
+
+                if (projTeamIdx > 0) {
+                    const originalMember = originalProjMembers.find(member => member.projMemberIdx == projMemberIdx);
+                    if (originalMember.projTeamIdx != projTeamIdx) {
+                        updatedProjMembers.push({ projIdx, projMemberIdx, projTeamIdx });
+                    }
+                } else {
+                    updatedProjMembers.push({ projIdx, projMemberIdx, projTeamIdx });
+                }
+            });
+        });
+
+        console.log(updatedProjMembers);
+    };
+
+    // 기존과 비교하여 변경된 팀 정보를 반영하는 함수
+    const checkProjTeamUpdates = function() {
+        $('#teamContainer .team-add-area').each(function(index) {
+            const projTeamIdx = $(this).find('.projTeam-input').data('projteamidx');
+            const projTeamName = $(this).find('.projTeam-input').val();
+
+            if (projTeamIdx > 0) {
+                const originalTeam = originalProjTeams.find(team => team.projTeamIdx == projTeamIdx);
+                if (originalTeam.projTeamName != projTeamName) {
+                    updatedProjTeams.push({ projIdx, projTeamIdx, projTeamName });
+                }
+            } else {
+                updatedProjTeams.push({ projIdx, projTeamIdx, projTeamName });
+            }
+        });
+
+        console.log(updatedProjTeams);
+    };
+
+    // 유효성 검사
+    const checkValidation = function() {
+        let isValid = true;
+        $('#teamContainer .team-add-area').each(function() {
+            const teamName = $(this).find('.projTeam-input').val();
+            if (teamName.trim() === '') {
+                alert('팀 이름을 입력해주세요.');
+                $(this).find('.projTeam-input').focus();
+                isValid = false;
+                return false;
+            }
+        });
+        return isValid;
+    };
+
+
+    // 팀 등록완료 버튼 클릭 시 AJAX 요청
+    $('.team-create').click(function() {
+        if (!checkValidation()) return false;
+        checkProjMemberUpdates();
+        checkProjTeamUpdates();
+        sendProjTeamUpdates();
+    });
+
 });
 </script>

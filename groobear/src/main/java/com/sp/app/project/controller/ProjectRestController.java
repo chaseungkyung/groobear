@@ -22,9 +22,11 @@ import com.sp.app.project.service.ProjectMemberService;
 import com.sp.app.project.service.ProjectService;
 import com.sp.app.project.service.ProjectStageService;
 import com.sp.app.project.service.ProjectTaskService;
-import com.sp.app.project.service.ProjectTeamService;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -33,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/project/*")
 public class ProjectRestController {
 	private final ProjectService projectService;
-	private final ProjectTeamService projectTeamService;
 	private final ProjectMemberService projectMemberService;
 	private final ProjectStageService projectStageService;
 	private final ProjectTaskService projectTaskService;
@@ -123,7 +124,7 @@ public class ProjectRestController {
 			@RequestParam(name = "projIdx") long projIdx) {
 		Map<String, Object> result = new HashMap<>();
 		try {
-			List<ProjectTeam> projTeamList = projectTeamService.getProjectTeamList(projIdx);
+			List<ProjectTeam> projTeamList = projectMemberService.getProjectTeamList(projIdx);
 			result.put("projTeamList", projTeamList);
 		} catch (Exception e) {
 			log.info("getProjectTeams : ", e);
@@ -214,26 +215,26 @@ public class ProjectRestController {
 
 		return map;
 	}
-	
+
 	@GetMapping("fetchProjectStage")
 	public Map<String, Object> getProjectStage(
 			@RequestParam(name = "stageIdx") long stageIdx) {
 		Map<String, Object> map = new HashMap<>();
-		
+
 		try {
 			ProjectStage projStage = projectStageService.getProjectStageById(stageIdx);
 			map.put("projStage", projStage);
-			
+
 		} catch (Exception e) {
 			log.info("getProjectStage : ", e);
 		}
-		
+
 		return map;
 	}
 
 	// Stage insert, update
 	@PostMapping("sendProjectStage")
-	public Map<String, Object> insertProjectStage(			
+	public Map<String, Object> insertProjectStage(
 			@RequestBody ProjectStage dto,
 			@RequestParam(name = "mode", defaultValue = "insert") String mode) {
 		Map<String, Object> result = new HashMap<>();
@@ -252,26 +253,25 @@ public class ProjectRestController {
 
 		return result;
 	}
-	
+
 	@GetMapping("deleteProjectStage/{stageIdx}")
 	public Map<String, Object> deleteProjectStage(
 			@PathVariable("stageIdx") long stageIdx) {
-		
+
 		Map<String, Object> result = new HashMap<>();
-		
+
 		try {
 			projectStageService.deleteProjectStage(stageIdx);
-			
+
 			result.put("state", "true");
 		} catch (Exception e) {
 			log.info("deleteProjectStage : ", e);
 			result.put("stage", "false");
 		}
-		
+
 		return result;
 	}
 
-	
 	// Task insert, update
 	@PostMapping("sendProjectTask")
 	public Map<String, Object> insertProjectTask(
@@ -294,23 +294,57 @@ public class ProjectRestController {
 		return result;
 	}
 
-	
 	@GetMapping("deleteProjectTask/{taskIdx}")
 	public Map<String, Object> deleteProjectTask(
-			@PathVariable("taskIdx") long taskIdx){
-		
+			@PathVariable("taskIdx") long taskIdx) {
+
 		Map<String, Object> result = new HashMap<>();
-		
+
 		try {
 			projectTaskService.deleteProjectTask(taskIdx);
-			
+
 			result.put("state", "true");
 		} catch (Exception e) {
 			log.info("deleteProjectTask : ", e);
 			result.put("state", "false");
 		}
-		
+
 		return result;
+	}
+
+	@PostMapping("sendProjectTeamUpdates/{projIdx}")
+	public Map<String, Object> updateProjectTeamsAndMembers(@PathVariable("projIdx") long projIdx,
+			@RequestBody ProjectTeamUpdateRequest request) {
+		Map<String, Object> result = new HashMap<>();
+
+		try {
+			List<ProjectMember> updatedProjMembers = request.getUpdatedProjMembers();
+			List<ProjectTeam> updatedProjTeams = request.getUpdatedProjTeams();
+			List<Long> deletedProjTeams = request.getDeletedProjTeams();
+
+			// Deletion
+			for (Long projTeamIdx : deletedProjTeams) {
+				projectMemberService.deleteProjectTeam(projTeamIdx);
+			}
+
+			projectMemberService.updateProjectTeamsAndMembers(updatedProjMembers, updatedProjTeams);
+
+			result.put("state", "true");
+		} catch (Exception e) {
+			log.info("postMethodName: ", e);
+			result.put("state", "false");
+		}
+
+		return result;
+	}
+
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	static class ProjectTeamUpdateRequest {
+		private List<ProjectMember> updatedProjMembers;
+		private List<ProjectTeam> updatedProjTeams;
+		private List<Long> deletedProjTeams;
 	}
 
 }
