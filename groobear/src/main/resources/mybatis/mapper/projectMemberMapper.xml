@@ -35,6 +35,7 @@
 			<if test="projIdx != null"> AND pmb.projIdx = #{projIdx} </if>
 			<if test="projTeamIdx != null"> AND pmb.projTeamIdx = #{projTeamIdx} </if>
 		</where>
+		ORDER BY e.empName ASC
 	</select>
 	
 	<select id="getProjectMemberCount" parameterType="map" resultType="Integer">

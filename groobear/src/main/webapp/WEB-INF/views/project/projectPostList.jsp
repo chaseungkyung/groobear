@@ -94,7 +94,7 @@
 					</select>
 				</div>
 				<div class="col-auto p-1">
-					<input type="text" name="kwd" value="${kwd}" class="form-control">
+					<input type="text" name="keyword" value="${keyword}" class="form-control">
 				</div>
 				<div class="col-auto p-1">
 					<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>

@@ -58,7 +58,7 @@ public class ProjectController {
 			HttpServletRequest req, HttpSession session) {
 
 		try {
-			int size = 5;
+			int size = 10;
 			int total_page = 0;
 			int dataCount = 0;
 

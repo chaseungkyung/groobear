@@ -20,24 +20,24 @@
 	<sql id="where-list">
 		<choose>
 			<when test="schType == 'all'">
-				( INSTR(title, #{kwd}) &gt; 0
-					OR DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+				( INSTR(title, #{keyword}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
 			</when>
 			<when test="schType == 'regDate'">
-				( TO_CHAR(regDate, 'YYYYMMDD') = #{kwd}
-					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{kwd} )
+				( TO_CHAR(regDate, 'YYYYMMDD') = #{keyword}
+					OR TO_CHAR(regDate, 'YYYY-MM-DD') = #{keyword} )
 			</when>
 			<when test="schType == 'title'">
-				INSTR(title, #{kwd}) &gt; 0
+				INSTR(title, #{keyword}) &gt; 0
 			</when>
 			<when test="schType == 'content'">
-				DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+				DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
 			</when>
 			<when test="schType == 'empName'">
-				INSTR(empName, #{kwd}) &gt; 0
+				INSTR(empName, #{keyword}) &gt; 0
 			</when>
 			<otherwise>
-				INSTR(${schType}, #{kwd}) &gt; 0
+				INSTR(${schType}, #{keyword}) &gt; 0
 			</otherwise>
 		</choose>
 	</sql>
@@ -71,7 +71,7 @@
 			GROUP BY postIdx
 		) f ON pp.postIdx = f.postIdx
 		<where>
-			<if test="kwd != null and kwd != '' ">
+			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
 			AND p.projIdx = #{projIdx}
@@ -87,7 +87,7 @@
 		JOIN employee e ON pm.empIdx = e.empIdx
 		JOIN project pr ON pm.projIdx = pr.projIdx
 		<where>
-			<if test="kwd != null and kwd != '' ">
+			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>		
 		</where>
@@ -108,7 +108,7 @@
 		SELECT postIdx, title
 		FROM projectPost
 		<where>
-			<if test="kwd != null and kwd != '' ">
+			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
 			AND (postIdx &gt; #{postIdx})		
@@ -121,7 +121,7 @@
 		SELECT postIdx, title
 		FROM projectPost
 		<where>
-			<if test="kwd != null and kwd != '' ">
+			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
 			AND (postIdx &lt; #{postIdx})		

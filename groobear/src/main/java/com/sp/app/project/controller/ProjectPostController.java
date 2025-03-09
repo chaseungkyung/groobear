@@ -76,9 +76,7 @@ public class ProjectPostController {
 			map.put("projIdx", projIdx);
 			
 			dataCount = projectPostService.getProjectPostCount(map);
-			if (dataCount != 0) {
-				total_page = paginateUtil.pageCount(dataCount, size);
-			}
+			total_page = paginateUtil.pageCount(dataCount, size);
 			
 			postPage = Math.min(postPage, total_page);
 			
@@ -92,7 +90,7 @@ public class ProjectPostController {
 			
 			String cp = req.getContextPath();
 			String postQuery = "";
-			String listUrl = cp + "/project/post/list";
+			String listUrl = cp + "/project/post/list/" + projIdx ;
 			String articleUrl = cp + "/project/post/article/" + projIdx  + "?postPage=" + postPage;
 
             if (!keyword.isBlank()) {
