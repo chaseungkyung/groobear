@@ -113,7 +113,7 @@
 										<a href="${articleUrl}&noticeIdx=${dto.noticeIdx}" class="text-reset">${dto.title}</a>
 									</div>
 								
-									<c:if test="${dto.replyCount != 0}">&nbsp;${dto.replyCount})</c:if>
+									<c:if test="${dto.replyCount != 0}">&nbsp;(${dto.replyCount})</c:if>
 								</td>
 								<td align="center">${dto.empName}</td>
 								<td align="center">${dto.regDate}</td>
