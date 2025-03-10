@@ -168,7 +168,7 @@
             		</li>
             		<li>
             			<span><i class="bi bi-search"></i></span>
-            			<a href="${pageContext.request.contextPath}/main">직원 검색</a>
+            			<a href="${pageContext.request.contextPath}/emp/list">사원 검색</a>
             		</li>
             	</ul>
             </div>
