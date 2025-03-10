@@ -25,7 +25,7 @@
 	<main>
 		<div class="mainInner">
 			<div class="inner-top">
-				<span class="projectName">${dto.projName}</span>
+				<h2 class="projectName">${dto.projName}</h2>
 				<c:if test="${sessionScope.member.deptIdx == 'F' && sessionScope.member.empIdx == dto.pmEmpIdx}">
 					<div class="btn-area">
 					    <button id="teamModalBtn" class="team-button">
@@ -47,7 +47,7 @@
 					<div class="bottom-left">
 					
 						<div class="progress-rate-title">
-							<span>프로젝트 진행률</span>
+							<h2>프로젝트 진행률</h2>
 						</div>
 											
 						<div class="stage-progress-rate" id="progressContainer">
@@ -81,7 +81,7 @@
 							<input type="hidden" id="status" value="${status}">
 
 							<div class="task-container">
-							<div class="task-progress-bar">
+								<div class="task-progress-bar">
 									<div data-width="0" style="">
 										<span>0%</span>
 									</div>
@@ -93,8 +93,8 @@
 
 					<div class="bottom-right">
 						<!-- 오른쪽 참여자 목록 -->
+						<h2 class="section-title">참여자 ${projectMemberCount} 명</h2>
 						<div class="project-participants">
-							<div class="section-title">참여자 ${projectMemberCount}</div>
 
 							<div class="participant-box">
 

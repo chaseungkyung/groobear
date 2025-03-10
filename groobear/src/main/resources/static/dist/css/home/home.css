@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-main {width: 93vw;}
+main {width: 96%;}
 main .mainInner {width: 83vw;}
 
 .mainInner ul {display: unset; border-radius: unset; height: auto; width: 100%;}
