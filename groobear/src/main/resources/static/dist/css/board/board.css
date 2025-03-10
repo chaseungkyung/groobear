@@ -84,7 +84,7 @@
 
 body { font-size: 0.97vw; font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif; }
 
-a:hover, a:active{ text-decoration: underline; cursor: pointer; color: #F28011; }
+a:hover, a:active{cursor: pointer; color: #FFFFFF; }
 
 textarea:focus, input:focus { outline: none; }
 
