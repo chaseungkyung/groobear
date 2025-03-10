@@ -16,7 +16,7 @@
 
 .iconHeader-left .iconHeader-left-inner ul {width: 100%;}
 .iconHeader-left .iconHeader-left-inner ul li {width: 100%; height: 6.5vh; display: flex; align-items: center;}
-.iconHeader-left .iconHeader-left-inner ul li a {display: flex; justify-content: center; align-items: center; flex-direction: column; font-size: 0.8vw;}
+.iconHeader-left .iconHeader-left-inner ul li a {display: flex; justify-content: center; align-items: center; flex-direction: column; font-size: 0.7vw;}
 .iconHeader-left .iconHeader-left-inner ul li a img {width: 35%; padding-bottom: 0.35vw;}
 
 .iconHeader-left .iconHeader-left-inner ul li:hover {background-color: #7FA3E0;}
