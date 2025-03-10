@@ -15,7 +15,7 @@
 		</ul>
 		<div class="notif">
 			<img alt="" src="${pageContext.request.contextPath}/dist/images/menuIcon/bell_w.png">
-			<div class="count">100</div>
+			<div class="count">2</div>
 		</div>
 	</div>
 </div>
