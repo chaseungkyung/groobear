@@ -78,17 +78,6 @@
 	
 <script type="text/javascript">
 
-window.addEventListener('load', () => {
-	const inputEL = document.querySelector('form input[name=kwd]'); 
-	inputEL.addEventListener('keydown', function (evt) {
-	    if(evt.key === 'Enter') {
-	    	evt.preventDefault();
-	    	
-	    	searchList();
-	    }
-	});
-});
-
 function searchList(){
 	const f = document.searchForm;
 	if(! f.kwd.value.trim()) {
