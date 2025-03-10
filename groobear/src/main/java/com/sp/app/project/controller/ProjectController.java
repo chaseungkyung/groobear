@@ -235,7 +235,7 @@ public class ProjectController {
 	@GetMapping("detail/{projIdx}")
 	public String projectDetail(
 			@PathVariable("projIdx") long projIdx,
-			@RequestParam(name = "page") String page,
+			@RequestParam(name = "page", defaultValue = "1" ) String page,
 			@RequestParam(name = "kwd", defaultValue = "") String kwd,
 			Model model,
 			HttpSession session) {

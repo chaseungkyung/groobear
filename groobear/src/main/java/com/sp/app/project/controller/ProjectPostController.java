@@ -55,13 +55,11 @@ public class ProjectPostController {
     @GetMapping("list/{projIdx}")
     public String postList(
             @PathVariable("projIdx") long projIdx,
-            @RequestParam(name = "page", defaultValue = "1") String page,
-            @RequestParam(name = "postPage", defaultValue = "1") int postPage,
+            @RequestParam(name = "page", defaultValue = "1") int current_page,
             @RequestParam(name = "schType", defaultValue = "all") String schType,
             @RequestParam(name = "keyword", defaultValue = "") String keyword,
             Model model, HttpServletRequest req) throws Exception {
     	
-    	String query = "page=" + page;
 
         try {
         	int size = 10;
@@ -76,11 +74,14 @@ public class ProjectPostController {
 			map.put("projIdx", projIdx);
 			
 			dataCount = projectPostService.getProjectPostCount(map);
-			total_page = paginateUtil.pageCount(dataCount, size);
 			
-			postPage = Math.min(postPage, total_page);
+			if(dataCount != 0) {
+				total_page = paginateUtil.pageCount(dataCount, size);				
+			}
 			
-			int offset = (postPage - 1) * size;
+			current_page = Math.min(current_page, total_page);
+			
+			int offset = (current_page - 1) * size;
 			if (offset < 0) offset = 0;
 
 			map.put("offset", offset);
@@ -90,24 +91,27 @@ public class ProjectPostController {
 			
 			String cp = req.getContextPath();
 			String postQuery = "";
-			String listUrl = cp + "/project/post/list/" + projIdx ;
-			String articleUrl = cp + "/project/post/article/" + projIdx  + "?postPage=" + postPage;
+			String listUrl = cp + "/project/post/list/" + projIdx;
+			String articleUrl = cp + "/project/post/article/" + projIdx  + "?page=" + current_page;
 
+			String query = "page=" + current_page;
             if (!keyword.isBlank()) {
                 postQuery = "schType=" + schType + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
             
                 listUrl += "?" + postQuery;
                 articleUrl += "&" + postQuery;
+                
+                query += "&" + postQuery;
             }
             
-            String paging = paginateUtil.paging(postPage, total_page, listUrl);
+            String paging = paginateUtil.paging(current_page, total_page, listUrl);
             
             model.addAttribute("projIdx", projIdx); 
-            model.addAttribute("page", page);
-            model.addAttribute("query", query);
+            model.addAttribute("page", current_page);
+
             
             model.addAttribute("list", list);
-            model.addAttribute("postPage", postPage);
+
             model.addAttribute("dataCount", dataCount);
             model.addAttribute("size", size);
             model.addAttribute("total_page", total_page);
@@ -116,8 +120,8 @@ public class ProjectPostController {
             
             model.addAttribute("schType", schType);
             model.addAttribute("keyword", keyword);
-            model.addAttribute("postQuery", postQuery);         
-
+     
+            model.addAttribute("query", query);   
         } catch (Exception e) {
             log.info("projectPostList : ", e);
         }
@@ -174,13 +178,12 @@ public class ProjectPostController {
     		@PathVariable("projIdx") long projIdx,
     		@RequestParam("postIdx") long postIdx,
     		@RequestParam(name = "page", defaultValue = "1") String page,
-    		@RequestParam(name = "postPage") String postPage,
     		@RequestParam(name = "schType", defaultValue = "all") String schType,
     		@RequestParam(name = "keyword", defaultValue = "") String keyword,
     		Model model) throws Exception {
 	
     	String query = "page=" + page;
-    	model.addAttribute("query", query);
+    	
     	
     	try {
     		keyword = URLDecoder.decode(keyword, "utf-8");
@@ -190,6 +193,8 @@ public class ProjectPostController {
     		}
     		
     		ProjectPost dto = Objects.requireNonNull(projectPostService.getProjectPostById(postIdx));
+    		
+    		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
     		
     		Map<String, Object> map = new HashMap<>();
     		map.put("schType", schType);
@@ -206,7 +211,7 @@ public class ProjectPostController {
     		model.addAttribute("nextDto", nextDto);
     		model.addAttribute("listFile", listFile);
     		model.addAttribute("projIdx", projIdx);
-        	model.addAttribute("postPage", postPage);
+    		model.addAttribute("query", query);
         	
         	return "project/projectPostArticle";
     		
@@ -215,7 +220,7 @@ public class ProjectPostController {
 			log.info("article : ", e);
 		}
 
-    	return "redirect:/project/post/list/{projIdx}?postPage=" + postPage;
+    	return "redirect:/project/post/list/{projIdx}?page=" + page;
     }
     
     @GetMapping("update/{projIdx}")

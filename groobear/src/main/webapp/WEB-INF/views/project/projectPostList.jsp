@@ -120,6 +120,21 @@ $(document).ready(function() {
         $(this).find(".comment-count").text(comments);
     });
 });
+
+function searchList() {
+	const f = document.searchForm;
+	if(! f.keyword.value.trim()) {
+		return;
+	}
+	
+	const formData = new FormData(f);
+	let requestParams = new URLSearchParams(formData).toString();
+	
+	let projIdx = ${projIdx};
+	let url = '${pageContext.request.contextPath}/project/post/list/' +projIdx;
+	location.href = url + '?' + requestParams;
+}
+
 </script>
 
 </body>
