@@ -22,12 +22,11 @@
 			<td width="50%" align="right" class="align-middle">
 				<span class="reply-dropdown"><i class="bi bi-three-dots-vertical"></i></span>
 				<div class="reply-menu">
-					<c:choose>
-						<c:when test="${sessionScope.member.empIdx==dto.empIdx}">
-							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-postPage="${postPage}">삭제</div>
-							<div class="hideReply reply-menu-item">숨김</div>
-						</c:when>
-					</c:choose>
+					
+						<c:if test="${sessionScope.member.empIdx==dto.empIdx}">
+							<div class="deleteReply reply-menu-item" data-cmtIdx="${dto.cmtIdx}" data-page="${page}">삭제</div>
+						</c:if>
+					
 				</div>
 			</td>
 		</tr>
