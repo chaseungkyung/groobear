@@ -60,7 +60,7 @@
 		LEFT OUTER JOIN team t ON t.teamIdx = e.teamIdx
 		LEFT OUTER JOIN docApproval d ON d.empIdx = e.empIdx
 		JOIN overtimeRequest o ON o.aprIdx = d.aprIdx
-		WHERE d.status = 0
+		WHERE d.status = 0 AND e.empIdx=#{empIdx}
 	</select>
 
 	<select id="paidOffTime" parameterType="map" resultType="com.sp.app.model.MyPage">

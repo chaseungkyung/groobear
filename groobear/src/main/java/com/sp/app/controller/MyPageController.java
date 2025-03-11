@@ -54,10 +54,15 @@ public class MyPageController {
 	
 	
 	@GetMapping("timeKeeping")
-	public String timeKeeping(Model model) {
+	public String timeKeeping(Model model, HttpSession session) {
 		
 		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			long empIdx = info.getEmpIdx();
+			
 			Map<String, Object> map = new HashMap<>();
+			map.put("empIdx", empIdx);
+			
 			List<Member> list = service.timeKeeping(map);
 			
 			model.addAttribute("list", list);
