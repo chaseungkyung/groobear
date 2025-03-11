@@ -69,9 +69,12 @@ public class MyPageController {
 	
 	
 	@GetMapping("paidOffTime")
-	public String paidOffTime (Model model) throws Exception {
+	public String paidOffTime (Model model, HttpSession session) throws Exception {
 		try {
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			long empIdx = info.getEmpIdx();
 			Map<String, Object> map = new HashMap<>();
+			map.put("empIdx", empIdx);
 			List<Member> list = service.paidOffTime(map);
 			
 			model.addAttribute("list", list);

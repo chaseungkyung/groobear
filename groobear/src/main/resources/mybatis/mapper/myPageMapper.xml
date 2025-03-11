@@ -73,7 +73,7 @@
 		LEFT OUTER JOIN team t ON t.teamIdx = e.teamIdx
 		LEFT OUTER JOIN docApproval d ON d.empIdx = e.empIdx
 		JOIN leaveRequest l ON l.aprIdx = d.aprIdx
-		WHERE d.status = 0
+		WHERE d.status = 0 AND e.empIdx=#{empIdx}
 	</select>
 	
 	<select id="getLoginTime" parameterType="long" resultType="com.sp.app.model.MyPage">
