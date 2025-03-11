@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sp.app.mapper.ClubMapper">
+	<insert id="insertClub" parameterType="com.sp.app.model.Club">
+		INSERT INTO club(num, empCode, empName ,subject, imageFilename, content, 
+			reg_date, block)
+		VALUES (club_seq.NEXTVAL, #{empCode}, #{empName},#{subject},  
+			#{imageFilename}, #{content}, SYSDATE, 0)
+	</insert>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+				( INSTR(subject, #{kwd}) &gt; 0
+					OR INSTR(content, #{kwd}) &gt; 0 )
+			</when>
+			<when test="schType == 'reg_date' ">
+				( TO_CHAR(p.reg_date, 'YYYYMMDD') = #{kwd}
+					OR TO_CHAR(p.reg_date, 'YYYY-MM-DD') = #{kwd} )
+			</when>
+			<otherwise>
+			    INSTR(${schType}, #{kwd}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+		
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM club p
+		JOIN employee m ON p.empCode = m.empCode
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+		</where>		
+	</select>
+	
+	<select id="listClub" parameterType="map" resultType="com.sp.app.model.Club">
+		SELECT num, p.empCode, p.empName, subject, imageFilename, 
+			TO_CHAR(reg_date, 'yyyy-mm-dd') as reg_date
+		FROM club p
+		JOIN employee m ON p.empCode = m.empCode
+		<where>
+			<if test="kwd != null and kwd != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findById" parameterType="Long" resultType="com.sp.app.model.Club">
+		SELECT num, p.empCode, p.empName, subject, imageFilename, 
+			content, reg_date
+		FROM club p
+		JOIN employee m ON p.empCode = m.empCode
+		WHERE num = #{num}
+	</select>
+	
+	<!-- 이전글 -->
+	<select id="findByPrev" parameterType="map" resultType="com.sp.app.model.Club">
+		SELECT num, subject
+		FROM club p
+		JOIN employee m ON p.empCode = m.empCode
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+
+	<!-- 다음글 -->
+	<select id="findByNext" parameterType="map" resultType="com.sp.app.model.Club">
+		SELECT num, subject
+		FROM club p
+		JOIN employee m ON p.empCode = m.empCode
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateClub" parameterType="com.sp.app.model.Club">
+		UPDATE club SET subject = #{subject}, imageFilename = #{imageFilename},
+			content = #{content}
+		WHERE num = #{num}
+	</update>
+	
+	<delete id="deleteClub" parameterType="Long">
+		DELETE FROM club
+		WHERE num = #{num}
+	</delete>
+</mapper>
