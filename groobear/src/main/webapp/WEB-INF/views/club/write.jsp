@@ -8,7 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
@@ -25,6 +24,23 @@
 	z-index: 9999;
 	background-repeat : no-repeat;
 	background-size : cover;
+}
+.body-title {
+    color: #424951;
+    padding-top: 0.69vw;
+    padding-bottom: 0.35vw;
+    margin: 0 0 1.74vw 0;
+    border-bottom: 0.07vw solid #ddd;
+}
+.body-title h3 {
+    font-size: 1.30vw;
+    min-width: 20.83vw;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+    font-weight: bold;
+    margin: 0 0 -0.35vw 0;
+    padding-bottom: 0.35vw;
+    display: inline-block;
+    border-bottom: 0.21vw solid #424951;
 }
 </style>
 
@@ -61,10 +77,8 @@ function sendOk() {
 </head>
 <body>
 
-<header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
-</header>
 	
 <main>
 	<div class="container">
