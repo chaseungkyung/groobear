@@ -21,6 +21,11 @@ table th, table td {border: 0.07vw solid #333;}
 .approvalLine table th, .approvalLine table td {vertical-align: middle;}
 .approvalLine table .approvalCell {height: 6.94vw;}
 
+/* aritcle */
+.lineBtn {width: 100%;}
+.lineBtn .btnWrap {width: 8%; margin-left: auto;}
+.lineBtn .btnWrap a {display: block; width: 100%; height: 100%; border: 1px solid #eee; border-radius: 0.2vw; padding: 0.3vw 0; text-align: center;}
+
 /* popup */
 .backGround {
 	display: none;

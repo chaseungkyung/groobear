@@ -118,16 +118,21 @@
 		select
 		    d.aprIdx, d.empIdx, d.deptIdx, d.teamIdx, d.positionCode, doctype, regdate, paymentstage, status, decisionat, reason,
 		    writeremp, writerinfo, apr1emp, apr1result, apr1at, apr2emp, apr2info, apr2result, apr2at, apr3emp, apr3info, apr3at,
-		    e.empName, e.empCode
+		    e.empName, e.empCode,
+		    case 
+		       when doctype = '결재 요청서' THEN 'approvalRequestArticle'  
+		       when doctype = '휴가 신청서' THEN 'leaveRequestArticle'  
+		       when doctype = '시말서' THEN 'incidentReportArticle'   
+		    end As docUrl
 		from docapproval d
 		LEFT OUTER JOIN approvalLine a ON d.aprIdx = a.aprIdx
 		LEFT OUTER JOIN employee e ON d.empIdx = e.empIdx
 		<where>
 			empCode = #{empCode}
-			<if test="status == 'inprogress'">
+			<if test="mode == 'inProgress'">
 				AND status in (0, 1, 2, 3)
 			</if>
-			<if test="status == 'completed'">
+			<if test="mode == 'completed'">
 				AND status in (99, 11, 12, 13)
 			</if>
 		</where>
@@ -139,12 +144,17 @@
 		    apr1emp, apr1info, apr1result, apr1at,
 		    apr2emp, apr2info, apr2result, apr2at,
 		    apr3emp, apr1info, apr3result, apr3at,
-		    empidx, deptidx, teamidx positioncode, doctype, regdate, paymentstage, status, decisionat, reason
+		    empidx, deptidx, teamidx positioncode, doctype, regdate, paymentstage, status, decisionat, reason,
+		    case 
+		       when doctype = '결재 요청서' THEN 'approvalRequestArticle'  
+		       when doctype = '휴가 신청서' THEN 'leaveRequestArticle'  
+		       when doctype = '시말서' THEN 'incidentReportArticle'   
+		    end As docUrl		    
 		FROM approvalLine a
 		LEFT OUTER JOIN docapproval d ON a.aprIdx = d.aprIdx
 		<where>
 			apr1emp = #{empIdx} OR (apr2emp = #{empIdx} and apr1result != 0) OR (apr3emp = #{empIdx} and apr2result != 0)
-			<if test="status == 'history'">
+			<if test="mode == 'history'">
 				AND status in (99, 11, 12, 13)
 			</if>
 		</where>

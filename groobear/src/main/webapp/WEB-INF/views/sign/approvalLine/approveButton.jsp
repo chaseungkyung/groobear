@@ -4,6 +4,11 @@
 
 
 <div class="approvalLine">
+	<div class="lineBtn">
+		<div class="btnWrap">
+			<a href="javascript:history.back();">뒤로가기</a>
+		</div>
+	</div>
 	<table>
 		<tr>
 			<th>${approvalLine.writerDeptName} ${approvalLine.writerTeamName} ${approvalLine.writerName} ${approvalLine.writerPositionName}</th>

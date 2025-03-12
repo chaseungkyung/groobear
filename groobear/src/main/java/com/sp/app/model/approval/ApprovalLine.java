@@ -49,4 +49,5 @@ public class ApprovalLine extends DocApproval {
 	private String apr3TeamName;
 	private String apr3PositionName;
 	
+	private String docUrl;	
 }

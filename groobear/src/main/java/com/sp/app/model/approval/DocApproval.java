@@ -18,5 +18,6 @@ public class DocApproval extends Member {
 	private int status;
 	private String decisionAt;
 	private String reason;
+	private String docUrl;
 	
 }

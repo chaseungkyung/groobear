@@ -20,7 +20,7 @@
 			<input type="hidden" id="aprIdx" name="aprIdx" value="${approvalLine.aprIdx}" />
 			<input type="hidden" id="paymentStage" name="paymentStage" value="${docApproval.paymentStage}" />
 			<input type="hidden" id="status" name="status" value="${docApproval.status}" />
-			<jsp:include page="/WEB-INF/views/sign/approvalLine/approvalLineTable.jsp"/>
+			<jsp:include page="/WEB-INF/views/sign/approvalLine/approveButton.jsp"/>
 			<div class="writeForm">
 				<h2>시말서</h2>
 				<input type="hidden" value="시말서" name="docType">
@@ -44,7 +44,7 @@
 							<th>위반내용</th>
 						</tr>
 						<tr class="incDetail">
-							<td><textarea name="incDetail">${incidentReport.content}</textarea></td>
+							<td><textarea name="incDetail" readonly>${incidentReport.content}</textarea></td>
 						</tr>
 					</table>
 				</div>

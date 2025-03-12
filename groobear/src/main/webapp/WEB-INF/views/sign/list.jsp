@@ -36,7 +36,7 @@
 						<ul>
 							<li>${dataCount - (page - 1) * size - status.index}</li>
 							<li>
-								<a href="${articleUrl}/${docApprovalList.aprIdx}?${query}">${docApprovalList.docType}</a>
+								<a href="${articleUrl}/${docApprovalList.docUrl}/${docApprovalList.aprIdx}?${query}">${docApprovalList.docType}</a>
 							</li>
 							<li>${docApprovalList.empName}</li>
 							<li>${docApprovalList.regDate}</li>
@@ -59,7 +59,7 @@
 						<ul>
 							<li>${dataCount - (page - 1) * size - status.index}</li>
 							<li>
-								<a href="${articleUrl}/${approvalLineList.aprIdx}?${query}">${approvalLineList.docType}</a>
+								<a href="${articleUrl}/${approvalLineList.docUrl}/${approvalLineList.aprIdx}?${query}">${approvalLineList.docType}</a>
 							</li>
 							<li>${approvalLineList.writerName}</li>
 							<li>${approvalLineList.regDate}</li>

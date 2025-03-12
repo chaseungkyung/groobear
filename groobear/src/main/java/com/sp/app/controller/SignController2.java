@@ -31,11 +31,11 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/sign/*")
-public class SignController {
+//@RequestMapping("/sign/*")
+public class SignController2 {
 
 	private final SignService service;
 	private final PaginateUtil paginateUtil;
@@ -57,6 +57,9 @@ public class SignController {
 			HttpSession session
 			) {
 		
+		String requestUri = req.getRequestURI();
+
+		model.addAttribute("mode", mode);
 			
 		try {
 			
@@ -74,7 +77,15 @@ public class SignController {
 			map.put("kwd", kwd);
 			map.put("empCode", info.getEmpCode());
 			map.put("empIdx", info.getEmpIdx());
-	
+			
+			if("inProgress".equals(mode)) {
+				map.put("status", "inprogress");
+			} else if("completed".equals(mode)) {
+				map.put("status", "completed");
+			} else if("history".equals(mode)) {
+				map.put("status", "history");
+			}
+			
 			dataCount =  service.dataCount(map);
 			total_page = paginateUtil.pageCount(dataCount, size);
 			
@@ -93,8 +104,26 @@ public class SignController {
 			
 			String cp = req.getContextPath();
 			String query = "page=" + current_page;
-			String listUrl = cp + "/sign/" + mode;
-			String articleUrl = cp + "/sign";
+			String listUrl = cp + "/sign/signMain";
+			String articleUrl = cp + "/sign/";
+			
+			DocApproval doc = null;
+			
+			String docType = doc.getDocType();
+			
+			if("결재 요청서".equals(docType)) {
+				
+				articleUrl += "approvalRequestArticle";
+				
+			} else if ("휴가 신청서".equals(docType)) {
+				
+				articleUrl += "leaveRequestArticle";
+				
+			} else if ("시말서".equals(docType)) {
+				
+				articleUrl += "incidentReportArticle";
+				
+			}
 			
 			if(! kwd.isBlank()) {
 				String qs = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
@@ -104,8 +133,6 @@ public class SignController {
 			}
 			
 			String paging = paginateUtil.paging(current_page, total_page, listUrl);
-			
-			model.addAttribute("mode", mode);
 			
 			model.addAttribute("docApprovalList", inProgressList);
 			model.addAttribute("approvalLineList", approvalLineList);
@@ -125,12 +152,11 @@ public class SignController {
 			log.info("singAllList : ", e);
 		}
 		
-		return "sign/list";
+		return "sign/signMain";
 	}
 	
-	@GetMapping("{mode}/{aprIdx}")
+	@GetMapping({"approvalRequestArticle/{aprIdx}", "incidentReportArticle/{aprIdx}", "leaveRequestArticle/{aprIdx}"})
 	public String article(
-			@PathVariable(name = "mode") String mode,
 			@PathVariable("aprIdx") long aprIdx,
 			@RequestParam(name = "page") String page,
 			@RequestParam(name = "schType", defaultValue = "all") String schType,
@@ -157,35 +183,46 @@ public class SignController {
 			// 파일 apridx 찾기
 			DocAppFile docAppFile = service.docAppFileAprIdx(aprIdx);
 			
-			if(mode.equals("leaveRequestArticle")) {
-				// 휴가신청서 apridx 찾기
-				LeaveRequest leaveRequest = service.leaveRequestAprIdx(aprIdx);
-				model.addAttribute("leaveRequest", leaveRequest);
-			} else if(mode.equals("approvalRequestArticle")) {
-				// 결재 요청서 apridx 찾기
-				ApprovalReq approvalReq = service.approvalReqAprIdx(aprIdx);
-				model.addAttribute("approvalReq", approvalReq);
-			} else if(mode.equals("incidentReportArticle")) {
-				// apridx 시말서 apridx 찾기
-				IncidentReport incidentReport = service.incidentReportAprIdx(aprIdx);
-				model.addAttribute("incidentReport", incidentReport);
-			}
+			// 휴가신청서 apridx 찾기
+			LeaveRequest leaveRequest = service.leaveRequestAprIdx(aprIdx);
+			// 결재 요청서 apridx 찾기
+			ApprovalReq approvalReq = service.approvalReqAprIdx(aprIdx);
+			// apridx 시말서 apridx 찾기
+			IncidentReport incidentReport = service.incidentReportAprIdx(aprIdx);
 			
 			model.addAttribute("docApproval", docApproval);
 			model.addAttribute("approvalLine", approvalLine);
 			model.addAttribute("approvalRef", approvalRef);
 			model.addAttribute("docAppFile", docAppFile);
 			
+			model.addAttribute("leaveRequest", leaveRequest);
+			model.addAttribute("approvalReq", approvalReq);
+			model.addAttribute("incidentReport", incidentReport);
+			
 			model.addAttribute("query", query);
 			model.addAttribute("page", page);
 			
-			return "sign/" + mode;
+			String uri = request.getRequestURI();
+			
+			if(uri.contains("/approvalRequestArticle/")) {
+				
+				return "sign/approvalRequestArticle";
+				
+			} else if (uri.contains("/incidentReportArticle/")) {
+				
+				return "sign/incidentReportArticle";
+				
+			} else if (uri.contains("/leaveRequestArticle/")) {
+				
+				return "sign/leaveRequestArticle";
+				
+			}
 			
 		} catch (Exception e) {
 			log.info("article : ", e);
 		}
 		
-		return "redirect:/sign/signMain";
+		return "redirect:/sign/list?" + query;
 	}
 	
 	@ResponseBody
