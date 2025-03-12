@@ -5,7 +5,6 @@
 <html oncontextmenu="return false;">
 <head>
 <meta charset="UTF-8">
-<title>spring</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style type="text/css">
 * { padding: 0; margin: 0; }
