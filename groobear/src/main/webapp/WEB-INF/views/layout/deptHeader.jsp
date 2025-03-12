@@ -10,9 +10,9 @@
 	        const currentPath = window.location.pathname;
 	
 	        if (currentPath.includes("/dept/hrBoard")) {
-	            writeButton.href = `${window.location.origin}${pageContext.request.contextPath}/dept/hrBoard/write`;
+	            writeButton.href = "${window.location.origin}${pageContext.request.contextPath}/dept/hrBoard/write";
 	        } else if (currentPath.includes("/club")) {
-	            writeButton.href = `${window.location.origin}${pageContext.request.contextPath}/club/write`;
+	            writeButton.href = "${window.location.origin}${pageContext.request.contextPath}/club/write";
 	        }
 	    }
 	});
