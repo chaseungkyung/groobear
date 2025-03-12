@@ -11,7 +11,17 @@
 		.fc-scrollgrid-sync-table {height: 650px !important;}
 		.fc-view-harness {height: 671px !important;}
 		html, body { height: 100%; }
-		html, body { height: 100%; }
+		/* 일요일 날짜 빨간색 */
+		.fc-day-sun a {
+		  color: red;
+		  text-decoration: none;
+		}
+		
+		/* 토요일 날짜 파란색 */
+		.fc-day-sat a {
+		  color: blue;
+		  text-decoration: none;
+		}
 	</style>
 </head>
 <body>
@@ -134,7 +144,11 @@
 				headerToolbar: {
 					left: 'prev,next today',
 					center: 'title',
-					right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+					right: 'dayGridMonth,listWeek'
+				},
+				buttonText: {
+					month: '달력',
+					list: '목록'
 				},
 				initialView: 'dayGridMonth', // 처음 화면에 출력할 뷰
 				locale: 'ko',

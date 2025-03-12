@@ -60,10 +60,10 @@ main .home .schedule .moveUrl {top: 15.3vw;}
 
 .info .info-inner .department {margin-bottom: 0.69vw; }
 
-.info .info-inner #clock {margin-bottom: 1.5vw; font-size: 1.7vw; font-weight: 900;}
+.info .info-inner #clock {margin-bottom: 1.5vw; font-size: 1.3vw; font-weight: 900;}
 
-.info .info-inner .status ul {width: 100%; display: flex; justify-content: space-between; font-size: 1.11vw;}
-.info .info-inner .status ul li {height: 2.5vw; display: flex; align-items: center;}
+.info .info-inner .status ul {width: 100%; display: flex; justify-content: space-between; font-size: 1vw;}
+.info .info-inner .status ul li {height: 2vw; display: flex; align-items: center;}
 
 .info .info-inner .btnWrap {position: absolute; bottom: 0; left: 0; right: 0;}
 .info .info-inner .btnWrap button {width: 100%; padding: 0.35vw 0;}
