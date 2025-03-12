@@ -9,12 +9,8 @@
 
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 
-<style type="text/css">
-.body-container {
-	max-width: 800px;
-}
-</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
 <style type="text/css">
