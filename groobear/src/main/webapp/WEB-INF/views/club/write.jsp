@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>spring</title>
 
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 
@@ -15,6 +14,7 @@
 	max-width: 800px;
 }
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
 <style type="text/css">
@@ -67,13 +67,14 @@ function sendOk() {
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
 </header>
 	
 <main>
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-image"></i> 포토 갤러리 </h3>
+				<h3><i class="bi bi-image"></i> 동호회 게시판 </h3>
 			</div>
 			
 			<div class="body-main">
