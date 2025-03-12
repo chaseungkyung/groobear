@@ -79,15 +79,6 @@
 .answer-article .article-header-right { margin-left: auto; text-align: right; }
 .answer-article .article-body { padding: 0.35vw 0.35vw; border-bottom: 0.07vw solid #d5d5d5; }
 
-* { padding: 0; margin: 0; }
-*, *::after, *::before { box-sizing: border-box; }
-
-body { font-size: 0.97vw; font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif; }
-
-a:hover, a:active{cursor: pointer; color: #FFFFFF; }
-
-textarea:focus, input:focus { outline: none; }
-
 .border-top1 { border-top: 0.07vw solid #212529; }
 .border-top2 { border-top: 0.14vw solid #212529; }
 .border-bottom1 { border-bottom: 0.07vw solid #212529; }
