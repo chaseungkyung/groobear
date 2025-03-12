@@ -7,11 +7,26 @@
 .quickMenu .menu span {font-size: 2.5vw;}
 
 .list {display: flex; justify-content: space-between;}
+.list > div {position: relative;}
 
 .list ul {display: unset;}
 .list ul li {display: block; text-align: left; padding-left: 0.5vw;}
 
 .list p {margin-bottom: 0.5vw; font-size: 1.2vw; font-weight: 900;}
 
-.list .left {width: 49%;}
-.list .right {width: 49%;}
+.list .moveUrl {
+    width: 1vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.list .moveUrl a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.list .moveUrl a img {width: 100%;}
+
+.list .left {width: 32%;}
+.list .middle {width: 32%;}
+.list .right {width: 32%;}

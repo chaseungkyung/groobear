@@ -49,6 +49,11 @@
 			</div>
 			<div class="list">
 				<div class="left">
+					<div class="moveUrl">
+		               	<a href="${pageContext.request.contextPath}/sign/request">
+		               		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+		               	</a>
+					</div>
 					<p>결재 대기 문서</p>
 					<ul>
 						<li>휴가 신청서</li>
@@ -58,7 +63,12 @@
 						<li>신규 프로젝트 기획 및 승인 요청서</li>
 					</ul>
 				</div>
-				<div class="right">
+				<div class="middle">
+					<div class="moveUrl">
+	                	<a href="${pageContext.request.contextPath}/sign/history">
+	                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+	                	</a>
+	                </div>
 					<p>결재 완료 문서</p>
 					<ul>
 						<li>주간 업무 진행 상황 보고</li>
@@ -66,6 +76,21 @@
 						<li>사무용 비품 지급 요청건</li>
 						<li>신규 거래처 계약 체결 요청건</li>
 						<li>사내외 교육 및 세미나 참석 요청건</li>
+					</ul>
+				</div>
+				<div class="right">
+					<div class="moveUrl">
+	                	<a href="${pageContext.request.contextPath}/sign/completed">
+	                		<img alt="" src="${pageContext.request.contextPath}/dist/images/common/plus.png">
+	                	</a>
+	                </div>
+					<p>반려 문서</p>
+					<ul>
+						<li>급여 인상 요청서</li>
+						<li>고가 장비 구매 요청서</li>
+						<li>출장비 정산 요청서</li>
+						<li>회식비 정산 청구서</li>
+						<li>법인카드 사용 승인서</li>
 					</ul>
 				</div>
 			</div>
