@@ -6,7 +6,7 @@
 	<div class="iconHeader-right-inner">
 		<div class="titleArea" style="width: 100%; margin-bottom: 10%; display: flex; justify-content: center;">
 			<div class="tilte" style="width: 80%; box-sizing: border-box; padding: 7px 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #efefef; border-radius: 5px;">
-				<a href="${pageContext.request.contextPath}/sign/list">전자 결재</a>
+				<a href="${pageContext.request.contextPath}/sign/signMain">전자 결재</a>
 			</div>
 		</div>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
