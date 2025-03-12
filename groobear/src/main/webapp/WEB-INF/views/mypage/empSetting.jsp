@@ -105,7 +105,7 @@ function memberOk() {
 			
 			<form name="memberForm" method="post">
 				<div class="row mb-3" >
-					<label class="col-sm-2 col-form-lable" for="empCode">사번</label>
+					<label class="col-sm-2 col-form-lable" for="empCode" style="line-height: 2.5">사번</label>
 					<div class="col-sm-10 wrap-empCode">
 						<div class="row">
 							<div class="col-6">

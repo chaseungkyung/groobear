@@ -1,0 +1,246 @@
+결재서류
+
+
+-------------------------------------------------------------------------------------------
+-- 부서 코드 deptIdx
+-- 소속 코드 teamIdx
+
+-- 경영관리부 A
+경영1팀 01
+경영2팀 02
+
+-- 영업마케팅부 B
+영업팀 01
+마케팅팀 02
+
+-- 법무부 C
+법무 1팀 01
+법무 2팀 02
+
+-- 인사부 D
+인사1팀 01
+인사2팀 02
+
+-- 재무회계부 E
+재무팀 01
+회계팀 02
+
+-- SW개발부 F
+솔루션아키텍쳐팀 01
+데이터베이스팀 02
+QA팀 03
+인프라 엔지니어링팀 04
+기술지원팀 05
+
+-------------------------------------------------------------------------------------------
+-- 직급 empRank
+
+관리자 100
+사장 90
+부장 80
+
+인사부 40 
+개발부 30
+영업마케팅부 20
+ 
+비로그인 0
+
+-------------------------------------------------------------------------------------------
+-- 사원idx = 입사년도+랜덤 6자리 = 10자리
+-- 사원pwd = 생년월일 (8자리)
+
+-- 재직상태 : 재직(0) , 휴직(1), 퇴직(2)
+
+-------------------------------------------------------------------------------------------
+
+-- 관리자
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empTel,
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, 'admin', '관리자', '$2a$10$j4WsuGR8d15o0100Dfi5ieBhWcRXh5sgNLMSBVhBjrfgMVxvBhCha', null, null,1001, 100, '20200101', null, SYSDATE, 0, 0);
+
+-- 사장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empTel,
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000002', '둘장희', '20001010', null, null, 1002, 90, '20200101', null, SYSDATE, 0, 0);
+
+
+-- 경영관리부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, empTel
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000003', '차승경', '20041018', 'A', null, '1002', 80, '20200105', null, SYSDATE, 0, 0);
+
+
+-- 영업마케팅부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000004', '윤준열', '20050412', 'B', null, 80, '20200110', null, SYSDATE, 0, 0);
+
+
+-- 법무부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000005', '이고은', '20001018', 'C', null, 80, '20200201', null, SYSDATE, 0, 0);
+
+
+-- 인사부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000006', '장예린', '20010516', 'D', null, 80, '202000201', null, SYSDATE, 0, 0);
+
+
+-- 재무회계부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000007', '염지혜', '20040819', 'E', null, 80, '20200618', null, SYSDATE, 0, 0);
+
+
+-- SW개발부 부장
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000008', '박영진', '20000908', 'F', null, 80, '20200416', null, SYSDATE, 0, 0);
+
+
+
+
+
+
+-- 인사부 사원
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000009', '고세정', '20000102', 'D', '01', 40, '20220716', null, SYSDATE, 0, 0);
+
+-- 개발부 사원
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000010', '엄기은', '20000103', 'F', '01', 30, '20220416', null, SYSDATE, 0, 0);
+
+-- 영업마케팅부 사원
+INSERT INTO employee(empIdx, empCode, empName, empPwd, deptIdx, teamIdx, 
+				 empRank, hireDate, retireDate, lastLogin, loginFails, empStatus) 
+                VALUES (employee_seq.NEXTVAL, '2020000011', '한나', '20011224', 'B', '01', 20, '20240416', null, SYSDATE, 0, 0);
+
+-------------------------------------------------------------------------------------------
+
+
+-- 고객주소록
+INSERT INTO clientContact(contactIdx, companyName, contName, contDept, contPosition, contPhone, contEmail, memo)
+	VALUES (clientContact_seq.NEXTVAL, '쌍용강북교육센터', '권현승', '교육부', '팀장', '01055556666', 'hyhyss@gmail.com', '09-18 연락 가능');
+
+INSERT INTO clientContact(contactIdx, companyName, contName, contDept, contPosition, contPhone, contEmail, memo)
+	VALUES (clientContact_seq.NEXTVAL, 'sist개발회사', '최이준', '개발부', '부장', '01044446666', 'isntshelovely@gmail.com', '오전 연락 가능');
+
+-- 공지사항 (상단 노출: 0, 상단 비노출: 1)
+INSERT INTO notice(noticeIdx, empIdx, title, content, regDate, updateDate, showNotice)
+	VALUES (notice_seq.NEXTVAL, '2020000006', '사내 체육 대회 공지', '2025년 02월 18일 10시 난지한강공원', SYSDATE, SYSDATE, '1');
+
+-- 경영관리부 게시판
+INSERT INTO mngBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (mngBoard_seq.NEXTVAL, '2020000003', '경영관리부 test', 'test content', SYSDATE, SYSDATE);
+
+-- 영업마케팅부 게시판
+INSERT INTO salesBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (salesBoard_seq.NEXTVAL, '2020000004', '영업마케팅부 test', 'test content', SYSDATE, SYSDATE);
+
+-- 법무부 게시판
+INSERT INTO legalBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (legalBoard_seq.NEXTVAL, '2020000005', '법무부 test', 'test content', SYSDATE, SYSDATE);
+
+-- 인사부 게시판
+INSERT INTO hrBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (hrBoard_seq.NEXTVAL, '2020000006', '인사부 test', 'test content', SYSDATE, SYSDATE);
+
+-- 재무회계부 게시판
+INSERT INTO financeBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (financeBoard_seq.NEXTVAL, '2020000007', '재무회계부 test', 'test content', SYSDATE, SYSDATE);
+
+-- SW개발부 게시판
+INSERT INTO swDevBoard(postIdx, empIdx, title, content, regDate, updateDate)
+	VALUES (swDevBoard_seq.NEXTVAL, '2020000008', 'SW개발부 test', 'test content', SYSDATE, SYSDATE);
+
+-------------------------------------------------------------------------------------------
+
+-- 부서
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('A', '경영관리부');
+
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('B', '영업마케팅부');
+
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('C', '법무부');
+
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('D', '인사부');
+
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('E', '재무회계부');
+
+INSERT INTO deptartment(deptIdx, deptName)
+	VALUES ('F', 'SW개발부');
+
+-------------------------------------------------------------------------------------------
+
+-- 팀
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('01', 'A', '경영1팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('02', 'A', '경영2팀');
+
+
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('11', 'B', '영업팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('12', 'B', '마케팅팀');
+
+
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('21', 'C', '법무1팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('22', 'C', '법무2팀');
+
+
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES (31', 'D', '영업팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('32', 'D', '마케팅팀');
+
+
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('41', 'E', '재무팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('42', 'E', '회계팀');
+
+
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('51', 'F', '솔루션아키텍쳐팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('52', 'F', '데이터베이스팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('53', 'F', 'QA팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('54', 'F', '인프라엔지니어링팀');
+INSERT INTO team(teamIdx, deptIdx, teamName)
+	VALUES ('55', 'F', '기술지원팀');
+
+
+-------------------------------------------------------------------------------------------
+
+
+-- 추가근무신청서
+INSERT INTO overtimeRequest(otReqIdx, aprIdx, overtime, workDetail)
+	VALUES ();
+
+-- 결재요청서
+INSERT INTO approvalReq(aprReqIdx, aprIdx, title, content, remarks)
+	VALUES ();
+
+-- 시말서
+INSERT INTO incidentReport(incRepIdx, aprIdx, incDetail, incDate)
+	VALUES ();
+
+-- 휴가신청서
+INSERT INTO leaveRequest(lvReqIdx, aprIdx, leaveType, startDate, endDate, leaveDays, leaveReason, remarks)
+	VALUES ();
+
+
+

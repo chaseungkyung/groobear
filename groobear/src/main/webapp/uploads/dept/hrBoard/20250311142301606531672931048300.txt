@@ -1,0 +1,901 @@
+
+-------------------------------------------------------------------------
+
+-- 사원 //
+CREATE TABLE employee (
+   empIdx		NUMBER	  	NOT NULL,  -- PK
+   empCode 	VARCHAR2(50)	NOT NULL, -- 사원번호 (예: 2025010001)
+   empName	VARCHAR2(50)	NOT NULL,
+   empPwd		VARCHAR2(100)  NOT NULL,
+   deptIdx 		VARCHAR2(10)  	NULL,  -- FK
+   teamIdx		VARCHAR2(10)  	NULL,  -- FK
+   empRank 	VARCHAR2(50) 	NOT NULL,
+   empTel 		VARCHAR2(4)   	NOT NULL,
+   empStatus	VARCHAR2(20)  	NOT NULL,
+   hireDate 		DATE 		NOT NULL,
+   retireDate	DATE			NULL,
+   lastLogin		DATE			NULL,
+   loginFails        NUMBER		NULL,
+   PRIMARY KEY(empIdx),
+   UNIQUE(empCode),
+   FOREIGN KEY (deptIdx) REFERENCES department(deptIdx) ON DELETE CASCADE,
+   FOREIGN KEY (teamIdx) REFERENCES team(teamIdx) ON DELETE CASCADE
+);
+
+-- 사원 시퀀스
+CREATE SEQUENCE employee_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-------------------------------------------------------------------------
+
+-- @ 사원 관련 테이블
+
+-- 사원 이력 //
+CREATE TABLE employeeHistory (
+	historyIdx 	NUMBER		NOT NULL,  -- PK
+	empIdx	NUMBER		NOT NULL, -- FK
+	startDate	DATE			NOT NULL,
+	endDate	DATE			NULL,
+	deptName	VARCHAR2(100)	NOT NULL,
+	teamName	VARCHAR2(100)	NOT NULL,
+	empRank	VARCHAR2(50)	NOT NULL,
+	note		VARCHAR2(500)	NULL,
+	PRIMARY KEY(historyIdx),
+        FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 사원 상세 //
+CREATE TABLE employeeDetail (
+	empIdx	NUMBER			NOT NULL, -- PK, FK
+	birth		DATE				NOT NULL,
+	email 	VARCHAR2(100)		 NOT NULL,
+	tel 		VARCHAR2(20)		NOT NULL,
+	zipCode	VARCHAR2(10)		NOT NULL,
+	addrMain	VARCHAR2(200)		NOT NULL,
+	addrSub	VARCHAR2(200)		NULL,
+	PRIMARY KEY(empIdx),
+        FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 부서  //
+CREATE TABLE department (
+	deptIdx	VARCHAR2(10)		NOT NULL,  -- PK
+	deptName	VARCHAR2(100)	NOT NULL,
+	PRIMARY KEY(deptIdx)
+);
+
+-- 팀//
+CREATE TABLE team (
+	teamIdx	VARCHAR2(10)	NOT NULL,  -- PK
+	teamName	VARCHAR2(100)	NOT NULL,
+	deptIdx	VARCHAR2(10)	NOT NULL,  -- FK
+	PRIMARY KEY(teamIdx),
+        FOREIGN KEY (deptIdx) REFERENCES department(deptIdx) ON DELETE CASCADE
+);
+
+-- 출근 //
+CREATE TABLE workLog (
+	workIdx	NUMBER	NOT NULL, -- PK
+	empIdx	NUMBER	NOT NULL, -- FK
+	workDate	DATE		NOT NULL,
+	loginTime	DATE		NOT NULL,
+	PRIMARY KEY(workIdx),
+        FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- @ 결재 테이블
+
+-- 결재참조 //
+CREATE TABLE approvalRef (
+	aprIdx2	NUMBER		NOT NULL,
+	empIdx	NUMBER		NOT NULL,
+	deptName	VARCHAR2(100)	NOT NULL,
+	teamName	VARCHAR2(100)	NOT NULL,
+	empRank	VARCHAR2(50)	NOT NULL,
+    	PRIMARY KEY (aprIdx, empIdx)
+);
+
+-- 결재라인 //
+CREATE TABLE approvalLine (
+	aprIdx	NUMBER		NOT NULL, -- PK
+	writerEmp	NUMBER		NOT NULL, -- FK
+	writerInfo	VARCHAR2(255)	NOT NULL,
+	apr1Emp	NUMBER		NOT NULL, -- FK
+	apr1Info	VARCHAR2(255)	NOT NULL,
+	apr1Result	NUMBER		NULL,
+	apr1At	DATE			NULL,
+	apr2Emp	NUMBER		NULL, -- FK
+	apr2Info	VARCHAR2(255)	NULL,
+	apr2Result	NUMBER		NULL,
+	apr2At	DATE			NULL,
+	apr3Emp	NUMBER		NULL, -- FK
+	apr3Info	VARCHAR2(255)	NULL,
+	apr3Result	NUMBER		NULL,
+	apr3At	DATE			NULL,
+        PRIMARY KEY(aprIdx),
+	FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE,
+	FOREIGN KEY (writerEmp) REFERENCES employee(empIdx) ON DELETE CASCADE,
+	FOREIGN KEY (apr1Emp) REFERENCES employee(empIdx) ON DELETE CASCADE,
+	FOREIGN KEY (apr2Emp) REFERENCES employee(empIdx) ON DELETE CASCADE,
+	FOREIGN KEY (apr3Emp) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 결재라인 시퀀스
+CREATE SEQUENCE approvalLine_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 결재서류 첨부파일//
+CREATE TABLE docAppFile (
+    	fileIdx    	        NUMBER 	        NOT NULL, -- PK
+	aprIdx		NUMBER		NOT NULL, -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+ 	FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE
+);
+
+-- 결재서류 보관함 //
+CREATE TABLE docApproval (
+	aprIdx	   NUMBER		NOT NULL,
+	empIdx	   NUMBER		NOT NULL,
+	deptName	   VARCHAR2(100)	NOT NULL,
+	teamName	   VARCHAR2(100)	NOT NULL,
+	empRank	   VARCHAR2(50)	NOT NULL,
+	docType	   VARCHAR2(100)	NOT NULL,
+	regDate	   DATE		NOT NULL,
+	paymentStage VARCHAR2(30)   NOT NULL,
+	status		   NUMBER		NOT NULL,
+	decisionAt	   DATE		NULL,
+	reason	   VARCHAR2(500)	NULL,
+	PRIMARY KEY (aprIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 결재서류 보관함 시퀀스
+CREATE SEQUENCE docApproval_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-------------------------------------------------------------------------
+
+-- @ 서류 테이블 
+
+-- 결재요청서
+CREATE TABLE approvalReq (
+   	aprReqIdx  NUMBER 		NOT NULL, -- PK
+	aprIdx	NUMBER		NOT NULL,   -- FK
+	title		VARCHAR2(300)  NOT NULL,
+	content	CLOB			NOT NULL,
+	remarks	VARCHAR2(500)	NULL,
+	PRIMARY KEY(aprReqIdx),
+        FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE
+);
+
+-- 시말서 
+CREATE TABLE incidentReport (
+   	incRepIdx  NUMBER 	NOT NULL, -- PK
+	aprIdx	NUMBER	NOT NULL, -- FK
+	incDetail	CLOB		NOT NULL,
+	incDate	DATE		NOT NULL,
+	PRIMARY KEY(incRepIdx),
+        FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE
+);
+
+-- 휴가신청서 
+CREATE TABLE leaveRequest (
+   	lvReqIdx	  NUMBER 		 NOT NULL, -- PK
+	aprIdx	  NUMBER		 NOT NULL, -- FK
+	leaveType	  NUMBER		 NOT NULL,
+	startDate	  DATE		 NOT NULL,
+	endDate	  DATE		 NOT NULL,
+	leaveDays	  VARCHAR2(10)	 NOT NULL,
+	leaveReason VARCHAR2(500) NOT NULL,
+	remarks	  VARCHAR2(500) NULL,
+	PRIMARY KEY(lvReqIdx),
+        FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE
+);
+
+-- 추가근무 신청서 
+CREATE TABLE overtimeRequest (
+  	otReqIdx    NUMBER 		NOT NULL, -- PK
+	aprIdx	NUMBER		NOT NULL, -- FK
+	overtime	VARCHAR2(10)	NOT NULL,
+	workDetail	VARCHAR2(500)	NOT NULL,
+	PRIMARY KEY(otReqIdx),
+        FOREIGN KEY (aprIdx) REFERENCES docApproval(aprIdx) ON DELETE CASCADE
+);
+
+-------------------------------------------------------------------------
+
+
+
+-- @ 프로젝트 테이블
+
+-- 프로젝트
+CREATE TABLE project(
+	projIdx	NUMBER	NOT NULL,
+	empIdx	NUMBER	NOT NULL,
+	projName   VARCHAR2(255) NOT NULL,
+	createdAt    DATE 	NOT NULL,
+	startDate 	DATE 	NULL,
+	endDate 	DATE	 	NULL,
+	status		NUMBER    NULL,
+   	PRIMARY KEY(projIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 시퀀스
+CREATE SEQUENCE project_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+
+-- 프로젝트 상세 
+CREATE TABLE projectDetail (
+   	infoIdx	NUMBER		NOT NULL, -- PK
+    	projIdx	NUMBER		NOT NULL, -- FK
+	client 	VARCHAR2(500)  NULL,
+	purpose	VARCHAR2(500)  NULL,
+	overview	CLOB			NULL,
+	budget	NUMBER		NULL,
+	plan		CLOB			NULL,
+	expBenefit	VARCHAR2(500)  NULL,
+	reqs		CLOB			NULL,
+   	PRIMARY KEY(infoIdx),
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 참여자 
+CREATE TABLE projectMember (
+	memberIdx NUMBER 		NOT NULL,
+	projIdx	NUMBER		NOT NULL, -- PK, FK
+	empIdx	NUMBER		NOT NULL, -- PK, FK
+	teamName	VARCHAR2(100)	NULL,
+    	role      	VARCHAR2(100)  NULL,  
+	startDate    DATE 		NOT NULL,
+	endDate    DATE 		NULL,
+	progress	NUMBER 		NULL,
+    	PRIMARY KEY (projIdx, empIdx),
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 단계 
+CREATE TABLE projectStage (
+	stageIdx	NUMBER		NOT NULL, -- PK
+	projIdx	NUMBER		NOT NULL, -- FK
+	stageName	VARCHAR2(255)	NOT NULL,
+	stageStep	NUMBER		NOT NULL,
+	startDate    DATE 		NOT NULL,
+	deadline	DATE			NOT NULL,
+	status		NUMBER		NULL,
+    	PRIMARY KEY (stageIdx),
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 단계 시퀀스
+CREATE SEQUENCE projectStage_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 프로젝트 작업(할 일) 
+CREATE TABLE projectTask (
+	taskIdx		NUMBER		NOT NULL,
+	stageIdx		NUMBER		NOT NULL,
+	empIdx		NUMBER		NOT NULL,
+	taskName		VARCHAR2(255)	NOT NULL,
+	memo			VARCHAR2(500)	NULL,
+	startDate 		DATE 	NULL,
+	deadline		DATE			NOT NULL,
+	status			NUMBER  NULL,
+    	PRIMARY KEY (taskIdx),
+    	FOREIGN KEY (stageIdx) REFERENCES project(stageIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 할 일 시퀀스
+CREATE SEQUENCE projectTask_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 프로젝트 게시판
+CREATE TABLE projectPost (
+	postIdx	   NUMBER		  NOT NULL,
+	projIdx	   NUMBER		  NOT NULL,
+	empIdx	   NUMBER		  NOT NULL,
+	title		   VARCHAR2(300) NOT NULL,
+	content	   CLOB		  NOT NULL,
+	regDate	   DATE		  NOT NULL,
+	updateDate   DATE		  NULL,
+	postType	   NUMBER		  NOT NULL,
+	parentPostIdx NUMBER	  NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 게시판 시퀀스
+CREATE SEQUENCE projectPost_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 프로젝트 게시판 파일 첨부 
+CREATE TABLE projPostFile (
+	fileIdx		NUMBER		NOT NULL,
+	postIdx		NUMBER		NOT NULL,
+	originalFilename VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+    	FOREIGN KEY (postIdx) REFERENCES projectPost(postIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE projPostFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 프로젝트 게시판 댓글 
+CREATE TABLE projPostCmt (
+	cmtIdx	NUMBER		 NOT NULL,
+	postIdx	NUMBER		 NOT NULL,
+	empIdx	NUMBER		 NOT NULL,
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES projectPost(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 프로젝트 게시판 댓글 시퀀스
+CREATE SEQUENCE projPostCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 프로젝트 히스토리 
+CREATE TABLE projectHistory (
+	historyIdx NUMBER NOT NULL,
+	projIdx 	NUMBER NOT NULL,
+	empIdx  	NUMBER NOT NULL,
+	projDate	DATE      NOT NULL,
+    	PRIMARY KEY (historyIdx),
+    	FOREIGN KEY (projIdx) REFERENCES project(projIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+-------------------------------------------------------------------------
+
+-- @ 주소록 테이블
+
+-- 고객주소록
+CREATE TABLE clientContact (
+	contactIdx     	NUMBER 		NOT NULL,  -- PK
+	companyName	VARCHAR2(200)  NOT NULL, -- 고객사명
+	contName     	VARCHAR2(100)  NOT NULL, -- 담당자 이름
+	contDept		VARCHAR2(100)  NULL, 
+	contPosition	VARCHAR2(100)  NULL,
+	contTel 	  	VARCHAR2(20)	NOT NULL, -- 전화번호
+	contEmail    	VARCHAR2(100)  NULL, 	-- 이메일
+	memo         	CLOB         	NULL, 	-- 메모
+    	PRIMARY KEY (contactIdx)
+);
+
+-- 고객주소록 시퀀스
+CREATE SEQUENCE clientContact_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 고객주소록 즐겨찾기
+CREATE TABLE clientBookmark (
+	bmkIdx	   NUMBER		NOT NULL, -- PK
+	empIdx	   NUMBER		NOT NULL, -- FK
+	contactIdx	   NUMBER		NOT NULL, -- FK
+    	PRIMARY KEY (bmkIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (contactIdx) REFERENCES clientContact(contactIdx) ON DELETE CASCADE
+);
+
+-- 고객주소록 즐겨찾기 시퀀스
+CREATE SEQUENCE clientBookmark_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 예약
+CREATE TABLE reservation (
+	reservIdx	   NUMBER			NOT NULL,
+	empIdx	   NUMBER			NOT NULL,
+	reservName	   VARCHAR2(30)		NOT NULL,
+	regDate	   DATE			NULL,
+	startDate	   DATE			NULL,
+	endDate	   DATE			NULL,
+    	PRIMARY KEY (reservIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 동료주소록 즐겨찾기 
+CREATE TABLE colBookmark (
+	bmkIdx	   NUMBER		NOT NULL,
+	empIdx	   NUMBER		NOT NULL,
+	colEmpIdx	   NUMBER		NOT NULL,
+    	PRIMARY KEY (bmkIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (colEmpIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+
+
+
+-- 즐겨찾기 테이블에 추가 할지?
+-- 즐겨찾기 삭제 여부(isDeleted) - 0이면 No, 1이면 Yes
+-- 	favDate	   DATE		DEFAULT SYSDATE,
+--	isDeleted	   NUMBER	DEFAULT 0
+
+-------------------------------------------------------------------------
+
+-- @ 알림 테이블
+
+-- 알림 유형
+CREATE TABLE alertType (
+	typeIdx	NUMBER		NOT NULL,
+	typeName	VARCHAR2(100)	NOT NULL,
+    	PRIMARY KEY (typeIdx)
+);
+
+-- 알림메시지
+CREATE TABLE alertMessag (
+	msgIdx	NUMBER	NOT NULL,
+	senderIdx	NUMBER	NOT NULL,
+	receiverIdx	NUMBER	NOT NULL,
+	typeIdx	NUMBER	NOT NULL,
+	isRead	NUMBER	NOT NULL,
+	sentAt	DATE		NOT NULL,
+    	PRIMARY KEY (msgIdx),
+    	FOREIGN KEY (senderIdx) REFERENCES employee(empIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (receiverIdx) REFERENCES employee(empIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (typeIdx) REFERENCES alertType(typeIdx) ON DELETE CASCADE
+);
+
+-------------------------------------------------------------------------
+
+-- @ 게시판 테이블
+
+-- 공지사항
+CREATE TABLE notice (
+	noticeIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB			NOT NULL,
+	regDate	 DATE			NOT NULL,
+	updateDate   DATE			NULL,
+	showNotice	 NUMBER(1)	DEFAULT 1,
+    	PRIMARY KEY (noticeIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 공지사항 시퀀스
+CREATE SEQUENCE notice_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 공지사항 댓글 
+CREATE TABLE noticeCmt (
+	cmtIdx	NUMBER		 NOT NULL,
+	noticeIdx	NUMBER		 NOT NULL,
+	empIdx	NUMBER		 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+	regDate	DATE			 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (noticeIdx) REFERENCES notice(noticeIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 공지사항 댓글 시퀀스
+CREATE SEQUENCE noticeCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 공지사항 파일 첨부
+CREATE TABLE noticeFile (
+	fileIdx		NUMBER		NOT NULL,
+	noticeIdx		NUMBER		NOT NULL,
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_noticeFile_nofile FOREIGN KEY (noticeIdx) REFERENCES notice(noticeIdx) ON DELETE CASCADE
+);
+
+-- 공지사항 파일 첨부 시퀀스
+CREATE SEQUENCE noticeFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 경영관리부 게시판
+CREATE TABLE mngBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 경영관리부 게시판 시퀀스
+CREATE SEQUENCE mngBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 경영관리부 게시판 댓글
+CREATE TABLE mngBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES mngBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 경영관리부 게시판 댓글 시퀀스
+CREATE SEQUENCE mngBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 경영관리부 게시판 파일 첨부
+CREATE TABLE mngBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+     	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_mngBbsFile_mngfile FOREIGN KEY (postIdx) REFERENCES mngBoard(postIdx) ON DELETE CASCADE
+);
+
+-- 경영관리부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE mngBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+
+-- 영업마케팅부 게시판
+CREATE TABLE salesBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 영업마케팅부 게시판 시퀀스
+CREATE SEQUENCE salesBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 영업마케팅부 게시판 댓글
+CREATE TABLE salesBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES salesBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 영업마케팅부 게시판 댓글 시퀀스
+CREATE SEQUENCE salesBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 영업마케팅부 게시판 파일 첨부
+CREATE TABLE salesBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_salesBbsFile_slfile FOREIGN KEY (postIdx) REFERENCES salesBoard(postIdx) ON DELETE CASCADE
+);
+
+-- 영업마케팅부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE salesBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 법무부 게시판
+CREATE TABLE legalBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300) NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 법무부 게시판 시퀀스
+CREATE SEQUENCE legalBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 법무부 게시판 댓글
+CREATE TABLE legalBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES legalBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 법무부 게시판 댓글 시퀀스
+CREATE SEQUENCE legalBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 법무부 게시판 파일 첨부
+CREATE TABLE legalBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_legalBbsCmt_lefile FOREIGN KEY (postIdx) REFERENCES legalBoard(postIdx) ON DELETE CASCADE
+);
+
+-- 법무부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE legalBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 인사부 게시판
+CREATE TABLE hrBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 인사부 게시판 시퀀스
+CREATE SEQUENCE hrBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 인사부 게시판 댓글
+CREATE TABLE hrBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES hrBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 인사부 게시판 댓글 시퀀스
+CREATE SEQUENCE hrBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 인사부 게시판 파일 첨부
+CREATE TABLE hrBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename 	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_hrBbsFile_hrfile FOREIGN KEY (postIdx) REFERENCES hrBoard(postIdx) ON DELETE CASCADE
+);
+
+-- 인사부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE hrBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 재무회계부 게시판
+CREATE TABLE financeBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 재무회계부 게시판 시퀀스
+CREATE SEQUENCE financeBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 재무회계부 게시판 댓글
+CREATE TABLE financeBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES financeBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- 재무회계부 게시판 댓글 시퀀스
+CREATE SEQUENCE financeBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- 재무회계부 게시판 파일 첨부
+CREATE TABLE financeBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_financeBbsFile_fifile FOREIGN KEY (postIdx) REFERENCES financeBoard(postIdx) ON DELETE CASCADE
+);
+
+-- 재무회계부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE financeBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- SW개발부 게시판
+CREATE TABLE swDevBoard (
+	postIdx	 NUMBER		NOT NULL,  -- PK
+	empIdx	 NUMBER		NOT NULL,  -- FK
+	title 		 VARCHAR2(300)	NOT NULL,
+	content	 CLOB		NOT NULL,
+	regDate	 DATE		NOT NULL,
+	updateDate DATE		NULL,
+    	PRIMARY KEY (postIdx),
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- SW개발부 게시판 시퀀스
+CREATE SEQUENCE swDevBoard_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- SW개발부 게시판 댓글
+CREATE TABLE swDevBbsCmt (
+	cmtIdx	NUMBER		 NOT NULL,  -- PK
+	postIdx	NUMBER		 NOT NULL,  -- FK
+	empIdx	NUMBER		 NOT NULL,  -- FK
+	regDate	DATE			 NOT NULL,
+	content	VARCHAR2(4000)	 NOT NULL,
+    	PRIMARY KEY (cmtIdx),
+    	FOREIGN KEY (postIdx) REFERENCES swDevBoard(postIdx) ON DELETE CASCADE,
+    	FOREIGN KEY (empIdx) REFERENCES employee(empIdx) ON DELETE CASCADE
+);
+
+-- SW개발부 게시판 댓글 시퀀스
+CREATE SEQUENCE swDevBbsCmt_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
+
+-- SW개발부 게시판 파일 첨부 
+CREATE TABLE swDevBbsFile (
+	fileIdx		NUMBER		NOT NULL,  -- PK
+	postIdx		NUMBER		NOT NULL,  -- FK
+	originalFilename	VARCHAR2(255)	NOT NULL,
+	saveFilename	VARCHAR2(255)	NOT NULL,
+    	PRIMARY KEY (fileIdx),
+	CONSTRAINT fk_swDevBbsFile_swfile FOREIGN KEY (postIdx) REFERENCES swDevBoard(postIdx) ON DELETE CASCADE
+);
+
+-- SW개발부 게시판 파일 첨부 시퀀스
+CREATE SEQUENCE swDevBbsFile_seq
+   INCREMENT BY 1
+   START WITH 1
+   NOMAXVALUE
+   NOCYCLE
+   NOCACHE;
