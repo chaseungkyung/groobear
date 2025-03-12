@@ -49,7 +49,7 @@
 							</td>
 						</tr>
 						
-						<tr>
+						<tr class="articleContent">
 							<td colspan="2" valign="top" height="200" style="border-bottom: none;">
 								${dto.content}
 							</td>

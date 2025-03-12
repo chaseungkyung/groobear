@@ -31,7 +31,8 @@
 .board-article th, .board-article td {
     padding: 0.83vw;
     border-bottom: 0.07vw solid #dee2e6;
-    font-size: 1.11vw;
+    font-size: 0.98vw;
+    line-height: 1.5vw;
 }
 
 .board-article thead {
