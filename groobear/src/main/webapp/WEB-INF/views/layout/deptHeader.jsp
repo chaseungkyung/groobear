@@ -26,8 +26,6 @@
 		</div>
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/dept/hrBoard/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/project/project-plan.png">부서 게시판</a></li>
-		</ul>
-		<ul>
 			<li><a href="${pageContext.request.contextPath}/club/list"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/club-icon.png">동호회 게시판</a></li>
 		</ul>
 	</div>

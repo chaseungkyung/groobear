@@ -15,7 +15,7 @@ main .mainInner {width: 83vw;}
 main .home {
     display: grid;
     grid-template-columns: repeat(12, 1fr); /* 12컬럼 */
-    grid-template-rows: repeat(4, 8.8vw); /* 2행 */
+    grid-template-rows: repeat(4, 8.2vw); /* 2행 */
     gap: 1.39vw; /* 컬럼과 행 사이 간격 */
 }
 
@@ -28,7 +28,7 @@ main .home > div {
     position: relative;
 }
 
-main .home h2 {margin-bottom: 1.39vw; font-size: 1.39vw;}
+main .home h2 {margin-bottom: 1.2vw; font-size: 1.2vw;}
 
 main .home .moveUrl {
     width: 1vw;
