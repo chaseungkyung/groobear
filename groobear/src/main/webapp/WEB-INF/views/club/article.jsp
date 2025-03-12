@@ -15,6 +15,8 @@
 	max-width: 800px;
 }
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/board.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/boot-board.css" type="text/css">
 
 </head>
@@ -22,13 +24,14 @@
 
 <header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/deptHeader.jsp"/>
 </header>
 	
 <main>
 	<div class="container">
 		<div class="body-container">	
 			<div class="body-title">
-				<h3><i class="bi bi-image"></i> 포토 갤러리 </h3>
+				<h3><i class="bi bi-image"></i> 동호회 게시판 </h3>
 			</div>
 			
 			<div class="body-main">
@@ -45,7 +48,7 @@
 					<tbody>
 						<tr>
 							<td width="50%">
-								이름 : ${dto.empName}						
+								작성자 : ${dto.empName}						
 							</td>
 							<td align="right">
 								${dto.reg_date}
@@ -69,7 +72,7 @@
 							<td colspan="2">
 								이전글 :
 								<c:if test="${not empty prevDto}">
-									<a href="${pageContext.request.contextPath}/photo/article?${query}&num=${prevDto.num}">${prevDto.subject}</a>
+									<a href="${pageContext.request.contextPath}/club/article?${query}&num=${prevDto.num}">${prevDto.subject}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -77,7 +80,7 @@
 							<td colspan="2">
 								다음글 :
 								<c:if test="${not empty nextDto}">
-									<a href="${pageContext.request.contextPath}/photo/article?${query}&num=${nextDto.num}">${nextDto.subject}</a>
+									<a href="${pageContext.request.contextPath}/club/article?${query}&num=${nextDto.num}">${nextDto.subject}</a>
 								</c:if>
 							</td>
 						</tr>
@@ -120,7 +123,7 @@
 	<script type="text/javascript">
 		function deleteOk() {
 			let query = 'num=${dto.num}&${query}&imageFilename=${dto.imageFilename}';
-		    let url = '${pageContext.request.contextPath}/photo/delete?' + query;
+		    let url = '${pageContext.request.contextPath}/club/delete?' + query;
 		
 		    if(confirm('위 자료를 삭제 하시 겠습니까 ? ')) {
 		  	  location.href = url;

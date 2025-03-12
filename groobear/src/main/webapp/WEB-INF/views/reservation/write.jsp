@@ -9,6 +9,7 @@
 <title>spring</title>
 
 <jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 
 <style type="text/css">
 .body-container {
@@ -65,11 +66,8 @@ $(function(){
 
 </head>
 <body>
-
-<header>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
-</header>
-	
+	<jsp:include page="/WEB-INF/views/layout/reservationHeader.jsp"/>
 <main>
 	<div class="container">
 		<div class="body-container">	
