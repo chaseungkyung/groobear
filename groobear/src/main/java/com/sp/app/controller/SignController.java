@@ -40,9 +40,9 @@ public class SignController {
 	private final SignService service;
 	private final PaginateUtil paginateUtil;
 	
-	@GetMapping("list")
+	@GetMapping("signMain")
 	public String list() {
-		return "sign/test";
+		return "sign/signMain";
 	}
 	
 	// 결재 진행함, 완료함, 요청함, 내역, 참조
@@ -128,7 +128,6 @@ public class SignController {
 //				articleUrl += "incidentReportArticle";
 //				
 //			}
-				
 			
 			if(! kwd.isBlank()) {
 				String qs = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
