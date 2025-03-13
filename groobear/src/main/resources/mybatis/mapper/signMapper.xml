@@ -154,6 +154,9 @@
 		LEFT OUTER JOIN docapproval d ON a.aprIdx = d.aprIdx
 		<where>
 			(apr1emp = #{empIdx} OR (apr2emp = #{empIdx} and apr1result != 0) OR (apr3emp = #{empIdx} and apr2result != 0))
+			<if test="mode == 'request'">
+				AND status in (0, 1, 2, 3)
+			</if>
 			<if test="mode == 'history'">
 				AND status in (99, 11, 12, 13)
 			</if>
