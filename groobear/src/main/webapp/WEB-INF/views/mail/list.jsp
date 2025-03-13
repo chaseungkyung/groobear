@@ -7,6 +7,32 @@
 	<jsp:include page="/WEB-INF/views/layout/headerResources.jsp"/>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/menu/listMenu.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/mail/mail.css" type="text/css">
+	<script>
+		$(document).ready(function() {
+		    $(".star img").click(function() {
+		        let img = $(this);
+		        let src = img.attr("src");
+		
+		        if (src.includes("full-star.png")) {
+		            img.attr("src", src.replace("${pageContext.request.contextPath}/dist/images/common/full-star.png", "${pageContext.request.contextPath}/dist/images/common/star.png"));
+		        } else {
+		            img.attr("src", src.replace("${pageContext.request.contextPath}/dist/images/common/star.png", "${pageContext.request.contextPath}/dist/images/common/full-star.png"));
+		        }
+		    });
+		
+		    $(".open img").click(function() {
+		        let img = $(this);
+		        let src = img.attr("src");
+		
+		        if (src.includes("open-email.png")) {
+		            img.attr("src", src.replace("${pageContext.request.contextPath}/dist/images/mail/open-email.png", "${pageContext.request.contextPath}/dist/images/mail/email.png"));
+		        } else {
+		            img.attr("src", src.replace("${pageContext.request.contextPath}/dist/images/mail/email.png", "${pageContext.request.contextPath}/dist/images/mail/open-email.png"));
+		        }
+		    });
+		});
+	</script>
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
@@ -25,63 +51,63 @@
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/mail/list">[보낸메일]	 20241001 홍길동 사원 건강보험 피부양자 변경 서류</a></li>
 					<li>2025-02-11 13:27</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일]	 [급여명세서] 2025 02월 급여명세서</a></li>
 					<li>2025-02-10 10:22</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일]	 [공지] 25년 2월 3주차 회의실 예약 현황</a></li>
 					<li>2025-02-07 11:18</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일]	 [공지] 3층 남자 화장실 시설 점검 안내 </a></li>
 					<li>2025-02-03 10:11</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일] 	[공지] 설 상여금 지급 관련 공지</a></li>
 					<li>2025-01-24 16:52</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li class="open"><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일] 	[공지] 설 연휴간 추가 근무 안내 </a></li>
 					<li>2025-01-21 10:04</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[보낸메일] 	25-1-1 프로젝트 회의록-1 및 상황 보고 </a></li>
 					<li>2025-01-20 11:32</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일] 	[예약] 2025-01-20 10:00 A회의실 예약 완료되었습니다. </a></li>
 					<li>2025-01-17 17:20</li>
 				</ul>
 				<ul>
 					<li><input type="checkbox"></li>
-					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
+					<li class="star"><img alt="" src="${pageContext.request.contextPath}/dist/images/common/full-star.png"></li>
 					<li><img alt="" src="${pageContext.request.contextPath}/dist/images/mail/open-email.png"></li>
 					<li><a href="${pageContext.request.contextPath}/">[받은메일] [개발부 공지] 25-1-1 프로젝트 계획서 / 관련서류첨부 </a></li>
 					<li>2025-01-17 14:13</li>
