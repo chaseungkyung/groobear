@@ -153,7 +153,7 @@
 		FROM approvalLine a
 		LEFT OUTER JOIN docapproval d ON a.aprIdx = d.aprIdx
 		<where>
-			apr1emp = #{empIdx} OR (apr2emp = #{empIdx} and apr1result != 0) OR (apr3emp = #{empIdx} and apr2result != 0)
+			(apr1emp = #{empIdx} OR (apr2emp = #{empIdx} and apr1result != 0) OR (apr3emp = #{empIdx} and apr2result != 0))
 			<if test="mode == 'history'">
 				AND status in (99, 11, 12, 13)
 			</if>
@@ -177,14 +177,14 @@
 		LEFT OUTER JOIN employee e ON d.empIdx = e.empIdx
 		<where>
 			empCode = #{empCode}
-			<if test="status == 'inprogress'">
+			<if test="mode == 'inProgress'">
 				AND status in (0, 1, 2, 3)
 			</if>
-			<if test="status == 'completed'">
+			<if test="mode == 'completed'">
 				AND status in (99, 11, 12, 13)
 			</if>
-			<if test="status == 'history'">
-				AND status in (99, 11, 12, 13)
+			<if test="mode == 'history'">
+				AND status in (99)
 			</if>
 		</where>
 	</select>

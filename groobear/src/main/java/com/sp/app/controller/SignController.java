@@ -70,6 +70,7 @@ public class SignController {
 			
 			Map<String, Object> map = new HashMap<>();
 			
+			map.put("mode", mode);
 			map.put("schTyp", schType);
 			map.put("kwd", kwd);
 			map.put("empCode", info.getEmpCode());
