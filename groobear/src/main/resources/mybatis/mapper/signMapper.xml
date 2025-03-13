@@ -144,7 +144,7 @@
 		    apr1emp, apr1info, apr1result, apr1at,
 		    apr2emp, apr2info, apr2result, apr2at,
 		    apr3emp, apr1info, apr3result, apr3at,
-		    empidx, deptidx, teamidx positioncode, doctype, regdate, paymentstage, status, decisionat, reason,
+		    empidx, deptidx, teamidx, positioncode, doctype, regdate, paymentstage, status, decisionat, reason,
 		    case 
 		       when doctype = '결재 요청서' THEN 'approvalRequestArticle'  
 		       when doctype = '휴가 신청서' THEN 'leaveRequestArticle'  
